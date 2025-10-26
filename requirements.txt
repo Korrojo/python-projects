@@ -1,0 +1,56 @@
+# =============================================================================
+# INSTALLATION INSTRUCTIONS
+# =============================================================================
+# 
+# 1. Create virtual environment (Python 3.11 required):
+#    ./install_venv.sh  # Automated installer (recommended)
+#    OR manually:
+#    py -3.11 -m venv .venv311  # Windows with py launcher
+#    python3.11 -m venv .venv311  # Linux/macOS
+#
+# 2. Activate virtual environment:
+#    source ./activate_venv.sh  # Automated (Git Bash/Linux/macOS)
+#    .\.venv311\Scripts\Activate.ps1  # Windows PowerShell
+#    source .venv311/bin/activate  # Git Bash/Linux/macOS (manual)
+#
+# 3. Install all dependencies:
+#    pip install -r requirements.txt
+#    pip install -e ./common_config  # Install common_config in editable mode
+#
+# 4. Verify installation:
+#    python --version  # Should show Python 3.11.x
+#    pip show common-config  # Should show installed package
+#
+# =============================================================================
+
+# Shared configuration package (editable install)
+-e ./common_config
+
+# Core config/env
+pydantic>=2.6.0
+pydantic-settings>=2.2.1
+python-dotenv>=1.0.0
+
+# MongoDB client + SRV support (Atlas)
+pymongo[srv]>=4.6.0
+# Some environments require dnspython explicitly for SRV discovery
+# (included above via [srv] extra, but keep as explicit lower bound for safety)
+dnspython>=2.4.0
+
+# Data processing
+pandas>=2.0.0
+openpyxl>=3.1.0  # For Excel file reading/writing
+
+# CLI framework (used by multiple projects)
+typer>=0.12.3
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+coverage>=7.0.0
+
+# Code quality
+ruff>=0.1.0
+
+# Type checking (optional - VS Code has Pylance built-in)
+# pyright>=1.1.0  # Uncomment if you want CLI type checking

@@ -1,0 +1,4 @@
+patientid,ptnt bqty lgcy ptnt d,patientdob,patient name,patientsex,patient notes,status,patient ins pkg name,prim prvdrfullnme,patient address1,patient address2,patient city,patient state,patient zip,patient lang,patientregd,patient contactpref,patient homephone,patient mobile no,patient email
+7005844,9005,ALISHA,LESCH,9/22/1963,Female,dannie.altenwerthcumque9578526@example.com,SUITE 135 78873 WUNSCH R,,NORTH LOUIE,MO,09423-6464,5553883501,2025-09-04 08:54:05,CSV_IMPORT_SCRIPT
+7007239,9006,LYRIC,WISOKY,3/10/1993,Male,maiya.harrisomnis318538@example.com,"973 SPENCER SHORE, JERDE",,LAKE LOLITACHESTER,MO,66328,5553338650,2025-09-04 08:54:05,CSV_IMPORT_SCRIPT
+7007609,9007,AMANI,KILBACK,10/12/1947,Female,otto.jenkinsminima1094383@example.com,APT. 504 17841 ABSHIRE V,,DAUGHERTYFORT,MO,87893-2995,5553727740,2025-09-04 08:54:05,CSV_IMPORT_SCRIPT

@@ -1,0 +1,2128 @@
+AthenaAppointmentId,PatientRef,PatientName,VisitTypeValue,VisitStartDateTime,AvailabilityDate,AthenaAppointmentId Found?,Total Match?,Mismatched Fields,Missing Fields,Comment
+18821,2565003,GENA SHADE,Palliative Prognosis Visit,1:35 PM,10/27/25,True,True,,,
+20588,2565081,BRIAN HAYMER,Palliative Management,1:14 PM,11/24/25,True,True,,,
+22340,2565124,RENAE YOUNG,Palliative Management,11:48 AM,11/17/25,True,True,,,
+21463,2565176,JEANINE WILLIS,Maintenance Visit,1:55 PM,12/22/25,True,True,,,
+19873,2565184,MARY TERRELL,Palliative Management,8:15 AM,11/17/25,False,False,,,No matching appointment found in MongoDB
+20798,2565199,MARIANNA WALKER,Palliative Management,1:19 PM,1/16/26,True,False,VisitStartDateTime,,
+22025,2565277,WILLIE MATTHEWS,Palliative Management,11:30 AM,10/27/25,True,True,,,
+20691,2565366,RUTHIE WATSON,Palliative Prognosis Visit,9:39 AM,12/30/25,True,True,,,
+21186,2565477,JANEL CUNNINGHAM,Palliative Management,1:17 PM,11/6/25,True,True,,,
+21178,2565506,REBECCA BLOSS,Palliative Management,1:05 PM,11/6/25,True,True,,,
+20651,2565510,VALERIE HANSOME,Maintenance Visit,1:06 PM,11/18/25,True,True,,,
+21601,2565754,VICKI HAILEY,Maintenance Visit,1:05 PM,10/27/25,True,True,,,
+22210,2565901,NOMA AIKEN,Maintenance Visit,1:05 PM,12/30/25,True,True,,,
+16881,2565977,LINDA THOMPSON,Maintenance Visit,1:05 PM,11/13/25,True,True,,,
+22056,2565988,RENEE HOGAN,Maintenance Visit,11:42 AM,11/4/25,True,True,,,
+21381,2566036,MONA SANDERS,Palliative Management,2:00 PM,11/11/25,True,True,,,
+22245,2566037,JOYCE TEMPLE,Maintenance Visit,2:22 PM,11/21/25,True,True,,,
+22264,2566116,ROBERT STEWART JR,Palliative Management,2:50 PM,1/5/26,True,True,,,
+19871,2566177,DIANA TREAT,Palliative Prognosis Visit,10:51 AM,11/12/25,True,True,,,
+18470,2566214,ARAA MARMARCHI,Telephonic,1:00 PM,1/15/26,True,True,,,
+17443,2566423,DEBRA PARKS,Maintenance Visit,10:25 AM,11/20/25,True,True,,,
+16283,2566534,CLAUDIA KIRBY,Palliative Management,1:05 PM,11/24/25,True,True,,,
+18701,2566572,SHARI RENNER,Maintenance Visit,1:26 PM,12/8/25,True,True,,,
+19964,2566676,ALVIN STIGER,Palliative Management,8:16 AM,11/18/25,True,True,,,
+21966,2566846,JOSEPH BROZOWSKI JR,Palliative Management,4:05 PM,1/12/26,True,True,,,
+22204,2566861,LINDA WINTERS,Maintenance Visit,1:05 PM,11/14/25,True,True,,,
+16694,2567019,FAIRY ESSARY,Maintenance Visit,9:35 AM,11/20/25,True,True,,,
+13645,2567212,DOREEN ZINNA,Maintenance Visit,1:09 PM,10/27/25,True,True,,,
+22203,2567221,SANDRA TREON,Maintenance Visit,5:03 PM,11/3/25,True,True,,,
+21974,2567317,IVORY BURNS,Post Discharge Visit,3:19 PM,10/27/25,True,True,,,
+16379,2567354,AMY THOMAS,Palliative Management,1:05 PM,11/6/25,True,True,,,
+21260,2567434,GEORGIANNA THOMAS,Maintenance Visit,9:47 AM,11/14/25,True,True,,,
+21015,2567482,JENNIFER SMITH,Maintenance Visit,10:00 AM,12/26/25,True,True,,,
+20399,2567484,KATHY HUMPHREY,Maintenance Visit,8:35 AM,11/18/25,True,True,,,
+22386,2567731,CALVIN DIXON JR,Maintenance Visit,2:21 PM,1/7/26,True,False,VisitStartDateTime,,
+20175,2567738,NANCEE FRATZEL BOOSE,Maintenance Visit,3:35 PM,12/5/25,True,True,,,
+17219,2567911,CARL HARRINGTON,Palliative Management,1:05 PM,1/7/26,True,True,,,
+20404,2567963,THOMAS CAMPOS,Palliative Management,1:15 PM,12/1/25,True,True,,,
+17612,2568051,JUANA GARCIA,Initial Visit 2,10:23 AM,10/23/25,True,False,VisitTypeValue,,
+22379,2568311,SHERYL RAYBOURN,Maintenance Visit,1:18 PM,11/21/25,False,False,,,No matching appointment found in MongoDB
+21604,2568362,DELORIS TAYLOR,Palliative Management,3:10 PM,11/10/25,True,True,,,
+20813,2568459,LOLITA RANDLE,Telephonic,8:00 AM,1/12/26,True,True,,,
+20612,2568586,KAREN BURDITT,Maintenance Visit,8:57 AM,1/9/26,True,True,,,
+22139,2568763,KATHLEEN DEASON,Maintenance Visit,1:05 PM,11/11/25,True,True,,,
+20002,2568783,VEONA SHACKELFORD,Palliative Management,3:17 PM,11/24/25,True,True,,,
+17271,2568803,KARA HENRY,Palliative Management,2:05 PM,11/24/25,True,True,,,
+21094,2568849,WILLIAM LEVINE,Maintenance Visit,1:14 PM,1/13/26,True,True,,,
+16504,2568974,JAMES HILL,Maintenance Visit,9:35 AM,10/28/25,True,True,,,
+22374,2569013,JOELLEN BONHAM,Maintenance Visit,12:05 PM,10/24/25,True,True,,,
+17741,2569013,JOELLEN BONHAM,Maintenance Visit,1:05 PM,11/24/25,True,True,,,
+20638,2569044,AHNAJEAN FELLING,Palliative Management,1:35 PM,12/12/25,True,True,,,
+22336,2569100,SHARON HICKS,Palliative Management,1:24 PM,4/6/26,True,True,,,
+17257,2569289,TAMMY DEAL,Palliative Management,1:05 PM,11/20/25,True,True,,,
+19136,2569294,BENJAMIN LAMKE JR,Telephonic,1:00 PM,10/30/25,True,True,,,
+20686,2569406,BARBARA ROBERTS,Maintenance Visit,2:20 PM,11/3/25,True,True,,,
+20687,2569676,SUSAN MARCH,Maintenance Visit,3:30 PM,11/3/25,True,True,,,
+21385,2569787,DEBORAH MAY,Initial Visit 2,1:48 PM,10/31/25,True,False,"VisitTypeValue, VisitStartDateTime",,
+20792,2569915,LACENYA WOOLFOLK,Maintenance Visit,1:32 PM,1/9/26,True,True,,,
+22031,2569929,CHARROLYNN WASHINGTON,Maintenance Visit,1:10 PM,10/21/25,True,True,,,
+18299,2569931,BARBARA MORGAN,Palliative Management,9:21 AM,1/9/26,True,True,,,
+22416,2570062,ALLENE BURNHAM,Maintenance Visit,8:12 AM,11/5/25,True,True,,,
+20075,2570214,KAREN MYERS,Maintenance Visit,8:17 AM,11/7/25,True,True,,,
+20634,2570276,LETOSHA REYNOLDS,Maintenance Visit,1:19 PM,1/20/26,True,True,,,
+20137,2570306,RICHARD ROGERS,Maintenance Visit,9:15 AM,10/24/25,True,True,,,
+21982,2570533,PRINTAS BELL,Palliative Management,10:27 AM,11/7/25,True,True,,,
+22368,2570547,BEATRICE SIMMONS,Palliative Management,12:59 PM,10/27/25,True,True,,,
+20308,2570635,DIANA QUINN,Palliative Management,11:55 AM,11/5/25,True,True,,,
+22059,2570662,LYDIA CARBREY,Maintenance Visit,1:10 PM,2/9/26,True,False,VisitStartDateTime,,
+20973,2570701,DENNIS JONES,Maintenance Visit,1:11 PM,12/17/25,True,True,,,
+19234,2570843,COSTELLA MALONE,Maintenance Visit,3:17 PM,11/25/25,True,False,VisitStartDateTime,,
+19688,2570868,SHARON WAKEFIELD,Telephonic,8:00 AM,10/31/25,True,True,,,
+21122,2570897,PETER WRIGHT,Palliative Management,1:15 PM,11/21/25,True,True,,,
+18078,2570898,FLOYD BRANDT,Palliative Management,1:21 PM,11/26/25,True,True,,,
+20666,2570955,JOHN GIGGAR JR,Palliative Management,10:50 AM,12/18/25,True,True,,,
+20540,2570983,CAROLYN MCLEMORE,Maintenance Visit,10:27 AM,12/8/25,True,True,,,
+22128,2570992,TERRESSA HALL,Post Discharge Visit,9:05 AM,10/24/25,True,True,,,
+21580,2571026,MARGARET DAVIS,Maintenance Visit,11:55 AM,11/13/25,True,True,,,
+21173,2571063,JACQUELINE DOUGLAS,Palliative Management,8:15 AM,12/2/25,True,True,,,
+19264,2571364,MARIA LEE,Maintenance Visit,3:49 PM,11/12/25,True,True,,,
+21680,2571577,THELMA SAVAGE,Maintenance Visit,10:50 AM,12/22/25,True,True,,,
+22182,2571654,SANFORD LEWIS JR,Maintenance Visit,11:45 AM,11/18/25,True,True,,,
+22229,2571722,LILLIE COHNES,Palliative Management,2:13 PM,10/29/25,True,True,,,
+21048,2571752,DELLA HOPSON,Maintenance Visit,8:31 AM,11/10/25,False,False,,,No matching appointment found in MongoDB
+20565,2571814,JACQUELINE REAY,Maintenance Visit,2:19 PM,11/17/25,False,False,,,No matching appointment found in MongoDB
+21899,2571832,LILLIE FRANKLIN,Palliative Management,11:30 AM,11/11/25,True,True,,,
+22226,2571832,LILLIE FRANKLIN,Post Discharge Visit,2:10 PM,10/24/25,True,True,,,
+20182,2571869,KATHRINE UPTERGROVE,Palliative Prognosis Visit,8:49 AM,12/8/25,True,True,,,
+22003,2571869,KATHRINE UPTERGROVE,Palliative Prognosis Visit,2:57 PM,11/13/25,True,False,VisitStartDateTime,,
+20107,2571909,JANE DUSENBERY,Maintenance Visit,8:14 AM,11/24/25,False,False,,,No matching appointment found in MongoDB
+20685,2571918,SHANDELL ROSSIGNOL,Palliative Management,1:15 PM,11/3/25,True,True,,,
+20432,2571977,JAMES MARTIN,Palliative Management,8:25 AM,12/8/25,True,True,,,
+20746,2572009,ELIZABETH MACKEY,Maintenance Visit,1:40 PM,11/13/25,True,True,,,
+21934,2572142,ERIC GOLLIDAY,Maintenance Visit,1:07 PM,11/17/25,True,True,,,
+21061,2572256,FRANCES REEDY,Palliative Management,10:05 AM,12/19/25,True,True,,,
+19140,2572258,NORMA WALTON,Palliative Management,8:09 AM,11/7/25,True,True,,,
+22216,2572298,LOUISE HOWARD,Palliative Management,1:10 PM,12/23/25,True,True,,,
+18212,2572307,JANET TURNER,Maintenance Visit,1:55 PM,1/20/26,True,True,,,
+15567,2572418,VIRGINIA JOHNSON,Maintenance Visit,9:05 AM,1/13/26,True,True,,,
+16794,2572434,SHIRLEY STRUTMAN,Maintenance Visit,10:26 AM,10/31/25,True,True,,,
+19198,2572565,DEBORAH KUHN,Maintenance Visit,8:13 AM,12/8/25,True,True,,,
+20069,2572696,JANICE STRAWBRIDGE,Palliative Management,1:26 PM,11/4/25,True,False,VisitStartDateTime,,
+20730,2572699,PATRICIA BLACKBURN,Maintenance Visit,1:15 PM,11/19/25,True,True,,,
+18999,2572757,RICHARD GREEN,Maintenance Visit,1:09 PM,11/25/25,True,True,,,
+19814,2572846,NANCY MILLER,Palliative Prognosis Visit,9:40 AM,11/6/25,True,True,,,
+21775,2572923,WILLIE TINSLEY,Maintenance Visit,2:36 PM,1/13/26,True,True,,,
+20046,2572955,KEVERLIN IRVING,Maintenance Visit,9:15 AM,12/16/25,True,True,,,
+19640,2572969,JOHNNIE TURNER,Palliative Management,1:05 PM,11/7/25,True,True,,,
+16386,2573025,EUGENE FLOWERS,Palliative Management,2:26 PM,11/6/25,True,False,VisitStartDateTime,,
+20590,2573436,COLLIS WILLIAMS,Maintenance Visit,8:33 AM,11/24/25,True,True,,,
+15350,2573453,PATRICIA HOFFMAN,Palliative Management,10:10 AM,11/18/25,True,True,,,
+20386,2573465,MICHELLE BUCKNER,Maintenance Visit,10:58 AM,11/17/25,True,True,,,
+22051,2573465,MICHELLE BUCKNER,Maintenance Visit,1:17 PM,2/5/26,True,True,,,
+21765,2573481,IDELLA HOLLIS,Maintenance Visit,1:10 PM,10/23/25,True,True,,,
+20695,2573509,MARK ROSCH,Palliative Management,1:17 PM,11/3/25,True,True,,,
+22096,2573555,NADINE HARRINGTON,Palliative Management,1:23 PM,10/29/25,False,False,,,No matching appointment found in MongoDB
+20409,2573556,ALBERTA WALKER,Palliative Management,8:24 AM,12/1/25,True,True,,,
+19286,2573571,JUANITA ROBINSON,Palliative Management,8:12 AM,11/14/25,True,True,,,
+22045,2573573,TERESA PRYOR,Palliative Management,1:05 PM,12/18/25,True,True,,,
+20038,2573777,CHRISTOPHER BEVLY SR,Maintenance Visit,1:05 PM,12/15/25,True,True,,,
+20431,2573901,WANDA BRADEN,Maintenance Visit,9:20 AM,11/21/25,True,True,,,
+22305,2573971,JUDITH HUNTER,Maintenance Visit,1:10 PM,2/20/26,True,True,,,
+19536,2573978,JENNIFER HART,Maintenance Visit,1:07 PM,1/5/26,True,True,,,
+22331,2574010,TERRI DAVIDSON,Maintenance Visit,1:05 PM,1/9/26,True,True,,,
+22065,2574118,ZEB HOLLAND,Maintenance Visit,2:00 PM,12/29/25,True,True,,,
+19265,2574273,CHARLESCELIA MCCLEON,Palliative Management,2:38 PM,11/12/25,True,True,,,
+22008,2574275,THERESA ROBINSON,Post Discharge Visit,9:05 AM,10/22/25,True,True,,,
+22413,2574289,JAMASIA JONES,Palliative Management,3:15 PM,10/31/25,True,False,VisitStartDateTime,,
+21165,2574294,JOE ADAWAY JR,Palliative Management,8:31 AM,10/31/25,True,True,,,
+21807,2574325,DENISE MACLIN,Maintenance Visit,1:27 PM,1/16/26,True,True,,,
+20723,2574491,FLORENCE JONES,Maintenance Visit,1:14 PM,1/30/26,True,True,,,
+10530,2574542,JENNIFER HOLLINGSWORTH,Maintenance Visit,9:05 AM,10/29/25,True,True,,,
+20210,2574572,REGINA GILKEY,Maintenance Visit,9:22 AM,11/7/25,False,False,,,No matching appointment found in MongoDB
+20455,2574572,REGINA GILKEY,Maintenance Visit,10:24 AM,11/7/25,True,True,,,
+20788,2574609,MARGUERITE PRUITT,Maintenance Visit,8:32 AM,12/15/25,False,False,,,No matching appointment found in MongoDB
+15274,2574610,VIVA SCHERMESSER,Palliative Management,9:17 AM,10/28/25,True,True,,,
+21773,2574649,ANTHONY ANDERSON,Palliative Management,9:24 AM,12/19/25,True,True,,,
+18769,2574770,JUANITA ROBERTS,Maintenance Visit,1:20 PM,1/6/26,True,False,VisitStartDateTime,,
+21926,2574858,JEANNIE EDWARDS,Maintenance Visit,1:14 PM,12/15/25,True,True,,,
+14344,2574942,ADRIANA WAYMIRE,Maintenance Visit,1:05 PM,12/2/25,True,True,,,
+14969,2575121,SONYA RITCHIE,Palliative Management,10:00 AM,10/22/25,True,True,,,
+20673,2575465,DIANA WHITTAKER,Maintenance Visit,9:39 AM,12/29/25,True,True,,,
+21575,2575466,DAVID SPANGLE,Initial Visit,10:26 AM,11/10/25,True,True,,,
+15815,2575509,ROSE WHITNEY,Maintenance Visit,1:15 PM,10/31/25,True,True,,,
+21597,2575565,RAYMOND SMITH SR,Palliative Management,10:37 AM,10/28/25,True,True,,,
+20887,2575615,JASON DALTON,Telephonic,8:00 AM,12/9/25,True,True,,,
+17261,2575673,KERRI CALDWELL,Maintenance Visit,10:00 AM,10/24/25,True,True,,,
+17002,2575784,JAMES CARDWELL,Palliative Management,9:05 AM,11/14/25,True,True,,,
+20401,2575792,JANE SHOOK,Palliative Management,9:36 AM,11/21/25,False,False,,,No matching appointment found in MongoDB
+22024,2575831,RICHARD HAMMONDS,Palliative Management,10:18 AM,10/27/25,True,True,,,
+22091,2575834,DIANE SCHMIDT,Post Discharge Visit,1:12 PM,10/21/25,True,True,,,
+20058,2575913,DEBORAH HATFIELD,Maintenance Visit,9:55 AM,12/5/25,True,True,,,
+22177,2575990,KEITH BUCKNER,Maintenance Visit,10:49 AM,11/18/25,True,True,,,
+19719,2576006,THELMA WILSON,Palliative Management,8:14 AM,12/17/25,True,True,,,
+19056,2576035,COLLETTE WASHINGTON,Maintenance Visit,1:05 PM,12/12/25,True,True,,,
+19812,2576093,GARY GREENSTREET SR,Maintenance Visit,5:10 PM,11/3/25,True,True,,,
+20658,2576135,SAM HOLLAND,Palliative Management,8:22 AM,12/5/25,True,True,,,
+21568,2576143,TRACEY PALMER,Maintenance Visit,2:20 PM,11/5/25,True,True,,,
+22320,2576308,ANTHONY BASKIN,Post Discharge Visit,10:26 AM,10/24/25,True,True,,,
+18316,2576425,CHRISTINA SCHWINN,Palliative Management,1:55 PM,12/1/25,True,True,,,
+20429,2576535,JAMES MCCONNELL JR,Maintenance Visit,1:05 PM,12/5/25,True,True,,,
+19178,2576670,CANDIE DANNER,Maintenance Visit,8:05 AM,1/30/26,True,True,,,
+20800,2576840,STELLA SMITH,Maintenance Visit,9:35 AM,1/16/26,True,True,,,
+21922,2576868,TAMISIEA LANGE,Maintenance Visit,1:05 PM,12/10/25,True,True,,,
+15693,2576890,ONITA WAHEED,Maintenance Visit,9:25 AM,10/28/25,True,True,,,
+19141,2576931,LORNA HILL,Maintenance Visit,5:30 PM,12/1/25,True,True,,,
+20944,2577031,SHONA ANDREWS,Maintenance Visit,10:20 AM,1/12/26,True,True,,,
+22262,2577142,JAMES MCPHERSON,Maintenance Visit,9:47 AM,1/5/26,True,True,,,
+20047,2577425,EUGENE TODD,Palliative Management,10:45 AM,12/29/25,True,True,,,
+22108,2577540,KATHY MCNEAL,Maintenance Visit,1:16 PM,12/22/25,True,True,,,
+17203,2577579,MARY WILSON,Telephonic,1:00 PM,1/19/26,True,True,,,
+22157,2577590,BOBBY BUCKNER,Maintenance Visit,3:22 PM,10/28/25,True,True,,,
+22240,2577591,FELISA MOORE,Maintenance Visit,2:28 PM,10/24/25,True,True,,,
+21185,2577672,BETTY GRAY,Maintenance Visit,3:05 PM,2/12/26,True,True,,,
+21693,2577684,JAMES WASHINGTON,Palliative Management,8:28 AM,12/26/25,True,True,,,
+18304,2577773,BRADLEY STUART,Maintenance Visit,1:05 PM,1/15/26,True,True,,,
+16294,2577951,DENISE HODGES,Palliative Management,2:05 PM,10/28/25,True,True,,,
+20149,2578102,DONALD MCCLEAD,Maintenance Visit,1:10 PM,11/26/25,True,True,,,
+21760,2578117,SHERYL MCNAMARA,Maintenance Visit,8:14 AM,4/10/26,True,True,,,
+21124,2578193,GILBERT BELL,Maintenance Visit,10:32 AM,12/12/25,True,True,,,
+18947,2578290,RONALD GREENE,Palliative Prognosis Visit,9:36 AM,10/28/25,False,False,,,No matching appointment found in MongoDB
+17172,2578419,JOSEPH FRAZIER,Maintenance Visit,1:05 PM,12/17/25,True,True,,,
+22425,2578593,GLENDA STOW,Palliative Management,1:25 PM,10/24/25,True,True,,,
+17635,2578811,DARLENE COX,Palliative Management,1:05 PM,11/21/25,True,True,,,
+20382,2578849,RICKY YIELDING,Palliative Prognosis Visit,8:25 AM,11/17/25,True,True,,,
+22319,2578974,KEENAN FISHER,Palliative Management,9:13 AM,10/24/25,True,False,VisitTypeValue,,
+22054,2579046,SUSAN TATUM,Maintenance Visit,1:15 PM,11/25/25,True,True,,,
+14975,2579060,BRIDGETTE DAVIS,Maintenance Visit,9:21 AM,2/9/26,True,True,,,
+20711,2579096,HUGHDELL GWINN,Palliative Co-visit,11:05 AM,11/6/25,True,True,,,
+20581,2579100,DAYATRA WESTON,Maintenance Visit,2:14 PM,11/21/25,True,False,VisitStartDateTime,,
+21486,2579193,CARISA NEWSOM,Maintenance Visit,9:35 AM,1/8/26,True,True,,,
+18056,2579331,MELISSA HARRELL,Maintenance Visit,1:05 PM,11/26/25,True,True,,,
+21660,2579333,PAULINE FIRST,Palliative Management,9:12 AM,10/24/25,True,True,,,
+17414,2579368,JENNIFER BENNETT,Maintenance Visit,2:05 PM,12/15/25,True,True,,,
+19662,2579433,BETTY MARTIN,Palliative Management,1:16 PM,12/2/25,True,False,VisitStartDateTime,,
+22303,2579433,BETTY MARTIN,Post Discharge Visit,12:05 PM,10/23/25,True,True,,,
+16515,2579479,CHARLES EVANS,Maintenance Visit,3:25 PM,10/31/25,True,False,VisitStartDateTime,,
+22147,2579625,PATRICIA TRAVIS,Palliative Prognosis Visit,10:00 AM,11/24/25,True,True,,,
+22242,2579641,LOUISE KRAMER,Palliative Management,2:18 PM,11/17/25,True,True,,,
+20167,2579848,KATHY ZULLO,Maintenance Visit,9:16 AM,12/3/25,False,False,,,No matching appointment found in MongoDB
+20327,2579848,KATHY ZULLO,Maintenance Visit,10:21 AM,12/3/25,True,True,,,
+22214,2579919,SHARON STEELE,Palliative Prognosis Visit,1:15 PM,12/24/25,True,True,,,
+22117,2579928,VICKIE LOMAX GARRY,Palliative Management,10:35 AM,11/19/25,True,True,,,
+21085,2580025,JOSEPH TAYLOR,Palliative Management,9:39 AM,12/1/25,True,True,,,
+21427,2580025,JOSEPH TAYLOR,Palliative Management,2:00 PM,10/23/25,True,True,,,
+21927,2580053,VENITA WHITFIELD,Palliative Management,9:50 AM,12/18/25,True,True,,,
+21490,2580065,ROSA WALKER,Palliative Prognosis Visit,9:05 AM,10/22/25,True,True,,,
+16847,2580065,ROSA WALKER,Palliative Prognosis Visit,1:35 PM,10/23/25,True,True,,,
+20523,2580080,MAURICE TERRY,Maintenance Visit,1:05 PM,11/7/25,True,True,,,
+21521,2580085,EVELINE BISHOP,Maintenance Visit,10:21 AM,10/24/25,True,True,,,
+22361,2580199,JOSHUA WILCOX,Maintenance Visit,1:05 PM,11/19/25,True,True,,,
+20151,2580392,SARAH DAVIS,Maintenance Visit,10:15 AM,11/10/25,True,True,,,
+21156,2580422,CHRISTIE SCHMID,Maintenance Visit,1:34 PM,10/30/25,True,True,,,
+18233,2580426,DOROTHY WILSON,Palliative Management,10:15 AM,11/25/25,True,True,,,
+22430,2580590,CARLOS FABELA,Maintenance Visit,8:14 AM,11/21/25,False,False,,,No matching appointment found in MongoDB
+18481,2580640,VIRGINIA MISSIMER,Palliative Management,10:55 AM,12/1/25,True,True,,,
+18644,2580654,BETTY CARR,Maintenance Visit,1:39 PM,2/2/26,True,True,,,
+22021,2580685,CHERRYL CALDWELL,Maintenance Visit,11:12 AM,10/30/25,True,True,,,
+20309,2580695,DEBRA GREEN,Maintenance Visit,1:18 PM,11/5/25,True,True,,,
+21746,2581045,SHARON BEISLY,Palliative Management,2:45 PM,11/26/25,True,True,,,
+19916,2581176,BEVERLY CLERKLEY,Palliative Management,10:32 AM,11/3/25,False,False,,,No matching appointment found in MongoDB
+22068,2581176,BEVERLY CLERKLEY,Palliative Management,11:42 AM,11/3/25,True,True,,,
+19836,2581291,YOLANDA WARD,Maintenance Visit,1:15 PM,11/20/25,True,True,,,
+21197,2581309,ALYCE HANNETT,Maintenance Visit,11:37 AM,11/3/25,True,True,,,
+18525,2581363,DEWAYNE MITCHELL,Maintenance Visit,11:15 AM,1/15/26,True,True,,,
+19646,2581364,JAMES MULLER,Maintenance Visit,1:30 PM,1/7/26,True,True,,,
+22134,2581549,MARCELI SMITH,Maintenance Visit,1:11 PM,12/10/25,True,True,,,
+20132,2581594,SANDRA BECKER,Maintenance Visit,1:19 PM,11/24/25,True,False,VisitStartDateTime,,
+19925,2581740,ROBERT OLIVER,Maintenance Visit,1:09 PM,11/7/25,True,False,VisitStartDateTime,,
+22081,2581796,BRENDA PAYTON,Palliative Management,4:26 PM,10/21/25,True,True,,,
+19711,2581847,CARRIE REIF,Palliative Prognosis Visit,1:00 PM,10/21/25,True,True,,,
+21778,2582108,ROBERT MILLER,Maintenance Visit,8:15 AM,1/27/26,True,True,,,
+19960,2582213,PRISCILLA ROBINSON,Maintenance Visit,9:32 AM,11/17/25,True,True,,,
+21105,2582237,EILEEN QUEEN,Maintenance Visit,10:26 AM,10/22/25,True,True,,,
+21123,2582334,RITA COLLINS,Maintenance Visit,8:19 AM,12/12/25,True,True,,,
+19527,2582558,TINA MENARD,Palliative Management,2:33 PM,6/1/26,True,True,,,
+22043,2582643,ADRIAN SMITH,Maintenance Visit,10:25 AM,10/21/25,True,True,,,
+20358,2582736,LULA JOHNSON,Palliative Management,1:09 PM,11/14/25,True,True,,,
+21897,2582903,DANNY HENSLEY,Palliative Management,9:10 AM,11/11/25,True,True,,,
+22351,2582935,TONDRA HUNT,Palliative Prognosis Visit,2:41 PM,11/24/25,True,True,,,
+20799,2582974,WILLIAM AGEE,Palliative Management,8:15 AM,1/16/26,True,True,,,
+22433,2583015,JENNIE VERMILLION,Palliative Management,1:05 PM,1/2/26,True,True,,,
+22267,2583049,JUDY BELL,Palliative Prognosis Visit,8:49 AM,12/19/25,True,True,,,
+20097,2583190,TU VO,Palliative Management,10:37 AM,10/29/25,True,True,,,
+20964,2583451,DANIEL FOLSOM,Maintenance Visit,10:15 AM,11/20/25,True,True,,,
+19223,2583550,LEANA FOSTER,Maintenance Visit,8:12 AM,11/25/25,True,True,,,
+18984,2583636,SABEKHU SMITH,Palliative Management,9:35 AM,12/4/25,True,True,,,
+22410,2583647,LEON WILLIAMS,Maintenance Visit,3:25 PM,11/3/25,True,True,,,
+21988,2583718,ROWENA EPPS,Maintenance Visit,1:05 PM,12/18/25,True,True,,,
+22356,2583718,ROWENA EPPS,Post Discharge Visit,9:05 AM,10/22/25,True,True,,,
+20602,2583838,ESTELLA TOLBERT,Palliative Management,1:06 PM,12/1/25,True,False,VisitStartDateTime,,
+19530,2583954,BARBARA CASPERMEYER,Maintenance Visit,1:17 PM,5/11/26,True,True,,,
+20690,2583954,BARBARA CASPERMEYER,Maintenance Visit,1:17 PM,12/16/25,True,True,,,
+19213,2584189,SANDRA DODGE,Maintenance Visit,9:34 AM,11/26/25,True,True,,,
+21646,2584197,CYNTHIA WILLINGHAM,Maintenance Visit,3:28 PM,10/29/25,True,True,,,
+21797,2584346,THELMA BENNETT,Palliative Management,11:43 AM,11/11/25,True,True,,,
+21661,2584376,DEBORAH SKEEN,Palliative Management,11:00 AM,12/15/25,True,True,,,
+18710,2584428,JUDITH CANTER,Palliative Management,3:05 PM,1/26/26,True,True,,,
+21425,2584468,PATRICIA JACKSON,Maintenance Visit,2:16 PM,12/1/25,True,True,,,
+10492,2584481,DAVID FORSTER,Palliative Management,9:05 AM,10/27/25,True,True,,,
+19200,2584546,RUNNIE DAWSON,Palliative Management,9:28 AM,11/11/25,False,False,,,No matching appointment found in MongoDB
+16207,2584573,ANNA GILMORE,Maintenance Visit,9:05 AM,11/5/25,True,True,,,
+21528,2584627,JAMES VANDYCK,Maintenance Visit,9:35 AM,1/15/26,True,True,,,
+21258,2584689,BRIAN GARDNER,Maintenance Visit,10:52 AM,11/14/25,True,True,,,
+22030,2584855,DEMETRIUS GRIFFIN,Palliative Management,11:29 AM,10/21/25,True,True,,,
+21506,2584856,VIRGINIA EFFERTZ,Palliative Management,10:47 AM,11/4/25,True,True,,,
+21879,2584871,RICHANDA FLETCHER,Maintenance Visit,1:37 PM,11/17/25,True,True,,,
+20577,2584890,ANTHONY JENKINS,Maintenance Visit,11:05 AM,11/20/25,True,True,,,
+20245,2584923,PEARL FUDGE,Palliative Prognosis Visit,9:25 AM,11/3/25,True,True,,,
+21336,2584942,ELIZABETH BEASLEY,Maintenance Visit,5:40 PM,11/12/25,True,True,,,
+19829,2585048,MAE WALKER,Maintenance Visit,1:27 PM,4/23/26,True,True,,,
+21649,2585072,ANGELA KAMP,Palliative Management,1:56 PM,11/3/25,True,True,,,
+20895,2585192,TONY MULLENS,Maintenance Visit,2:24 PM,10/28/25,True,True,,,
+19976,2585317,DEANTON ADAMS,Maintenance Visit,1:14 PM,11/18/25,True,True,,,
+20589,2585387,MARGARET DORSEY,Maintenance Visit,2:23 PM,11/24/25,True,True,,,
+21247,2585447,PATRICIA PARRA,Maintenance Visit,8:05 AM,12/10/25,True,True,,,
+22217,2585511,BARBARA KING,Maintenance Visit,11:33 AM,10/29/25,True,True,,,
+21538,2585594,TIEONA MOONEY,Maintenance Visit,8:21 AM,2/9/26,True,True,,,
+21433,2585747,PATRICK RICHARD,Maintenance Visit,1:17 PM,12/16/25,True,True,,,
+14979,2585749,SUSAN RYKER,Maintenance Visit,9:08 AM,10/27/25,True,True,,,
+22252,2585819,DEBBRA HOLLAND,Palliative Management,11:35 AM,12/18/25,True,True,,,
+20215,2585837,TAMARA ROLAND DORSEY,Maintenance Visit,8:17 AM,11/5/25,True,True,,,
+18796,2585849,SHIRLEY TAYLOR,Palliative Management,2:12 PM,10/27/25,True,True,,,
+22250,2585914,HAROLD SMALLWOOD,Maintenance Visit,2:31 PM,11/19/25,False,False,,,No matching appointment found in MongoDB
+22365,2585946,PATRICIA LEE,Maintenance Visit,8:51 AM,4/20/26,True,True,,,
+19477,2585946,PATRICIA LEE,Maintenance Visit,8:51 AM,4/24/26,True,True,,,
+20776,2586181,PATRICIA SMITH,Palliative Management,8:20 AM,12/12/25,True,True,,,
+17455,2586234,HEATHER THOMPSON,Palliative Management,11:15 AM,11/20/25,True,True,,,
+18365,2586346,RONALD PLUMMER,Maintenance Visit,3:45 PM,10/23/25,True,True,,,
+21817,2586347,VERONICA KASPERSON KING,Palliative Management,2:19 PM,12/15/25,True,True,,,
+21579,2586420,LATRICE LITTLE,Maintenance Visit,9:29 AM,11/14/25,True,True,,,
+22230,2586434,CAROLYN FOSHAGE,Maintenance Visit,3:31 PM,10/29/25,True,True,,,
+21016,2586451,GLADYS SHARP,Palliative Management,8:05 AM,11/11/25,True,True,,,
+21371,2586563,ANAMARI VICENTE,Maintenance Visit,4:05 PM,10/28/25,True,True,,,
+20692,2586627,ANNITA DAVIS,Palliative Prognosis Visit,2:35 PM,12/15/25,True,True,,,
+17972,2586667,KIMBERLY PURSLEY,Maintenance Visit,1:21 PM,11/18/25,False,False,,,No matching appointment found in MongoDB
+15843,2586826,KELLY DERKS,Palliative Management,1:05 PM,11/4/25,True,True,,,
+22412,2586868,TYRELL HAYMORE,Maintenance Visit,2:10 PM,10/31/25,True,False,VisitStartDateTime,,
+19952,2586884,CONSTANCE MORROW,Palliative Management,1:05 PM,11/11/25,True,True,,,
+22188,2586885,SHERI BUCK,Maintenance Visit,3:54 PM,10/24/25,True,True,,,
+20201,2586899,SHIRLEY HUDDLESTON,Maintenance Visit,1:12 PM,12/8/25,True,True,,,
+20022,2586900,RICKY JONES,Palliative Management,2:23 PM,12/3/25,True,True,,,
+19641,2587097,TORY BOWNS,Maintenance Visit,3:26 PM,11/14/25,False,False,,,No matching appointment found in MongoDB
+22154,2587184,WILLIAM GAVIDIA,Palliative Management,4:53 PM,10/23/25,True,True,,,
+20200,2587266,BEVERLY HUNTER,Maintenance Visit,8:57 AM,5/4/26,True,True,,,
+20333,2587293,HATTIE HIGGINBOTTOM,Palliative Management,10:00 AM,11/13/25,True,True,,,
+20837,2587454,JUDITH EVANS,Palliative Management,1:14 PM,12/11/25,True,True,,,
+22057,2587471,MARILYN GRAY,Palliative Management,1:14 PM,1/29/26,True,True,,,
+20044,2587536,JULIUS ADAMS,Maintenance Visit,8:10 AM,12/16/25,True,True,,,
+20712,2587593,SHARON DAVIS JANUARY,Maintenance Visit,10:00 AM,12/4/25,True,True,,,
+21238,2587826,KARIM GHASEMPOUR,Maintenance Visit,9:54 AM,11/17/25,True,True,,,
+20027,2587829,PAMELA WASHINGTON,Maintenance Visit,8:05 AM,12/4/25,True,True,,,
+18788,2587854,JOYCE SHOULTS,Telephonic,8:00 AM,3/3/26,True,True,,,
+20694,2587983,JIMMY O'DELL,Maintenance Visit,10:07 AM,12/8/25,True,True,,,
+20613,2588039,DONALD CROSLEY SR,Maintenance Visit,1:22 PM,1/9/26,True,True,,,
+22335,2588234,HELEN GARNER,Palliative Management,1:18 PM,11/11/25,False,False,,,No matching appointment found in MongoDB
+13427,2588247,RUTH MORRIS,Maintenance Visit,9:11 AM,6/8/26,True,True,,,
+18890,2588281,MARK HARRIS SR,Maintenance Visit,1:19 PM,11/13/25,True,False,VisitStartDateTime,,
+19464,2588739,THOMAS GUNTER,Palliative Management,2:36 PM,11/11/25,False,False,,,No matching appointment found in MongoDB
+17807,2588890,LAURA STERLIN,Maintenance Visit,8:15 AM,1/5/26,True,True,,,
+21733,2588890,LAURA STERLIN,Maintenance Visit,9:20 AM,1/5/26,True,True,,,
+14308,2588982,DENISE SULLENS,Maintenance Visit,9:54 AM,6/5/26,True,True,,,
+20939,2589066,CHARLOTTE MOTEN,Palliative Management,8:19 AM,1/26/26,True,True,,,
+20808,2589186,DAVID ROLF,Maintenance Visit,8:15 AM,11/10/25,True,True,,,
+17532,2589283,MICHAEL ALLEN,Palliative Management,4:10 PM,11/21/25,True,True,,,
+12011,2589316,MICHAEL PREWITT,Palliative Management,9:13 AM,10/27/25,False,False,,,No matching appointment found in MongoDB
+19655,2589338,KATHLEEN GRIFFITH,Maintenance Visit,1:11 PM,12/12/25,True,True,,,
+21644,2589436,LOUELLA BRADSHAW,Palliative Management,1:06 PM,10/29/25,True,True,,,
+21468,2589445,CELESTINE JAMERSON,Palliative Management,1:05 PM,12/19/25,True,True,,,
+19263,2589478,LORI SAMET,Palliative Management,1:20 PM,11/12/25,True,True,,,
+16719,2589523,SHEENA LLOYD,Maintenance Visit,1:05 PM,11/7/25,True,True,,,
+20748,2589824,ALICE MAXWELL,Palliative Co-visit,1:15 PM,11/17/25,True,True,,,
+16728,2589838,JUAN ROJO MORENO,Palliative Management,10:32 AM,1/9/26,True,True,,,
+17101,2589904,DEBRA COX,Palliative Management,11:10 AM,10/22/25,True,True,,,
+21153,2589910,BRENDA NEVINS,Palliative Management,1:17 PM,12/17/25,True,True,,,
+20103,2590180,PIPER DYE,Maintenance Visit,2:25 PM,10/22/25,True,True,,,
+20427,2590191,CHERYL CALLAHAN,Palliative Management,8:15 AM,11/21/25,True,True,,,
+10538,2590192,MICHELLE RANEY,Maintenance Visit,8:05 AM,1/9/26,True,True,,,
+10543,2590192,MICHELLE RANEY,Maintenance Visit,1:05 PM,2/27/26,True,True,,,
+10481,2590403,NANCY HUBLER,Post Discharge Visit,1:05 PM,10/28/25,True,True,,,
+21204,2590525,JOHN KOLAR JR,Palliative Prognosis Visit,9:17 AM,11/18/25,True,True,,,
+21996,2590629,BARBARA JEFFRIES,Palliative Management,8:05 AM,12/11/25,True,True,,,
+21439,2590715,LINDA CASSADY,Palliative Management,8:12 AM,12/16/25,True,True,,,
+18960,2590799,DEVANCY COLEMAN,Palliative Prognosis Visit,2:18 PM,10/28/25,False,False,,,No matching appointment found in MongoDB
+21192,2590841,LADONNA CASE,Maintenance Visit,9:38 AM,12/2/25,False,False,,,No matching appointment found in MongoDB
+19462,2590860,DANIEL MOSLEY,Maintenance Visit,1:30 PM,11/11/25,False,False,,,No matching appointment found in MongoDB
+22176,2590983,APRIL LOGAN,Maintenance Visit,9:44 AM,11/18/25,True,True,,,
+16957,2591072,MARK SLUSHER,Palliative Management,4:00 PM,1/15/26,True,True,,,
+19684,2591088,SANDRA GARRISON,Maintenance Visit,1:05 PM,1/23/26,True,True,,,
+22183,2591215,CHRIS PARKERSON,Palliative Management,1:26 PM,10/24/25,True,True,,,
+19549,2591226,PAMELA BADGER,Palliative Management,1:24 PM,12/3/25,True,True,,,
+20675,2591275,LANA JOHNSON,Maintenance Visit,8:25 AM,1/2/26,True,True,,,
+22001,2591301,WILLIAM CONNER,Palliative Management,1:22 PM,1/7/26,True,True,,,
+20814,2591312,ANGELA MORGAN,Maintenance Visit,8:55 AM,1/12/26,True,True,,,
+19876,2591476,BARBARA DAVIS,Maintenance Visit,8:17 AM,1/6/26,True,True,,,
+20702,2591522,GWENDOLYN WELLS,Maintenance Visit,2:37 PM,12/8/25,True,True,,,
+19395,2591552,LUCILLE MCGEE,Maintenance Visit,2:50 PM,12/3/25,True,False,VisitStartDateTime,,
+21426,2591584,CHERYL CRYER,Palliative Management,1:05 PM,12/1/25,True,True,,,
+19355,2591584,CHERYL CRYER,Palliative Management,1:19 PM,12/1/25,False,False,,,No matching appointment found in MongoDB
+20110,2591753,JOYCE RUBY,Palliative Management,1:12 PM,11/25/25,True,False,VisitStartDateTime,,
+21796,2591811,EVITA SMITH,Maintenance Visit,10:30 AM,11/11/25,True,True,,,
+19327,2591850,VIRGINIA WILLIAMS,Palliative Management,1:11 PM,11/3/25,True,False,VisitStartDateTime,,
+22380,2591897,FELICIA WHITE,Palliative Management,2:27 PM,11/21/25,False,False,,,No matching appointment found in MongoDB
+15282,2591990,KATHY CARUTHERS,Maintenance Visit,1:05 PM,10/31/25,True,True,,,
+20240,2592141,BRITTANY MACY,Maintenance Visit,2:57 PM,11/5/25,True,False,VisitStartDateTime,,
+22114,2592153,SAUNDRA EWING,Maintenance Visit,2:21 PM,12/19/25,True,True,,,
+22113,2592349,RANESSA SCOTT,Maintenance Visit,8:19 AM,11/18/25,False,False,,,No matching appointment found in MongoDB
+20820,2592359,JEAN RIVERS,Palliative Prognosis Visit,11:45 AM,10/29/25,True,True,,,
+22338,2592403,SUSAN MCDANIEL,Palliative Management,9:21 AM,11/17/25,True,True,,,
+22046,2592447,KATTETH BROTHERS,Initial Visit 2,1:15 PM,11/4/25,False,False,,,No matching appointment found in MongoDB
+17016,2592462,PATRICIA NEELY,Palliative Management,10:05 AM,11/14/25,True,True,,,
+21704,2592519,TIMOTHY WALKER,Maintenance Visit,9:19 AM,10/29/25,True,True,,,
+19406,2592599,MARY DAVIS,Maintenance Visit,1:20 PM,1/5/26,True,True,,,
+19459,2592600,BARBARA GRADY,Maintenance Visit,1:29 PM,11/14/25,True,True,,,
+19862,2592643,TEENA HIRE,Palliative Management,10:40 AM,10/23/25,True,True,,,
+22130,2592910,SANDRA RIVERS,Initial Visit 2,3:30 PM,10/27/25,True,False,VisitTypeValue,,
+16075,2592975,PATRICIA EATHERTON,Maintenance Visit,11:16 AM,10/31/25,False,False,,,No matching appointment found in MongoDB
+22140,2592982,REBECCA CONLEE,Palliative Management,1:05 PM,10/31/25,True,True,,,
+18939,2592994,GLENDA PHINIZEE,Palliative Management,1:09 PM,10/28/25,False,False,,,No matching appointment found in MongoDB
+15715,2593024,DOLETHA TINSLEY,Palliative Management,10:33 AM,10/28/25,True,True,,,
+13365,2593075,CHAUNCEYETTA MIZE,Maintenance Visit,9:18 AM,10/27/25,True,True,,,
+19881,2593149,LAKEISHA REID,Maintenance Visit,3:30 PM,1/9/26,True,True,,,
+21324,2593217,DOROTHY NICKSON,Palliative Management,9:22 AM,11/7/25,True,True,,,
+18240,2593351,BRENDA ROARK,Palliative Prognosis Visit,2:10 PM,10/22/25,True,True,,,
+21865,2593355,BLONDELL HALL,Palliative Management,1:06 PM,12/5/25,True,True,,,
+21394,2593489,YVONNE SIMMONS,Palliative Management,9:50 AM,11/3/25,True,True,,,
+17454,2593508,SHERRIE WILSON,Maintenance Visit,10:49 AM,1/5/26,True,True,,,
+17731,2593532,CHERYL FRITTS,Maintenance Visit,1:05 PM,12/18/25,False,False,,,No matching appointment found in MongoDB
+16508,2593540,KELLY NASH,Palliative Management,1:05 PM,12/29/25,True,True,,,
+21859,2593592,MARVIN HAMILTON SR,Palliative Management,3:19 PM,11/21/25,True,True,,,
+22037,2593629,STEPHANIE HAWKINS,Post Discharge Visit,1:05 PM,10/23/25,True,True,,,
+21990,2593652,VICTORIA FLETCHER,Maintenance Visit,10:37 AM,10/27/25,True,True,,,
+20040,2593657,JOSEPH GREENE JR,Maintenance Visit,2:10 PM,12/15/25,True,True,,,
+21485,2593773,DEBORAH STANLEY,Post Discharge Visit,6:15 PM,11/3/25,True,True,,,
+16501,2593787,CLARK BATCHELDER JR,Palliative Management,1:05 PM,11/4/25,True,True,,,
+20943,2593868,PAMELA SMITH,Maintenance Visit,1:26 PM,1/14/26,True,True,,,
+21861,2593996,LORETTA ISAAC,Palliative Management,1:08 PM,12/19/25,True,True,,,
+10541,2594089,WENDY BAIR,Palliative Management,10:10 AM,10/29/25,True,True,,,
+13409,2594168,CHRISTIE ALLEN,Maintenance Visit,9:14 AM,3/11/26,True,True,,,
+21174,2594195,CAROLYN STRONG,Palliative Management,1:05 PM,12/15/25,True,True,,,
+19176,2594368,JUAN GARCIA,Maintenance Visit,1:20 PM,12/31/25,False,False,,,No matching appointment found in MongoDB
+21251,2594385,JACQUELINE VINCENT,Maintenance Visit,10:43 AM,11/18/25,True,True,,,
+21788,2594425,ANNIS DAVID,Palliative Management,10:25 AM,11/17/25,False,False,,,No matching appointment found in MongoDB
+19579,2594446,SIDNEY HEARD,Maintenance Visit,1:21 PM,12/2/25,True,True,,,
+22292,2594458,CHERYL MARTIN,Palliative Management,11:00 AM,12/18/25,True,True,,,
+18933,2594486,DEBORAH VOGLER,Initial Visit,9:18 AM,10/28/25,True,True,,,
+18261,2594615,NICKALAS WARGER,Maintenance Visit,2:05 PM,12/2/25,True,True,,,
+20090,2594785,DOROTHY ANTHONY,Palliative Management,2:19 PM,11/7/25,False,False,,,No matching appointment found in MongoDB
+20153,2594925,SANDRA OLIVER,Maintenance Visit,2:33 PM,12/2/25,False,False,,,No matching appointment found in MongoDB
+20400,2594964,PATRICIA DECLUE,Maintenance Visit,8:17 AM,11/21/25,False,False,,,No matching appointment found in MongoDB
+22317,2594964,PATRICIA DECLUE,Post Discharge Visit,2:08 PM,10/24/25,False,False,,,No matching appointment found in MongoDB
+20422,2594980,STEVEN ROBERSON,Maintenance Visit,9:40 AM,12/18/25,True,True,,,
+21655,2595051,DELORES PETERSON,Maintenance Visit,2:40 PM,11/7/25,True,True,,,
+21809,2595054,JACQUELYN LADEN,Palliative Management,1:17 PM,1/20/26,True,True,,,
+21774,2595126,CHARLOTTE COTTON,Maintenance Visit,9:40 AM,1/20/26,False,False,,,No matching appointment found in MongoDB
+21323,2595242,HASAN REDZIC,Palliative Management,8:17 AM,11/7/25,True,True,,,
+17323,2595296,CHARRIE MILLER,Maintenance Visit,9:05 AM,1/12/26,True,True,,,
+16345,2595312,SHIRLEY HANSON,Palliative Management,9:35 AM,11/6/25,True,True,,,
+21056,2595378,JO MORRIS,Maintenance Visit,1:22 PM,12/9/25,True,True,,,
+21181,2595473,BEVERLY MOPPINS,Palliative Prognosis Visit,1:05 PM,11/19/25,True,True,,,
+21742,2595505,BARBARA SPANN,Palliative Management,4:00 PM,11/10/25,True,True,,,
+12524,2595564,MARILYN MCCONNELL,Maintenance Visit,1:05 PM,11/11/25,True,True,,,
+21254,2595595,SHELLY JOHNSON,Palliative Management,2:24 PM,11/13/25,True,True,,,
+21754,2595819,MARY ROBERSON,Maintenance Visit,1:05 PM,2/13/26,True,True,,,
+20797,2595908,JUDY MCDANIEL,Maintenance Visit,1:13 PM,1/15/26,True,True,,,
+20878,2595924,RICKEY BOGGS,Maintenance Visit,1:05 PM,1/30/26,True,True,,,
+15312,2595962,STEPHANIE WHEELDON,Maintenance Visit,2:35 PM,11/17/25,True,True,,,
+21234,2595975,PAULA CISTRUMP,Maintenance Visit,8:11 AM,11/25/25,True,True,,,
+21021,2596183,ADRIENNE BLAKE,Maintenance Visit,9:23 AM,10/27/25,False,False,,,No matching appointment found in MongoDB
+19959,2596238,WILLIA JACKSON-MOSBY,Maintenance Visit,8:27 AM,11/17/25,True,True,,,
+16629,2596276,FERNYSSA SWANK,Palliative Management,3:05 PM,1/6/26,True,True,,,
+21149,2596285,CHARLENE AKINS,Maintenance Visit,1:18 PM,12/9/25,True,True,,,
+21332,2596290,JERRY FARRIS,Palliative Prognosis Visit,3:25 PM,11/12/25,True,False,VisitTypeValue,,
+21638,2596308,CONTINA GRAVES,Maintenance Visit,10:24 AM,10/22/25,True,True,,,
+14218,2596344,DARIN KASTERKE,Palliative Management,11:05 AM,10/27/25,True,True,,,
+20037,2596357,BRENDA WRIGHT,Maintenance Visit,9:28 AM,12/15/25,False,False,,,No matching appointment found in MongoDB
+19500,2596362,DEBORAH BROEKER,Maintenance Visit,8:41 AM,11/11/25,True,True,,,
+20744,2596457,LINDA BETTIS,Palliative Prognosis Visit,3:19 PM,12/1/25,True,True,,,
+17415,2597008,ZOLA BLAIR,Maintenance Visit,1:09 PM,12/29/25,True,True,,,
+22385,2597107,DEBRA BOYCE,Maintenance Visit,1:14 PM,1/7/26,True,False,VisitStartDateTime,,
+22069,2597166,WILLIAM CALHOUN JR,Post Discharge Visit,1:05 PM,10/21/25,True,True,,,
+20937,2597264,BRENDA CLARK,Maintenance Visit,8:15 AM,12/10/25,True,True,,,
+21274,2597292,WIANDA BLUE,Maintenance Visit,9:26 AM,1/12/26,True,True,,,
+20983,2597304,WILLIE JACKSON,Palliative Management,9:26 AM,11/21/25,True,True,,,
+18797,2597304,WILLIE JACKSON,Palliative Management,3:19 PM,10/27/25,True,True,,,
+20093,2597444,NITA HARRIS,Palliative Management,11:03 AM,11/11/25,True,True,,,
+21676,2597660,CAROL NOVAK,Maintenance Visit,2:20 PM,10/28/25,True,True,,,
+20733,2597877,MICHAEL BAIER,Maintenance Visit,9:50 AM,12/11/25,True,True,,,
+20147,2598055,RICKY JOHNS,Maintenance Visit,11:11 AM,12/1/25,True,True,,,
+20559,2598078,LISA SNEAD,Maintenance Visit,2:16 PM,12/3/25,True,True,,,
+17401,2598251,STELLA DELONG,Palliative Management,3:55 PM,1/6/26,True,True,,,
+20408,2598427,BETTY BROWN,Maintenance Visit,8:18 AM,12/19/25,True,True,,,
+21650,2598485,NORMA MAJOR,Maintenance Visit,11:05 AM,11/7/25,True,True,,,
+19233,2598701,EDITH HARNESS,Palliative Management,2:12 PM,11/25/25,True,False,VisitStartDateTime,,
+20323,2657252,DAVIDA STONE,Maintenance Visit,3:04 PM,11/13/25,True,False,VisitStartDateTime,,
+21917,2657386,YVONNE WASHINGTON,Palliative Management,11:34 AM,10/29/25,True,True,,,
+20183,2657672,PATTY HOWARD,Maintenance Visit,1:13 PM,12/8/25,True,True,,,
+18903,2657814,MARY GOLDMAN,Maintenance Visit,8:35 AM,6/3/26,True,True,,,
+17832,2657821,ENA WILLIS,Telephonic,8:00 AM,11/17/25,True,True,,,
+21846,2658539,ANGELA PRICE,Palliative Prognosis Visit,10:09 AM,1/6/26,True,True,,,
+14791,2658625,EDWARD SCOTT,Palliative Management,3:05 PM,11/18/25,True,True,,,
+16605,2658656,LINDA JOHNSON,Palliative Management,1:15 PM,1/21/26,True,True,,,
+20495,2658698,PATRICIA CAMP,Maintenance Visit,5:31 PM,11/10/25,True,False,VisitStartDateTime,,
+20131,2658714,ROBIN LOBERG,Maintenance Visit,10:29 AM,11/24/25,True,True,,,
+17724,2658714,ROBIN LOBERG,Maintenance Visit,1:05 PM,1/13/26,True,True,,,
+20871,2658742,TAMMY DESANTIS,Palliative Management,10:26 AM,12/5/25,True,True,,,
+17120,2658752,BRENDA FULTON,Maintenance Visit,1:05 PM,11/14/25,True,True,,,
+21670,2658935,CLIFFORD KALLMBAH,Initial Visit,2:55 PM,10/27/25,True,True,,,
+22434,2658953,LEISA YOUNT,Palliative Management,10:42 AM,11/21/25,True,True,,,
+20174,2659396,REGINA BUHMAN,Palliative Management,2:15 PM,12/5/25,True,True,,,
+21857,2659465,KRYSTAL WORTHEY,Palliative Management,1:06 PM,11/21/25,True,True,,,
+13371,2659543,HANNAH KINARD,Maintenance Visit,1:15 PM,10/28/25,True,True,,,
+20641,2659636,DARION HOLMES,Maintenance Visit,8:31 AM,12/30/25,True,True,,,
+20920,2659914,ERIC WILLIAMS JR,Palliative Management,8:18 AM,12/29/25,True,True,,,
+20654,2660050,SABRA SALIHOVIC,Maintenance Visit,8:11 AM,11/21/25,True,True,,,
+19348,2660845,JOYCE JORDAN,Palliative Management,1:10 PM,12/1/25,True,True,,,
+20779,2661182,THELMA ANDERSON,Palliative Prognosis Visit,8:30 AM,11/12/25,True,True,,,
+16074,2661635,RICKI MAHAN,Maintenance Visit,10:11 AM,10/31/25,False,False,,,No matching appointment found in MongoDB
+21709,2661872,VICTORIA COOPER,Maintenance Visit,1:18 PM,12/30/25,True,True,,,
+16914,2662077,RALFENA HOWARD,Maintenance Visit,1:11 PM,11/3/25,True,False,VisitStartDateTime,,
+20021,2662171,CLOVIS WILLIAMS JR,Palliative Management,1:16 PM,12/3/25,True,True,,,
+16197,2662176,CAROL PECK,Palliative Prognosis Visit,9:05 AM,11/10/25,True,True,,,
+19767,2662186,EMMA WADE,Maintenance Visit,8:20 AM,11/17/25,True,True,,,
+21964,2662445,VIOLET BAUER,Maintenance Visit,9:10 AM,1/9/26,True,True,,,
+19160,2662965,APRIL MCPHERSON,Palliative Management,1:18 PM,1/13/26,True,True,,,
+19759,2663090,SABRINA WHITE,Maintenance Visit,1:05 PM,1/8/26,True,True,,,
+21577,2663552,J ALCORN,Initial Visit,11:31 AM,11/10/25,True,True,,,
+16792,2663719,CONNIE PHELAN,Maintenance Visit,2:05 PM,11/7/25,True,True,,,
+19242,2663725,SHERIDIN JONES,Maintenance Visit,9:18 AM,12/10/25,True,True,,,
+20671,2664141,JOYCE JOHNSON,Palliative Management,8:20 AM,12/29/25,True,True,,,
+21097,2664147,TASHA HAYES,Maintenance Visit,9:50 AM,1/8/26,True,True,,,
+22233,2664206,MICHAEL BROWN,Maintenance Visit,11:02 AM,10/30/25,True,True,,,
+20397,2664338,TERRI KAY SMITH,Maintenance Visit,9:05 AM,2/4/26,True,True,,,
+17867,2664409,MONICA ROBINSON,Maintenance Visit,9:21 AM,1/16/26,True,True,,,
+18253,2664409,MONICA ROBINSON,Maintenance Visit,1:05 PM,9/17/26,True,True,,,
+18094,2664409,MONICA ROBINSON,Maintenance Visit,3:45 PM,5/19/26,True,True,,,
+21794,2664448,WILLIE BURNS,Palliative Prognosis Visit,10:40 AM,11/4/25,True,True,,,
+22088,2664468,TALISHA BAKER,Initial Visit,9:16 AM,10/27/25,True,True,,,
+20231,2664550,SILVIA ROBINSON,Maintenance Visit,1:16 PM,11/5/25,True,True,,,
+20548,2665056,CRISTY WILLIAMS,Palliative Management,10:37 AM,11/14/25,True,True,,,
+21550,2665133,BETTE MACON,Palliative Management,9:25 AM,11/24/25,False,False,,,No matching appointment found in MongoDB
+21999,2665174,LACHAWN DAVIS,Maintenance Visit,10:27 AM,11/10/25,True,True,,,
+14865,2665175,MARK BURRELL,Maintenance Visit,11:05 AM,11/21/25,True,True,,,
+20473,2665315,BEVERLY CROWLEY,Maintenance Visit,8:24 AM,1/7/26,False,False,,,No matching appointment found in MongoDB
+16288,2665507,JACKIE KIMBROUGH,Maintenance Visit,9:05 AM,11/10/25,True,True,,,
+21199,2665772,VONNA GEISLER,Palliative Prognosis Visit,11:15 AM,10/29/25,True,True,,,
+20095,2665992,LESLIE WILLIAMS,Maintenance Visit,8:05 AM,11/5/25,True,True,,,
+20648,2666019,LENORA MCKISSICK ROBERSON,Palliative Management,1:34 PM,10/23/25,True,True,,,
+16126,2666039,CHERYL IRVIN,Maintenance Visit,3:45 PM,11/6/25,True,True,,,
+19037,2666067,CORETHA TAYLOR,Maintenance Visit,8:20 AM,1/21/26,True,True,,,
+18318,2666382,JUDITH SAVAGE,Maintenance Visit,1:05 PM,12/8/25,True,True,,,
+19334,2666855,LORA ALLEN,Palliative Management,8:09 AM,12/10/25,True,True,,,
+19958,2666966,ETHEL MOORE,Maintenance Visit,8:06 AM,11/12/25,True,True,,,
+21932,2667055,BETTY KELLER,Maintenance Visit,2:56 PM,11/6/25,False,False,,,No matching appointment found in MongoDB
+20555,2708168,MELISSA ALBINUS,Palliative Management,1:05 PM,10/23/25,True,True,,,
+20006,2708424,MARY HAYMON,Palliative Management,8:14 AM,12/3/25,True,True,,,
+21902,2708438,IVY AMES,Palliative Management,9:55 AM,12/29/25,True,True,,,
+22352,2708472,DEBRA COX,Initial Visit,12:42 PM,10/24/25,True,True,,,
+21736,2708693,LINDA BARBIERI,Maintenance Visit,8:05 AM,1/7/26,True,True,,,
+22185,2708913,LISA THOMPSON,Maintenance Visit,1:09 PM,2/12/26,True,True,,,
+20804,2709140,VIVIRAE WALKER WILLIAMS,Maintenance Visit,8:22 AM,6/26/26,True,True,,,
+22194,2709641,SUSIE SLAYDEN,Maintenance Visit,1:06 PM,2/10/26,True,True,,,
+20452,2709676,EVELYN BURNS,Maintenance Visit,8:27 AM,12/29/25,True,True,,,
+20188,2709876,JOSEPH CLARK,Maintenance Visit,8:05 AM,11/4/25,True,True,,,
+17950,2709902,ROBERTA MCCLAIN,Palliative Prognosis Visit,2:55 PM,10/23/25,True,True,,,
+22078,2710247,JAMES GREGG,Post Discharge Visit,10:10 AM,10/24/25,True,True,,,
+21395,2710462,GLORIA SOTO,Maintenance Visit,11:06 AM,11/3/25,True,True,,,
+19539,2710820,DANIEL STUKENBROCK,Maintenance Visit,8:29 AM,12/22/25,True,True,,,
+22327,2711034,CHRISTOPHER SEEBECK,Maintenance Visit,1:15 PM,2/16/26,True,True,,,
+17787,2711102,CARROL GARRIE,Palliative Management,1:30 PM,1/8/26,True,True,,,
+18201,2711123,JAMES PENDERGRASS,Maintenance Visit,1:05 PM,1/14/26,True,True,,,
+21994,2711533,RANDIE SENK,Maintenance Visit,8:51 AM,12/15/25,True,True,,,
+21151,2712112,JAMES RICHARDSON,Maintenance Visit,1:53 PM,2/3/26,True,True,,,
+20094,2712151,DOROTHY DOMINO,Maintenance Visit,2:32 PM,11/10/25,True,True,,,
+19360,2712282,EDDY RHOADS,Palliative Management,4:42 PM,11/14/25,False,False,,,No matching appointment found in MongoDB
+22275,2712282,EDDY RHOADS,Post Discharge Visit,3:15 PM,10/22/25,True,True,,,
+19772,2712346,PHYLLIS TOLBERT,Maintenance Visit,9:33 AM,11/3/25,True,True,,,
+20428,2712493,ANTHONY WADDY,Palliative Management,10:44 AM,12/5/25,True,True,,,
+17156,2712803,ALICIA HUBLOU,Maintenance Visit,9:05 AM,10/21/25,True,True,,,
+18030,2713009,AMANDA GRAVES,Maintenance Visit,2:10 PM,10/30/25,True,True,,,
+20080,2713018,JANELL PRIDGEN,Maintenance Visit,1:09 PM,11/7/25,True,False,VisitStartDateTime,,
+20789,2713019,KLAUS ENGELBRECHT,Palliative Management,8:16 AM,1/5/26,True,True,,,
+22105,2713512,VENUS COLENBURG,Maintenance Visit,1:09 PM,11/11/25,True,True,,,
+19214,2713796,GEORGE HENDERSON,Palliative Management,1:17 PM,11/26/25,True,True,,,
+20986,2713933,LOUISE NELSON,Palliative Management,1:05 PM,12/11/25,True,True,,,
+22343,2713974,ELOISE IVY,Maintenance Visit,8:19 AM,3/16/26,True,True,,,
+17223,2714086,JANICE PILKINTON,Maintenance Visit,9:05 AM,1/14/26,True,True,,,
+20701,2714185,TERRY SULLIVAN,Maintenance Visit,1:28 PM,12/8/25,True,True,,,
+20566,2714951,MARY SHANKLIN,Maintenance Visit,3:24 PM,11/17/25,False,False,,,No matching appointment found in MongoDB
+10531,2715360,SUSAN MILLER,Maintenance Visit,1:05 PM,10/29/25,True,True,,,
+22388,2715382,ROBERT STEARN,Maintenance Visit,4:17 PM,10/28/25,True,True,,,
+21421,2715453,WAYNE CONKLIN,Palliative Management,8:16 AM,11/18/25,True,True,,,
+20599,2715567,EDNA BLACK,Palliative Management,10:28 AM,12/5/25,True,True,,,
+20458,2716124,BETTY WOOD,Maintenance Visit,10:00 AM,1/28/26,True,True,,,
+21940,2716127,CAROLYN DAILEY-JACKSON,Maintenance Visit,3:21 PM,12/12/25,True,True,,,
+21820,2716191,LAWRENCE PUFFER,Palliative Management,1:07 PM,12/22/25,True,True,,,
+22244,2716255,BECKY ALLGOOD,Palliative Management,3:23 PM,11/19/25,True,False,VisitStartDateTime,,
+17280,2716418,LUANN FREIBERGER,Maintenance Visit,8:37 AM,11/21/25,True,True,,,
+21790,2716636,MARY TOOLEY,Maintenance Visit,1:10 PM,1/7/26,True,True,,,
+21968,2716871,COREY HILL,Maintenance Visit,1:12 PM,12/23/25,True,True,,,
+21924,2716983,VIRGINIA MACIAS,Maintenance Visit,2:57 PM,12/10/25,True,True,,,
+21662,2717070,PAMELA WALTON,Palliative Management,10:29 AM,12/17/25,True,True,,,
+21821,2717723,MIRA BALCINOVIC,Maintenance Visit,2:14 PM,12/22/25,True,True,,,
+21683,2718032,BOBBY SIMMONS,Maintenance Visit,8:24 AM,11/3/25,False,False,,,No matching appointment found in MongoDB
+20106,2718273,CHERYL VOYLES,Palliative Management,1:15 PM,12/12/25,True,False,VisitStartDateTime,,
+22358,2718619,THOMAS WILSON,Initial Visit,10:24 AM,12/2/25,True,True,,,
+19905,2718746,PATRICIA LANCASTER SM,Maintenance Visit,10:45 AM,11/3/25,True,True,,,
+19786,2718749,DEBORAH FISCHER,Maintenance Visit,2:00 PM,1/7/26,True,True,,,
+20787,2718972,BLUNNIE MCSHANE,Palliative Management,10:05 AM,12/11/25,True,True,,,
+22265,2719086,CYNTHIA HOLTMANN,Maintenance Visit,4:05 PM,1/5/26,True,True,,,
+10542,2719361,TANYA BERQIA,Maintenance Visit,8:05 AM,2/2/26,True,True,,,
+20170,2719508,SERGIO ARAMBULA,Palliative Management,9:21 AM,12/5/25,True,True,,,
+21828,2721459,JACQUELYN BEARS,Maintenance Visit,8:30 AM,11/12/25,True,True,,,
+22143,2721750,DOROTHY BENSON,Maintenance Visit,11:00 AM,12/9/25,True,True,,,
+20524,2778772,KATHERINE WILLIAMS,Palliative Management,8:23 AM,1/20/26,True,True,,,
+18137,2778804,CHERYL KUNZ,Maintenance Visit,9:07 AM,1/14/26,True,True,,,
+20688,2778804,CHERYL KUNZ,Maintenance Visit,9:37 AM,10/23/25,True,True,,,
+21576,2779274,TERESA DAVIS,Maintenance Visit,9:21 AM,11/10/25,True,True,,,
+16249,2779466,WILSON LOVE,Maintenance Visit,1:05 PM,12/15/25,True,True,,,
+22300,2779738,LISA SMITH,Maintenance Visit,1:07 PM,11/4/25,False,False,,,No matching appointment found in MongoDB
+20073,2779814,DELORES SMALLEY,Maintenance Visit,8:14 AM,1/5/26,True,True,,,
+17234,2779814,DELORES SMALLEY,Maintenance Visit,9:13 AM,12/5/25,True,True,,,
+19461,2780016,PATTY THOMPKINS,Maintenance Visit,3:48 PM,11/14/25,True,True,,,
+22106,2780039,JENEVIEVE WEILAND,Palliative Management,2:55 PM,11/26/25,True,False,VisitStartDateTime,,
+21842,2780052,SEAN SMITH,Palliative Management,1:27 PM,1/9/26,True,True,,,
+22166,2780259,FLORA MARTIN,Post Discharge Visit,1:05 PM,10/24/25,True,True,,,
+20597,2780507,RUBY BUTLER,Maintenance Visit,1:08 PM,12/5/25,True,True,,,
+21259,2780723,PAMELA TUCKER,Maintenance Visit,8:37 AM,11/14/25,True,True,,,
+20544,2780784,CALVIN COOK,Maintenance Visit,1:05 PM,2/9/26,True,False,VisitStartDateTime,,
+21250,2781177,KARLA WILLIAMS,Maintenance Visit,9:28 AM,11/18/25,True,True,,,
+20542,2781406,GINGER HANSON,Palliative Management,2:00 PM,12/19/25,True,True,,,
+21051,2781709,JOSEPH LEAKEY,Palliative Management,9:05 AM,12/19/25,True,True,,,
+22339,2782126,MICHELE PEARSON,Maintenance Visit,10:32 AM,11/17/25,True,True,,,
+19645,2782126,MICHELE PEARSON,Maintenance Visit,5:33 PM,11/7/25,True,True,,,
+21867,2782197,MICHELLE WILLIAMS,Maintenance Visit,10:55 AM,1/8/26,True,True,,,
+21989,2782402,ELVADIA JONES,Maintenance Visit,9:21 AM,10/27/25,True,True,,,
+18563,2782553,RUTH MITCHELL,Maintenance Visit,3:50 PM,12/1/25,True,True,,,
+20857,2782712,CONNIE LLAMAS,Maintenance Visit,1:19 PM,12/26/25,True,False,VisitStartDateTime,,
+21520,2782794,LOUISE PAINTER,Palliative Management,9:14 AM,10/24/25,True,True,,,
+17571,2782880,LINDA COURTWAY,Maintenance Visit,9:05 AM,12/17/25,True,True,,,
+20195,2783209,JUAN MEJINEZ,Maintenance Visit,1:18 PM,12/8/25,True,True,,,
+19116,2783338,CHARLENE JACKSON,Maintenance Visit,8:26 AM,12/19/25,True,True,,,
+12012,2783345,SHARON RILEY,Maintenance Visit,10:21 AM,10/27/25,False,False,,,No matching appointment found in MongoDB
+21417,2783388,LORI ZANGARO,Maintenance Visit,8:29 AM,1/30/26,True,True,,,
+19998,2783470,BARRY ANDERSON,Maintenance Visit,1:05 PM,11/24/25,True,True,,,
+16208,2783719,TIMOTHY REED,Palliative Management,11:15 AM,1/12/26,True,True,,,
+15740,2783969,OPAL TESTERMAN,Maintenance Visit,1:05 PM,12/16/25,True,True,,,
+22005,2784067,RANDEE MCNEEL,Maintenance Visit,3:05 PM,11/12/25,True,True,,,
+22403,2784183,FRANK WEEDEN,Palliative Prognosis Visit,9:40 AM,11/4/25,True,True,,,
+21839,2784474,VERONA FRANCIS,Palliative Management,3:36 PM,11/20/25,True,False,VisitStartDateTime,,
+22009,2784482,CYNTHIA NELSON,Post Discharge Visit,10:29 AM,10/22/25,True,True,,,
+19481,2784727,PATRICIA ANDERSON,Maintenance Visit,8:31 AM,1/30/26,True,True,,,
+18935,2784727,PATRICIA ANDERSON,Maintenance Visit,8:36 AM,1/13/26,True,True,,,
+21681,2784820,DONALD JENSEN,Maintenance Visit,8:09 AM,1/9/26,True,True,,,
+20539,2784868,LORRAINE JETT,Maintenance Visit,2:46 PM,1/7/26,True,True,,,
+21592,2784976,HELEN WILLIAMS,Palliative Management,11:30 AM,11/12/25,True,True,,,
+21460,2785370,MARY SIMMONS,Maintenance Visit,10:04 AM,1/12/26,True,True,,,
+21462,2785370,MARY SIMMONS,Maintenance Visit,2:19 PM,11/17/25,True,True,,,
+20521,2785483,GLORIA FLETCHER,Maintenance Visit,8:23 AM,11/7/25,True,True,,,
+20494,2808296,ANGELA MCFEE,Palliative Management,3:19 PM,11/10/25,True,False,VisitStartDateTime,,
+21651,2808494,MICHAEL MOORE,Maintenance Visit,8:16 AM,1/30/26,True,True,,,
+17063,2809005,JESSICA NAPIERALSKI,Maintenance Visit,2:50 PM,11/14/25,True,True,,,
+19378,2809020,BRENDA BOLES,Maintenance Visit,8:14 AM,2/6/26,False,False,,,No matching appointment found in MongoDB
+19230,2809020,BRENDA BOLES,Maintenance Visit,9:18 AM,11/25/25,True,True,,,
+19114,2809044,CLARENCE ROBERTS,Maintenance Visit,2:30 PM,12/30/25,False,False,,,No matching appointment found in MongoDB
+19860,2809232,SUSAN COOPER,Palliative Management,3:05 PM,11/18/25,True,True,,,
+19554,2809248,LISA RINGKAMP,Maintenance Visit,1:05 PM,11/21/25,True,True,,,
+22315,2809289,VIANONA MITCHELL,Maintenance Visit,10:55 AM,1/7/26,True,True,,,
+21195,2809310,CANDACE JOHNSON,Maintenance Visit,8:29 AM,12/5/25,True,True,,,
+21598,2809349,JOHN JONES,Maintenance Visit,1:15 PM,2/10/26,True,True,,,
+19393,2809742,JONI DANIELSON,Maintenance Visit,2:26 PM,12/1/25,True,True,,,
+21985,2810092,PENNY CAMPBELL,Maintenance Visit,9:55 AM,1/13/26,True,True,,,
+17159,2810319,KATHY GREENLEE,Maintenance Visit,10:10 AM,10/21/25,True,True,,,
+21118,2810455,DENISE JAMES,Maintenance Visit,2:29 PM,12/16/25,True,False,VisitStartDateTime,,
+21939,2811105,EVELYN HARDEN,Palliative Management,2:13 PM,12/12/25,True,True,,,
+20770,2811105,EVELYN HARDEN,Palliative Prognosis Visit,9:38 AM,11/12/25,True,True,,,
+19460,2811142,MARK ROBINSON,Maintenance Visit,2:41 PM,11/14/25,True,True,,,
+22186,2811361,CAROL STENGEL,Palliative Prognosis Visit,1:39 PM,1/21/26,True,True,,,
+20591,2811967,MARY FOWLER,Maintenance Visit,9:52 AM,11/24/25,True,True,,,
+21522,2812041,EVELYN HOLLINS,Maintenance Visit,8:09 AM,12/29/25,True,True,,,
+22326,2812722,WILLIAM TILLMON III,Maintenance Visit,9:05 AM,10/21/25,True,True,,,
+18423,2812722,WILLIAM TILLMON III,Maintenance Visit,1:34 PM,10/30/25,True,True,,,
+21200,2812950,ALICE HEASLET,Maintenance Visit,10:50 AM,11/5/25,True,True,,,
+21272,2812974,DURLENE EASLEY,Palliative Prognosis Visit,2:18 PM,1/6/26,True,True,,,
+21761,2813021,EDDIE CONLEY,Post Discharge Visit,9:15 AM,10/31/25,True,True,,,
+13370,2813301,DAN WELCH,Maintenance Visit,11:00 AM,10/28/25,True,True,,,
+22297,2813452,SHARON GARVEY,Palliative Management,8:05 AM,12/16/25,True,True,,,
+22276,2813452,SHARON GARVEY,Palliative Management,9:35 AM,10/21/25,True,True,,,
+20562,2813552,THOMAS WARE,Palliative Management,1:09 PM,11/12/25,True,False,VisitStartDateTime,,
+21847,2813736,JOYCE MAYS,Palliative Management,11:17 AM,1/6/26,True,True,,,
+18968,2813750,TONY HARVEY,Maintenance Visit,8:07 AM,11/14/25,True,True,,,
+10544,2814055,LINDSAY LEWIS,Maintenance Visit,8:05 AM,4/3/26,True,True,,,
+22220,2814188,CAROLYN JONES,Maintenance Visit,8:22 AM,11/17/25,True,True,,,
+20592,2814188,CAROLYN JONES,Maintenance Visit,9:22 AM,12/5/25,True,True,,,
+21157,2814389,LOU CANADY,Palliative Management,8:09 AM,11/10/25,True,False,VisitTypeValue,,
+21677,2814843,SARAH MCMILLEN,Maintenance Visit,8:11 AM,1/14/26,True,True,,,
+20535,2815111,BRIDGETTE GILKEY,Maintenance Visit,2:22 PM,12/22/25,True,True,,,
+16817,2815158,LARRY SICKA JR,Maintenance Visit,11:09 AM,6/1/26,True,True,,,
+22348,2815388,JOHNNIE DUNBAR,Palliative Management,1:15 PM,11/14/25,True,True,,,
+17812,2815615,DEBORAH DUGAN,Maintenance Visit,1:30 PM,3/6/26,True,True,,,
+22205,2815615,DEBORAH DUGAN,Post Discharge Visit,1:31 PM,10/23/25,True,True,,,
+19848,2815730,GLENDEN ROBERSON,Palliative Management,11:37 AM,12/10/25,True,True,,,
+19295,2816096,MICHAEL ROSS,Maintenance Visit,1:16 PM,1/23/26,True,True,,,
+21376,2816169,NANCY HEMME,Maintenance Visit,10:46 AM,11/3/25,True,True,,,
+21931,2816389,BONNIE OWENS,Initial Visit,1:19 PM,11/6/25,True,False,VisitStartDateTime,,
+21603,2816468,JANICE TUCK,Palliative Prognosis Visit,2:05 PM,11/10/25,True,True,,,
+17051,2816680,PEGGIE KRIDER,Palliative Management,2:00 PM,11/14/25,True,True,,,
+22023,2817035,TIFFANY STRONG,Palliative Management,9:13 AM,10/27/25,True,True,,,
+20067,2817447,CHARLES STEWART,Palliative Management,1:08 PM,12/22/25,True,False,VisitStartDateTime,,
+21053,2817649,PAULA ALLISON,Palliative Management,10:05 AM,12/19/25,True,True,,,
+18384,2817686,LINDA GLENN,Palliative Management,10:05 AM,12/1/25,True,True,,,
+21416,2817687,ELIZABETH TUCKER,Maintenance Visit,2:26 PM,11/12/25,True,True,,,
+22067,2818402,GAIL MITCHELL,Maintenance Visit,10:28 AM,11/3/25,True,True,,,
+21291,2818906,NANCY CARTMILL,Maintenance Visit,11:28 AM,11/3/25,False,False,,,No matching appointment found in MongoDB
+21296,2819310,LATONYA BROWN,Initial Visit,9:17 AM,10/21/25,True,True,,,
+21706,2819407,NICOLE CAVITT MOORE,Maintenance Visit,1:12 PM,10/29/25,False,False,,,No matching appointment found in MongoDB
+22274,2819561,DIANE SMITH,Palliative Prognosis Visit,5:07 PM,12/1/25,False,False,,,No matching appointment found in MongoDB
+13362,2819746,DARYL HEBRON,Maintenance Visit,1:05 PM,10/23/25,True,True,,,
+20578,2819755,ROBYN KELLY,Palliative Management,1:05 PM,11/20/25,False,False,,,No matching appointment found in MongoDB
+19981,2859010,BRENDA MCDONALD,Maintenance Visit,8:06 AM,11/24/25,True,True,,,
+20415,2859377,KAREN RHODES,Palliative Management,8:05 AM,12/2/25,True,True,,,
+21786,2859395,STEVE MORGAN,Maintenance Visit,1:25 PM,12/17/25,True,True,,,
+21171,2859510,WILLIE LIGON,Telephonic,1:10 PM,10/27/25,True,True,,,
+22382,2859728,JOSEPH LUKASEK JR,Initial Visit,8:18 AM,11/4/25,True,True,,,
+16730,2859913,FLORIPE CRUZ-VELEZ,Maintenance Visit,11:37 AM,1/9/26,True,True,,,
+21609,2860089,BONNIE SMITH,Maintenance Visit,1:20 PM,1/9/26,True,True,,,
+20118,2860104,DUSTIN HALL,Maintenance Visit,1:05 PM,11/12/25,True,True,,,
+16396,2860107,SHEILA CAMPBELL,Palliative Management,1:05 PM,11/13/25,True,True,,,
+17748,2860220,THERESA WEATHERMAN,Maintenance Visit,2:05 PM,1/8/26,True,True,,,
+21832,2860684,WANDA BARKS,Palliative Management,1:31 PM,12/9/25,True,True,,,
+21584,2861501,DONALD MCCLEERY,Palliative Management,1:07 PM,11/24/25,False,False,,,No matching appointment found in MongoDB
+17013,2861633,TANISHA KENNON,Maintenance Visit,2:14 PM,10/28/25,True,True,,,
+16325,2861839,RACHEL WILLIAMS,Maintenance Visit,10:32 AM,1/16/26,True,True,,,
+15858,2862329,DONNA HAWKINS,Maintenance Visit,9:16 AM,9/16/26,True,True,,,
+19541,2862359,PJ LINK,Maintenance Visit,1:19 PM,12/15/25,True,True,,,
+21784,2862470,CONDIA DICKERSON,Maintenance Visit,2:29 PM,10/28/25,True,True,,,
+21273,2862470,CONDIA DICKERSON,Maintenance Visit,3:33 PM,1/6/26,True,True,,,
+21819,2862513,ETHEL JACKSON,Maintenance Visit,1:10 PM,2/6/26,True,True,,,
+20125,2886779,LARRY WRIGHT,Palliative Management,2:15 PM,11/24/25,True,False,VisitStartDateTime,,
+20460,2886878,HELEN CAPELTON,Maintenance Visit,1:11 PM,12/18/25,True,True,,,
+19492,2886988,JERRY POWERS,Maintenance Visit,8:28 AM,12/15/25,True,True,,,
+13404,2887002,SHELIA WILLIAMS,Maintenance Visit,9:18 AM,1/7/26,True,True,,,
+22306,2887307,MARY ROBERTSON,Telephonic,8:00 AM,1/27/26,True,True,,,
+22109,2887530,MARILEE HILL,Palliative Prognosis Visit,10:20 AM,11/19/25,False,False,,,No matching appointment found in MongoDB
+22111,2887530,MARILEE HILL,Palliative Prognosis Visit,1:15 PM,11/20/25,False,False,,,No matching appointment found in MongoDB
+21496,2887765,KIMBERLY WATSON,Maintenance Visit,8:16 AM,11/14/25,False,False,,,No matching appointment found in MongoDB
+21519,2887765,KIMBERLY WATSON,Post Discharge Visit,11:32 AM,10/24/25,True,True,,,
+20614,2888059,JERRI ANSON,Maintenance Visit,8:12 AM,1/7/26,True,True,,,
+20607,2888237,DWIGHT SMITH JR,Maintenance Visit,9:00 AM,1/2/26,True,True,,,
+22199,2888572,MARCIA WEST,Palliative Prognosis Visit,11:55 AM,11/4/25,True,True,,,
+22243,2888793,BRENDA BRIDGES,Maintenance Visit,1:49 PM,2/13/26,True,True,,,
+17806,2888808,CHARLES MONTAGUE,Palliative Management,9:56 AM,12/15/25,True,True,,,
+17623,2888901,JAMES COLE,Maintenance Visit,8:48 AM,4/17/26,True,True,,,
+20005,2888996,LIEN LUONG,Palliative Prognosis Visit,8:07 AM,12/1/25,True,True,,,
+20606,2889336,ROBERT BROWN,Palliative Management,8:34 AM,6/8/26,True,True,,,
+18691,2889336,ROBERT BROWN,Palliative Prognosis Visit,3:37 PM,10/29/25,True,False,VisitStartDateTime,,
+21959,2889688,JUDITH KING,Maintenance Visit,1:08 PM,2/11/26,True,True,,,
+20741,2890067,KELLEY JOYCE,Palliative Management,2:51 PM,12/8/25,True,True,,,
+21553,2890079,MELVIN MORGAN,Maintenance Visit,2:10 PM,12/19/25,True,True,,,
+15600,2890080,PATRICIA KNIGHT,Maintenance Visit,1:39 PM,6/2/26,True,True,,,
+21853,2890098,LUCRETIA HARDY,Post Discharge Visit,8:16 AM,11/4/25,True,False,VisitTypeValue,,
+19373,2890117,MARGARET GRAYS,Maintenance Visit,1:10 PM,7/14/26,True,True,,,
+20677,2890388,CAROL NOEL,Palliative Management,8:05 AM,12/15/25,True,True,,,
+22323,2890390,CHERYL STALLINGS,Post Discharge Visit,3:32 PM,10/24/25,False,False,,,No matching appointment found in MongoDB
+19429,2890525,GINGER HAMMERS,Maintenance Visit,1:38 PM,11/11/25,True,True,,,
+19943,2890904,SHARON SLOAN,Maintenance Visit,9:21 AM,11/11/25,True,True,,,
+20929,2890956,JULIE LEWIS,Palliative Management,3:53 PM,12/3/25,True,True,,,
+21476,2891172,EUGENE SISSON,Maintenance Visit,1:18 PM,12/9/25,True,True,,,
+19745,2891341,EUGENE JOHNSON JR,Maintenance Visit,8:17 AM,3/23/26,True,True,,,
+22330,2891506,TONYA SIMMONS,Maintenance Visit,9:27 AM,1/5/26,True,True,,,
+21802,2891571,YVONNE BOYKINS,Palliative Management,8:15 AM,12/23/25,True,True,,,
+21025,2891753,DORA GREEN,Palliative Management,11:25 AM,10/30/25,True,True,,,
+22103,2892187,SHAWN DONALDSON,Post Discharge Visit,10:40 AM,11/3/25,True,True,,,
+19791,2892346,KATHRYN HALL,Palliative Management,1:22 PM,1/5/26,True,False,VisitStartDateTime,,
+22363,2892789,CAROLYN GORHAM,Maintenance Visit,2:40 PM,10/22/25,True,True,,,
+21248,2892912,NICHOLAS PAGANO,Maintenance Visit,1:35 PM,2/4/26,True,True,,,
+21958,2893122,MARCUS MATTHEWS,Palliative Management,10:10 AM,10/22/25,True,True,,,
+19546,2893149,TERRY OVERMAN,Maintenance Visit,2:42 PM,12/15/25,True,True,,,
+22337,2893332,LISA VANEST,Maintenance Visit,8:13 AM,11/17/25,True,True,,,
+20326,2893956,LESA FREEMAN,Maintenance Visit,9:16 AM,12/3/25,True,True,,,
+21518,2893974,KENNETH PETTY,Maintenance Visit,8:21 AM,1/16/26,True,True,,,
+19494,2893980,DAWN SHUMATE,Maintenance Visit,8:26 AM,11/18/25,True,True,,,
+19326,2894016,ELAINE SMITH,Maintenance Visit,8:07 AM,11/3/25,True,True,,,
+22299,2894078,DEBORAH AUGUSTINE,Maintenance Visit,4:10 PM,12/15/25,True,True,,,
+22098,2894134,GLADYS COLE,Post Discharge Visit,9:05 AM,10/27/25,True,True,,,
+22015,2894272,KATHERINE BULLOCK,Maintenance Visit,1:18 PM,2/12/26,True,True,,,
+20057,2894497,JACQUELINE JOHNSTON,Maintenance Visit,8:50 AM,12/5/25,True,True,,,
+20048,2894796,ZELVIN HILL,Palliative Management,9:55 AM,12/18/25,True,True,,,
+21858,2919342,OATIS CRAYTON,Palliative Management,2:14 PM,11/21/25,True,True,,,
+22329,2919454,LOUISE BASS,Palliative Management,8:22 AM,1/5/26,True,True,,,
+22097,2919698,SANDRA HELLMER,Maintenance Visit,2:25 PM,10/27/25,True,True,,,
+13936,2919908,BERNITA COLE,Maintenance Visit,1:14 PM,10/29/25,True,False,VisitStartDateTime,,
+21611,2920066,JO CAMPBELL,Palliative Management,1:12 PM,12/12/25,True,True,,,
+18602,2920172,LAKECIA BOWSER,Maintenance Visit,3:26 PM,10/27/25,False,False,,,No matching appointment found in MongoDB
+19771,2920311,SYLVESTER RAMSEY,Maintenance Visit,8:19 AM,11/3/25,True,True,,,
+20141,2920311,SYLVESTER RAMSEY,Maintenance Visit,11:41 AM,12/1/25,True,True,,,
+18902,2920351,CRYSTAL SWARTOUT,Maintenance Visit,8:35 AM,4/29/26,True,True,,,
+21497,2920551,VIRGIE JOHNSON,Maintenance Visit,11:42 AM,11/14/25,False,False,,,No matching appointment found in MongoDB
+21489,2920658,ANGELINA MURREY,Maintenance Visit,1:34 PM,1/29/26,True,True,,,
+20354,2920832,CECIL TERRELL,Initial Visit 2,9:45 AM,11/20/25,True,False,VisitTypeValue,,
+22263,2920981,DAUNSHERRI WILLIAMS,Palliative Management,10:52 AM,1/5/26,True,True,,,
+22187,2921230,BRENDA LINK,Maintenance Visit,1:36 PM,11/12/25,True,True,,,
+20564,2921557,VIVIAN SMITH,Palliative Management,1:06 PM,11/17/25,False,False,,,No matching appointment found in MongoDB
+21671,2922567,HARRY KINNEY,Palliative Management,1:43 PM,10/27/25,True,True,,,
+18346,2922747,ROBERT PACKER,Palliative Management,1:05 PM,12/17/25,True,True,,,
+19288,2922949,SHARON MIKELS,Palliative Management,10:30 AM,11/14/25,True,True,,,
+22399,2922991,GERALD KIRK,Palliative Management,8:13 AM,11/25/25,True,True,,,
+19000,2923229,SHARON FULTON,Maintenance Visit,2:21 PM,11/25/25,True,True,,,
+20403,2923662,PAMELA BRYANT,Maintenance Visit,8:18 AM,12/19/25,False,False,,,No matching appointment found in MongoDB
+21422,2923802,TASHARA WATSON,Maintenance Visit,9:30 AM,11/18/25,True,True,,,
+21795,2924039,HENRY BURNEY,Maintenance Visit,1:05 PM,1/9/26,True,True,,,
+15816,2924116,OWENETTA KIRCHNER,Palliative Prognosis Visit,2:50 PM,10/31/25,True,False,VisitStartDateTime,,
+22170,2924137,JACQUELINE ROGERS,Palliative Prognosis Visit,11:00 AM,11/20/25,True,True,,,
+22044,2924904,JAMES STILL,Post Discharge Visit,11:40 AM,10/21/25,True,True,,,
+20995,2924913,CARLA HAMILTON,Maintenance Visit,1:05 PM,10/28/25,True,True,,,
+18588,2925036,DEANNA BARTH,Maintenance Visit,1:53 PM,11/20/25,True,True,,,
+21006,2925132,SALLY MARCEAU,Maintenance Visit,3:40 PM,12/15/25,True,True,,,
+21789,2925304,BEATRICE WRIGHT,Palliative Management,11:30 AM,11/17/25,False,False,,,No matching appointment found in MongoDB
+19215,2925319,MARY COURTNEY,Palliative Management,2:35 PM,11/26/25,True,True,,,
+22180,2925801,WILLIE SMITH,Palliative Management,1:18 PM,12/29/25,True,True,,,
+21942,2933141,SONDRA BRANNON,Maintenance Visit,2:00 PM,2/12/26,True,True,,,
+18479,2933631,VICTOR ARNOLD,Post Discharge Visit,9:35 AM,10/23/25,True,True,,,
+22164,2933971,ELLEN DEAN,Palliative Management,10:00 AM,1/20/26,True,True,,,
+21548,2934073,JAMES COLE,Palliative Management,11:05 AM,1/14/26,True,True,,,
+22296,2934107,BRENDA WALKER,Maintenance Visit,9:19 AM,11/7/25,True,True,,,
+16768,2934128,RUTH MCLAIN,Palliative Management,1:05 PM,11/18/25,True,True,,,
+20970,2934164,ADRIANO SOTOMAYOR,Maintenance Visit,2:22 PM,11/19/25,True,True,,,
+22429,2934316,LISA CASTILLEJA,Palliative Management,11:45 AM,11/13/25,True,True,,,
+22258,2934318,NANCY ARMSTRONG,Palliative Prognosis Visit,9:35 AM,10/30/25,True,True,,,
+22307,2934384,MADELEINE THOMAS,Maintenance Visit,8:15 AM,2/11/26,True,True,,,
+21330,2934464,HAROLD BRUSH,Maintenance Visit,2:38 PM,11/18/25,True,True,,,
+19421,2934672,IRENE JOHNSON,Maintenance Visit,8:25 AM,1/9/26,True,True,,,
+16451,2934797,NOREEN LAU,Palliative Management,9:05 AM,11/17/25,True,True,,,
+21060,2934998,RUTH BARTHOLOMEW,Maintenance Visit,8:10 AM,1/20/26,True,True,,,
+16227,2935018,DONNA BOUDROW,Maintenance Visit,11:05 AM,10/30/25,True,True,,,
+15462,2935337,NADRO ADAMS,Maintenance Visit,10:10 AM,10/27/25,True,True,,,
+17569,2935448,TOMMY MASON,Palliative Management,1:05 PM,10/22/25,True,True,,,
+21711,2935488,BREANNA KOSTY,Maintenance Visit,1:05 PM,2/9/26,True,True,,,
+19581,2935686,TALIB MUHAMMAD,Maintenance Visit,3:39 PM,12/2/25,True,True,,,
+20747,2935767,TAMMY FOSTER,Palliative Management,2:47 PM,11/13/25,True,True,,,
+20023,2935872,ROSALYN HAMMONDS,Palliative Management,3:31 PM,12/3/25,True,True,,,
+21320,2936018,CHARLES MCCLANCY,Palliative Prognosis Visit,2:50 PM,11/5/25,True,True,,,
+21475,2936040,DIANE RUCH,Palliative Management,2:05 PM,1/21/26,True,True,,,
+16178,2936255,JASON APPLEGATE,Maintenance Visit,10:00 AM,11/5/25,True,True,,,
+20413,2936374,ROBERT ISREAL,Palliative Management,10:38 AM,12/1/25,True,True,,,
+17998,2936571,LAWANA MOORE,Palliative Management,10:05 AM,11/26/25,True,True,,,
+17355,2936688,LINDA SHULTZ,Palliative Management,1:55 PM,11/18/25,True,True,,,
+13407,2936766,MARY WILLIAMS,Maintenance Visit,1:05 PM,1/20/26,True,True,,,
+19163,2936874,RICHARD EASLEY,Maintenance Visit,1:31 PM,1/26/26,True,True,,,
+21714,2937183,VERONICA LYNCH,Palliative Management,11:05 AM,11/11/25,True,True,,,
+19529,2937200,SURAJETA NIKOLETIC,Maintenance Visit,1:16 PM,5/15/26,True,True,,,
+19564,2937200,SURAJETA NIKOLETIC,Maintenance Visit,2:26 PM,11/4/25,True,True,,,
+16723,2937397,CORIE ALLEN,Maintenance Visit,1:35 PM,11/7/25,True,True,,,
+16514,2937464,DEBORAH INGRAM,Maintenance Visit,2:13 PM,10/31/25,True,False,VisitStartDateTime,,
+21723,2937696,MELISSA CUSTER,Maintenance Visit,4:05 PM,1/13/26,True,True,,,
+20994,2938004,PENNY ROBINSON JOHNSON,Maintenance Visit,2:40 PM,10/23/25,True,True,,,
+22149,2938077,JEANETTE MCCLAIN,Maintenance Visit,2:31 PM,12/4/25,False,False,,,No matching appointment found in MongoDB
+22124,2989604,RODNEY DONAHUE,Maintenance Visit,9:52 AM,11/19/25,False,False,,,No matching appointment found in MongoDB
+20310,2990017,DALE SCHMIDT,Maintenance Visit,2:23 PM,11/5/25,True,True,,,
+20082,2990212,KEITH JOHNSON,Maintenance Visit,10:36 AM,11/7/25,True,True,,,
+20096,2990323,JEANNE YOUNG,Palliative Prognosis Visit,9:14 AM,10/29/25,True,True,,,
+22119,2990397,RONDA REGAN,Maintenance Visit,1:47 PM,12/10/25,True,True,,,
+21571,2990739,LARRY HARPER,Maintenance Visit,2:10 PM,12/15/25,True,True,,,
+20668,2990762,SHARON JONES,Maintenance Visit,9:40 AM,12/19/25,True,True,,,
+20042,2992608,DARLENE GRAY,Maintenance Visit,3:20 PM,12/15/25,False,False,,,No matching appointment found in MongoDB
+20114,2992837,WALLACE COWAN,Maintenance Visit,2:12 PM,11/24/25,True,False,VisitStartDateTime,,
+21140,2992904,CHRISTOPHER WALLACE,Maintenance Visit,1:21 PM,12/19/25,True,True,,,
+22027,2993146,KELVIN JENKINS,Palliative Management,11:50 AM,10/28/25,True,True,,,
+21792,2993298,TERRIE DAVIS,Maintenance Visit,11:52 AM,11/4/25,True,True,,,
+20940,2993499,SHEILA TAYLOR,Maintenance Visit,10:36 AM,12/5/25,False,False,,,No matching appointment found in MongoDB
+22321,2993541,MARY GROSS,Initial Visit,11:35 AM,10/24/25,True,True,,,
+22000,2993626,TERRY BRADFORD,Maintenance Visit,11:35 AM,11/10/25,True,True,,,
+21887,2993974,MARQUITA CRENSHAW,Maintenance Visit,2:21 PM,12/29/25,True,True,,,
+19954,2994026,SHARON MAJOR,Palliative Prognosis Visit,3:32 PM,11/11/25,True,False,VisitStartDateTime,,
+20575,2994075,JEROME SMITH,Palliative Management,9:40 AM,11/20/25,True,True,,,
+21826,2994225,ARLETA BRIGHT,Maintenance Visit,8:24 AM,2/9/26,True,True,,,
+19466,2994279,SADIE PARSON,Palliative Management,2:18 PM,11/10/25,True,False,VisitStartDateTime,,
+20905,2994462,SHAY ROBINSON,Palliative Management,2:19 PM,12/11/25,False,False,,,No matching appointment found in MongoDB
+20582,2994774,ANGEL GREEN,Maintenance Visit,3:20 PM,11/21/25,True,False,VisitStartDateTime,,
+19937,2995129,DIANA JONES,Maintenance Visit,8:15 AM,11/11/25,True,True,,,
+22344,2995213,GREGORY RENKEN,Palliative Management,1:06 PM,12/30/25,True,True,,,
+21119,2995648,IVAN DORSEY,Maintenance Visit,3:44 PM,12/16/25,True,False,VisitStartDateTime,,
+19448,2995651,EUGENE JOHNSON,Palliative Management,8:10 AM,12/5/25,True,True,,,
+20996,2995909,NICHOLAS COLEMAN,Maintenance Visit,1:05 PM,1/5/26,True,True,,,
+21331,2996047,RALPH CREWSE,Palliative Management,3:43 PM,11/18/25,True,True,,,
+18573,3002494,LORRAINE SMITH,Palliative Management,2:55 PM,1/8/26,True,True,,,
+22241,3002687,CARLA DUNNIGAN,Maintenance Visit,1:08 PM,11/17/25,True,True,,,
+18064,3003591,CLYDE MAY,Maintenance Visit,9:05 AM,11/24/25,True,True,,,
+21664,3003620,DEBORAH SMITH,Palliative Prognosis Visit,9:05 AM,11/19/25,True,True,,,
+22248,3003671,SALVATORE BUCCIERI,Maintenance Visit,1:11 PM,10/31/25,True,True,,,
+22417,3003726,PAMELA WAGNER,Maintenance Visit,9:17 AM,11/5/25,True,True,,,
+20294,3006488,DORIS NICHOLSON,Maintenance Visit,8:13 AM,12/15/25,True,True,,,
+21440,3007709,LORNA CHATMON,Maintenance Visit,9:22 AM,12/16/25,True,True,,,
+20709,3008025,THOMAS ARTRIP,Palliative Management,1:24 PM,12/8/25,True,True,,,
+21150,3008662,ROGER LETT,Maintenance Visit,2:00 PM,2/4/26,True,True,,,
+21702,3008688,WANDA TALLMAN,Maintenance Visit,2:00 PM,2/10/26,True,True,,,
+18230,3009983,ESMERALDA RODRIGUEZ,Maintenance Visit,11:15 AM,11/25/25,True,True,,,
+14981,3010130,JAMES WADE JR,Palliative Prognosis Visit,11:28 AM,10/27/25,True,True,,,
+21317,3011137,DONNA TOLLETTE,Maintenance Visit,10:00 AM,11/12/25,True,True,,,
+19478,3011840,DAVID PRICE JR,Maintenance Visit,8:33 AM,3/27/26,True,True,,,
+22165,3013506,DONNA BERGERON,Maintenance Visit,1:07 PM,1/14/26,True,True,,,
+22028,3014111,ROSE HILL,Palliative Management,9:17 AM,10/21/25,True,True,,,
+19145,3014441,TONI CRITCHFIELD,Maintenance Visit,11:30 AM,11/21/25,True,True,,,
+19465,3014642,SCHATOU LOUIS,Maintenance Visit,1:09 PM,11/10/25,True,False,VisitStartDateTime,,
+21058,3015084,CALVIN MANNING SR,Palliative Prognosis Visit,10:20 AM,11/20/25,True,True,,,
+16271,3015372,BRIEANNA BRYANT,Maintenance Visit,3:00 PM,1/7/26,True,True,,,
+21249,3015996,DELLA CLERK,Palliative Management,8:13 AM,11/18/25,True,True,,,
+21772,3016966,KELVIN DENT,Palliative Prognosis Visit,9:26 AM,11/19/25,True,True,,,
+22421,3017671,DELBERT ODELL,Maintenance Visit,2:10 PM,11/17/25,True,True,,,
+18649,3017895,JENNIFER WALKER,Palliative Prognosis Visit,2:40 PM,11/17/25,True,True,,,
+19439,3018268,LISA MOMON,Maintenance Visit,1:14 PM,1/7/26,True,True,,,
+20580,3018339,FANNIE HAYES,Maintenance Visit,1:07 PM,11/21/25,True,False,VisitStartDateTime,,
+18511,3018569,STACI THARP,Maintenance Visit,9:05 AM,12/23/25,True,True,,,
+22409,3018583,BETTY ROGERS,Palliative Management,2:19 PM,11/3/25,True,True,,,
+21042,3018723,JANIE NUCKOLS,Maintenance Visit,11:20 AM,11/10/25,True,True,,,
+20113,3019054,CYNTHIA TABOR,Maintenance Visit,3:18 PM,11/24/25,True,False,VisitStartDateTime,,
+19861,3019141,GREGORY PICKERING,Palliative Management,9:05 AM,10/28/25,True,True,,,
+17804,3020247,LUCY SHAW,Maintenance Visit,8:31 AM,12/12/25,False,False,,,No matching appointment found in MongoDB
+21602,3022244,TODD HOLLANDER,Maintenance Visit,9:35 AM,11/13/25,True,True,,,
+19533,3022448,CHRISTI MCCURDY,Maintenance Visit,1:46 PM,1/23/26,True,False,VisitStartDateTime,,
+19715,3023317,JANET BAINARD,Maintenance Visit,10:05 AM,2/9/26,True,True,,,
+19906,3023694,CLEMENTEAN WILLIAMS,Maintenance Visit,1:07 PM,11/3/25,False,False,,,No matching appointment found in MongoDB
+19947,3023694,CLEMENTEAN WILLIAMS,Maintenance Visit,2:25 PM,11/11/25,False,False,,,No matching appointment found in MongoDB
+13366,3023794,MATHIEL GOLSTON,Palliative Management,10:23 AM,10/27/25,True,True,,,
+22052,3067379,ROBERT SMITH JR,Maintenance Visit,2:25 PM,2/5/26,True,True,,,
+22213,3067922,MOHAMMAD SAEED,Maintenance Visit,2:20 PM,1/6/26,True,True,,,
+16042,3067991,WILLIAM KING JR,Maintenance Visit,1:05 PM,11/6/25,True,True,,,
+22251,3068045,LINDA NIMROD,Maintenance Visit,8:19 AM,11/4/25,True,True,,,
+17353,3068084,BILLIE MANN,Maintenance Visit,1:35 PM,12/15/25,True,True,,,
+22184,3068333,LAVERN ELL,Maintenance Visit,2:35 PM,10/24/25,True,True,,,
+21565,3068337,CRYSTEL KIRKLAND,Palliative Management,1:18 PM,12/10/25,False,False,,,No matching appointment found in MongoDB
+20811,3068352,FREDDIE SIMS,Palliative Management,11:35 AM,11/10/25,True,True,,,
+21335,3068417,DONNA JACKSON,Palliative Management,4:30 PM,11/12/25,True,True,,,
+19668,3068517,CAROL WOLNEY,Maintenance Visit,1:12 PM,11/5/25,True,True,,,
+21734,3068583,ROGER JENNINGS,Maintenance Visit,10:57 AM,1/5/26,True,True,,,
+21727,3068591,MARVIN DANIELS,Maintenance Visit,8:56 AM,1/6/26,True,True,,,
+22408,3068734,LINDA WALLACE,Maintenance Visit,1:05 PM,11/3/25,True,True,,,
+21582,3068735,REBECCA MORRIS,Maintenance Visit,11:38 AM,11/10/25,True,True,,,
+19555,3068744,JAN KOLANDER,Maintenance Visit,2:11 PM,11/21/25,True,True,,,
+18070,3068788,RONALD THOMAS,Palliative Management,1:55 PM,11/26/25,True,True,,,
+19880,3068910,LORA BELL,Palliative Prognosis Visit,1:19 PM,1/9/26,True,True,,,
+21686,3069129,DENISE CROUCH,Initial Visit 2,11:52 AM,10/29/25,True,False,VisitTypeValue,,
+19643,3069137,TAMMY COLEMAN,Palliative Management,2:10 PM,11/7/25,True,True,,,
+22012,3069218,PATRICIA PAYNE,Maintenance Visit,2:41 PM,10/21/25,True,True,,,
+22153,3069292,MICHELLE DODGE,Maintenance Visit,3:47 PM,10/23/25,True,True,,,
+19174,3069322,SALIH KUJUNDZIC,Maintenance Visit,1:18 PM,1/12/26,True,False,VisitStartDateTime,,
+16830,3069380,RHONDA MURPHY,Maintenance Visit,1:05 PM,12/31/25,True,True,,,
+20503,3069445,ELIAS BROOKS JR,Palliative Management,9:22 AM,12/8/25,True,True,,,
+16127,3069457,RONALD COTTER,Maintenance Visit,4:55 PM,11/6/25,True,True,,,
+21196,3069569,SANDRA BYRD,Palliative Management,9:47 AM,12/5/25,True,True,,,
+20185,3069639,PAT GARRISON,Maintenance Visit,2:50 PM,12/8/25,True,True,,,
+21451,3069929,NGUYET NGUYEN,Palliative Management,8:12 AM,11/12/25,True,True,,,
+20579,3069945,SANDRA CAIN,Maintenance Visit,8:15 AM,11/21/25,True,True,,,
+21687,3070122,PHILLIP JOHNSON,Maintenance Visit,2:42 PM,1/9/26,True,True,,,
+20674,3070377,LAVONE COWAN,Palliative Management,1:05 PM,12/29/25,True,True,,,
+22215,3070505,LYNDA FIELDS,Palliative Prognosis Visit,2:10 PM,10/21/25,True,True,,,
+20856,3070596,PATRICIA POKE,Palliative Prognosis Visit,11:54 AM,10/31/25,True,True,,,
+21595,3070599,FRED HOLMES,Post Discharge Visit,11:46 AM,10/28/25,True,False,VisitTypeValue,,
+22427,3070606,VERBIE JOHNSON,Maintenance Visit,9:34 AM,11/5/25,True,True,,,
+21007,3070620,DAVID SARTIN,Maintenance Visit,11:05 AM,1/8/26,True,True,,,
+20423,3070727,MANJIT KAUR,Palliative Management,8:12 AM,12/5/25,True,True,,,
+21328,3070757,ROCHELLE HIGHTOWER,Maintenance Visit,8:32 AM,11/3/25,True,True,,,
+17570,3070869,DORIS WALKER,Palliative Management,1:13 PM,10/27/25,True,True,,,
+17453,3070903,DONALYN SCHWETTMAN,Palliative Prognosis Visit,9:17 AM,1/5/26,True,True,,,
+22404,3071106,CORNELL WALLACE,Maintenance Visit,1:11 PM,10/27/25,True,True,,,
+18141,3071239,ESTELLA ROYSTER,Maintenance Visit,9:05 AM,11/26/25,True,True,,,
+19580,3071261,VICTOR ROBINSON,Maintenance Visit,2:29 PM,12/2/25,True,True,,,
+21824,3071288,SANDRA JOHNSON,Maintenance Visit,11:25 AM,10/28/25,True,True,,,
+22373,3071455,JULIE MCMILLIAN,Maintenance Visit,9:18 AM,1/6/26,False,False,,,No matching appointment found in MongoDB
+19218,3071459,SHANE WATTS,Palliative Management,10:39 AM,11/26/25,True,True,,,
+15493,3071487,JOHN SANDERS,Maintenance Visit,2:37 PM,10/28/25,True,True,,,
+20281,3071489,LULA BUSSARD,Palliative Management,2:00 PM,11/12/25,True,True,,,
+22256,3071534,MILDRED AMADI,Maintenance Visit,10:56 AM,10/23/25,True,True,,,
+18363,3071573,BELINDA MCBROOM,Palliative Management,9:05 AM,10/22/25,True,True,,,
+18282,3071573,BELINDA MCBROOM,Palliative Management,1:05 PM,12/1/25,True,True,,,
+14474,3071663,BOBBY MATHESON,Palliative Management,1:05 PM,11/3/25,True,True,,,
+18949,3071688,SHARON ALLEN,Maintenance Visit,12:04 PM,10/28/25,False,False,,,No matching appointment found in MongoDB
+20809,3071783,ROSIE BALDWIN,Maintenance Visit,10:30 AM,11/10/25,True,True,,,
+22259,3071807,PAMELA GRINER,Maintenance Visit,1:55 PM,10/31/25,True,True,,,
+21769,3071866,EUNICE KING,Maintenance Visit,9:21 AM,12/15/25,True,True,,,
+21957,3101019,SHERRIE MASSEY,Palliative Management,1:05 PM,11/12/25,True,True,,,
+21963,3101019,SHERRIE MASSEY,Palliative Prognosis Visit,2:55 PM,11/24/25,True,True,,,
+20140,3101043,VICKI GONNELLO,Palliative Prognosis Visit,9:21 AM,12/1/25,True,True,,,
+20925,3101052,RODERICK IRVIN,Maintenance Visit,8:30 AM,1/23/26,True,True,,,
+22162,3101155,GREGORY ROGERS,Maintenance Visit,8:14 AM,4/6/26,True,True,,,
+21566,3101251,HARVEY RHYNES,Palliative Prognosis Visit,1:55 PM,11/20/25,True,True,,,
+22437,3101311,ANITA WILLIAMS,Maintenance Visit,10:00 AM,10/23/25,True,True,,,
+19485,3101497,LORA WALKER,Maintenance Visit,8:17 AM,1/26/26,True,True,,,
+20557,3101881,CAROL MYERS,Maintenance Visit,3:15 PM,10/28/25,True,True,,,
+19414,3101931,JEWEL NEVELS,Palliative Management,8:16 AM,12/5/25,True,True,,,
+19372,3101990,BRANDON WALKER,Maintenance Visit,2:00 PM,12/10/25,True,True,,,
+21265,3102054,MELISSA NELSON,Maintenance Visit,1:05 PM,12/19/25,True,True,,,
+21992,3102152,DAWN SMITH,Palliative Management,8:12 AM,11/17/25,True,True,,,
+22161,3102270,MARGIE HENDERSON,Palliative Management,1:29 PM,1/14/26,True,True,,,
+21290,3102399,SHARON NOLAND,Palliative Prognosis Visit,9:37 AM,11/3/25,False,False,,,No matching appointment found in MongoDB
+22026,3102423,DOROTHY BERNARD,Maintenance Visit,10:35 AM,10/28/25,True,True,,,
+17489,3102756,CHARLES HAWKINS,Post Discharge Visit,1:05 PM,10/24/25,True,True,,,
+22137,3102801,DELORIS TROWER,Palliative Prognosis Visit,2:24 PM,12/10/25,True,True,,,
+19036,3102903,LINDA RALSTON,Palliative Management,8:10 AM,12/1/25,True,True,,,
+20330,3102913,CONSTANCE YOUNG,Maintenance Visit,1:05 PM,11/11/25,True,True,,,
+20732,3103396,MAXINE EDWARDS,Palliative Co-visit,10:30 AM,11/12/25,True,True,,,
+20123,3103396,MAXINE EDWARDS,Palliative Management,1:10 PM,11/24/25,True,False,VisitStartDateTime,,
+17498,3103545,TRACEY OWENS,Palliative Prognosis Visit,1:05 PM,10/21/25,True,True,,,
+21004,3103698,SYLVIA CAMACHO,Maintenance Visit,1:14 PM,11/7/25,True,False,VisitStartDateTime,,
+21405,3103792,ELIZABETH OWINGS,Maintenance Visit,1:52 PM,2/9/26,False,False,,,No matching appointment found in MongoDB
+18866,3103869,MICHAEL DUDLEY,Maintenance Visit,1:18 PM,1/19/26,True,True,,,
+22224,3103902,SHALONDRA HUGHES,Post Discharge Visit,3:15 PM,10/21/25,True,True,,,
+21855,3103972,EARL DUGGER,Maintenance Visit,10:33 AM,11/4/25,True,True,,,
+14626,3104268,MARY DREWER,Maintenance Visit,2:40 PM,11/13/25,True,True,,,
+22034,3104466,CHARLES WATKINS,Palliative Management,2:50 PM,10/21/25,True,True,,,
+21464,3104471,DORIS SMITH,Maintenance Visit,1:05 PM,2/6/26,True,True,,,
+21465,3104471,DORIS SMITH,Maintenance Visit,1:05 PM,12/19/25,True,True,,,
+15396,3104519,JEREMY SIDES,Palliative Management,2:10 PM,10/28/25,True,True,,,
+20499,3104534,KIMBERLY PORTER,Maintenance Visit,1:55 PM,11/11/25,True,True,,,
+19869,3104804,JESSIE COLLINS,Maintenance Visit,8:22 AM,11/12/25,True,True,,,
+22255,3104958,OZELL PERKINS,Maintenance Visit,9:45 AM,10/23/25,True,True,,,
+21925,3105101,RODNEY ULSH,Palliative Management,2:20 PM,12/15/25,True,True,,,
+21591,3105119,SHARON ANGEVINE,Maintenance Visit,2:14 PM,11/7/25,True,True,,,
+18364,3105216,ANGEL GONZALEZ,Maintenance Visit,11:35 AM,10/23/25,True,True,,,
+17889,3105267,JOHN MOROSKY,Maintenance Visit,11:15 AM,11/18/25,True,True,,,
+19381,3105270,JOEL DAVIS,Maintenance Visit,9:27 AM,12/12/25,True,True,,,
+18124,3105271,LIZA QUAMME,Maintenance Visit,9:05 AM,1/13/26,True,True,,,
+20126,3105303,LINDA PASTORI,Maintenance Visit,3:25 PM,11/24/25,True,False,VisitStartDateTime,,
+21309,3105570,JEAN BRADOW,Maintenance Visit,1:15 PM,1/30/26,True,False,VisitStartDateTime,,
+17918,3105620,SANDRA HONEYCUTT,Palliative Management,1:05 PM,11/25/25,True,True,,,
+22234,3105668,BETH CAVE,Maintenance Visit,2:00 PM,1/14/26,True,True,,,
+19366,3106037,MARGARET QUINN,Maintenance Visit,9:45 AM,11/13/25,True,True,,,
+21264,3106229,STELLA SMALL,Maintenance Visit,9:05 AM,11/12/25,True,True,,,
+21047,3106355,MARY MCGRATH,Maintenance Visit,8:10 AM,2/6/26,True,True,,,
+17287,3138020,ANNE CRAVENS,Maintenance Visit,4:05 PM,11/11/25,True,True,,,
+20926,3138077,TAMMY PARKER,Palliative Management,8:19 AM,12/5/25,False,False,,,No matching appointment found in MongoDB
+20419,3138874,PARKASH SEHJ PAL,Palliative Management,1:19 PM,12/2/25,True,True,,,
+19426,3139065,RICKY FELDPAUSCH,Palliative Management,1:17 PM,12/1/25,True,True,,,
+14431,3139222,FLORENCE JONES,Maintenance Visit,1:10 PM,11/6/25,True,False,VisitStartDateTime,,
+16073,3139642,ESTHER WHITE-VANN,Palliative Management,9:06 AM,10/31/25,False,False,,,No matching appointment found in MongoDB
+21432,3140769,FRANCES PAYNE,Maintenance Visit,1:17 PM,12/22/25,True,False,VisitStartDateTime,,
+21005,3167813,LINDA WALTERS,Palliative Management,2:56 PM,11/7/25,True,False,VisitStartDateTime,,
+22207,3171419,KIMBERLY PATTOK,Initial Visit,3:57 PM,10/23/25,True,True,,,
+20312,3172053,ABIGAIL MARTINEZ,Maintenance Visit,3:29 PM,11/5/25,True,True,,,
+21870,3172330,RICHARD BIONDO,Maintenance Visit,10:55 AM,12/30/25,True,True,,,
+21062,3172377,ANNAMARIA GREEN,Maintenance Visit,1:17 PM,2/3/26,True,True,,,
+20239,3172414,BARBARA BLUBAUGH,Palliative Management,1:50 PM,11/5/25,True,False,VisitStartDateTime,,
+17091,3172522,JACK HOWARD,Maintenance Visit,4:05 PM,11/20/25,True,True,,,
+17495,3173060,KATHIE HEMBREE,Maintenance Visit,10:15 AM,11/21/25,True,True,,,
+21453,3173217,DAVID TOOLEY,Maintenance Visit,1:13 PM,11/17/25,True,True,,,
+21201,3173217,DAVID TOOLEY,Maintenance Visit,1:50 PM,1/29/26,True,True,,,
+19438,3173331,BETTY HILL,Maintenance Visit,1:16 PM,3/25/26,True,True,,,
+15288,3174147,HEATH CALLAWAY,Maintenance Visit,1:05 PM,12/22/25,True,True,,,
+20134,3174218,CAROL ALDER,Palliative Management,1:47 PM,11/13/25,True,False,VisitStartDateTime,,
+22249,3174275,CAROL BASCUE,Maintenance Visit,11:05 AM,11/13/25,True,True,,,
+14433,3174299,KATIE YEIK,Palliative Management,11:05 AM,10/22/25,True,True,,,
+21360,3174318,CHARLOTTE KETCHUM,Palliative Management,1:05 PM,11/10/25,True,True,,,
+21991,3174424,PATRICIA BUSBY,Maintenance Visit,11:47 AM,10/27/25,True,True,,,
+16512,3174750,JOYCE WASHINGTON,Palliative Management,2:00 PM,11/17/25,True,True,,,
+21107,3174924,LESLIE GISHWILLER,Maintenance Visit,1:05 PM,2/4/26,True,True,,,
+15276,3175040,JEANETTE LAVINE,Palliative Management,11:41 AM,10/28/25,True,True,,,
+22419,3175149,LORA STEVENS,Maintenance Visit,11:30 AM,11/5/25,True,True,,,
+22281,3175205,JUDY CANMAN,Maintenance Visit,1:13 PM,4/9/26,True,True,,,
+20757,3175209,DELPHIA CLINTON,Maintenance Visit,8:43 AM,12/2/25,True,True,,,
+22304,3175756,ROBERT WAMHOFF,Initial Visit,9:45 AM,11/6/25,True,True,,,
+20598,3175991,MARVIN THOMAS,Maintenance Visit,2:27 PM,12/5/25,True,True,,,
+13367,3176072,ROY MOORE,Maintenance Visit,11:31 AM,10/27/25,True,True,,,
+22407,3176102,STELLA CHAMBERS,Maintenance Visit,9:23 AM,12/22/25,True,True,,,
+21682,3176245,JAMES BOYKINS,Maintenance Visit,10:44 AM,1/16/26,True,True,,,
+22290,3176252,SHILAH MCINTIRE,Palliative Prognosis Visit,11:00 AM,10/29/25,True,True,,,
+21271,3176266,WARDELL WIGGINS,Maintenance Visit,1:06 PM,1/6/26,True,True,,,
+21835,3176427,MARY KEELER,Maintenance Visit,3:26 PM,11/7/25,False,False,,,No matching appointment found in MongoDB
+19644,3176428,DAVIDA JOHNSON,Maintenance Visit,3:15 PM,11/7/25,True,True,,,
+20063,3176512,ROBERT MCDONALD,Maintenance Visit,8:14 AM,12/22/25,True,True,,,
+21863,3176880,BADIR AL MATOUQ,Maintenance Visit,1:12 PM,10/22/25,True,True,,,
+21967,3177014,STEVEN ROLLINS,Maintenance Visit,8:27 AM,2/13/26,True,True,,,
+20595,3177290,CATHERINE LANNON,Maintenance Visit,3:42 PM,12/5/25,True,True,,,
+18156,3177349,JOHN CHENOWETH,Palliative Management,11:05 AM,11/26/25,True,True,,,
+21764,3201281,SAMUEL KELLY,Maintenance Visit,8:05 AM,2/13/26,True,True,,,
+22236,3201332,RAVARDA MINOR,Initial Visit,12:10 PM,10/21/25,True,True,,,
+22302,3201365,FREDERICK HOFFMAN,Post Discharge Visit,3:00 PM,10/22/25,True,True,,,
+22173,3201413,BOBBIE PAYNE,Initial Visit 2,8:38 AM,4/14/26,True,False,VisitTypeValue,,
+20000,3201603,JAILEN IVY,Palliative Management,2:12 PM,11/24/25,True,True,,,
+15275,3201608,ALBINO AGUAYO OCHOA,Maintenance Visit,10:33 AM,10/28/25,True,True,,,
+21829,3201640,PEGGY STILLWELL,Maintenance Visit,9:49 AM,11/12/25,True,True,,,
+20248,3201640,PEGGY STILLWELL,Maintenance Visit,1:05 PM,11/19/25,True,True,,,
+21995,3201807,ELROY WIGGINS,Maintenance Visit,10:07 AM,12/15/25,True,True,,,
+21554,3202494,ARVETTA HAYES,Maintenance Visit,3:18 PM,12/19/25,True,True,,,
+22071,3202499,LORETTA NEWELL,Post Discharge Visit,1:05 PM,10/22/25,True,True,,,
+21183,3202583,CONNIE COX,Maintenance Visit,12:00 PM,11/12/25,True,True,,,
+18948,3203081,LUCILLE HAYES,Palliative Management,10:48 AM,10/28/25,False,False,,,No matching appointment found in MongoDB
+20332,3203081,LUCILLE HAYES,Palliative Management,1:11 PM,11/13/25,False,False,,,No matching appointment found in MongoDB
+21871,3203114,JOSEPH BAUMEISTER,Maintenance Visit,1:19 PM,2/10/26,True,True,,,
+15259,3203155,MARGARET HAMM,Palliative Management,11:00 AM,10/24/25,True,True,,,
+21679,3203887,SUSAN SHANNON PENN,Maintenance Visit,9:38 AM,12/22/25,True,True,,,
+18761,3203947,BILLY DUNN,Maintenance Visit,1:20 PM,4/8/26,True,True,,,
+22418,3203975,VALERIE TAGGERT JEFFRIES,Maintenance Visit,10:22 AM,11/5/25,True,True,,,
+22208,3204048,ELEANOR POWERS,Maintenance Visit,5:37 PM,10/23/25,True,True,,,
+17187,3204149,STEPHEN BULLER,Palliative Management,3:05 PM,11/25/25,True,True,,,
+21888,3204397,JACQUELINE COLLINS,Maintenance Visit,1:16 PM,12/29/25,True,True,,,
+20061,3230020,JUDY MILLER,Palliative Management,9:55 AM,12/4/25,True,True,,,
+18003,3230470,PATRICIA POPE,Maintenance Visit,10:30 AM,11/24/25,True,True,,,
+20517,3230503,PATRICIA VANMETER,Palliative Management,9:22 AM,10/24/25,True,True,,,
+20092,3230546,JERLYN ROBERTS,Palliative Management,9:49 AM,11/11/25,True,True,,,
+19639,3230681,BILLY DOWLER JR,Palliative Management,2:21 PM,11/14/25,False,False,,,No matching appointment found in MongoDB
+19534,3230850,TANJA KOVACEVIC,Maintenance Visit,1:19 PM,1/12/26,True,False,VisitStartDateTime,,
+21800,3230889,ELVA PILAND,Maintenance Visit,1:08 PM,10/30/25,True,True,,,
+20079,3230989,DANNY KENNON,Maintenance Visit,2:51 PM,10/27/25,True,True,,,
+22349,3231105,MARIA SEBRING,Maintenance Visit,2:20 PM,11/14/25,True,True,,,
+13801,3231146,GUSSIE ROSS,Maintenance Visit,2:14 PM,10/27/25,True,True,,,
+22291,3231299,TYRONE GRIMES,Maintenance Visit,8:24 AM,2/20/26,True,True,,,
+22095,3231400,ANNETTE HIGHFILL,Maintenance Visit,3:10 PM,1/12/26,True,True,,,
+22156,3231892,GENISE GRIMES,Maintenance Visit,2:15 PM,10/28/25,True,True,,,
+20569,3231892,GENISE GRIMES,Maintenance Visit,2:19 PM,11/18/25,False,False,,,No matching appointment found in MongoDB
+21155,3232136,KELLY TUDER,Maintenance Visit,3:04 PM,10/30/25,True,True,,,
+20756,3232261,SHIRLEY RUSHER,Maintenance Visit,8:18 AM,7/8/26,True,True,,,
+21743,3232353,MARJORIE COLLINS,Palliative Management,8:14 AM,1/2/26,True,True,,,
+21380,3232469,MARSHA BUMPHREY,Palliative Management,8:05 AM,12/22/25,True,True,,,
+21564,3232808,ALEASE HOWARD,Palliative Management,2:28 PM,12/10/25,False,False,,,No matching appointment found in MongoDB
+21654,3232888,CHARLES LOGAN,Initial Visit 2,4:00 PM,11/7/25,True,False,VisitTypeValue,,
+21823,3232995,DOROTHY HODGES,Maintenance Visit,2:15 PM,1/12/26,True,True,,,
+19988,3233257,BRENDA SAVAGE,Palliative Management,9:17 AM,11/24/25,True,True,,,
+19430,3233320,WESLEY GAYNOR,Palliative Management,2:59 PM,11/11/25,True,True,,,
+21834,3233394,ELLA WARD,Palliative Management,2:58 PM,11/10/25,True,True,,,
+21882,3233419,HERBERT BEAZLEY,Palliative Management,9:05 AM,1/7/26,True,True,,,
+21020,3233655,GARY NICHOLSON SR,Maintenance Visit,8:47 AM,1/12/26,True,True,,,
+20670,3233725,HAROLD LASH JR,Palliative Management,8:22 AM,12/23/25,False,False,,,No matching appointment found in MongoDB
+22402,3256355,DIANA BUTLER,Maintenance Visit,10:55 AM,11/17/25,True,True,,,
+21896,3256556,DIANE WHITE,Palliative Management,3:26 PM,10/22/25,True,True,,,
+21744,3256685,MICHAEL TSOURAS,Maintenance Visit,1:12 PM,1/2/26,True,True,,,
+14422,3256989,JOE BURGIN,Maintenance Visit,9:36 AM,12/2/25,True,True,,,
+19804,3256991,DANIEL HUNT,Palliative Management,4:05 PM,12/23/25,True,True,,,
+20299,3257059,DELONDA PRYOR JONES,Maintenance Visit,9:42 AM,12/15/25,True,True,,,
+21715,3257213,CORTEZ SMITH,Maintenance Visit,1:10 PM,11/19/25,True,True,,,
+15898,3257351,CAROL ALLEN,Maintenance Visit,3:05 PM,1/14/26,True,True,,,
+20693,3257426,QUDELL JONES,Maintenance Visit,8:53 AM,12/8/25,True,True,,,
+21560,3257583,NORVELL GATES,Initial Visit 2,8:13 AM,11/5/25,True,False,VisitTypeValue,,
+20122,3257612,DORIS THIERRY,Maintenance Visit,8:20 AM,11/24/25,False,False,,,No matching appointment found in MongoDB
+21825,3257805,LARONDA LENOIR,Maintenance Visit,10:12 AM,10/28/25,True,True,,,
+18448,3258016,STANLEY ROSE,Maintenance Visit,2:45 PM,12/1/25,True,True,,,
+19117,3258188,BENETTA STEWART,Palliative Management,1:27 PM,1/5/26,True,True,,,
+17086,3258287,DALE HUFFMAN,Maintenance Visit,1:05 PM,11/26/25,True,True,,,
+17474,3258418,MARNE DRIVER,Maintenance Visit,11:15 AM,10/21/25,True,True,,,
+19394,3258627,CONNIE MCCARTNEY,Palliative Prognosis Visit,1:35 PM,12/3/25,True,False,VisitStartDateTime,,
+21866,3258667,GENEVA COLE,Maintenance Visit,9:55 AM,11/20/25,True,True,,,
+20277,3258719,DORIS GASSOWAY,Maintenance Visit,8:13 AM,11/4/25,True,True,,,
+21144,3258829,HAROL BAKER,Maintenance Visit,2:27 PM,11/18/25,True,True,,,
+21278,3258901,KRISTEN HEITZ,Maintenance Visit,11:00 AM,2/5/26,True,True,,,
+20262,3259053,CHRISTY EDMUNDS,Maintenance Visit,9:34 AM,11/14/25,True,True,,,
+21801,3259279,REBECCA PAUL,Maintenance Visit,1:40 PM,4/14/26,True,False,VisitStartDateTime,,
+21596,3259469,DOROTHY CHATMAN,Maintenance Visit,9:22 AM,10/28/25,True,True,,,
+20355,3259671,CHERYL HOLLOWELL,Maintenance Visit,1:06 PM,11/20/25,False,False,,,No matching appointment found in MongoDB
+19467,3260192,LESLIE SHORES,Maintenance Visit,3:29 PM,11/10/25,True,False,VisitStartDateTime,,
+20812,3260282,DARRYL DONALDSON JR,Palliative Prognosis Visit,8:13 AM,1/28/26,True,True,,,
+21838,3279876,BILL HOLLAND JR,Maintenance Visit,1:23 PM,12/30/25,True,True,,,
+20703,3279889,STEVIE WITT,Maintenance Visit,1:16 PM,12/8/25,False,False,,,No matching appointment found in MongoDB
+18545,3279987,SYBLE POINTER,Palliative Management,1:15 PM,11/13/25,True,True,,,
+22406,3280069,ROBBIE WILLIAMS,Maintenance Visit,10:28 AM,12/22/25,True,True,,,
+22144,3280164,ANDREA TUCKER,Maintenance Visit,3:27 PM,12/9/25,True,False,VisitStartDateTime,,
+13686,3280345,ROBERTA POINDEXTER,Maintenance Visit,2:05 PM,10/23/25,True,True,,,
+21689,3280450,KAREN PICKERD,Maintenance Visit,1:17 PM,2/13/26,True,True,,,
+20935,3280552,LAURIE THOMAS,Maintenance Visit,8:15 AM,12/12/25,True,True,,,
+19328,3280609,KIMBERLY MERRELL,Initial Visit,9:29 AM,11/3/25,True,True,,,
+19996,3280654,CHERYL HUNTER,Palliative Management,10:55 AM,12/22/25,True,True,,,
+20410,3280771,DORRIS BRAISHER,Palliative Management,9:29 AM,12/1/25,True,True,,,
+22221,3280780,PATRICIA WILBON,Maintenance Visit,9:28 AM,11/17/25,True,True,,,
+15575,3281302,DANA BARTLETT,Maintenance Visit,9:06 AM,10/28/25,True,True,,,
+17593,3281462,DWAYNE LOVE,Maintenance Visit,1:05 PM,11/4/25,True,True,,,
+19202,3281584,STEPHEN MACDONALD,Palliative Prognosis Visit,10:37 AM,11/11/25,False,False,,,No matching appointment found in MongoDB
+20600,3281774,ERIC FLOURNOY,Maintenance Visit,11:36 AM,12/5/25,True,True,,,
+21891,3281919,KENNETH EVANS,Maintenance Visit,8:14 AM,11/3/25,True,True,,,
+20780,3282222,DIANA TRIMARKE,Maintenance Visit,8:16 AM,12/22/25,True,True,,,
+17994,3282357,NORMAN NEUMEYER,Maintenance Visit,1:05 PM,1/8/26,True,True,,,
+16461,3282842,ALISON HARMON,Palliative Prognosis Visit,10:50 AM,11/19/25,True,True,,,
+18601,3283072,WAYNE MARTIN,Maintenance Visit,2:18 PM,10/27/25,False,False,,,No matching appointment found in MongoDB
+22287,3283257,MELISSA EVERETT,Maintenance Visit,2:10 PM,10/21/25,True,True,,,
+17406,3283257,MELISSA EVERETT,Maintenance Visit,2:36 PM,10/22/25,True,True,,,
+21707,3283438,THERESA MCPHEARSON,Palliative Prognosis Visit,2:22 PM,10/29/25,False,False,,,No matching appointment found in MongoDB
+22420,3283693,MARK RICE,Maintenance Visit,1:05 PM,11/17/25,True,True,,,
+19199,3284071,YOLANDA GREER,Maintenance Visit,8:16 AM,11/11/25,False,False,,,No matching appointment found in MongoDB
+20908,3318137,RUTH ELLIS,Maintenance Visit,1:08 PM,2/6/26,True,False,VisitStartDateTime,,
+21793,3318237,CHARLOTTE RILEY,Maintenance Visit,9:32 AM,11/4/25,True,True,,,
+22029,3318241,OLIVIA MAYO,Maintenance Visit,10:22 AM,10/21/25,True,True,,,
+18026,3318266,BARBARA DANIELS,Palliative Management,1:05 PM,10/27/25,True,True,,,
+18102,3318622,LISA BALLARD,Maintenance Visit,1:14 PM,12/23/25,True,True,,,
+21656,3318651,MADELINE VANCE,Post Discharge Visit,11:05 AM,10/30/25,True,True,,,
+21536,3318843,EARLEAN BRUCE,Maintenance Visit,8:13 AM,12/30/25,True,True,,,
+15764,3318906,CONNIE HENSLEY,Maintenance Visit,1:23 PM,12/19/25,True,True,,,
+22212,3319174,BRENDA DAVIS,Maintenance Visit,1:10 PM,1/6/26,True,True,,,
+21570,3319206,OTIS JOHNSON,Palliative Prognosis Visit,10:29 AM,10/28/25,False,False,,,No matching appointment found in MongoDB
+21930,3319271,LAVETA TALCOTT,Maintenance Visit,10:05 AM,11/13/25,True,True,,,
+22175,3319350,MARY BRAXDALE,Maintenance Visit,1:10 PM,10/23/25,True,True,,,
+19319,3319373,JOHN HOGAN,Palliative Management,1:17 PM,12/5/25,True,False,VisitStartDateTime,,
+16915,3319494,MICHELLE MCMONIGLE,Maintenance Visit,2:49 PM,11/3/25,True,False,VisitStartDateTime,,
+21175,3319532,HAROLD HARTMANN,Palliative Management,8:24 AM,12/31/25,True,True,,,
+22202,3319595,TINA HOGENDOBLER,Maintenance Visit,3:54 PM,11/3/25,True,True,,,
+21239,3319609,MARK MARVIN,Maintenance Visit,10:59 AM,11/17/25,True,True,,,
+20471,3319641,BECKY SWANSON,Maintenance Visit,1:44 PM,11/10/25,True,False,VisitStartDateTime,,
+20060,3320100,ANGELA BLACKMON,Maintenance Visit,9:35 AM,10/23/25,True,True,,,
+16816,3320114,DANIEL SMITH,Maintenance Visit,9:34 AM,6/1/26,True,True,,,
+20679,3320138,LAVONZELL GUNN,Maintenance Visit,10:45 AM,1/2/26,True,False,VisitStartDateTime,,
+20146,3320415,CAMILLA FRISTOE,Maintenance Visit,8:31 AM,12/1/25,True,True,,,
+21257,3320577,DEBORA BLOSSER,Palliative Management,10:05 AM,1/7/26,True,True,,,
+20029,3320622,MELVIN REED,Maintenance Visit,9:25 AM,12/12/25,True,True,,,
+19296,3320764,BETTY CHASE,Maintenance Visit,8:19 AM,1/23/26,True,True,,,
+13430,3320790,GLENDA JENKINS,Maintenance Visit,1:18 PM,7/7/26,True,True,,,
+21841,3320888,MICHAEL GARRETT,Maintenance Visit,2:29 PM,11/20/25,True,False,VisitStartDateTime,,
+21154,3320931,TOSHIA MESZAROS,Maintenance Visit,1:50 PM,1/2/26,True,False,VisitStartDateTime,,
+21813,3321150,LINDA RENO,Maintenance Visit,10:35 AM,10/27/25,True,True,,,
+20615,3321177,KATHLEEN MORRISON,Maintenance Visit,9:17 AM,1/7/26,True,True,,,
+22432,3321263,VIRGINIA ARMSTRONG,Maintenance Visit,1:20 PM,2/2/26,True,True,,,
+19676,3321365,RHONDA OCONNOR,Palliative Management,11:35 AM,10/30/25,True,True,,,
+21073,3337404,MAE TUMMINELLO,Palliative Management,10:44 AM,11/12/25,True,True,,,
+21799,3337582,NICOLE BENEFIELD,Initial Visit,10:05 AM,10/21/25,True,True,,,
+22189,3337583,SCOTT ROMANS,Maintenance Visit,1:52 PM,10/24/25,True,True,,,
+21306,3337657,JEFFREY MEANS SR,Maintenance Visit,8:23 AM,12/1/25,True,True,,,
+22400,3338132,DIRA BURRAGE,Post Discharge Visit,8:17 AM,11/17/25,True,True,,,
+22424,3338132,DIRA BURRAGE,Post Discharge Visit,1:05 PM,10/22/25,True,True,,,
+21445,3338291,DARLENE WILLIAMS,Maintenance Visit,1:11 PM,12/18/25,True,True,,,
+21768,3338482,ARNETA RUTHERFORD,Maintenance Visit,8:11 AM,12/15/25,True,True,,,
+22239,3338525,JOHN HOFER,Maintenance Visit,3:07 PM,10/27/25,True,True,,,
+20742,3338600,DANNY MERRITT,Palliative Management,1:33 PM,12/2/25,False,False,,,No matching appointment found in MongoDB
+20502,3338679,WILLIAM SHIREMAN,Maintenance Visit,11:31 AM,11/25/25,True,True,,,
+21878,3338746,ANNIE CLAYBON,Maintenance Visit,8:23 AM,1/12/26,True,True,,,
+20553,3338820,TOMMIE GUY,Maintenance Visit,10:35 AM,11/7/25,True,True,,,
+21637,3338876,GENEVA WOLFF,Maintenance Visit,9:19 AM,10/22/25,True,True,,,
+19208,3339267,DONALD WEST,Maintenance Visit,8:12 AM,12/10/25,True,True,,,
+20546,3339750,BARBARA OBANNON,Initial Visit,8:15 AM,11/14/25,True,True,,,
+20664,3340009,CHRISTOPHER HART,Maintenance Visit,8:34 AM,12/17/25,True,True,,,
+19479,3340053,TERRY MEADOWS,Maintenance Visit,1:31 PM,1/27/26,True,True,,,
+22070,3340065,RICHARD FRANCIS,Palliative Management,1:14 PM,12/29/25,False,False,,,No matching appointment found in MongoDB
+21318,3340162,ROBERT CARBAUGH,Palliative Management,1:18 PM,12/17/25,True,True,,,
+21167,3340205,SANDRA JUNGE,Telephonic,1:00 PM,10/28/25,True,True,,,
+19127,3340328,JO GOBER,Maintenance Visit,1:12 PM,12/12/25,True,True,,,
+21938,3340332,BRIGGETTE KEMP,Maintenance Visit,1:08 PM,12/12/25,True,True,,,
+19935,3340344,THELMA LITTLE,Palliative Management,1:06 PM,11/10/25,True,True,,,
+20505,3340492,HARRY HARPER,Maintenance Visit,8:21 AM,1/12/26,True,True,,,
+20819,3340542,JACOB WOOTEN JR,Palliative Management,1:10 PM,12/17/25,True,False,VisitStartDateTime,,
+21556,3340763,AROMANZE SPIGHT,Maintenance Visit,1:08 PM,2/9/26,True,True,,,
+21477,3340808,DARNESHIA JONES,Maintenance Visit,9:27 AM,11/18/25,True,True,,,
+19112,3340858,RICHARD FERGUSON,Palliative Prognosis Visit,10:00 AM,12/4/25,True,True,,,
+16376,3340948,JULIE EDWARDS,Maintenance Visit,9:25 AM,3/9/26,True,True,,,
+13384,3341103,KATHY CHITWOOD,Maintenance Visit,1:05 PM,11/14/25,True,True,,,
+21973,3341106,RICHARD MORTON,Initial Visit,5:41 PM,10/27/25,True,True,,,
+20755,3341163,ROBERT JENKINS,Maintenance Visit,8:24 AM,7/13/26,True,True,,,
+20678,3341293,GEOFFREY COONEY,Maintenance Visit,9:40 AM,1/2/26,True,False,VisitStartDateTime,,
+17388,3341293,GEOFFREY COONEY,Maintenance Visit,10:37 AM,1/2/26,False,False,,,No matching appointment found in MongoDB
+20136,3341581,CELESTE CONAWAY,Palliative Prognosis Visit,2:00 PM,11/5/25,True,True,,,
+18198,3341595,SHIRLEY BESS,Maintenance Visit,1:05 PM,10/27/25,True,True,,,
+16613,3341689,GLORIA BARKER,Maintenance Visit,2:30 PM,10/29/25,True,False,VisitStartDateTime,,
+19526,3341697,BECKY VOGT,Maintenance Visit,1:16 PM,6/1/26,True,True,,,
+22198,3341765,TROY SEBRING,Maintenance Visit,2:40 PM,1/5/26,True,True,,,
+18600,3359319,SHYRON MCFADDEN,Maintenance Visit,1:11 PM,10/27/25,True,True,,,
+20777,3359512,ALBERT GILFORD,Maintenance Visit,9:32 AM,12/12/25,True,True,,,
+21827,3359853,DEBRA FLOWERS,Maintenance Visit,10:54 AM,11/12/25,True,True,,,
+16608,3360138,DIANA BROWN,Maintenance Visit,1:24 PM,11/6/25,True,True,,,
+20999,3360138,DIANA BROWN,Maintenance Visit,1:24 PM,11/10/25,True,True,,,
+19512,3360658,VIRGINIA GARCIA,Maintenance Visit,8:33 AM,1/20/26,True,True,,,
+21639,3360785,ASHLEY HUGHES,Initial Visit,11:37 AM,10/22/25,True,True,,,
+20769,3360839,DORETHA SHELTON,Post Discharge Visit,8:29 AM,11/12/25,True,True,,,
+12022,3360900,CHRISTIE SCHOUP,Maintenance Visit,1:33 PM,11/13/25,True,True,,,
+18586,3361090,MARTHA ANDERSON,Maintenance Visit,1:42 PM,12/19/25,True,False,VisitStartDateTime,,
+21688,3361516,SANDRA MARTIN,Palliative Prognosis Visit,3:56 PM,1/9/26,True,True,,,
+22041,3361623,DARLENE SCOTT,Initial Visit 2,1:41 PM,11/13/25,True,False,"VisitTypeValue, VisitStartDateTime",,
+21168,3361623,DARLENE SCOTT,Telephonic,1:30 PM,10/28/25,True,True,,,
+20384,3361666,SHARON LANE,Maintenance Visit,9:45 AM,11/17/25,True,True,,,
+18938,3361914,TRINA ORTON,Maintenance Visit,1:35 PM,12/17/25,True,True,,,
+19445,3361927,BETTY VERMILLION,Maintenance Visit,1:17 PM,11/24/25,True,True,,,
+21263,3362590,SHERESA ANDERSON,Maintenance Visit,8:32 AM,2/9/26,True,True,,,
+21923,3362591,KIM PARKER,Maintenance Visit,1:51 PM,12/10/25,True,True,,,
+19428,3362928,ROBERT BRANNAN,Maintenance Visit,8:45 AM,11/10/25,True,True,,,
+20965,3363003,DONNA NEIGHBORS,Palliative Management,2:34 PM,12/22/25,True,True,,,
+22107,3363079,HOMER GREEN JR,Maintenance Visit,2:20 PM,10/30/25,True,True,,,
+21525,3363485,MARY PERKINS,Maintenance Visit,8:19 AM,1/6/26,True,True,,,
+19930,3363980,ELAINE BRYSON,Maintenance Visit,8:16 AM,11/10/25,True,True,,,
+19542,3364368,THOMAS MOYNIHAN,Maintenance Visit,3:47 PM,12/15/25,True,True,,,
+17078,3364627,ADEL ALHAIDAR,Maintenance Visit,10:24 AM,1/5/26,True,True,,,
+14239,3364889,CONSUEALO BANKS,Maintenance Visit,11:31 AM,10/27/25,False,False,,,No matching appointment found in MongoDB
+17260,3367702,EMMANUEL ARMAH,Maintenance Visit,1:05 PM,11/18/25,True,True,,,
+19506,3367820,CYNTHIA BELTON,Maintenance Visit,1:56 PM,11/11/25,True,True,,,
+22218,3367836,LAWRENCE PHILLIPS,Initial Visit 2,9:19 AM,10/29/25,True,False,VisitTypeValue,,
+17780,3368002,CHRISTINE EATON,Maintenance Visit,10:54 AM,10/24/25,True,True,,,
+20610,3368091,JAMES MCCOWN,Maintenance Visit,2:36 PM,1/7/26,True,True,,,
+21672,3368163,CAROLYN DUEMLER,Palliative Management,4:24 PM,10/27/25,True,True,,,
+18695,3368506,DARLA NEWTON,Maintenance Visit,9:14 AM,3/16/26,True,True,,,
+20367,3368662,SAMANTHA ELLIS,Maintenance Visit,2:23 PM,11/14/25,True,True,,,
+21569,3368782,ROBERT SANFORD,Palliative Prognosis Visit,3:31 PM,11/5/25,True,False,VisitStartDateTime,,
+20238,3368872,KATHERINE LEWIS,Palliative Prognosis Visit,8:33 AM,11/5/25,False,False,,,No matching appointment found in MongoDB
+20875,3368872,KATHERINE LEWIS,Palliative Prognosis Visit,10:54 AM,11/5/25,False,False,,,No matching appointment found in MongoDB
+20904,3368956,PAUL CRAIG,Palliative Management,1:14 PM,12/11/25,False,False,,,No matching appointment found in MongoDB
+21091,3369056,BRENDA JOHNSON,Maintenance Visit,9:19 AM,2/6/26,False,False,,,No matching appointment found in MongoDB
+16860,3369092,CHRISTINA HOOD,Palliative Management,11:35 AM,12/29/25,True,True,,,
+22411,3369246,TYNNETTE TURNER,Post Discharge Visit,9:35 AM,10/23/25,True,True,,,
+21708,3369509,JUANITA COLLINS,Initial Visit,3:32 PM,10/29/25,False,False,,,No matching appointment found in MongoDB
+20749,3369561,RHONDA FRANCKA,Initial Visit,2:36 PM,11/17/25,True,True,,,
+18681,3369561,RHONDA FRANCKA,Initial Visit,4:47 PM,11/17/25,True,True,,,
+21064,3369677,KIMBERLEE DOUGLAS,Palliative Management,1:19 PM,12/18/25,True,True,,,
+21166,3370042,CYNTHIA CALLAHAN,Maintenance Visit,8:39 AM,10/28/25,True,True,,,
+19491,3370042,CYNTHIA CALLAHAN,Maintenance Visit,8:39 AM,12/2/25,False,False,,,No matching appointment found in MongoDB
+20013,3370113,GARY HOGUE,Maintenance Visit,9:24 AM,12/3/25,True,True,,,
+20155,3370143,DENNIS FRYER,Maintenance Visit,1:16 PM,12/2/25,True,True,,,
+19929,3370198,JOSEPHINE WHITFIELD,Maintenance Visit,9:21 AM,11/10/25,True,True,,,
+21438,3370345,RONNIE HALL,Initial Visit,12:00 PM,11/6/25,True,True,,,
+22036,3370537,WILLIE GILBERT,Initial Visit,8:26 AM,11/4/25,True,True,,,
+21012,3370617,MARY MCFALL,Maintenance Visit,9:14 AM,10/21/25,True,True,,,
+21237,3370813,GUADALUPE CARBAJAL,Initial Visit,8:49 AM,11/17/25,True,True,,,
+22102,3370844,CAROLYN WILSON,Maintenance Visit,3:37 PM,10/24/25,True,True,,,
+22222,3370967,S LEFLORE JR,Maintenance Visit,1:17 PM,1/23/26,True,True,,,
+16986,3371097,RICHARD BOWERS,Palliative Management,9:05 AM,1/6/26,True,True,,,
+21415,3371153,LARRY VANMETER,Palliative Management,1:17 PM,11/12/25,True,True,,,
+20608,3371272,ELAINE HONTZ,Palliative Management,9:40 AM,1/7/26,True,True,,,
+22033,3371318,RICHARD LINDHORST,Maintenance Visit,1:21 PM,10/21/25,True,True,,,
+20255,3371424,PAUL CORDS,Palliative Prognosis Visit,8:23 AM,11/14/25,True,True,,,
+22431,3371469,ALLEN NEIGHBORS,Palliative Prognosis Visit,9:19 AM,11/21/25,True,True,,,
+21675,3371525,MARILYN BRISTER,Palliative Prognosis Visit,1:05 PM,10/28/25,True,True,,,
+22325,3371540,ALVIN SHOOP,Maintenance Visit,8:17 AM,12/3/25,True,True,,,
+19562,3371615,MICHAEL MEANS,Palliative Management,1:08 PM,11/4/25,True,True,,,
+19191,3371863,JAMES FOLEY,Maintenance Visit,10:05 AM,12/22/25,True,True,,,
+21541,3371883,LJUBA PANIC,Maintenance Visit,1:22 PM,2/2/26,True,True,,,
+22389,3371900,PAMELA WILLIAMS,Maintenance Visit,1:11 PM,11/5/25,False,False,,,No matching appointment found in MongoDB
+21645,3371962,SUNDAYOSULE OCHONOGOR,Maintenance Visit,2:17 PM,10/29/25,True,True,,,
+20570,3371980,AMBER HINTON,Maintenance Visit,3:24 PM,11/18/25,False,False,,,No matching appointment found in MongoDB
+22397,3372009,TERESA GUILLEN,Palliative Management,8:05 AM,1/2/26,True,True,,,
+20050,3372014,PATRICIA LEWALLEN,Maintenance Visit,1:16 PM,12/5/25,True,True,,,
+20981,3372157,MARION DUNLAP,Palliative Management,2:50 PM,12/19/25,True,True,,,
+20655,3372282,SHEILA HARDIN,Maintenance Visit,8:23 AM,12/1/25,True,True,,,
+19961,3372365,DELORES LEE,Maintenance Visit,10:47 AM,11/17/25,True,True,,,
+15532,3372595,TONIA PAGE,Palliative Prognosis Visit,2:06 PM,10/21/25,True,False,VisitTypeValue,,
+19443,3390358,JOANN WHITMORE,Maintenance Visit,1:26 PM,11/25/25,True,True,,,
+17148,3390367,ELEANOR PISANO,Palliative Management,2:50 PM,11/17/25,True,True,,,
+22094,3390411,MANDY ROBINSON,Post Discharge Visit,5:02 PM,10/21/25,True,True,,,
+19402,3390439,CAROLYN TEMPLE,Maintenance Visit,1:15 PM,12/2/25,False,False,,,No matching appointment found in MongoDB
+17811,3390441,MATTHEW CROLLARD,Maintenance Visit,8:31 AM,2/20/26,True,True,,,
+19212,3390451,BEULAH LIGHTFOOT,Maintenance Visit,8:29 AM,11/26/25,True,True,,,
+19776,3390491,SARITA MCELVAINE,Initial Visit,9:16 AM,10/22/25,False,False,,,No matching appointment found in MongoDB
+21640,3390491,SARITA MCELVAINE,Initial Visit,1:11 PM,10/22/25,True,True,,,
+21106,3390557,RUBY GARDNER,Initial Visit,11:51 AM,10/22/25,True,True,,,
+20028,3390691,SHEENA ROBINSON,Maintenance Visit,8:19 AM,12/12/25,True,True,,,
+19850,3390706,PAMELA THOMAS,Maintenance Visit,1:16 PM,11/17/25,True,True,,,
+21763,3390714,ABBIE HENDERSON,Maintenance Visit,11:35 AM,10/31/25,True,True,,,
+22155,3390714,ABBIE HENDERSON,Maintenance Visit,1:08 PM,10/28/25,False,False,,,No matching appointment found in MongoDB
+21022,3390748,GARY BROCKES,Maintenance Visit,8:18 AM,10/27/25,True,True,,,
+22152,3390796,KARL WHITE SR,Initial Visit,2:19 PM,10/23/25,True,True,,,
+19515,3390847,BETTY WARREN,Maintenance Visit,8:25 AM,1/16/26,True,True,,,
+18961,3390867,KENNETH TURNER,Palliative Prognosis Visit,3:26 PM,10/28/25,False,False,,,No matching appointment found in MongoDB
+20402,3390894,KATHLENE JENNINGS,Maintenance Visit,1:05 PM,11/20/25,True,True,,,
+22206,3391104,RALPH ORF,Palliative Prognosis Visit,2:46 PM,10/23/25,True,True,,,
+16499,3391187,ROBERT WILLOUGHBY SR,Palliative Management,1:05 PM,11/7/25,True,True,,,
+20923,3391739,DOROTHY WALKER,Maintenance Visit,9:35 AM,12/17/25,True,True,,,
+21145,3392299,BARBARA GRIFFIN,Maintenance Visit,3:33 PM,11/18/25,True,True,,,
+20493,3392404,KATHY BEVER,Maintenance Visit,2:10 PM,11/10/25,True,False,VisitStartDateTime,,
+18717,3392508,CLIFFORD TOLBERT,Maintenance Visit,2:35 PM,12/10/25,True,True,,,
+21812,3392516,LEE RUSH,Palliative Management,9:27 AM,10/27/25,True,True,,,
+22118,3393078,SHELLIE NEWBURN,Palliative Prognosis Visit,3:37 PM,11/19/25,True,True,,,
+20568,3393383,MILDRED TOWNSEND,Maintenance Visit,1:07 PM,11/18/25,False,False,,,No matching appointment found in MongoDB
+21375,3393482,JULIA HANAK,Maintenance Visit,8:40 AM,11/3/25,True,True,,,
+20341,3393531,GAIL VERHARST,Maintenance Visit,8:18 AM,11/14/25,False,False,,,No matching appointment found in MongoDB
+20547,3393531,GAIL VERHARST,Maintenance Visit,9:32 AM,11/14/25,True,True,,,
+15993,3393667,PAM GOODWIN,Telephonic,1:00 PM,11/21/25,True,True,,,
+10536,3393724,MARGARET FREEMAN,Maintenance Visit,9:15 AM,10/28/25,False,False,,,No matching appointment found in MongoDB
+21890,3393753,CARLA WORLEY,Maintenance Visit,8:06 AM,11/21/25,True,True,,,
+20754,3393811,CLARENCE WINSTON JR,Maintenance Visit,8:20 AM,6/24/26,True,True,,,
+20826,3393867,BOBBIE GREER,Palliative Management,8:33 AM,11/18/25,True,True,,,
+21270,3393867,BOBBIE GREER,Palliative Management,11:00 AM,10/22/25,True,True,,,
+18008,3393907,DOROTHY PEREZ,Maintenance Visit,1:35 PM,11/26/25,True,True,,,
+19275,3393907,DOROTHY PEREZ,Telephonic,8:00 AM,12/12/25,True,True,,,
+15752,3394144,MAGNOLIA BEENE,Maintenance Visit,9:45 AM,2/12/26,True,True,,,
+20418,3394146,WILLIAM MARINO JR,Maintenance Visit,9:14 AM,12/2/25,True,True,,,
+16248,3394226,KIMBERLY DUNN,Maintenance Visit,2:17 PM,2/5/26,True,True,,,
+22371,3394336,HERMAN LUCY,Palliative Management,10:31 AM,1/6/26,False,False,,,No matching appointment found in MongoDB
+19320,3394339,BARBARA WEBSTER,Palliative Management,2:30 PM,12/5/25,True,False,VisitStartDateTime,,
+18647,3394507,JOYCE WEISER,Maintenance Visit,9:31 AM,1/23/26,True,True,,,
+20070,3394518,SHIRLEY MULDREW,Maintenance Visit,8:05 AM,1/5/26,True,True,,,
+22181,3394574,FORREST WILLIAMS,Maintenance Visit,10:38 AM,11/18/25,True,True,,,
+22171,3394810,JANET LINDEMAN,Palliative Prognosis Visit,4:25 PM,10/21/25,True,True,,,
+20874,3395364,BRENDA HUNTLEY,Maintenance Visit,9:27 AM,11/5/25,False,False,,,No matching appointment found in MongoDB
+20550,3395874,JEANINE GARCIA,Maintenance Visit,1:11 PM,12/3/25,True,True,,,
+20472,3395920,MARTHA ROOS,Maintenance Visit,2:58 PM,11/10/25,True,False,VisitStartDateTime,,
+21956,3395933,MARLO COTTON,Maintenance Visit,2:14 PM,12/22/25,True,True,,,
+21854,3411068,SUSAN TUCKER,Palliative Prognosis Visit,9:21 AM,11/4/25,True,True,,,
+22283,3411108,NATHAN JENNINGS,Maintenance Visit,10:44 AM,1/20/26,True,True,,,
+22372,3411109,SHIRLEY BRYAN,Maintenance Visit,8:13 AM,1/6/26,False,False,,,No matching appointment found in MongoDB
+22279,3412571,MICHAEL SCHATZ,Maintenance Visit,1:34 PM,11/18/25,True,True,,,
+22178,3412622,ROGER GRUBBS,Initial Visit,1:12 PM,11/25/25,True,True,,,
+17782,3412736,ANGELINA NEAL,Maintenance Visit,9:33 AM,10/24/25,True,True,,,
+20516,3412868,LARRY WILSON,Maintenance Visit,10:40 AM,10/24/25,True,True,,,
+20603,3412910,KEVIN BROWN,Palliative Management,2:13 PM,12/1/25,True,False,VisitStartDateTime,,
+21093,3412917,DONNA SHEREN,Maintenance Visit,1:46 PM,2/3/26,True,True,,,
+22435,3412964,WILSON MOSER,Maintenance Visit,9:05 AM,10/28/25,True,True,,,
+20849,3413007,CHAROLETTE DODGE,Maintenance Visit,1:15 PM,12/9/25,True,True,,,
+20660,3413079,LAWRENCE WOODS,Maintenance Visit,8:16 AM,12/9/25,True,True,,,
+22280,3413252,MILDRED SPURLIN,Maintenance Visit,2:53 PM,11/18/25,True,True,,,
+22272,3413280,CALVIN GRAYSON,Maintenance Visit,9:10 AM,12/9/25,True,True,,,
+15779,3413365,RHONDA BRUMMER,Maintenance Visit,2:35 PM,12/17/25,True,True,,,
+21305,3413493,EMMA CHANDLER,Maintenance Visit,9:36 AM,12/1/25,True,True,,,
+20254,3413734,BELINDA MANN,Palliative Prognosis Visit,8:31 AM,12/30/25,True,True,,,
+14418,3413813,WALTER RAINEY,Palliative Management,9:05 AM,10/21/25,True,True,,,
+21684,3414022,MARY CREAMER,Palliative Prognosis Visit,8:19 AM,1/6/26,True,True,,,
+13725,3414028,SANDRA SMITH,Maintenance Visit,2:35 PM,1/12/26,True,True,,,
+16795,3414106,DOUGLAS RUETHER,Maintenance Visit,11:32 AM,10/31/25,True,True,,,
+10519,3414135,CATHERINE BICKELL,Maintenance Visit,1:05 PM,10/28/25,True,True,,,
+17374,3414153,MILDRED POYNER,Palliative Prognosis Visit,10:12 AM,10/21/25,True,True,,,
+21499,3414222,MILDRED PAIGE,Maintenance Visit,8:09 AM,12/19/25,True,True,,,
+20802,3414225,TAMMY RACKARD,Maintenance Visit,1:49 PM,12/2/25,False,False,,,No matching appointment found in MongoDB
+22359,3414541,CAROLYN TEMPLES,Initial Visit,11:35 AM,12/2/25,True,True,,,
+19825,3414645,ANNA MCGAHAN,Palliative Management,1:12 PM,11/10/25,True,True,,,
+21805,3414648,HELEN GULLEY,Maintenance Visit,1:05 PM,1/6/26,True,True,,,
+21392,3414649,CLAYTON CATO,Initial Visit,2:42 PM,11/11/25,True,False,VisitStartDateTime,,
+22354,3414683,MAXINE OLIPHANT,Maintenance Visit,2:16 PM,11/3/25,False,False,,,No matching appointment found in MongoDB
+20176,3414692,PATRICIA DUBOIS,Maintenance Visit,1:27 PM,12/3/25,True,True,,,
+17096,3414708,DONNA RICHARDSON,Maintenance Visit,2:35 PM,2/16/26,True,True,,,
+21452,3414726,MACHELLE AITCH,Maintenance Visit,9:29 AM,11/12/25,True,True,,,
+19553,3414781,CONNIE BARKER,Maintenance Visit,2:43 PM,11/24/25,True,True,,,
+22126,3414836,BARBARA CHILES,Maintenance Visit,1:31 PM,10/21/25,True,True,,,
+19570,3414849,CHARVAN JAMERSON,Maintenance Visit,1:25 PM,1/9/26,True,True,,,
+21913,3414874,CHARLIE BAKER,Initial Visit,8:05 AM,11/25/25,True,True,,,
+19122,3414897,CLARENCE MIMS,Initial Visit,1:29 PM,10/21/25,False,False,,,No matching appointment found in MongoDB
+22423,3414951,THOMAS DOWD,Palliative Management,11:00 AM,11/24/25,True,True,,,
+18208,3415009,JUSTEEN BEACH,Maintenance Visit,3:08 PM,1/12/26,True,False,VisitStartDateTime,,
+20446,3415076,PATRICIA TRUSSELL,Maintenance Visit,1:16 PM,12/22/25,True,True,,,
+21771,3415300,HILDA DOWNS,Initial Visit,8:21 AM,11/19/25,True,True,,,
+21193,3415387,JESSIE ROBINSON,Maintenance Visit,8:46 AM,1/27/26,True,True,,,
+21864,3415457,THERESA HERTWECK,Initial Visit,2:56 PM,10/22/25,True,True,,,
+21067,3415700,ANGELA RIEKEN,Initial Visit,8:26 AM,11/4/25,True,True,,,
+21663,3415906,ESTHER TAYLOR,Initial Visit,11:42 AM,10/21/25,True,True,,,
+21176,3415941,MARY MORRIS,Palliative Management,8:05 AM,12/16/25,True,True,,,
+19568,3415977,BRITNEY BUFORD,Maintenance Visit,8:17 AM,1/21/26,True,True,,,
+21472,3416428,MARY BAKER,Initial Visit,8:05 AM,11/18/25,True,True,,,
+20319,3416437,LINDA TAYLOR,Palliative Prognosis Visit,5:48 PM,11/5/25,True,True,,,
+15781,3416582,ROSE COLEMAN,Maintenance Visit,2:35 PM,11/11/25,True,True,,,
+21068,3416674,SANDRA WHITMORE,Initial Visit,10:11 AM,11/4/25,False,False,,,No matching appointment found in MongoDB
+17077,3416727,AMY RUSSELL,Maintenance Visit,2:35 PM,12/8/25,True,True,,,
+20824,3416796,LYNNIE JACKSON,Maintenance Visit,10:35 AM,10/31/25,True,True,,,
+21142,3416901,SHEREE ROGERS,Maintenance Visit,12:12 PM,10/21/25,True,True,,,
+21393,3417000,AMANDA WALLACE,Maintenance Visit,3:56 PM,11/11/25,True,False,VisitStartDateTime,,
+22393,3417257,KENNETH BROWN,Maintenance Visit,10:44 AM,12/16/25,True,True,,,
+18989,3417278,DIANE FARRIS,Maintenance Visit,4:05 PM,1/19/26,True,True,,,
+20669,3417288,SCOTT KERKMAN,Maintenance Visit,10:45 AM,12/19/25,True,True,,,
+18988,3417584,JERRY IRBY,Maintenance Visit,3:05 PM,1/20/26,True,True,,,
+20825,3417696,GAY STEWART,Maintenance Visit,9:16 AM,10/31/25,True,True,,,
+21710,3417879,CLEVELAND HASSELL,Initial Visit,9:50 AM,10/23/25,True,True,,,
+22345,3418005,SHENANDOEH BRISCOE,Palliative Management,2:18 PM,12/30/25,True,True,,,
+22318,3418005,SHENANDOEH BRISCOE,Palliative Management,3:35 PM,10/24/25,False,False,,,No matching appointment found in MongoDB
+18476,3418067,BARBARA THOMAS,Maintenance Visit,1:12 PM,1/16/26,True,True,,,
+21045,3418110,REGINALD TURNER,Palliative Management,8:50 AM,4/6/26,True,True,,,
+21092,3418130,GLENDA GRAHAM,Initial Visit,1:05 PM,11/4/25,True,True,,,
+20251,3418172,LORRETT HAGAN,Palliative Prognosis Visit,3:05 PM,1/21/26,True,True,,,
+22123,3418217,RALPH HUTTON,Maintenance Visit,8:31 AM,11/19/25,True,True,,,
+21658,3418352,ELIZABETH WILLIAMS,Maintenance Visit,9:32 AM,12/19/25,True,True,,,
+19753,3418365,CHARLES CLIFT,Maintenance Visit,1:07 PM,11/13/25,True,True,,,
+18143,3418549,LINDA BUNDY,Palliative Management,1:35 PM,12/2/25,True,True,,,
+21000,3418553,BONNIE KOLLER,Maintenance Visit,8:05 AM,2/2/26,True,True,,,
+21125,3418692,GEORGE BURNETTE JR,Maintenance Visit,8:06 AM,2/10/26,True,True,,,
+20888,3418796,MEGAN BROHM,Maintenance Visit,8:29 AM,12/9/25,True,True,,,
+17516,3418816,DUANE FAVREAU,Maintenance Visit,1:35 PM,1/6/26,True,True,,,
+21914,3418911,ROGER MOORE,Initial Visit,9:10 AM,11/25/25,True,True,,,
+22238,3418941,BARBARA FINCHER,Maintenance Visit,1:31 PM,10/27/25,True,True,,,
+22436,3418946,JOHNNY AYERS,Maintenance Visit,10:20 AM,10/28/25,False,False,,,No matching appointment found in MongoDB
+20882,3418973,ROBERTA VAUGHN,Palliative Management,1:17 PM,12/16/25,True,True,,,
+20112,7000109,SHARON DILLE,Palliative Management,1:05 PM,11/24/25,True,False,VisitStartDateTime,,
+22390,7000179,JESSICA TANNER,Post Discharge Visit,1:30 PM,10/23/25,True,True,,,
+21276,7000221,MICHAEL BREIER,Maintenance Visit,9:27 AM,1/9/26,False,False,,,No matching appointment found in MongoDB
+18993,7000231,MARY SLATER,Palliative Management,1:05 PM,12/4/25,True,False,VisitStartDateTime,,
+21762,7000253,ANITA MONROE,Maintenance Visit,10:27 AM,10/31/25,True,True,,,
+20803,7000254,PATRINA WATTS,Maintenance Visit,2:55 PM,12/2/25,False,False,,,No matching appointment found in MongoDB
+17662,7000286,DARRELL PECK,Maintenance Visit,2:35 PM,3/9/26,True,True,,,
+19357,7000471,LUZ MARRON RIOS,Initial Visit,1:13 PM,11/14/25,False,False,,,No matching appointment found in MongoDB
+20202,7000578,JANICE FUGATE,Maintenance Visit,1:20 PM,12/12/25,True,True,,,
+19552,7000651,DONNA WARNER,Maintenance Visit,1:33 PM,11/24/25,True,True,,,
+21386,7000772,BENJAMIN WILLIAMSON III,Maintenance Visit,3:25 PM,10/31/25,True,False,VisitStartDateTime,,
+19877,7000779,LINDA SMITH,Maintenance Visit,9:29 AM,1/6/26,True,True,,,
+17537,7000844,PATRICIA JACKSON,Maintenance Visit,2:35 PM,2/2/26,True,True,,,
+22227,7000907,ROBERT HERRICK,Maintenance Visit,1:18 PM,2/13/26,True,True,,,
+21822,7001198,ODELL CLARK JR,Palliative Management,1:10 PM,1/12/26,True,True,,,
+19488,7001516,ROBERT KRAIBERG,Maintenance Visit,9:51 AM,1/16/26,True,True,,,
+22092,7001516,ROBERT KRAIBERG,Post Discharge Visit,2:31 PM,10/21/25,True,True,,,
+20244,7001772,R RANKIN,Maintenance Visit,8:20 AM,11/3/25,True,True,,,
+21455,7001893,JACKIE BURTON,Initial Visit,8:28 AM,11/11/25,True,True,,,
+21718,7001948,ALLEN WALKER,Maintenance Visit,8:13 AM,1/30/26,True,True,,,
+21581,7001972,MONICA SMITH,Palliative Prognosis Visit,10:33 AM,11/10/25,True,True,,,
+17248,7002366,MARJORIE THOMAS,Maintenance Visit,10:55 AM,11/13/25,True,True,,,
+20815,7002406,VALLEN JACKSON,Maintenance Visit,10:04 AM,1/12/26,True,True,,,
+16204,7002824,JULIA HOSKINS,Maintenance Visit,1:05 PM,10/24/25,True,True,,,
+21916,7002890,KEITH DEAN JR,Initial Visit,10:24 AM,10/29/25,True,True,,,
+21191,7002922,STEVEN FLOREA,Initial Visit 2,3:53 PM,10/28/25,True,False,VisitTypeValue,,
+21333,7002977,RAELENE PENDLETON,Initial Visit,1:12 PM,11/12/25,True,True,,,
+22013,7003722,LINDA THOMPSON,Maintenance Visit,3:46 PM,10/21/25,True,True,,,
+22151,7003966,DANNA KYLES,Initial Visit,12:10 PM,10/23/25,True,True,,,
+22219,7004076,LILLIAN DUKES BROOKS,Initial Visit,10:24 AM,10/29/25,True,True,,,
+22115,7004110,JOHN KELLY JR,Maintenance Visit,8:22 AM,11/19/25,True,True,,,
+22367,7004110,JOHN KELLY JR,Post Discharge Visit,11:48 AM,10/27/25,True,True,,,
+21719,7004556,DARLENE DECLUE,Maintenance Visit,8:05 AM,1/5/26,True,True,,,
+22357,7005383,MARSHA HUCKSTEP,Initial Visit,8:33 AM,12/2/25,True,True,,,
+22253,7005512,BETTY POTTS,Maintenance Visit,1:14 PM,1/20/26,True,True,,,
+21690,7005618,KATHLEEN KRAUS,Palliative Prognosis Visit,3:12 PM,10/21/25,True,True,,,
+21840,7005899,JENNIFER DAVIDSON,Maintenance Visit,1:20 PM,11/20/25,True,False,VisitStartDateTime,,
+16035,7005996,PAMELA KIMREY,Maintenance Visit,2:35 PM,1/19/26,True,True,,,
+20689,7006121,JAMES MERCER,Initial Visit,11:13 AM,10/23/25,True,True,,,
+17080,7006142,RONNEASHER HARDEN,Maintenance Visit,11:29 AM,1/5/26,True,True,,,
+21612,7007235,CYNTHIA BIRDNOW,Maintenance Visit,2:21 PM,12/12/25,True,True,,,
+22350,7007462,DOROTHY CORDS,Maintenance Visit,3:36 PM,11/14/25,True,True,,,
+16822,7007537,CERIMA MUHELJIC,Palliative Management,9:18 AM,1/7/26,True,True,,,
+21529,7007796,KARL HIRSCH,Palliative Management,8:11 AM,12/19/25,True,True,,,
+15649,7007803,PHYLLIS CAUDLE,Palliative Prognosis Visit,2:35 PM,11/10/25,True,True,,,
+21505,7008070,CAROLINE RAINEY,Maintenance Visit,9:19 AM,11/4/25,True,True,,,
+15397,7008111,DANIEL SIMMONS,Maintenance Visit,2:35 PM,11/18/25,True,True,,,
+22201,7008374,MARY FOWLER,Initial Visit,2:37 PM,11/3/25,True,True,,,
+18246,7009078,SHERRY JOHNSTON,Maintenance Visit,2:35 PM,10/21/25,True,False,VisitTypeValue,,
+18942,7009094,GWENDOLYN BROWN,Maintenance Visit,1:09 PM,1/23/26,True,True,,,
+22116,7009391,JIMMIE BILLINGSLEY,Maintenance Visit,9:29 AM,11/19/25,True,True,,,
+20609,7009754,JANE RUDOLPH,Maintenance Visit,9:10 AM,1/7/26,True,True,,,
+20966,7010166,TAMARA THOMAS,Maintenance Visit,1:26 PM,12/22/25,True,True,,,
+20252,7010169,PAMELA ELLEY,Maintenance Visit,2:35 PM,2/18/26,True,True,,,
+20791,7010184,BETSY STERNER,Maintenance Visit,1:26 PM,1/8/26,True,False,VisitStartDateTime,,
+21353,7010185,DAWN SOBLEY CUMMINGS,Maintenance Visit,8:05 AM,2/4/26,True,True,,,
+15314,7010419,ADAM GOZA,Palliative Prognosis Visit,3:05 PM,11/17/25,True,True,,,
+18461,7010585,WRAY WEBB,Maintenance Visit,2:35 PM,1/28/26,True,True,,,
+20713,7010598,WANDA ATTERBERRY,Maintenance Visit,8:05 AM,11/25/25,True,True,,,
+17427,7010674,JEREMY TURNER,Maintenance Visit,2:35 PM,2/17/26,True,True,,,
+18810,7010699,VIRGINIA FREER,Maintenance Visit,2:35 PM,10/28/25,True,True,,,
+20081,7010743,HARVEY LINHARDT,Maintenance Visit,9:27 AM,11/7/25,True,True,,,
+15443,7011200,LANA BOONE,Maintenance Visit,2:35 PM,1/6/26,True,True,,,
+20778,7011202,MARY ROGERS,Maintenance Visit,8:05 AM,12/12/25,True,True,,,
+22090,7011323,JUANITA BALL,Initial Visit,11:34 AM,10/27/25,True,True,,,
+19269,7011327,MAE MYERS,Maintenance Visit,10:31 AM,12/10/25,True,True,,,
+19336,7011397,DIANA DUBUQUE,Maintenance Visit,1:17 PM,11/7/25,True,True,,,
+17262,7011410,DIANE KERR,Palliative Management,1:13 PM,1/9/26,True,True,,,
+22370,7011446,HARRISON ALLEN III,Initial Visit,11:16 AM,10/30/25,False,False,,,No matching appointment found in MongoDB
+19128,7011484,ALISSA SANFORD,Maintenance Visit,1:16 PM,2/27/26,True,True,,,
+16646,7011484,ALISSA SANFORD,Maintenance Visit,2:35 PM,10/27/25,True,True,,,
+21011,7011832,CHERYLE GIDDENS,Maintenance Visit,8:05 AM,2/3/26,True,True,,,
+22077,7011861,IDA JOHNSON,Initial Visit,11:11 AM,10/30/25,True,True,,,
+22428,7011949,LORRAINE BLUE,Maintenance Visit,10:39 AM,11/5/25,True,True,,,
+20253,7011995,SHERRY ALLISON,Maintenance Visit,8:05 AM,1/26/26,True,True,,,
+22257,7012184,LAURA ELLIOTT,Initial Visit,2:10 PM,10/23/25,True,True,,,
+18819,7012208,DAVID BARNARD,Initial Visit 2,2:35 PM,2/10/26,True,False,VisitTypeValue,,
+21862,7012268,LARRY HUGHES,Maintenance Visit,1:08 PM,11/26/25,True,True,,,
+19716,7012446,LYNETTE MAXWELL,Palliative Prognosis Visit,2:40 PM,10/27/25,True,True,,,
+21530,7012531,STANLEY PRUITT,Palliative Management,9:24 AM,12/19/25,True,True,,,
+16727,7012547,MARY PULLEY,Maintenance Visit,1:05 PM,1/2/26,True,True,,,
+21179,7012666,KATHY SHOEMAKER,Maintenance Visit,2:51 PM,11/6/25,True,True,,,
+18787,7012685,VERSCINE MCCLEE,Maintenance Visit,3:05 PM,2/16/26,True,True,,,
+21321,7012832,JOANNE YANCEY,Maintenance Visit,1:16 PM,4/1/26,True,True,,,
+18995,7012999,LONNIE MCBRIDE,Maintenance Visit,1:10 PM,11/21/25,True,True,,,
+16021,7013026,STEVEN WRIGHT,Maintenance Visit,2:05 PM,10/27/25,True,True,,,
+18814,7013307,CURTIS SANDERS,Maintenance Visit,2:35 PM,2/23/26,True,True,,,
+22232,7013371,RITA WHITE,Initial Visit,9:53 AM,10/30/25,True,True,,,
+13971,7013421,TONI MECHLIN,Maintenance Visit,2:35 PM,1/26/26,True,True,,,
+18930,7013422,CARMEN HILL,Maintenance Visit,8:09 AM,1/16/26,True,True,,,
+18730,7013464,MICHAEL DISTASI,Maintenance Visit,2:35 PM,1/21/26,True,True,,,
+18851,7013600,KATHLEEN BAUER,Palliative Management,1:35 PM,1/20/26,True,False,VisitStartDateTime,,
+21203,7013620,EDWARD HENDERSON,Palliative Prognosis Visit,8:05 AM,11/18/25,True,True,,,
+16652,7013863,DAVID DOWLING,Maintenance Visit,2:35 PM,11/19/25,True,True,,,
+22136,7013889,DAVID WERNER,Maintenance Visit,8:14 AM,2/13/26,True,True,,,
+22364,7014072,TERRIE WAGNER,Palliative Prognosis Visit,3:45 PM,10/22/25,True,True,,,
+20181,7014106,DAVID WORRELL,Maintenance Visit,2:35 PM,10/29/25,True,True,,,
+21735,7014220,SARAH WARREN,Maintenance Visit,8:05 AM,1/15/26,True,True,,,
+19337,7014312,TANYA TUCKER BORGMEYER,Maintenance Visit,8:13 AM,11/7/25,True,True,,,
+16758,7014325,JOY FOSTER,Maintenance Visit,1:07 PM,1/30/26,True,True,,,
+21852,7014386,DONNA COMIA,Maintenance Visit,8:16 AM,1/23/26,True,True,,,
+20928,7014481,BERNETTA HACKWORTH,Palliative Prognosis Visit,1:29 PM,12/3/25,True,True,,,
+21868,7014565,WAYNE HUGHES,Maintenance Visit,2:35 PM,2/11/26,True,True,,,
+17222,7015342,MARTHA UNDERWOOD,Maintenance Visit,11:53 AM,1/7/26,True,True,,,
+19924,7015754,KENNETH MAYS SR,Maintenance Visit,8:06 AM,11/7/25,True,True,,,
+20697,7015845,KATHRYN DOUGLAS,Maintenance Visit,8:21 AM,12/2/25,True,True,,,
+22032,7015845,KATHRYN DOUGLAS,Post Discharge Visit,10:20 AM,10/21/25,True,True,,,
+18541,7016008,PATRICIA GRANDA,Telephonic,1:00 PM,12/19/25,True,True,,,
+21833,7016087,DAVID HEPKER,Maintenance Visit,1:19 PM,11/10/25,True,True,,,
+21275,7016351,BERULONDA REESE,Maintenance Visit,8:22 AM,1/9/26,False,False,,,No matching appointment found in MongoDB
+17876,7016449,OKA DAVIS,Telephonic,3:00 PM,10/22/25,True,True,,,
+22294,7016624,JACQUELINE MOSBY,Maintenance Visit,9:27 AM,12/16/25,True,True,,,
+21289,7017315,PATSY BOYD,Initial Visit,8:10 AM,11/3/25,False,False,,,No matching appointment found in MongoDB
+21783,7017499,SONJA DIXON,Initial Visit,1:12 PM,10/28/25,True,True,,,
+21860,7017516,WILLIAM MILLER,Maintenance Visit,4:28 PM,11/21/25,True,True,,,
+21104,7017543,MARK CAVANAUGH,Palliative Prognosis Visit,9:10 AM,10/22/25,True,True,,,
+19251,7017839,SANDRA HOLDEN,Maintenance Visit,8:21 AM,11/12/25,False,False,,,No matching appointment found in MongoDB
+19870,7017839,SANDRA HOLDEN,Maintenance Visit,9:46 AM,11/12/25,True,True,,,
+22158,7018763,MICHAEL NEMEC,Post Discharge Visit,5:35 PM,10/21/25,True,True,,,
+20971,7018827,RYAN GALE,Initial Visit,4:25 PM,11/13/25,True,True,,,
+19368,7018924,SCOTT FOOTE SR,Maintenance Visit,8:24 AM,11/14/25,True,True,,,
+18980,7019091,BETTY THOMPSON,Maintenance Visit,1:13 PM,1/16/26,True,True,,,
+22179,7019379,REBA DUCK,Initial Visit,2:28 PM,11/25/25,True,True,,,
+21983,7019435,DARRYL GILLESPIE II,Initial Visit,11:32 AM,11/7/25,True,True,,,
+22014,7019546,SANDRA CARPENTER,Maintenance Visit,3:55 PM,10/21/25,True,True,,,
+17407,7019750,TERESA HOPKINS,Maintenance Visit,1:14 PM,10/22/25,True,True,,,
+21946,7019776,KIMALEN KNIGHT BARNES,Initial Visit 2,11:00 AM,11/6/25,True,False,VisitTypeValue,,
+18799,7020018,DOROTHY JONES,Palliative Prognosis Visit,1:24 PM,12/16/25,True,False,VisitStartDateTime,,
+20647,7020175,REGINA HUTCHESON,Palliative Management,2:54 PM,10/23/25,True,True,,,
+21202,7020368,LINDA SIMPSON,Maintenance Visit,11:00 AM,12/9/25,True,True,,,
+21152,7020663,AMANDA MELTON,Initial Visit,2:41 PM,11/4/25,False,False,,,No matching appointment found in MongoDB
+21695,7020703,LISA WILSON,Initial Visit,1:40 PM,10/24/25,True,True,,,
+17536,7020891,YVONNE EVANS,Palliative Prognosis Visit,2:35 PM,12/16/25,True,True,,,
+21898,7020999,CELESTE WATKINS,Initial Visit 2,10:22 AM,11/11/25,True,False,VisitTypeValue,,
+20304,7021148,ABIGAIL RUFFIN,Maintenance Visit,9:16 AM,11/19/25,True,True,,,
+20424,7021350,GWENDOLYN BROWN,Maintenance Visit,9:28 AM,12/5/25,True,True,,,
+22058,7021552,MICHAEL SADLER,Initial Visit,11:16 AM,11/4/25,False,False,,,No matching appointment found in MongoDB
+17535,7021741,LINDA JONES,Palliative Prognosis Visit,2:35 PM,12/15/25,True,True,,,
+19287,7021806,SARAH REESE,Maintenance Visit,9:25 AM,11/14/25,True,True,,,
+21039,7021987,JENNIFER SCHUSTER,Initial Visit,9:13 AM,10/29/25,True,True,,,
+16793,7022078,PAULA DOWNING,Palliative Prognosis Visit,9:06 AM,10/31/25,True,True,,,
+21184,7022324,DORIS LEDELL,Maintenance Visit,10:36 AM,10/29/25,True,True,,,
+20529,7022330,ELIZABETH TREVINO,Initial Visit 2,11:20 AM,12/4/25,True,False,VisitTypeValue,,
+18974,7022662,HARVEY KUHL,Palliative Management,1:17 PM,12/11/25,True,True,,,
+21997,7023344,DEONNA CRENSHAW,Initial Visit,8:14 AM,11/10/25,True,True,,,
+21915,7023970,SHERRI DONOVAN,Initial Visit,10:41 AM,11/25/25,True,True,,,
+21955,7024400,CASSANDRA WILLIAMS,Maintenance Visit,1:06 PM,12/22/25,True,True,,,
+21615,7024903,SHENEE ADAMS,Maintenance Visit,9:25 AM,12/22/25,True,True,,,
+20659,7025209,GLORIA DIXON,Maintenance Visit,9:27 AM,12/5/25,True,True,,,
+21143,7025303,JULIE PALM,Maintenance Visit,1:15 PM,11/19/25,True,True,,,
+22375,7025397,NICHOLAS KLOTZ,Maintenance Visit,1:16 PM,2/19/26,True,True,,,
+22269,7025404,MARY HAMPTON,Maintenance Visit,1:23 PM,12/9/25,False,False,,,No matching appointment found in MongoDB
+17195,7025493,MARY BROWN,Maintenance Visit,4:05 PM,1/5/26,True,True,,,
+21657,7025744,DIONNE GUTHRIE,Maintenance Visit,8:26 AM,12/19/25,True,True,,,
+22089,7025785,JOYCE NELSON,Maintenance Visit,10:21 AM,10/27/25,True,True,,,
+20552,7025803,JESSIE MITCHELL,Maintenance Visit,9:28 AM,11/7/25,True,True,,,
+18944,7025824,MARY MILES,Initial Visit,10:22 AM,10/27/25,True,True,,,
+21941,7025939,MEHMEDALIJA BEGANOVIC,Maintenance Visit,1:12 PM,3/9/26,True,True,,,
+18242,7026039,GARRY DUGGER,Maintenance Visit,3:05 PM,12/31/25,True,True,,,
+21302,7026084,RICHARD SHAMBLIN,Initial Visit,1:05 PM,10/28/25,True,True,,,
+21998,7026357,ROOSEVELT HARDAWAY,Initial Visit,9:19 AM,11/10/25,True,True,,,
+22387,7026417,WAHID OTHMAN,Initial Visit,3:12 PM,10/28/25,True,True,,,
+21691,7026515,BARBARA GREEN,Initial Visit,11:09 AM,10/28/25,True,True,,,
+21698,7026701,ROBERT YONDORF,Maintenance Visit,1:05 PM,1/9/26,True,True,,,
+21885,7026769,RICHARD MCCRARY,Initial Visit,10:05 AM,11/10/25,True,True,,,
+20230,7026827,DALE WILSON,Initial Visit,11:13 AM,11/5/25,True,True,,,
+21473,7026838,JUANITA JACKSON,Initial Visit,9:10 AM,11/18/25,True,True,,,
+22282,7027168,CARL WHITNEY,Palliative Prognosis Visit,10:00 AM,11/6/25,False,False,,,No matching appointment found in MongoDB
+20500,7027187,LOUISE WARDEN,Maintenance Visit,3:10 PM,11/11/25,True,True,,,
+22099,7027393,AIMEE WARTA,Initial Visit,10:52 AM,10/21/25,True,True,,,
+20661,7027408,BARBARA HARPER,Maintenance Visit,9:32 AM,12/9/25,True,True,,,
+20931,7027676,NATALIE JOHNSTON,Palliative Prognosis Visit,8:12 AM,11/24/25,True,True,,,
+21975,7027694,WANDA HINCH,Maintenance Visit,4:34 PM,10/27/25,True,True,,,
+16712,7027846,JOHN KILBRETH,Maintenance Visit,2:35 PM,12/22/25,True,True,,,
+16743,7027916,RHODA DEWITT,Maintenance Visit,2:35 PM,12/30/25,True,True,,,
+21678,7028148,BRIAN SMITH,Maintenance Visit,8:26 AM,12/22/25,True,True,,,
+22122,7028172,MIDREAM DEBOLD,Initial Visit,1:15 PM,11/17/25,True,False,VisitStartDateTime,,
+21808,7028349,MARY THOMAS,Initial Visit,10:57 AM,10/23/25,True,True,,,
+21590,7028380,REGINALD MORGAN,Initial Visit,11:03 AM,10/21/25,True,True,,,
+16726,7028398,BARBRA LLOYD,Palliative Prognosis Visit,3:05 PM,12/22/25,True,True,,,
+16709,7028430,CHRISTINA HICKMAN,Maintenance Visit,2:35 PM,12/29/25,True,True,,,
+21523,7028646,THOURIOUS CARTER,Maintenance Visit,9:15 AM,12/29/25,True,True,,,
+21641,7028858,CHARLES WORD,Initial Visit,2:18 PM,10/22/25,True,True,,,
+18462,7029148,MAHLON SCHMUCKER,Maintenance Visit,2:35 PM,1/20/26,True,True,,,
+18463,7029496,JOHNNY GUNTER,Palliative Prognosis Visit,2:35 PM,11/24/25,True,True,,,
+18351,7029526,DANNY FOLAND,Maintenance Visit,3:05 PM,1/19/26,True,True,,,
+22298,7029597,RICHARD KEATH,Initial Visit,3:35 PM,10/24/25,True,True,,,
+22010,7029695,DAVID HARRELL,Initial Visit,11:51 AM,10/22/25,True,True,,,
+16762,7029822,RUTH LUADERS,Maintenance Visit,2:35 PM,12/31/25,True,True,,,
+22293,7029902,DEBRA PROCTOR,Palliative Management,8:22 AM,12/16/25,True,True,,,
+20870,7030032,DONNA DEVINE,Initial Visit,10:06 AM,10/30/25,True,True,,,
+20915,7030104,DENISE SHEFFIELD,Initial Visit,9:09 AM,10/21/25,True,True,,,
+17081,7030467,CATHLEEN QUARRELS,Maintenance Visit,2:35 PM,12/9/25,True,True,,,
+18885,7030576,TERRY MCCLELLON,Initial Visit,10:20 AM,10/29/25,True,True,,,
+21856,7030671,MARIA ROCHA,Initial Visit,1:17 PM,11/10/25,False,False,,,No matching appointment found in MongoDB
+20189,7030700,LORI STONE,Maintenance Visit,1:32 PM,11/4/25,True,False,VisitStartDateTime,,
+18352,7030945,VIRGINIA ROBERTSON,Palliative Prognosis Visit,3:40 PM,12/30/25,True,True,,,
+20869,7031132,JERAMIE IVY,Initial Visit,10:04 AM,10/28/25,True,True,,,
+21170,7031347,ANNETTE WARD,Telephonic,1:00 PM,10/27/25,True,True,,,
+18243,7031391,REBECCA DAKE,Palliative Prognosis Visit,3:35 PM,12/31/25,True,True,,,
+21563,7031411,GLENDA SCHWINTEK,Palliative Management,10:42 AM,12/19/25,True,True,,,
+18945,7031473,THOMAS TAUL,Initial Visit,11:41 AM,10/27/25,True,True,,,
+18853,7031800,LUCIE MELTON,Maintenance Visit,9:09 AM,2/10/26,True,True,,,
+21418,7031857,JIMMY MCCASKILL,Initial Visit,1:25 PM,10/23/25,True,True,,,
+21567,7032231,OCIE COLLINS,Initial Visit,1:05 PM,11/5/25,True,True,,,
+22401,7032428,TERILEE MAHURIN,Palliative Prognosis Visit,9:49 AM,11/17/25,True,True,,,
+20855,7032513,TYREE PATTERSON-TERRILL,Maintenance Visit,9:55 AM,10/30/25,True,True,,,
+17073,7032522,AMIE LOCKHART,Initial Visit 2,3:05 PM,12/30/25,True,False,VisitTypeValue,,
+19238,7032614,MAE SLAUGHTER,Maintenance Visit,1:06 PM,11/25/25,True,False,VisitStartDateTime,,
+17130,7032635,VERNA WELLS,Initial Visit,9:06 AM,10/27/25,True,True,,,
+19887,7032732,RONALD GREENFIELD,Maintenance Visit,1:12 PM,11/12/25,False,False,,,No matching appointment found in MongoDB
+21334,7032732,RONALD GREENFIELD,Maintenance Visit,2:20 PM,11/12/25,True,True,,,
+22353,7032732,RONALD GREENFIELD,Post Discharge Visit,12:10 PM,10/22/25,True,True,,,
+20541,7032782,HELEN HARDIMAN,Palliative Prognosis Visit,11:42 AM,12/8/25,True,True,,,
+16779,7032800,MARCELLA GASSNER,Maintenance Visit,1:28 PM,10/31/25,True,True,,,
+22131,7032859,MARTHA NUNEZ,Initial Visit 2,1:16 PM,11/20/25,True,False,VisitTypeValue,,
+17776,7032878,VIRGINIA MILLER,Initial Visit,9:39 AM,10/24/25,True,False,VisitStartDateTime,,
+20052,7033231,CINDY DAVIDSON,Maintenance Visit,2:21 PM,12/5/25,True,True,,,
+21242,7033364,ANN MENSAH,Maintenance Visit,9:24 AM,12/17/25,True,True,,,
+18464,7033423,BARBARA VANORDEN,Maintenance Visit,2:35 PM,1/27/26,True,True,,,
+21262,7033427,WILLIAM BENNETT,Maintenance Visit,8:37 AM,2/6/26,True,True,,,
+20954,7033440,NORMAN HOWARD JR,Maintenance Visit,9:50 AM,12/18/25,True,True,,,
+20020,7033834,MINNIE CHILDS,Maintenance Visit,10:35 AM,12/3/25,True,True,,,
+16483,7033937,GEORGIA CUMMINGS,Initial Visit,1:05 PM,10/27/25,True,True,,,
+16798,7034010,JOSEPH HUNTER,Maintenance Visit,9:17 AM,1/23/26,True,True,,,
+19997,7034030,JANICE WILLIAMS JONES,Maintenance Visit,10:30 AM,11/24/25,True,True,,,
+21474,7034047,KENNETH BIRKMAN,Initial Visit,10:55 AM,11/18/25,True,True,,,
+22369,7034373,DORIS SMITH,Initial Visit 2,10:04 AM,10/30/25,False,False,,,No matching appointment found in MongoDB
+18353,7034691,SHIRLEY PARKER,Maintenance Visit,3:35 PM,1/19/26,True,True,,,
+16770,7034772,VIRGINIA TURNER,Maintenance Visit,2:35 PM,12/1/25,True,True,,,
+20435,7034774,CHRISTOPHER HAYES,Palliative Prognosis Visit,11:10 AM,11/6/25,True,True,,,
+16752,7035208,STERLING SWIFT,Maintenance Visit,3:05 PM,12/29/25,True,True,,,
+18422,7035343,ANITA ALBRIGHT,Maintenance Visit,1:13 PM,1/13/26,True,True,,,
+15783,7035374,THOMAS COUCH,Maintenance Visit,2:35 PM,10/22/25,True,True,,,
+16759,7035414,JAMES ABNEY,Palliative Prognosis Visit,3:35 PM,12/29/25,True,True,,,
+20091,7035505,VALORIE CHAMBERS,Maintenance Visit,8:39 AM,11/11/25,True,True,,,
+22101,7036219,MARGIE RICE,Maintenance Visit,2:24 PM,10/24/25,True,True,,,
+22295,7036258,JAMES JACKSON,Maintenance Visit,10:32 AM,12/16/25,True,True,,,
+21969,7037002,DAVID JENSEN,Maintenance Visit,2:35 PM,2/9/26,True,True,,,
+21674,7037300,LILA MAHAFFY,Palliative Prognosis Visit,3:32 PM,10/28/25,False,False,,,No matching appointment found in MongoDB
+22271,7037617,KATHERINE GOSSETT,Maintenance Visit,8:05 AM,12/9/25,True,True,,,
+20405,7037999,MICHAEL MADSEN,Maintenance Visit,8:25 AM,12/19/25,True,True,,,
+22197,7038345,ALICE BOEKEMIER,Maintenance Visit,1:05 PM,1/5/26,True,True,,,
+22196,7038345,ALICE BOEKEMIER,Post Discharge Visit,1:55 PM,10/22/25,True,True,,,
+21235,7038497,DEBORAH SERCL,Palliative Prognosis Visit,9:45 AM,11/25/25,True,True,,,
+20300,7038536,SUSIE WARD,Maintenance Visit,10:50 AM,12/15/25,True,True,,,
+17822,7038719,VIRGINIA COOPER,Maintenance Visit,3:40 PM,12/16/25,True,True,,,
+21945,7039345,CHARLEAN WILSON,Initial Visit,9:38 AM,11/10/25,False,False,,,No matching appointment found in MongoDB
+18991,7039740,SHAWN COCHRAN,Maintenance Visit,3:05 PM,1/1/26,True,True,,,
+18424,7039904,STEPHEN CARD,Initial Visit,3:20 PM,10/30/25,False,False,,,No matching appointment found in MongoDB
+21713,7040055,ISAAC SOHN,Maintenance Visit,1:41 PM,6/8/26,True,True,,,
+21726,7040560,JAY LINDSEY JR,Maintenance Visit,8:05 AM,1/6/26,True,True,,,
+21730,7040683,LINDA MATTHEWS,Maintenance Visit,8:05 AM,1/13/26,True,True,,,
+21912,7040711,ARTHUR RHODES,Maintenance Visit,2:35 PM,2/4/26,True,True,,,
+20457,7040866,BRIAN JONES,Maintenance Visit,1:07 PM,12/29/25,True,True,,,
+21659,7040895,ANTHONY BOYD,Maintenance Visit,10:37 AM,12/19/25,True,True,,,
+20325,7040950,MARIA PASCACIO HERNANDEZ,Maintenance Visit,9:45 AM,12/18/25,True,True,,,
+22405,7041505,DENNY FELTMAN,Maintenance Visit,8:12 AM,1/12/26,True,True,,,
+22273,7041619,ESTHER WINSTON,Palliative Management,1:34 PM,12/16/25,False,False,,,No matching appointment found in MongoDB
+20945,7041619,ESTHER WINSTON,Palliative Prognosis Visit,1:06 PM,11/11/25,True,False,VisitStartDateTime,,
+21610,7041934,RICHARD GRAYSON,Maintenance Visit,3:40 PM,12/12/25,True,True,,,
+21507,7042003,JOHN PITTMAN,Initial Visit,11:53 AM,11/4/25,True,True,,,
+21738,7042130,DEANNA SANDNER,Maintenance Visit,2:35 PM,1/7/26,True,True,,,
+21697,7043078,VERONICA YORK,Initial Visit,11:45 AM,11/20/25,True,True,,,
+21737,7043105,DAVID MOUNTAIN,Maintenance Visit,8:35 AM,1/7/26,True,True,,,
+22035,7043261,WILBERT SCHEIB,Maintenance Visit,3:35 PM,1/14/26,True,True,,,
+20663,7043327,TERESA SAPUTO,Maintenance Visit,1:15 PM,12/12/25,True,True,,,
+21141,7043400,SHANOTA LEE,Initial Visit,10:42 AM,10/21/25,True,True,,,
+22266,7043585,MICHAEL LEFFLER,Maintenance Visit,8:34 AM,2/9/26,True,True,,,
+21457,7043608,TIMOTHY BRASHEAR,Initial Visit,11:20 AM,11/11/25,True,True,,,
+21700,7043825,BRENDA RICHMOND,Palliative Prognosis Visit,2:30 PM,1/5/26,True,True,,,
+22004,7044102,TIMOTHY SMITH,Initial Visit,1:40 PM,11/12/25,True,True,,,
+22020,7044399,JOE WOODS,Maintenance Visit,9:58 AM,10/30/25,True,True,,,
+22334,7044616,LARRY THOMPSON,Initial Visit,11:18 AM,10/24/25,True,True,,,
+19607,7044716,BARBARA BANUELOS,Maintenance Visit,1:34 PM,12/17/25,False,False,,,No matching appointment found in MongoDB
+21456,7045137,TINA ROSE,Initial Visit,10:15 AM,11/11/25,True,True,,,
+21712,7045851,SARA TARVER,Maintenance Visit,1:24 PM,5/21/26,True,True,,,
+18153,7046030,SHANELL HUDSON,Telephonic,1:10 PM,10/28/25,True,True,,,
+22002,7046253,THOMAS THIELBAR,Initial Visit,1:20 PM,11/13/25,True,False,VisitStartDateTime,,
+21434,7046453,MICHAEL BEALS,Maintenance Visit,2:24 PM,12/16/25,True,True,,,
+21732,7046814,ELLA LANGDON,Palliative Prognosis Visit,8:05 AM,1/5/26,True,True,,,
+18990,7047529,TERRY EATON,Maintenance Visit,2:35 PM,1/1/26,True,True,,,
+21739,7047761,NANCY EWING,Maintenance Visit,3:05 PM,1/6/26,True,True,,,
+21725,7048085,DONNA DECLUE,Maintenance Visit,8:05 AM,1/5/26,True,True,,,
+21255,7048526,FELIPA BANUELOS,Maintenance Visit,3:45 PM,11/13/25,True,True,,,
+21872,7048874,LINDA HARRINGTON,Maintenance Visit,2:35 PM,2/3/26,True,True,,,
+22332,7049153,LYLA ALEJO,Initial Visit,11:24 AM,11/19/25,False,False,,,No matching appointment found in MongoDB
+22007,7049517,DANA STRICKLAND,Maintenance Visit,3:35 PM,1/20/26,True,True,,,
+22285,7049608,WAYNE KARCHER,Maintenance Visit,1:14 PM,1/21/26,True,True,,,
+18992,7049631,KARLA KOONTZ,Maintenance Visit,8:05 AM,12/24/25,True,True,,,
+22270,7049640,NANNY AVERY,Maintenance Visit,8:05 AM,12/23/25,True,True,,,
+21909,7049767,BARBARA STONUM,Initial Visit,11:49 AM,11/10/25,True,True,,,
+20879,7050842,ROSEMARY RUSSELL,Telephonic,8:00 AM,11/10/25,True,True,,,
+22383,7051911,KATHLEEN COWICK,Initial Visit,9:34 AM,11/4/25,True,True,,,
+22311,7053915,LORENA WICKHAM,Initial Visit,11:40 AM,10/23/25,True,True,,,
+22377,7054145,RICHARD VASQUEZ SR,Initial Visit,10:20 AM,12/4/25,True,True,,,
+22309,7054768,JUANITA TAYLOR,Initial Visit,1:52 PM,10/30/25,False,False,,,No matching appointment found in MongoDB
+22333,7055301,PATRICIA HICKMON,Initial Visit,10:12 AM,10/24/25,True,True,,,
+22395,7055595,JENNIFER BLOUNT,Initial Visit,9:21 AM,10/27/25,True,True,,,
+22086,7057022,JAMES COLEMAN,Initial Visit,2:24 PM,10/21/25,True,True,,,
+22392,7057231,CONNIE SIMMONS,Initial Visit,9:30 AM,12/16/25,True,True,,,
+22209,7057451,SUE TURNER,Initial Visit,11:50 AM,10/21/25,True,True,,,
+22422,7057996,HOMER LUGENBEEL,Initial Visit,3:28 PM,11/17/25,True,True,,,
+22174,7058261,LEVON KEYS,Initial Visit,10:34 AM,11/14/25,True,True,,,
+22076,7058844,CHRISTOPHER LOVE,Initial Visit,9:52 AM,10/30/25,True,True,,,
+22040,7058910,ROSIE DAVIS,Initial Visit,11:00 AM,10/23/25,True,True,,,
+22228,7059296,RONALD CRENSHAW,Initial Visit,1:07 PM,10/29/25,True,True,,,
+22396,7059375,CRYSTAL MUELLER,Initial Visit,11:01 AM,10/27/25,True,True,,,
+22360,7059408,ELMER OVERTON,Initial Visit,3:36 PM,10/30/25,True,True,,,
+22066,7060575,JAMES JOHNSON JR,Initial Visit,9:22 AM,11/3/25,True,True,,,
+22211,7060624,ANNJANETTE CHISHOLM,Initial Visit,1:18 PM,10/24/25,True,True,,,
+17781,, ,Initial Visit,8:20 AM,10/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19779,, ,Initial Visit,10:28 AM,10/22/25,,,,PatientRef,Missing required fields - no comparison performed
+20102,, ,Initial Visit,11:38 AM,10/22/25,,,,PatientRef,Missing required fields - no comparison performed
+17962,, ,Initial Visit,1:11 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19358,, ,Initial Visit,1:13 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19486,, ,Maintenance Visit,8:17 AM,1/26/26,,,,PatientRef,Missing required fields - no comparison performed
+19487,, ,Maintenance Visit,8:17 AM,1/26/26,,,,PatientRef,Missing required fields - no comparison performed
+20361,, ,Maintenance Visit,8:18 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20363,, ,Maintenance Visit,8:18 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19369,, ,Maintenance Visit,8:24 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19498,, ,Maintenance Visit,8:26 AM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19507,, ,Maintenance Visit,8:26 AM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19493,, ,Maintenance Visit,8:28 AM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19518,, ,Maintenance Visit,8:28 AM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19219,, ,Maintenance Visit,8:29 AM,11/26/25,,,,PatientRef,Missing required fields - no comparison performed
+19559,, ,Maintenance Visit,8:29 AM,12/22/25,,,,PatientRef,Missing required fields - no comparison performed
+19482,, ,Maintenance Visit,8:31 AM,1/30/26,,,,PatientRef,Missing required fields - no comparison performed
+19480,, ,Maintenance Visit,8:33 AM,3/27/26,,,,PatientRef,Missing required fields - no comparison performed
+19501,, ,Maintenance Visit,8:34 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19508,, ,Maintenance Visit,8:34 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19490,, ,Maintenance Visit,8:38 AM,1/12/26,,,,PatientRef,Missing required fields - no comparison performed
+19517,, ,Maintenance Visit,8:38 AM,1/12/26,,,,PatientRef,Missing required fields - no comparison performed
+19495,, ,Maintenance Visit,8:39 AM,12/2/25,,,,PatientRef,Missing required fields - no comparison performed
+19496,, ,Maintenance Visit,8:39 AM,12/2/25,,,,PatientRef,Missing required fields - no comparison performed
+19504,, ,Maintenance Visit,8:41 AM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19510,, ,Maintenance Visit,8:41 AM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+20440,, ,Maintenance Visit,9:20 AM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19931,, ,Maintenance Visit,9:21 AM,11/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19932,, ,Maintenance Visit,9:21 AM,11/10/25,,,,PatientRef,Missing required fields - no comparison performed
+20345,, ,Maintenance Visit,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20348,, ,Maintenance Visit,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20352,, ,Maintenance Visit,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20372,, ,Maintenance Visit,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20373,, ,Maintenance Visit,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19415,, ,Maintenance Visit,9:23 AM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19419,, ,Maintenance Visit,9:23 AM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19823,, ,Maintenance Visit,9:26 AM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20084,, ,Maintenance Visit,9:27 AM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19382,, ,Maintenance Visit,9:27 AM,12/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19383,, ,Maintenance Visit,9:27 AM,12/12/25,,,,PatientRef,Missing required fields - no comparison performed
+20425,, ,Maintenance Visit,9:28 AM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20426,, ,Maintenance Visit,9:28 AM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20077,, ,Maintenance Visit,9:29 AM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+20121,, ,Maintenance Visit,9:30 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19773,, ,Maintenance Visit,9:33 AM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19220,, ,Maintenance Visit,9:34 AM,11/26/25,,,,PatientRef,Missing required fields - no comparison performed
+22284,, ,Maintenance Visit,9:39 AM,1/20/26,,,,PatientRef,Missing required fields - no comparison performed
+20680,, ,Maintenance Visit,9:40 AM,1/2/26,,,,PatientRef,Missing required fields - no comparison performed
+19503,, ,Maintenance Visit,9:44 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19509,, ,Maintenance Visit,9:44 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20385,, ,Maintenance Visit,9:45 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20394,, ,Maintenance Visit,9:45 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+19516,, ,Maintenance Visit,9:51 AM,1/16/26,,,,PatientRef,Missing required fields - no comparison performed
+20059,, ,Maintenance Visit,9:55 AM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20328,, ,Maintenance Visit,10:21 AM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20442,, ,Maintenance Visit,10:25 AM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20212,, ,Maintenance Visit,10:27 AM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+20213,, ,Maintenance Visit,10:27 AM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+20172,, ,Maintenance Visit,10:28 AM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19921,, ,Maintenance Visit,10:33 AM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20085,, ,Maintenance Visit,10:36 AM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+20681,, ,Maintenance Visit,10:45 AM,1/2/26,,,,PatientRef,Missing required fields - no comparison performed
+19914,, ,Maintenance Visit,10:45 AM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20387,, ,Maintenance Visit,10:58 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20395,, ,Maintenance Visit,10:58 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20148,, ,Maintenance Visit,11:11 AM,12/1/25,,,,PatientRef,Missing required fields - no comparison performed
+20456,, ,Maintenance Visit,11:29 AM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+20142,, ,Maintenance Visit,11:41 AM,12/1/25,,,,PatientRef,Missing required fields - no comparison performed
+22286,, ,Maintenance Visit,12:15 PM,10/22/25,,,,PatientRef,Missing required fields - no comparison performed
+20083,, ,Maintenance Visit,1:05 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+20257,, ,Maintenance Visit,1:05 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19629,, ,Maintenance Visit,1:05 PM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+19637,, ,Maintenance Visit,1:05 PM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20572,, ,Maintenance Visit,1:05 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+20249,, ,Maintenance Visit,1:05 PM,11/19/25,,,,PatientRef,Missing required fields - no comparison performed
+20250,, ,Maintenance Visit,1:05 PM,11/19/25,,,,PatientRef,Missing required fields - no comparison performed
+19999,, ,Maintenance Visit,1:05 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19225,, ,Maintenance Visit,1:05 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+20430,, ,Maintenance Visit,1:05 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20031,, ,Maintenance Visit,1:05 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+20039,, ,Maintenance Visit,1:05 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19879,, ,Maintenance Visit,1:06 PM,1/6/26,,,,PatientRef,Missing required fields - no comparison performed
+20305,, ,Maintenance Visit,1:06 PM,11/19/25,,,,PatientRef,Missing required fields - no comparison performed
+20306,, ,Maintenance Visit,1:06 PM,11/19/25,,,,PatientRef,Missing required fields - no comparison performed
+20356,, ,Maintenance Visit,1:06 PM,11/20/25,,,,PatientRef,Missing required fields - no comparison performed
+20357,, ,Maintenance Visit,1:06 PM,11/20/25,,,,PatientRef,Missing required fields - no comparison performed
+19538,, ,Maintenance Visit,1:07 PM,1/5/26,,,,PatientRef,Missing required fields - no comparison performed
+19909,, ,Maintenance Visit,1:07 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19232,, ,Maintenance Visit,1:07 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19018,, ,Maintenance Visit,1:07 PM,12/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19021,, ,Maintenance Visit,1:07 PM,12/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19926,, ,Maintenance Visit,1:09 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19472,, ,Maintenance Visit,1:09 PM,11/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19375,, ,Maintenance Visit,1:10 PM,7/14/26,,,,PatientRef,Missing required fields - no comparison performed
+19603,, ,Maintenance Visit,1:10 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19972,, ,Maintenance Visit,1:10 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+18997,, ,Maintenance Visit,1:10 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+19633,, ,Maintenance Visit,1:10 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+19669,, ,Maintenance Visit,1:12 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19416,, ,Maintenance Visit,1:12 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19991,, ,Maintenance Visit,1:12 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19522,, ,Maintenance Visit,1:13 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19386,, ,Maintenance Visit,1:13 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+19166,, ,Maintenance Visit,1:13 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+20184,, ,Maintenance Visit,1:13 PM,12/8/25,,,,PatientRef,Missing required fields - no comparison performed
+20296,, ,Maintenance Visit,1:13 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+20297,, ,Maintenance Visit,1:13 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19442,, ,Maintenance Visit,1:14 PM,1/7/26,,,,PatientRef,Missing required fields - no comparison performed
+19965,, ,Maintenance Visit,1:14 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19978,, ,Maintenance Visit,1:14 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19985,, ,Maintenance Visit,1:14 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19244,, ,Maintenance Visit,1:14 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19245,, ,Maintenance Visit,1:14 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19248,, ,Maintenance Visit,1:14 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19673,, ,Maintenance Visit,1:15 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19653,, ,Maintenance Visit,1:16 PM,1/6/26,,,,PatientRef,Missing required fields - no comparison performed
+19531,, ,Maintenance Visit,1:16 PM,5/15/26,,,,PatientRef,Missing required fields - no comparison performed
+20232,, ,Maintenance Visit,1:16 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20051,, ,Maintenance Visit,1:16 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20055,, ,Maintenance Visit,1:16 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+22426,, ,Maintenance Visit,1:16 PM,12/8/25,,,,PatientRef,Missing required fields - no comparison performed
+19216,, ,Maintenance Visit,1:16 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19532,, ,Maintenance Visit,1:17 PM,5/11/26,,,,PatientRef,Missing required fields - no comparison performed
+19338,, ,Maintenance Visit,1:17 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19446,, ,Maintenance Visit,1:17 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19447,, ,Maintenance Visit,1:17 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19654,, ,Maintenance Visit,1:18 PM,1/2/26,,,,PatientRef,Missing required fields - no comparison performed
+20311,, ,Maintenance Visit,1:18 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20317,, ,Maintenance Visit,1:18 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19013,, ,Maintenance Visit,1:18 PM,12/1/25,,,,PatientRef,Missing required fields - no comparison performed
+19024,, ,Maintenance Visit,1:18 PM,12/8/25,,,,PatientRef,Missing required fields - no comparison performed
+20196,, ,Maintenance Visit,1:18 PM,12/8/25,,,,PatientRef,Missing required fields - no comparison performed
+19535,, ,Maintenance Visit,1:19 PM,1/12/26,,,,PatientRef,Missing required fields - no comparison performed
+19563,, ,Maintenance Visit,1:19 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19548,, ,Maintenance Visit,1:20 PM,12/12/25,,,,PatientRef,Missing required fields - no comparison performed
+20203,, ,Maintenance Visit,1:20 PM,12/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19574,, ,Maintenance Visit,1:20 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19020,, ,Maintenance Visit,1:20 PM,12/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19177,, ,Maintenance Visit,1:20 PM,12/31/25,,,,PatientRef,Missing required fields - no comparison performed
+19475,, ,Maintenance Visit,1:21 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19030,, ,Maintenance Visit,1:21 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19272,, ,Maintenance Visit,1:21 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19632,, ,Maintenance Visit,1:23 PM,12/2/25,,,,PatientRef,Missing required fields - no comparison performed
+19470,, ,Maintenance Visit,1:25 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19593,, ,Maintenance Visit,1:25 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19561,, ,Maintenance Visit,1:25 PM,12/22/25,,,,PatientRef,Missing required fields - no comparison performed
+19444,, ,Maintenance Visit,1:26 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19652,, ,Maintenance Visit,1:30 PM,1/7/26,,,,PatientRef,Missing required fields - no comparison performed
+19610,, ,Maintenance Visit,1:30 PM,12/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19483,, ,Maintenance Visit,1:31 PM,1/27/26,,,,PatientRef,Missing required fields - no comparison performed
+19484,, ,Maintenance Visit,1:31 PM,1/27/26,,,,PatientRef,Missing required fields - no comparison performed
+19525,, ,Maintenance Visit,1:31 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+20190,, ,Maintenance Visit,1:32 PM,11/4/25,,,,PatientRef,Missing required fields - no comparison performed
+19608,, ,Maintenance Visit,1:34 PM,12/17/25,,,,PatientRef,Missing required fields - no comparison performed
+19016,, ,Maintenance Visit,1:39 PM,11/6/25,,,,PatientRef,Missing required fields - no comparison performed
+20236,, ,Maintenance Visit,1:39 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19782,, ,Maintenance Visit,1:40 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19785,, ,Maintenance Visit,1:40 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19019,, ,Maintenance Visit,1:40 PM,11/6/25,,,,PatientRef,Missing required fields - no comparison performed
+19627,, ,Maintenance Visit,1:40 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19635,, ,Maintenance Visit,1:40 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19626,, ,Maintenance Visit,1:41 PM,11/19/25,,,,PatientRef,Missing required fields - no comparison performed
+19634,, ,Maintenance Visit,1:41 PM,11/19/25,,,,PatientRef,Missing required fields - no comparison performed
+19630,, ,Maintenance Visit,1:42 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19064,, ,Maintenance Visit,1:50 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19511,, ,Maintenance Visit,1:56 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19514,, ,Maintenance Visit,1:56 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19612,, ,Maintenance Visit,1:58 PM,12/8/25,,,,PatientRef,Missing required fields - no comparison performed
+20573,, ,Maintenance Visit,2:10 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+20034,, ,Maintenance Visit,2:10 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+20041,, ,Maintenance Visit,2:10 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+22415,, ,Maintenance Visit,2:11 PM,10/31/25,,,,PatientRef,Missing required fields - no comparison performed
+19910,, ,Maintenance Visit,2:12 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20115,, ,Maintenance Visit,2:12 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20160,, ,Maintenance Visit,2:16 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19953,, ,Maintenance Visit,2:17 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19956,, ,Maintenance Visit,2:17 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19451,, ,Maintenance Visit,2:18 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20274,, ,Maintenance Visit,2:19 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19884,, ,Maintenance Visit,2:20 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19671,, ,Maintenance Visit,2:20 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19890,, ,Maintenance Visit,2:20 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+20266,, ,Maintenance Visit,2:20 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19387,, ,Maintenance Visit,2:20 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+19389,, ,Maintenance Visit,2:20 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+19247,, ,Maintenance Visit,2:20 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19249,, ,Maintenance Visit,2:20 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19250,, ,Maintenance Visit,2:20 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19361,, ,Maintenance Visit,2:21 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19665,, ,Maintenance Visit,2:21 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19001,, ,Maintenance Visit,2:21 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+20053,, ,Maintenance Visit,2:21 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20054,, ,Maintenance Visit,2:21 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20056,, ,Maintenance Visit,2:21 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20705,, ,Maintenance Visit,2:21 PM,12/8/25,,,,PatientRef,Missing required fields - no comparison performed
+22145,, ,Maintenance Visit,2:21 PM,12/9/25,,,,PatientRef,Missing required fields - no comparison performed
+19157,, ,Maintenance Visit,2:22 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+20313,, ,Maintenance Visit,2:23 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20318,, ,Maintenance Visit,2:23 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19601,, ,Maintenance Visit,2:23 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19217,, ,Maintenance Visit,2:23 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19675,, ,Maintenance Visit,2:24 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19950,, ,Maintenance Visit,2:25 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19973,, ,Maintenance Visit,2:25 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+20220,, ,Maintenance Visit,2:26 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20221,, ,Maintenance Visit,2:26 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19032,, ,Maintenance Visit,2:27 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19273,, ,Maintenance Visit,2:27 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19274,, ,Maintenance Visit,2:27 PM,12/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19967,, ,Maintenance Visit,2:28 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19979,, ,Maintenance Visit,2:28 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19028,, ,Maintenance Visit,2:29 PM,11/20/25,,,,PatientRef,Missing required fields - no comparison performed
+19471,, ,Maintenance Visit,2:30 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19583,, ,Maintenance Visit,2:30 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19524,, ,Maintenance Visit,2:31 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19476,, ,Maintenance Visit,2:34 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19545,, ,Maintenance Visit,2:39 PM,1/5/26,,,,PatientRef,Missing required fields - no comparison performed
+19121,, ,Maintenance Visit,2:39 PM,10/27/25,,,,PatientRef,Missing required fields - no comparison performed
+19063,, ,Maintenance Visit,2:40 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19594,, ,Maintenance Visit,2:40 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19565,, ,Maintenance Visit,2:42 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19631,, ,Maintenance Visit,2:47 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19396,, ,Maintenance Visit,2:50 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20186,, ,Maintenance Visit,2:50 PM,12/8/25,,,,PatientRef,Missing required fields - no comparison performed
+19125,, ,Maintenance Visit,2:54 PM,10/21/25,,,,PatientRef,Missing required fields - no comparison performed
+20243,, ,Maintenance Visit,2:57 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19650,, ,Maintenance Visit,3:15 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19659,, ,Maintenance Visit,3:15 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19229,, ,Maintenance Visit,3:15 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19239,, ,Maintenance Visit,3:16 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19241,, ,Maintenance Visit,3:16 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19235,, ,Maintenance Visit,3:17 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19237,, ,Maintenance Visit,3:17 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+20116,, ,Maintenance Visit,3:18 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20117,, ,Maintenance Visit,3:18 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19065,, ,Maintenance Visit,3:19 PM,1/7/26,,,,PatientRef,Missing required fields - no comparison performed
+20574,, ,Maintenance Visit,3:19 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+20043,, ,Maintenance Visit,3:20 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+20035,, ,Maintenance Visit,3:21 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+20036,, ,Maintenance Visit,3:21 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19911,, ,Maintenance Visit,3:22 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20159,, ,Maintenance Visit,3:22 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20162,, ,Maintenance Visit,3:22 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19168,, ,Maintenance Visit,3:23 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+18589,, ,Maintenance Visit,3:24 PM,11/20/25,,,,PatientRef,Missing required fields - no comparison performed
+19752,, ,Maintenance Visit,3:24 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+19605,, ,Maintenance Visit,3:25 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20128,, ,Maintenance Visit,3:25 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19656,, ,Maintenance Visit,3:26 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19667,, ,Maintenance Visit,3:27 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19390,, ,Maintenance Visit,3:28 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+19391,, ,Maintenance Visit,3:28 PM,11/21/25,,,,PatientRef,Missing required fields - no comparison performed
+20315,, ,Maintenance Visit,3:29 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19474,, ,Maintenance Visit,3:29 PM,11/10/25,,,,PatientRef,Missing required fields - no comparison performed
+20261,, ,Maintenance Visit,3:29 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20223,, ,Maintenance Visit,3:32 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20224,, ,Maintenance Visit,3:32 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20275,, ,Maintenance Visit,3:35 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19595,, ,Maintenance Visit,3:35 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+20268,, ,Maintenance Visit,3:36 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19624,, ,Maintenance Visit,3:36 PM,12/8/25,,,,PatientRef,Missing required fields - no comparison performed
+19463,, ,Maintenance Visit,3:38 PM,12/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19547,, ,Maintenance Visit,3:47 PM,12/15/25,,,,PatientRef,Missing required fields - no comparison performed
+19267,, ,Maintenance Visit,3:49 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19259,, ,Maintenance Visit,3:52 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19268,, ,Maintenance Visit,3:52 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+20226,, ,Maintenance Visit,4:37 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20227,, ,Maintenance Visit,4:37 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19651,, ,Maintenance Visit,5:33 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19660,, ,Maintenance Visit,5:33 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+20343,, ,Palliative Management,8:18 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20344,, ,Palliative Management,8:18 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20349,, ,Palliative Management,8:18 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20369,, ,Palliative Management,8:18 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20371,, ,Palliative Management,8:18 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+21787,, ,Palliative Management,9:20 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20340,, ,Palliative Management,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20342,, ,Palliative Management,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20347,, ,Palliative Management,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20362,, ,Palliative Management,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20364,, ,Palliative Management,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20365,, ,Palliative Management,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20366,, ,Palliative Management,9:23 AM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+17799,, ,Palliative Management,9:52 AM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19502,, ,Palliative Management,9:53 AM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19505,, ,Palliative Management,9:53 AM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19513,, ,Palliative Management,9:53 AM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+18085,, ,Palliative Management,10:20 AM,10/23/25,,,,PatientRef,Missing required fields - no comparison performed
+22172,, ,Palliative Management,10:21 AM,10/23/25,,,,PatientRef,Missing required fields - no comparison performed
+19197,, ,Palliative Management,10:31 AM,11/10/25,,,,PatientRef,Missing required fields - no comparison performed
+20098,, ,Palliative Management,10:37 AM,10/29/25,,,,PatientRef,Missing required fields - no comparison performed
+20444,, ,Palliative Management,11:39 AM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19819,, ,Palliative Management,11:52 AM,10/28/25,,,,PatientRef,Missing required fields - no comparison performed
+19642,, ,Palliative Management,1:05 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19657,, ,Palliative Management,1:05 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19955,, ,Palliative Management,1:05 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+22414,, ,Palliative Management,1:06 PM,10/31/25,,,,PatientRef,Missing required fields - no comparison performed
+19936,, ,Palliative Management,1:06 PM,11/10/25,,,,PatientRef,Missing required fields - no comparison performed
+20388,, ,Palliative Management,1:07 PM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20389,, ,Palliative Management,1:07 PM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20396,, ,Palliative Management,1:07 PM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20015,, ,Palliative Management,1:07 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20124,, ,Palliative Management,1:10 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20065,, ,Palliative Management,1:10 PM,12/22/25,,,,PatientRef,Missing required fields - no comparison performed
+19329,, ,Palliative Management,1:11 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19332,, ,Palliative Management,1:11 PM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19255,, ,Palliative Management,1:11 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19258,, ,Palliative Management,1:11 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19261,, ,Palliative Management,1:11 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+20334,, ,Palliative Management,1:11 PM,11/13/25,,,,PatientRef,Missing required fields - no comparison performed
+20335,, ,Palliative Management,1:11 PM,11/13/25,,,,PatientRef,Missing required fields - no comparison performed
+20336,, ,Palliative Management,1:11 PM,11/13/25,,,,PatientRef,Missing required fields - no comparison performed
+20010,, ,Palliative Management,1:11 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19945,, ,Palliative Management,1:13 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19949,, ,Palliative Management,1:13 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+20271,, ,Palliative Management,1:14 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20801,, ,Palliative Management,1:15 PM,1/16/26,,,,PatientRef,Missing required fields - no comparison performed
+20264,, ,Palliative Management,1:15 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20024,, ,Palliative Management,1:16 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19221,, ,Palliative Management,1:17 PM,11/26/25,,,,PatientRef,Missing required fields - no comparison performed
+19427,, ,Palliative Management,1:17 PM,12/1/25,,,,PatientRef,Missing required fields - no comparison performed
+20417,, ,Palliative Management,1:17 PM,12/2/25,,,,PatientRef,Missing required fields - no comparison performed
+19572,, ,Palliative Management,1:17 PM,12/22/25,,,,PatientRef,Missing required fields - no comparison performed
+20420,, ,Palliative Management,1:19 PM,12/2/25,,,,PatientRef,Missing required fields - no comparison performed
+20421,, ,Palliative Management,1:19 PM,12/2/25,,,,PatientRef,Missing required fields - no comparison performed
+19597,, ,Palliative Management,1:20 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19347,, ,Palliative Management,1:26 PM,11/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19025,, ,Palliative Management,1:30 PM,12/2/25,,,,PatientRef,Missing required fields - no comparison performed
+19026,, ,Palliative Management,1:30 PM,12/2/25,,,,PatientRef,Missing required fields - no comparison performed
+20242,, ,Palliative Management,1:50 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19137,, ,Palliative Management,1:53 PM,10/30/25,,,,PatientRef,Missing required fields - no comparison performed
+19138,, ,Palliative Management,1:53 PM,10/30/25,,,,PatientRef,Missing required fields - no comparison performed
+19649,, ,Palliative Management,2:10 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19658,, ,Palliative Management,2:10 PM,11/7/25,,,,PatientRef,Missing required fields - no comparison performed
+19228,, ,Palliative Management,2:10 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19240,, ,Palliative Management,2:11 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+20001,, ,Palliative Management,2:12 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19236,, ,Palliative Management,2:12 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+20127,, ,Palliative Management,2:15 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+22322,, ,Palliative Management,2:17 PM,10/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20017,, ,Palliative Management,2:17 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19473,, ,Palliative Management,2:18 PM,11/10/25,,,,PatientRef,Missing required fields - no comparison performed
+19993,, ,Palliative Management,2:19 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19417,, ,Palliative Management,2:21 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19986,, ,Palliative Management,2:21 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20322,, ,Palliative Management,2:21 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20011,, ,Palliative Management,2:21 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20025,, ,Palliative Management,2:23 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+20260,, ,Palliative Management,2:24 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19585,, ,Palliative Management,2:25 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19257,, ,Palliative Management,2:29 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19260,, ,Palliative Management,2:29 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19266,, ,Palliative Management,2:29 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19566,, ,Palliative Management,2:29 PM,12/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19598,, ,Palliative Management,2:30 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19528,, ,Palliative Management,2:33 PM,6/1/26,,,,PatientRef,Missing required fields - no comparison performed
+19222,, ,Palliative Management,2:35 PM,11/26/25,,,,PatientRef,Missing required fields - no comparison performed
+20237,, ,Palliative Management,2:44 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19628,, ,Palliative Management,2:45 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+19636,, ,Palliative Management,2:45 PM,11/18/25,,,,PatientRef,Missing required fields - no comparison performed
+22310,, ,Palliative Management,3:00 PM,10/30/25,,,,PatientRef,Missing required fields - no comparison performed
+20003,, ,Palliative Management,3:17 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19995,, ,Palliative Management,3:24 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20019,, ,Palliative Management,3:24 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19363,, ,Palliative Management,3:26 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+19420,, ,Palliative Management,3:26 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19987,, ,Palliative Management,3:26 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20012,, ,Palliative Management,3:28 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19592,, ,Palliative Management,3:30 PM,11/24/25,,,,PatientRef,Missing required fields - no comparison performed
+20026,, ,Palliative Management,3:31 PM,12/3/25,,,,PatientRef,Missing required fields - no comparison performed
+19602,, ,Palliative Management,3:34 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19364,, ,Palliative Management,4:42 PM,11/14/25,,,,PatientRef,Missing required fields - no comparison performed
+20383,, ,Palliative Prognosis Visit,8:25 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20393,, ,Palliative Prognosis Visit,8:25 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20246,, ,Palliative Prognosis Visit,9:25 AM,11/3/25,,,,PatientRef,Missing required fields - no comparison performed
+14053,, ,Palliative Prognosis Visit,9:32 AM,4/6/26,,,,PatientRef,Missing required fields - no comparison performed
+20279,, ,Palliative Prognosis Visit,9:32 AM,11/4/25,,,,PatientRef,Missing required fields - no comparison performed
+14048,, ,Palliative Prognosis Visit,9:33 AM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+14011,, ,Palliative Prognosis Visit,9:35 AM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20376,, ,Palliative Prognosis Visit,9:43 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20380,, ,Palliative Prognosis Visit,10:59 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+20381,, ,Palliative Prognosis Visit,10:59 AM,11/17/25,,,,PatientRef,Missing required fields - no comparison performed
+22110,, ,Palliative Prognosis Visit,11:24 AM,11/19/25,,,,PatientRef,Missing required fields - no comparison performed
+19600,, ,Palliative Prognosis Visit,1:09 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+18401,, ,Palliative Prognosis Visit,1:10 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+20217,, ,Palliative Prognosis Visit,1:11 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20218,, ,Palliative Prognosis Visit,1:11 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+22132,, ,Palliative Prognosis Visit,2:27 PM,11/20/25,,,,PatientRef,Missing required fields - no comparison performed
+19700,, ,Palliative Prognosis Visit,2:30 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+19560,, ,Palliative Prognosis Visit,2:57 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19569,, ,Palliative Prognosis Visit,2:57 PM,11/12/25,,,,PatientRef,Missing required fields - no comparison performed
+19957,, ,Palliative Prognosis Visit,3:32 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+20105,, ,Palliative Prognosis Visit,3:33 PM,10/22/25,,,,PatientRef,Missing required fields - no comparison performed
+19002,, ,Palliative Prognosis Visit,3:36 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19003,, ,Palliative Prognosis Visit,3:36 PM,11/25/25,,,,PatientRef,Missing required fields - no comparison performed
+19941,, ,Palliative Prognosis Visit,3:37 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+19948,, ,Palliative Prognosis Visit,3:40 PM,11/11/25,,,,PatientRef,Missing required fields - no comparison performed
+20163,, ,Palliative Prognosis Visit,4:37 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20164,, ,Palliative Prognosis Visit,4:37 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+20316,, ,Palliative Prognosis Visit,4:44 PM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+22288,, ,Post Discharge Visit,8:24 AM,11/5/25,,,,PatientRef,Missing required fields - no comparison performed
+22324,, ,Post Discharge Visit,5:15 PM,10/24/25,,,,PatientRef,Missing required fields - no comparison performed
+19727,, ,Telephonic,1:10 PM,10/27/25,,,,PatientRef,Missing required fields - no comparison performed

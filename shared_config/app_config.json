@@ -1,0 +1,59 @@
+{
+  "database": {
+    "connection_timeout": 30,
+    "server_selection_timeout": 30,
+    "max_pool_size": 100,
+    "min_pool_size": 0,
+    "max_idle_time": 0,
+    "retry_writes": true,
+    "read_preference": "primary"
+  },
+  "processing": {
+    "batch_size": 1000,
+    "max_workers": 4,
+    "chunk_size": 10000,
+    "memory_limit_mb": 512
+  },
+  "export": {
+    "csv": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "quote_char": "\"",
+      "escape_char": "\\",
+      "line_terminator": "\n",
+      "include_header": true
+    },
+    "json": {
+      "encoding": "utf-8",
+      "indent": 2,
+      "ensure_ascii": false,
+      "sort_keys": false
+    }
+  },
+  "logging": {
+    "console": {
+      "enabled": true,
+      "level": "INFO",
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    },
+    "file": {
+      "enabled": true,
+      "level": "INFO",
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s",
+      "max_size_mb": 10,
+      "backup_count": 5
+    }
+  },
+  "paths": {
+    "data_input": "data/input",
+    "data_output": "data/output",
+    "logs": "logs",
+    "temp": "temp",
+    "archive": "archive"
+  },
+  "validation": {
+    "strict_mode": false,
+    "validate_schema": true,
+    "max_document_size_mb": 16
+  }
+}

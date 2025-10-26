@@ -1,0 +1,103 @@
+2025-06-25T21:59:14.610Z - Successfully connected to MongoDB.
+2025-06-25T21:59:14.632Z - CSV file successfully processed with 99 rows. Waiting for database operations to complete.
+2025-06-25T21:59:14.649Z - No user found for Katie Andler.
+2025-06-25T21:59:14.721Z - Found duplicate users for Amber Arnold. Skipping.
+2025-06-25T21:59:14.736Z - User Maggie Berolo (ID: 5b04f60ebe945b0dc019e9b0) already has an AthenaProviderId (49). Skipping.
+2025-06-25T21:59:14.751Z - User Latonya Billups (ID: 63ea452f2245151daccab0f8) already has an AthenaProviderId (13). Skipping.
+2025-06-25T21:59:14.766Z - User Marisa Bowers (ID: 621d253f43448925d443a4d9) already has an AthenaProviderId (16). Skipping.
+2025-06-25T21:59:14.789Z - User Jessica Bruns (ID: 5c665641be945b5420d826c1) already has an AthenaProviderId (39). Skipping.
+2025-06-25T21:59:14.798Z - User Kara Brunton (ID: 5e90995243448925dc395ec9) already has an AthenaProviderId (40). Skipping.
+2025-06-25T21:59:14.815Z - User Sheryl Cade (ID: 67c9e5f7be36dfe3ba300a1f) already has an AthenaProviderId (51). Skipping.
+2025-06-25T21:59:14.827Z - User Katherine Cashner (ID: 61739f7b246e152174544863) already has an AthenaProviderId (11). Skipping.
+2025-06-25T21:59:14.831Z - User Candace Cervantes (ID: 5acdc124be945b9c940fef83) is not active. Skipping.
+2025-06-25T21:59:14.841Z - User Allison Chiu (ID: 685434f7b744a153ed43e2e4) already has an AthenaProviderId (64). Skipping.
+2025-06-25T21:59:14.851Z - User Haley Clark (ID: 67c9c84abe36dfe3ba2f3a0c) already has an AthenaProviderId (52). Skipping.
+2025-06-25T21:59:14.861Z - No user found for Rachael Cooper Zimmermann.
+2025-06-25T21:59:14.871Z - User Amanda Darby (ID: 63934454b05b244ef455d7bd) already has an AthenaProviderId (53). Skipping.
+2025-06-25T21:59:14.895Z - Found duplicate users for Shelly Duke. Skipping.
+2025-06-25T21:59:14.906Z - User Sarah Faunt (ID: 61d34283246e1520fcd8d884) already has an AthenaProviderId (46). Skipping.
+2025-06-25T21:59:14.914Z - User Elan Gada (ID: 654901e93412cb52ef737c05) already has an AthenaProviderId (33). Skipping.
+2025-06-25T21:59:14.926Z - User Brittany Ghani (ID: 5fa4a83a43449b18e0639fea) already has an AthenaProviderId (34). Skipping.
+2025-06-25T21:59:14.928Z - No user found for Michelle Graham.
+2025-06-25T21:59:14.931Z - User Phylicia Grossich (ID: 64a32dc0700672df59510455) is not active. Skipping.
+2025-06-25T21:59:14.942Z - User Ashley Harris (ID: 5f36ed0c4344892668c7fde3) already has an AthenaProviderId (73). Skipping.
+2025-06-25T21:59:14.951Z - User Mandy Heaton (ID: 63d050a89f0d93bd7a439044) already has an AthenaProviderId (56). Skipping.
+2025-06-25T21:59:14.955Z - No user found for Nanci Hedgcorth.
+2025-06-25T21:59:14.964Z - User Camille Herrmann (ID: 63f4d6c159201526711d7425) already has an AthenaProviderId (32). Skipping.
+2025-06-25T21:59:14.979Z - User Stacy Hittner (ID: 602be73a246e150d94f60818) already has an AthenaProviderId (47). Skipping.
+2025-06-25T21:59:14.983Z - No user found for Connie Hoehn-Graves.
+2025-06-25T21:59:14.999Z - User Yasmin Hollowitz (ID: 61e8558c246e151164788bdb) already has an AthenaProviderId (44). Skipping.
+2025-06-25T21:59:15.013Z - User Tyler Jones (ID: 64c40491b506a1ca279fe72b) already has an AthenaProviderId (57). Skipping.
+2025-06-25T21:59:15.014Z - No user found for Nichola Joubert.
+2025-06-25T21:59:15.015Z - No user found for Draper Joy.
+2025-06-25T21:59:15.045Z - User Saad Khan (ID: 62e2edaae36652ec3379a49e) already has an AthenaProviderId (59). Skipping.
+2025-06-25T21:59:15.058Z - No user found for Rupa Kilaparti.
+2025-06-25T21:59:15.067Z - User Mercedita Kimbrough (ID: 61cc8200246e151c9c72594d) already has an AthenaProviderId (18). Skipping.
+2025-06-25T21:59:15.077Z - Found duplicate users for Mary Konnesky. Skipping.
+2025-06-25T21:59:15.088Z - User Tanya Laudick (ID: 64060f0bee09ed39a8f64741) already has an AthenaProviderId (38). Skipping.
+2025-06-25T21:59:15.111Z - Found duplicate users for Eric Lockett. Skipping.
+2025-06-25T21:59:15.127Z - User Angela Lorenzetti (ID: 67f811889473f14f19b0c63a) already has an AthenaProviderId (43). Skipping.
+2025-06-25T21:59:15.150Z - User Lauren Doll (ID: 63e65cecbb0a8e8824286956) already has an AthenaProviderId (41). Skipping.
+2025-06-25T21:59:15.159Z - User Ghana Mcgowan (ID: 620c2896434489236419ca0f) already has an AthenaProviderId (61). Skipping.
+2025-06-25T21:59:15.168Z - Found duplicate users for Charlotte Moore. Skipping.
+2025-06-25T21:59:15.177Z - User Tina Moore (ID: 63f4d022db21f1f213cf0778) already has an AthenaProviderId (74). Skipping.
+2025-06-25T21:59:15.192Z - User Kimberly Morse (ID: 6643bb14100bc8e29a57dec6) already has an AthenaProviderId (31). Skipping.
+2025-06-25T21:59:15.211Z - User Tracy Newman (ID: 610d69b743448908d011c0cf) already has an AthenaProviderId (25). Skipping.
+2025-06-25T21:59:15.223Z - Found duplicate users for Allison Ostrowsky. Skipping.
+2025-06-25T21:59:15.248Z - User Anneka Pillow (ID: 6373dfc2d73fbdaafbbaffec) already has an AthenaProviderId (70). Skipping.
+2025-06-25T21:59:15.251Z - User Stephanie Rapp (ID: 6470ffe3ef684ac2ef731d5b) is not active. Skipping.
+2025-06-25T21:59:15.269Z - User Tracey Sanchez (ID: 668db9a87c6b73217d31f693) already has an AthenaProviderId (24). Skipping.
+2025-06-25T21:59:15.281Z - Found duplicate users for Christine Savoie. Skipping.
+2025-06-25T21:59:15.282Z - No user found for Robert Scanlon.
+2025-06-25T21:59:15.296Z - User Michele Scarborough (ID: 634092e8e042f6800c7a5c75) already has an AthenaProviderId (45). Skipping.
+2025-06-25T21:59:15.306Z - User Lynne Schifreen (ID: 5d6611bee523912bac6e94f5) already has an AthenaProviderId (35). Skipping.
+2025-06-25T21:59:15.314Z - User Heather Schuette (ID: 62d1ec373c402f9b56beee9c) already has an AthenaProviderId (36). Skipping.
+2025-06-25T21:59:15.322Z - User Taylor Spencer (ID: 5d92e47ae52391300889930f) already has an AthenaProviderId (30). Skipping.
+2025-06-25T21:59:15.331Z - User Joseph Spurlock (ID: 5b6d1cb6be945b0480a634bb) already has an AthenaProviderId (27). Skipping.
+2025-06-25T21:59:15.347Z - Found duplicate users for Ryan Suess. Skipping.
+2025-06-25T21:59:15.356Z - User Audrey Tan (ID: 6373d9d5c52606febefd4806) already has an AthenaProviderId (62). Skipping.
+2025-06-25T21:59:15.357Z - No user found for Tiffany Tate Woodward.
+2025-06-25T21:59:15.366Z - User Kennedy Thoren (ID: 62c72d1fc7011fe7aa1d45f2) already has an AthenaProviderId (26). Skipping.
+2025-06-25T21:59:15.377Z - Found duplicate users for Meleah Vaughan. Skipping.
+2025-06-25T21:59:15.394Z - User Heather Vieth (ID: 61d353e64344891984611e36) already has an AthenaProviderId (9). Skipping.
+2025-06-25T21:59:15.406Z - Found duplicate users for Lisa Vitucci. Skipping.
+2025-06-25T21:59:15.424Z - User Sara Williams (ID: 63eb8c96070c436b3b4581bf) already has an AthenaProviderId (21). Skipping.
+2025-06-25T21:59:15.434Z - User Amber Wollesen (ID: 5d37ed16e52391e0d4b4ed41) already has an AthenaProviderId (28). Skipping.
+2025-06-25T21:59:15.443Z - Found duplicate users for Michael Wong. Skipping.
+2025-06-25T21:59:15.462Z - User Taylor Spencer (ID: 5d92e47ae52391300889930f) already has an AthenaProviderId (30). Skipping.
+2025-06-25T21:59:15.472Z - User Jessica Bruns (ID: 5c665641be945b5420d826c1) already has an AthenaProviderId (39). Skipping.
+2025-06-25T21:59:15.493Z - User Sarah Faunt (ID: 61d34283246e1520fcd8d884) already has an AthenaProviderId (46). Skipping.
+2025-06-25T21:59:15.496Z - User Megan Crowder (ID: 64779cd69104ac5ba62aec6e) is not active. Skipping.
+2025-06-25T21:59:15.499Z - User Rachel Rayburn (ID: 672ce5a3fc2dc9c20278ad00) is not active. Skipping.
+2025-06-25T21:59:15.503Z - User Lauren Brink (ID: 65416b4a14673729968606c2) is not active. Skipping.
+2025-06-25T21:59:15.506Z - User Laura Ratliff (ID: 66281c911d5461dec4c4ab97) is not active. Skipping.
+2025-06-25T21:59:15.516Z - User Renee Lebon (ID: 6642836a3f2ba9f2d9fcf33e) already has an AthenaProviderId (37). Skipping.
+2025-06-25T21:59:15.521Z - User James Shelton (ID: 621670b0246e1505782d11e8) is not active. Skipping.
+2025-06-25T21:59:15.523Z - User Christina Varady (ID: 63eb8b25e757d371f11a9446) is not active. Skipping.
+2025-06-25T21:59:15.528Z - User Cherie Nydegger (ID: 65cfd72000758061e31dcab1) is not active. Skipping.
+2025-06-25T21:59:15.532Z - User Alyssa Henneboehle (ID: 66bfbdd259706a9fda9cfaa5) is not active. Skipping.
+2025-06-25T21:59:15.534Z - User Alicia Utley (ID: 662291c0fa27562549703650) is not active. Skipping.
+2025-06-25T21:59:15.543Z - User Alaina Kamkwalala (ID: 63fd10a7696e057e09f89dc8) is not active. Skipping.
+2025-06-25T21:59:15.544Z - Successfully updated user Melinda Armstead (ID: 5c9c5611be945b542c7585e7).
+2025-06-25T21:59:15.545Z - Successfully updated user Mariah Brooks (ID: 636bf0b2f0549895a0d15a0d).
+2025-06-25T21:59:15.545Z - Successfully updated user Robyn Burdick (ID: 622793c2246e160c14d27a71).
+2025-06-25T21:59:15.546Z - Successfully updated user Mary Baldon (ID: 624f1f5243448931405bb664).
+2025-06-25T21:59:15.546Z - Successfully updated user Stephanie Barton (ID: 62058b2b43448918889a6b6a).
+2025-06-25T21:59:15.548Z - Successfully updated user Julie Kallas (ID: 6374cef00f0860cd1b0bf953).
+2025-06-25T21:59:15.548Z - Successfully updated user Laina Kibler (ID: 5ad1b59cbe945ba6acaef0df).
+2025-06-25T21:59:15.549Z - Successfully updated user Leah Colston (ID: 6851c452b744a153ed40cccd).
+2025-06-25T21:59:15.549Z - Successfully updated user Michelle Lopez (ID: 5d203297e5239111ac7bec91).
+2025-06-25T21:59:15.551Z - Successfully updated user Amber Maggitt (ID: 63939cf2ed1ee898be7e9fe7).
+2025-06-25T21:59:15.551Z - Successfully updated user Ivy Muteithia (ID: 68542364b744a153ed43bc2e).
+2025-06-25T21:59:15.552Z - Successfully updated user Anna Parra (ID: 63c1d838391725d9e525ef35).
+2025-06-25T21:59:15.555Z - Successfully updated user Laura Pieszak (ID: 685424b2b744a153ed43bc7d).
+2025-06-25T21:59:15.557Z - Successfully updated user Angela Rudd (ID: 68542586b744a153ed43be4d).
+2025-06-25T21:59:15.558Z - Successfully updated user Emily St James (ID: 68506d759136aab5c01bf0e1).
+2025-06-25T21:59:15.558Z - Successfully updated user Nita Vespa (ID: 63eb8c44070c436b3b40c8e7).
+2025-06-25T21:59:15.562Z - Successfully updated user Lori Yates (ID: 6374cf790f0860cd1b0d61c8).
+2025-06-25T21:59:15.562Z - Successfully updated user Iwona Wiater (ID: 640266a7d060593b12d90b82).
+2025-06-25T21:59:15.563Z - Successfully updated user Tasha Martin (ID: 6393413cb05b244ef4179b7b).
+2025-06-25T21:59:15.567Z - Successfully updated user Amy Bailey (ID: 645553d04344be5df3944745).
+2025-06-25T21:59:15.571Z - User Kay Wunderlich (ID: 66d9d0db6a75c8ddcb267061) is not active. Skipping.
+2025-06-25T21:59:15.571Z - All database operations have completed.
+2025-06-25T21:59:15.576Z - MongoDB connection closed.

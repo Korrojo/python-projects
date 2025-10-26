@@ -1,0 +1,24 @@
+{
+    "include": [
+        "."
+    ],
+    "extraPaths": [
+        "./common_config/src"
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        "**/.venv*",
+        "**/venv*",
+        "**/env",
+        "**/build",
+        "**/dist"
+    ],
+    "venvPath": "f:/ubiquityMongo_phiMasking/python",
+    "venv": ".venv311",
+    "pythonVersion": "3.14",
+    "pythonPlatform": "Windows",
+    "typeCheckingMode": "basic",
+    "reportMissingImports": "none",
+    "reportMissingTypeStubs": false
+}

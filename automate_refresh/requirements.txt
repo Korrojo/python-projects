@@ -1,0 +1,17 @@
+# Minimal dependencies to run automate_refresh (Mac import/index flow)
+# Installs only what's needed at runtime; dev/test tools are excluded.
+# Note: common_config will be installed in editable mode separately.
+
+# CLI framework
+typer
+
+# Core config/env
+pydantic>=2.6.0
+pydantic-settings>=2.2.1
+python-dotenv>=1.0.0
+
+# MongoDB client + SRV support (Atlas)
+pymongo[srv]>=4.6.0
+# Some environments require dnspython explicitly for SRV discovery
+# (included above via [srv] extra, but keep as explicit lower bound for safety)
+dnspython>=2.4.0

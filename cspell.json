@@ -1,0 +1,19 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "asctime",
+        "BSON",
+        "dotenv",
+        "hcmid",
+        "levelname",
+        "LOCL",
+        "mongodrive",
+        "mongomock",
+        "PRPRD"
+    ],
+    "ignoreWords": [],
+    "import": []
+}

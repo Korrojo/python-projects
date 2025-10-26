@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "68f9af3e1a955daa8d398898",
+    "Id": "1",
+    "Name": "Alice",
+    "Email": "alice@example.com",
+    "_batch_ts": "20251023_042949",
+    "_source": "sample_project"
+  },
+  {
+    "_id": "68f9af3e1a955daa8d398899",
+    "Id": "2",
+    "Name": "Bob",
+    "Email": "bob@example.com",
+    "_batch_ts": "20251023_042949",
+    "_source": "sample_project"
+  },
+  {
+    "_id": "68f9af3e1a955daa8d39889a",
+    "Id": "3",
+    "Name": "Carol",
+    "Email": "carol@example.com",
+    "_batch_ts": "20251023_042949",
+    "_source": "sample_project"
+  }
+]

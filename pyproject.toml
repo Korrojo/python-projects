@@ -1,0 +1,135 @@
+# Black - Code formatter
+[tool.black]
+line-length = 120
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+# Ruff - Fast Python linter
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+cache-dir = "artifacts/.ruff_cache"
+
+# Exclude directories
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+[tool.ruff.lint]
+# Enable pycodestyle (E), Pyflakes (F), isort (I), and other rules
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # bugbear (common bugs)
+    "C4",  # comprehensions (better comprehensions)
+]
+
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "W191",  # indentation contains tabs
+    "E712",  # comparison to True/False (needed for pandas)
+]
+
+# Allow unused variables when underscore-prefixed
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # Allow unused imports in __init__.py
+"**/tests/**" = ["E731"]  # Allow lambda in tests
+
+[tool.ruff.lint.isort]
+known-first-party = ["common_config"]
+
+# Pytest configuration
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+cache_dir = "artifacts/.pytest_cache"
+addopts = [
+    "-ra",                                      # Show summary of all test outcomes
+    "-q",                                       # Quiet mode
+    "--maxfail=1",                             # Stop after first failure
+    "--disable-warnings",                       # Disable warnings
+    "--cov=common_config",                     # Coverage for common_config
+    "--cov-report=term-missing",               # Show missing lines in terminal
+    "--cov-report=html:artifacts/coverage/htmlcov",  # HTML report
+    "--cov-report=xml:artifacts/coverage/coverage.xml",  # XML for CI
+    "--junitxml=artifacts/test-reports/junit.xml",  # JUnit XML for CI
+]
+filterwarnings = [
+    "ignore::DeprecationWarning"
+]
+markers = [
+    "integration: marks tests as integration (deselect with '-m \"not integration\"')",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "db: marks tests requiring database connection",
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["common_config", "*/src"]
+data_file = "artifacts/coverage/.coverage"
+omit = [
+    "*/tests/*",
+    "*/.venv*/*",
+    "*/archive/*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstract",
+]
+precision = 2
+show_missing = true
+
+[tool.coverage.html]
+directory = "artifacts/coverage/htmlcov"

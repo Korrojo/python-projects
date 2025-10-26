@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "common_config"
+version = "0.1.0"
+description = "Shared configuration, logging, DB utilities, and scaffolder for sibling projects"
+authors = [{ name = "Your Team" }]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "typer>=0.12.3",
+  "pydantic>=2.6.0",
+  "pydantic-settings>=2.2.1",
+  "python-dotenv>=1.0.0",
+  "pymongo>=4.6.0"
+]
+
+[project.scripts]
+common = "common_config.cli.main:app"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["src"]

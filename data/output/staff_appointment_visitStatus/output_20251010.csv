@@ -1,0 +1,142 @@
+﻿PatientRef,VisitTypeValue,AthenaAppointmentId,AvailabilityDate,VisitStatus
+2890067,Post Discharge Visit,9999,6/30/25,Scheduled
+3009983,Initial Visit 2,10321,7/1/25,
+2593351,Palliative Management,10328,7/1/25,Change in staff availability
+2595406,Urgent Visit,10297,7/3/25,Scheduled
+2860104,Post Discharge Visit,10409,7/15/25,Scheduled
+2589165,Initial Visit,10380,7/25/25,
+2581309,Maintenance Visit,10564,8/20/25,
+2779466,Maintenance Visit,10750,7/10/25,Scheduled
+2592403,Urgent Visit,11001,7/8/25,Scheduled
+2886779,Urgent Visit,11094,7/9/25,Scheduled
+2808594,Urgent Visit,11095,7/9/25,Scheduled
+2937417,Post Discharge Visit,11134,7/10/25,Scheduled
+2569044,Post Discharge Visit,11212,7/14/25,Scheduled
+2936870,Maintenance Visit,11280,7/14/25,Scheduled
+2594094,Maintenance Visit,11412,7/21/25,Scheduled
+3023499,Maintenance Visit,11425,7/21/25,Scheduled
+7010534,Maintenance Visit,11549,7/25/25,
+3390817,Initial Visit,11893,7/23/25,
+2813452,Palliative Management,12065,9/25/25,Change in staff availability
+2712499,Palliative Prognosis Visit,12254,7/25/25,Scheduled
+2588734,Palliative Management,12350,8/13/25,Scheduled
+2996047,Palliative Management,12503,7/25/25,Scheduled
+2778351,Maintenance Visit,12616,8/4/25,Scheduled
+2579397,Palliative Management,12644,8/5/25,Scheduled
+2573310,Palliative Management,13517,7/30/25,Scheduled
+2592209,Palliative Management,13578,10/7/25,Patient not available at home visit
+2887675,Maintenance Visit,13580,10/7/25,Patient not available at home visit
+2596290,Post Discharge Visit,13724,7/28/25,Scheduled
+3321365,Palliative Prognosis Visit,13922,8/12/25,Scheduled
+2784090,Palliative Prognosis Visit,13924,8/12/25,Scheduled
+3337481,Telephonic,13952,9/10/25,
+2575755,Maintenance Visit,14087,8/7/25,
+3020749,Initial Visit,14161,8/12/25,Scheduled
+2589824,Palliative Prognosis Visit,14108,8/22/25,Scheduled
+2585387,Maintenance Visit,14082,9/4/25,
+7011467,Initial Visit,14253,8/26/25,
+2780039,Initial Visit,14258,8/26/25,
+3202275,Maintenance Visit,14352,9/2/25,
+3415101,Palliative Prognosis Visit,14459,9/16/25,Patient refuses
+3418796,Initial Visit 2,14663,8/22/25,
+2664086,Initial Visit 2,14667,8/22/25,
+2574942,Telephonic,14660,8/26/25,Completed
+3102152,Palliative Prognosis Visit,14624,10/9/25,Completed
+2783388,Maintenance Visit,14625,10/9/25,Scheduled
+2709666,Maintenance Visit,14759,10/9/25,Other
+2568362,Palliative Management,14914,10/9/25,Scheduled
+2711533,Post Discharge Visit,14967,8/15/25,Scheduled
+2566177,Post Discharge Visit,15292,8/14/25,Scheduled
+7006243,Initial Visit,15770,9/24/25,Scheduled
+3230850,Maintenance Visit,16011,9/15/25,Other
+7031552,Initial Visit,15996,9/18/25,
+2892187,Post Discharge Visit,16109,8/27/25,Scheduled
+2817686,Palliative Management,16285,9/15/25,Other
+3105216,Maintenance Visit,16293,9/17/25,Other
+2715453,Palliative Management,16205,10/9/25,Completed
+2580065,Palliative Prognosis Visit,16394,10/9/25,Other
+2574942,Telephonic,16450,9/4/25,Completed
+2572696,Palliative Management,16585,9/11/25,
+2593996,Palliative Management,16896,9/11/25,Scheduled
+3174318,Palliative Management,16919,10/8/25,Patient not available at home visit
+2784976,Palliative Management,17060,9/10/25,
+7028646,Maintenance Visit,17082,10/9/25,Completed
+3392404,Post Discharge Visit,17106,9/10/25,Scheduled
+2587097,Maintenance Visit,17109,10/1/25,
+2573573,Palliative Management,17198,10/9/25,Completed
+2574942,Telephonic,17285,9/12/25,Completed
+2569915,Maintenance Visit,17471,9/12/25,Change in staff availability
+2593629,Post Discharge Visit,17610,10/9/25,Other
+3318345,Palliative Management,17621,10/9/25,
+2779551,Maintenance Visit,17668,10/9/25,Other
+2712612,Maintenance Visit,17669,10/9/25,Patient not home at time of visit
+2583826,Maintenance Visit,17770,9/15/25,Other
+7025303,Telephonic,17760,9/18/25,
+7043671,Initial Visit,17723,9/30/25,
+7014072,Initial Visit 2,17820,10/1/25,
+7046453,Maintenance Visit,17722,10/9/25,Completed
+7020548,Initial Visit,17866,9/22/25,Scheduled
+2584871,Post Discharge Visit,17986,9/15/25,Scheduled
+7027571,Initial Visit,18154,9/30/25,
+2819310,Initial Visit,18165,9/30/25,
+2920658,Maintenance Visit,18239,10/7/25,Patient not available at home visit
+2586563,Maintenance Visit,18241,10/8/25,Patient not available at home visit
+2566540,Maintenance Visit,18192,10/9/25,Other
+2664409,Maintenance Visit,18327,9/17/25,Scheduled
+2779551,Telephonic,18305,9/25/25,Completed
+7041934,Initial Visit,18270,10/9/25,Scheduled
+2936040,Palliative Prognosis Visit,18393,10/9/25,Other
+2814843,Maintenance Visit,18432,10/9/25,Completed
+2816468,Palliative Prognosis Visit,18528,10/9/25,Scheduled
+3022244,Maintenance Visit,18529,10/9/25,Scheduled
+2891753,Maintenance Visit,18587,9/25/25,Scheduled
+3369577,Telephonic,18653,9/30/25,Completed
+2565176,Maintenance Visit,18656,10/9/25,Completed
+2566036,Palliative Management,18659,10/9/25,Patient no longer available for appt time
+3104471,Maintenance Visit,18686,10/9/25,Completed
+2935603,Palliative Prognosis Visit,18835,10/8/25,Patient not home at time of visit
+2589445,Post Discharge Visit,18740,10/9/25,Completed
+7040055,Initial Visit,18767,10/9/25,Scheduled
+3175890,Initial Visit,18951,9/30/25,Patient not available at home visit
+3283930,Initial Visit,18921,10/8/25,Patient not available at home visit
+2579193,Maintenance Visit,18956,10/9/25,Patient not available at home visit
+2657350,Palliative Management,19075,10/3/25,
+7050340,Initial Visit,19049,10/9/25,Completed
+3338291,Initial Visit,19135,10/9/25,Completed
+2718749,Post Discharge Visit,19374,9/26/25,
+3069726,Post Discharge Visit,19290,9/29/25,
+2582528,Post Discharge Visit,19330,9/29/25,
+2582528,Maintenance Visit,19333,9/29/25,Scheduled
+3413997,Initial Visit,19187,10/9/25,Patient not home at time of visit
+2716255,Palliative Management,19189,10/9/25,Scheduled
+2779551,Telephonic,19400,10/9/25,Cancelled
+2595505,Post Discharge Visit,19722,9/29/25,
+3103635,Post Discharge Visit,19793,9/29/25,Scheduled
+2582935,Post Discharge Visit,19731,9/30/25,
+3068260,Post Discharge Visit,19738,9/30/25,Scheduled
+3258502,Maintenance Visit,19760,10/8/25,Scheduled
+7024903,Initial Visit,19746,10/9/25,Scheduled
+3103792,Maintenance Visit,19807,10/9/25,Completed
+3370345,Initial Visit,19808,10/9/25,Other
+2588234,Urgent Visit,20192,9/30/25,
+2588234,Urgent Visit,20193,9/30/25,
+2588234,Urgent Visit,20206,10/1/25,Scheduled
+2859313,Maintenance Visit,20283,10/2/25,Scheduled
+3369577,Telephonic,19900,10/9/25,Completed
+7029902,Post Discharge Visit,20350,10/2/25,
+7029902,Post Discharge Visit,20351,10/2/25,
+2592447,Initial Visit 2,20501,10/9/25,
+3067754,Post Discharge Visit,20707,10/9/25,Patient not available at home visit
+2586529,Post Discharge Visit,20781,10/3/25,Scheduled
+3418796,Post Discharge Visit,20858,10/9/25,Scheduled
+2665056,Post Discharge Visit,20997,10/8/25,Other
+3140769,Maintenance Visit,20919,10/9/25,Scheduled
+3067379,Maintenance Visit,20955,10/9/25,Scheduled
+3232469,Palliative Management,20974,10/9/25,Completed
+3392677,Post Discharge Visit,21046,10/9/25,Hospitalized or In Medical Facility
+2585747,Maintenance Visit,21161,10/9/25,Completed
+2891172,Post Discharge Visit,21240,10/9/25,Completed
+3319595,Post Discharge Visit,21277,10/9/25,Scheduled
+2584468,Maintenance Visit,21304,10/9/25,Completed
+2718032,Post Discharge Visit,21307,10/9/25,Other
+2809020,Post Discharge Visit,21354,10/9/25,Completed

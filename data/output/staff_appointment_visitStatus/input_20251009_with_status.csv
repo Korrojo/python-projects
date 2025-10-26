@@ -1,0 +1,95 @@
+﻿PatientRef,VisitTypeValue,AthenaAppointmentId,AvailabilityDate,VisitStatus
+"2,890,067",Post Discharge Visit,"9,999",6/30/2025,Scheduled
+"3,009,983",Initial Visit 2,"10,321",7/1/2025,
+"2,593,351",Palliative Management,"10,328",7/1/2025,Change in staff availability
+"2,595,406",Urgent Visit,"10,297",7/3/2025,Scheduled
+"2,860,104",Post Discharge Visit,"10,409",7/15/2025,Scheduled
+"2,589,165",Initial Visit,"10,380",7/25/2025,
+"2,581,309",Maintenance Visit,"10,564",8/20/2025,
+"2,779,466",Maintenance Visit,"10,750",7/10/2025,Scheduled
+"2,592,403",Urgent Visit,"11,001",7/8/2025,Scheduled
+"2,886,779",Urgent Visit,"11,094",7/9/2025,Scheduled
+"2,808,594",Urgent Visit,"11,095",7/9/2025,Scheduled
+"2,937,417",Post Discharge Visit,"11,134",7/10/2025,Scheduled
+"2,569,044",Post Discharge Visit,"11,212",7/14/2025,Scheduled
+"2,936,870",Maintenance Visit,"11,280",7/14/2025,Scheduled
+"2,594,094",Maintenance Visit,"11,412",7/21/2025,Scheduled
+"3,023,499",Maintenance Visit,"11,425",7/21/2025,Scheduled
+"7,010,534",Maintenance Visit,"11,549",7/25/2025,
+"3,390,817",Initial Visit,"11,893",7/23/2025,
+"2,813,452",Palliative Management,"12,065",9/25/2025,Change in staff availability
+"2,712,499",Palliative Prognosis Visit,"12,254",7/25/2025,Scheduled
+"2,588,734",Palliative Management,"12,350",8/13/2025,Scheduled
+"2,996,047",Palliative Management,"12,503",7/25/2025,Scheduled
+"2,778,351",Maintenance Visit,"12,616",8/4/2025,Scheduled
+"2,579,397",Palliative Management,"12,644",8/5/2025,Scheduled
+"2,573,310",Palliative Management,"13,517",7/30/2025,Scheduled
+"2,592,209",Palliative Management,"13,578",10/7/2025,Scheduled
+"2,887,675",Maintenance Visit,"13,580",10/7/2025,Scheduled
+"2,596,290",Post Discharge Visit,"13,724",7/28/2025,Scheduled
+"3,321,365",Palliative Prognosis Visit,"13,922",8/12/2025,Scheduled
+"2,784,090",Palliative Prognosis Visit,"13,924",8/12/2025,Scheduled
+"3,337,481",Telephonic,"13,952",9/10/2025,
+"2,575,755",Maintenance Visit,"14,087",8/7/2025,
+"3,020,749",Initial Visit,"14,161",8/12/2025,Scheduled
+"2,589,824",Palliative Prognosis Visit,"14,108",8/22/2025,Scheduled
+"2,585,387",Maintenance Visit,"14,082",9/4/2025,
+"7,011,467",Initial Visit,"14,253",8/26/2025,
+"2,780,039",Initial Visit,"14,258",8/26/2025,
+"3,202,275",Maintenance Visit,"14,352",9/2/2025,
+"3,415,101",Palliative Prognosis Visit,"14,459",9/16/2025,Patient refuses
+"3,418,796",Initial Visit 2,"14,663",8/22/2025,
+"2,664,086",Initial Visit 2,"14,667",8/22/2025,
+"2,574,942",Telephonic,"14,660",8/26/2025,Completed
+"2,711,533",Post Discharge Visit,"14,967",8/15/2025,Scheduled
+"2,566,177",Post Discharge Visit,"15,292",8/14/2025,Scheduled
+"7,006,243",Initial Visit,"15,770",9/24/2025,Scheduled
+"3,230,850",Maintenance Visit,"16,011",9/15/2025,Other
+"7,031,552",Initial Visit,"15,996",9/18/2025,
+"2,892,187",Post Discharge Visit,"16,109",8/27/2025,Scheduled
+"2,817,686",Palliative Management,"16,285",9/15/2025,Other
+"3,105,216",Maintenance Visit,"16,293",9/17/2025,Other
+"2,574,942",Telephonic,"16,450",9/4/2025,Completed
+"2,572,696",Palliative Management,"16,585",9/11/2025,
+"2,593,996",Palliative Management,"16,896",9/11/2025,Scheduled
+"3,174,318",Palliative Management,"16,919",10/8/2025,Patient not available at home visit
+"2,784,976",Palliative Management,"17,060",9/10/2025,
+"3,392,404",Post Discharge Visit,"17,106",9/10/2025,Scheduled
+"2,587,097",Maintenance Visit,"17,109",10/1/2025,
+"2,574,942",Telephonic,"17,285",9/12/2025,Completed
+"2,569,915",Maintenance Visit,"17,471",9/12/2025,Change in staff availability
+"2,583,826",Maintenance Visit,"17,770",9/15/2025,Other
+"7,025,303",Telephonic,"17,760",9/18/2025,
+"7,043,671",Initial Visit,"17,723",9/30/2025,
+"7,014,072",Initial Visit 2,"17,820",10/1/2025,
+"7,020,548",Initial Visit,"17,866",9/22/2025,Scheduled
+"2,584,871",Post Discharge Visit,"17,986",9/15/2025,Scheduled
+"7,027,571",Initial Visit,"18,154",9/30/2025,
+"2,819,310",Initial Visit,"18,165",9/30/2025,
+"2,920,658",Maintenance Visit,"18,239",10/7/2025,Patient not available at home visit
+"2,586,563",Maintenance Visit,"18,241",10/8/2025,Patient not available at home visit
+"2,664,409",Maintenance Visit,"18,327",9/17/2025,Scheduled
+"2,779,551",Telephonic,"18,305",9/25/2025,Completed
+"2,891,753",Maintenance Visit,"18,587",9/25/2025,Scheduled
+"3,369,577",Telephonic,"18,653",9/30/2025,Completed
+"2,935,603",Palliative Prognosis Visit,"18,835",10/8/2025,Patient not home at time of visit
+"3,175,890",Initial Visit,"18,951",9/30/2025,Patient not available at home visit
+"3,283,930",Initial Visit,"18,921",10/8/2025,Patient not available at home visit
+"2,657,350",Palliative Management,"19,075",10/3/2025,
+"2,718,749",Post Discharge Visit,"19,374",9/26/2025,
+"3,069,726",Post Discharge Visit,"19,290",9/29/2025,
+"2,582,528",Post Discharge Visit,"19,330",9/29/2025,
+"2,582,528",Maintenance Visit,"19,333",9/29/2025,Scheduled
+"2,595,505",Post Discharge Visit,"19,722",9/29/2025,
+"3,103,635",Post Discharge Visit,"19,793",9/29/2025,Scheduled
+"2,582,935",Post Discharge Visit,"19,731",9/30/2025,
+"3,068,260",Post Discharge Visit,"19,738",9/30/2025,Scheduled
+"3,258,502",Maintenance Visit,"19,760",10/8/2025,Scheduled
+"2,588,234",Urgent Visit,"20,192",9/30/2025,
+"2,588,234",Urgent Visit,"20,193",9/30/2025,
+"2,588,234",Urgent Visit,"20,206",10/1/2025,Scheduled
+"2,859,313",Maintenance Visit,"20,283",10/2/2025,Scheduled
+"7,029,902",Post Discharge Visit,"20,350",10/2/2025,
+"7,029,902",Post Discharge Visit,"20,351",10/2/2025,
+"2,586,529",Post Discharge Visit,"20,781",10/3/2025,Scheduled
+"2,665,056",Post Discharge Visit,"20,997",10/8/2025,Other

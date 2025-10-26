@@ -1,0 +1,131 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below to help us diagnose and fix the issue.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: What happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Run command '...'
+        2. With configuration '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen
+      placeholder: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened
+      placeholder: What actually happened?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: project
+    attributes:
+      label: Affected Project
+      description: Which project is affected?
+      options:
+        - common_config
+        - patients_hcmid_validator
+        - patient_data_extraction
+        - automate_refresh
+        - appt_comparison
+        - patient_demographic
+        - staff_appointment_visitStatus
+        - users-provider-update
+        - PatientOtherDetail_isActive_false
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Which environment are you using?
+      options:
+        - LOCL (Local)
+        - DEV
+        - STG
+        - TRNG
+        - PERF
+        - PRPRD
+        - PROD
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs
+      description: Paste any relevant error messages or logs
+      placeholder: Paste error logs here
+      render: shell
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem
+      placeholder: Screenshots, configuration details, etc.
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Python Version
+      description: Output of `python --version`
+      placeholder: "3.11.x"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: Your OS (macOS, Windows, Linux)
+      placeholder: "macOS 14.x"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to avoid duplicates
+          required: true
+        - label: I have tested with the latest version
+          required: false
+        - label: I have included relevant logs/error messages
+          required: false

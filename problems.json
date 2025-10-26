@@ -1,0 +1,101 @@
+[{
+	"resource": "/f:/ubiquityMongo_phiMasking/python/automate_refresh/run.py",
+	"owner": "Pylance5",
+	"code": {
+		"value": "reportArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument of type \"str | None\" cannot be assigned to parameter \"uri\" of type \"str\" in function \"export_sample\"\n  Type \"str | None\" is not assignable to type \"str\"\n    \"None\" is not assignable to \"str\"",
+	"source": "Pylance",
+	"startLineNumber": 76,
+	"startColumn": 13,
+	"endLineNumber": 76,
+	"endColumn": 16,
+	"origin": "extHost1"
+},{
+	"resource": "/f:/ubiquityMongo_phiMasking/python/automate_refresh/run.py",
+	"owner": "Pylance5",
+	"code": {
+		"value": "reportArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument of type \"str | None\" cannot be assigned to parameter \"database\" of type \"str\" in function \"export_sample\"\n  Type \"str | None\" is not assignable to type \"str\"\n    \"None\" is not assignable to \"str\"",
+	"source": "Pylance",
+	"startLineNumber": 77,
+	"startColumn": 18,
+	"endLineNumber": 77,
+	"endColumn": 20,
+	"origin": "extHost1"
+},{
+	"resource": "/f:/ubiquityMongo_phiMasking/python/automate_refresh/run.py",
+	"owner": "Pylance5",
+	"code": {
+		"value": "reportAttributeAccessIssue",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportAttributeAccessIssue.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "\"import_collection\" is unknown import symbol",
+	"source": "Pylance",
+	"startLineNumber": 107,
+	"startColumn": 55,
+	"endLineNumber": 107,
+	"endColumn": 72,
+	"origin": "extHost1"
+},{
+	"resource": "/f:/ubiquityMongo_phiMasking/python/staff_appointment_visitStatus/run.py",
+	"owner": "Pylance5",
+	"code": {
+		"value": "reportCallIssue",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportCallIssue.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Expected 0 positional arguments",
+	"source": "Pylance",
+	"startLineNumber": 76,
+	"startColumn": 15,
+	"endLineNumber": 76,
+	"endColumn": 19,
+	"origin": "extHost1"
+},{
+	"resource": "/f:/ubiquityMongo_phiMasking/python/staff_appointment_visitStatus/run.py",
+	"owner": "Pylance5",
+	"code": {
+		"value": "reportCallIssue",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportCallIssue.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Expected 0 positional arguments",
+	"source": "Pylance",
+	"startLineNumber": 111,
+	"startColumn": 16,
+	"endLineNumber": 111,
+	"endColumn": 20,
+	"origin": "extHost1"
+}]

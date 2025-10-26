@@ -1,0 +1,65 @@
+﻿PatientRef,VisitTypeValue,AthenaAppointmentId,AvailabilityDate,VisitStatus
+2890067,Post Discharge Visit,9999,6/30/2025,Scheduled
+2593351,Palliative Management,10328,7/1/2025,Change in staff availability
+2595406,Urgent Visit,10297,7/3/2025,Scheduled
+2860104,Post Discharge Visit,10409,7/15/2025,Scheduled
+2581309,Maintenance Visit,10564,8/20/2025,Scheduled
+2779466,Maintenance Visit,10750,7/10/2025,Scheduled
+2592403,Urgent Visit,11001,7/8/2025,Scheduled
+2886779,Urgent Visit,11094,7/9/2025,Scheduled
+2808594,Urgent Visit,11095,7/9/2025,Scheduled
+2937417,Post Discharge Visit,11134,7/10/2025,Scheduled
+2569044,Post Discharge Visit,11212,7/14/2025,Scheduled
+2936870,Maintenance Visit,11280,7/14/2025,Scheduled
+2594094,Maintenance Visit,11412,7/21/2025,Scheduled
+3023499,Maintenance Visit,11425,7/21/2025,Scheduled
+3390817,Initial Visit,11893,7/23/2025,
+2712499,Palliative Prognosis Visit,12254,7/25/2025,Scheduled
+2588734,Palliative Management,12350,8/13/2025,Scheduled
+2996047,Palliative Management,12503,7/25/2025,Scheduled
+2778351,Maintenance Visit,12616,8/4/2025,Scheduled
+2579397,Palliative Management,12644,8/5/2025,Scheduled
+2573310,Palliative Management,13517,7/30/2025,Scheduled
+2596290,Post Discharge Visit,13724,7/28/2025,Scheduled
+3321365,Palliative Prognosis Visit,13922,8/12/2025,Scheduled
+2784090,Palliative Prognosis Visit,13924,8/12/2025,Scheduled
+2575755,Maintenance Visit,14087,8/7/2025,
+3020749,Initial Visit,14161,8/12/2025,Scheduled
+2589824,Palliative Prognosis Visit,14108,8/22/2025,Scheduled
+2585387,Maintenance Visit,14082,9/4/2025,
+7011467,Initial Visit,14253,8/26/2025,
+2780039,Initial Visit,14258,8/26/2025,
+3418796,Initial Visit 2,14663,8/22/2025,
+2664086,Initial Visit 2,14667,8/22/2025,
+2574942,Telephonic,14660,8/26/2025,Completed
+2711533,Post Discharge Visit,14967,8/15/2025,Scheduled
+2566177,Post Discharge Visit,15292,8/14/2025,Scheduled
+7006243,Initial Visit,15770,9/24/2025,Scheduled
+7031552,Initial Visit,15996,9/18/2025,
+2892187,Post Discharge Visit,16109,8/27/2025,Scheduled
+2574942,Telephonic,16450,9/4/2025,Completed
+2593996,Palliative Management,16896,9/11/2025,Scheduled
+3392404,Post Discharge Visit,17106,9/10/2025,Scheduled
+2574942,Telephonic,17285,9/12/2025,Completed
+7020548,Initial Visit,17866,9/22/2025,Scheduled
+7029843,Telephonic,17925,10/17/2025,Scheduled
+2584871,Post Discharge Visit,17986,9/15/2025,Scheduled
+7027571,Initial Visit,18154,9/30/2025,
+2819310,Initial Visit,18165,9/30/2025,
+2664409,Maintenance Visit,18327,9/17/2025,Scheduled
+2779551,Telephonic,18305,9/25/2025,Completed
+2891753,Maintenance Visit,18587,9/25/2025,Scheduled
+3369577,Telephonic,18653,9/30/2025,Completed
+2582528,Post Discharge Visit,19330,9/29/2025,
+2582528,Maintenance Visit,19333,9/29/2025,Scheduled
+3103635,Post Discharge Visit,19793,9/29/2025,Scheduled
+3068260,Post Discharge Visit,19738,9/30/2025,Scheduled
+3258502,Maintenance Visit,19760,10/8/2025,Scheduled
+2588234,Urgent Visit,20206,10/1/2025,Scheduled
+2859313,Maintenance Visit,20283,10/2/2025,Scheduled
+3369577,Telephonic,19900,10/9/2025,Completed
+2586529,Post Discharge Visit,20781,10/3/2025,Scheduled
+2712499,Palliative Management,20979,10/13/2025,Scheduled
+2586347,Palliative Management,21031,10/10/2025,Scheduled
+3258502,Maintenance Visit,21367,10/10/2025,Scheduled
+2572142,Post Discharge Visit,21696,10/13/2025,Scheduled

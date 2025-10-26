@@ -1,0 +1,334 @@
+# Python Projects - Comprehensive .gitignore
+
+# ============================================================================
+# Python
+# ============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+artifacts/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv311/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# ============================================================================
+# IDEs and Editors
+# ============================================================================
+
+# VS Code
+.vscode/
+!.vscode/settings.json.template
+!.vscode/extensions.json
+!.vscode/README.md
+!.vscode/*.sh
+!.vscode/*.ps1
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ============================================================================
+# Operating Systems
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================================
+# Project-Specific
+# ============================================================================
+
+# Environment files (IMPORTANT: Never commit secrets!)
+.env
+.env.*
+!.env.template
+!.env.example
+shared_config/.env
+shared_config/.env.*
+*/config/.env
+*/config/.env.*
+
+# Data directories (keep structure, ignore content)
+/data/input/*
+!/data/input/.gitkeep
+!/data/input/*/
+/data/output/*
+!/data/output/.gitkeep
+!/data/output/*/
+/data/*.csv
+/data/*.xlsx
+/data/*.json
+/data/*.parquet
+
+# Logs
+/logs/
+*.log
+
+# Temporary files
+/temp/
+/tmp/
+*.tmp
+
+# Archive files
+/archive/
+*.zip
+*.tar.gz
+*.7z
+
+# MongoDB exports/backups
+*.bson
+*.json.gz
+
+# Excel temporary files
+~$*.xlsx
+~$*.xls
+
+# ============================================================================
+# Testing and CI/CD
+# ============================================================================
+
+# Coverage reports
+.coverage
+coverage.xml
+htmlcov/
+*.cover
+
+# Test artifacts
+.pytest_cache/
+.tox/
+test-results/
+junit.xml
+
+# Linting caches
+.ruff_cache/
+.pylint.d/
+.mypy_cache/
+
+# ============================================================================
+# Documentation
+# ============================================================================
+
+# Sphinx
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# ============================================================================
+# Database
+# ============================================================================
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+
+# Credentials and keys
+*.pem
+*.key
+*.cert
+credentials.json
+service-account.json
+secrets.yaml
+
+# Local configuration overrides
+local.py
+local_settings.py
+settings_local.py
+config_local.py
+
+# Node modules (if any JS tooling is used)
+node_modules/
+
+# Claude Code specific
+.claude/settings.local.json
