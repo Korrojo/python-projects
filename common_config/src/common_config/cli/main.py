@@ -31,7 +31,7 @@ def init(
     force: bool = typer.Option(False, "--force", help="Overwrite existing files if the folder exists"),
 ):
     """Create a new sibling project with standardized repository structure.
-    
+
     NOTE: Uses centralized data/, logs/, and artifacts/ at repository root.
     No per-project config/ directory - use shared_config/.env instead.
     """
@@ -129,7 +129,7 @@ def init(
         '        """Test that run.py can be imported."""\n'
         f'        sys.path.insert(0, str(Path("{project_name}").absolute()))\n'
         "        import run\n\n"
-        "        assert hasattr(run, \"main\")\n\n\n"
+        '        assert hasattr(run, "main")\n\n\n'
         "class TestDependencies:\n"
         '    """Test that required dependencies are installed."""\n\n'
         "    def test_common_config_available(self):\n"
@@ -168,7 +168,10 @@ def init(
     _write(target / "tests" / "__init__.py", f'"""Tests for {project_name}."""\n')
     _write(target / "tests" / f"test_{pkg}_smoke.py", test_smoke)
     _write(target / "src" / pkg / "__init__.py", "")
-    _write(target / "scripts" / "README.md", f"# Scripts for {project_name}\n\nMiscellaneous utility scripts for maintenance tasks:\n\n- Index creation/management\n- Data migrations\n- One-time operations\n- Database maintenance\n")
+    _write(
+        target / "scripts" / "README.md",
+        f"# Scripts for {project_name}\n\nMiscellaneous utility scripts for maintenance tasks:\n\n- Index creation/management\n- Data migrations\n- One-time operations\n- Database maintenance\n",
+    )
     _write(target / "temp" / ".gitkeep", "")
 
     # Ensure centralized directories exist at repository root

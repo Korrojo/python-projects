@@ -73,10 +73,12 @@ def query(
 
     # Temporarily replace sys.argv and run
     import sys
+
     original_argv = sys.argv
     try:
         sys.argv = ["agg_query_runner.py"] + cmd_args
         from agg_query_runner import main as run_query  # type: ignore[import-not-found]
+
         run_query()
     finally:
         sys.argv = original_argv
@@ -110,10 +112,12 @@ def report(
 
     # Temporarily replace sys.argv and run
     import sys
+
     original_argv = sys.argv
     try:
         sys.argv = ["visit_status_report.py"] + cmd_args
         from visit_status_report import main as run_report  # type: ignore[import-not-found]
+
         run_report()
     finally:
         sys.argv = original_argv
