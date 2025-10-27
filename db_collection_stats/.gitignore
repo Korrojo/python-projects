@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Project-specific temporary files
+temp/
+*.tmp
+*.bak
+
+# Note: .venv/, data/, logs/, artifacts/ are gitignored at repository root

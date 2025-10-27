@@ -8,9 +8,9 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any
 
-from common_config.utils.logger import get_logger
-
 from csv_handler import format_date_for_mongo
+
+from common_config.utils.logger import get_logger
 
 logger = get_logger(__name__)
 

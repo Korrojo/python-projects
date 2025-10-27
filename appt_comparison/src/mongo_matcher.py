@@ -9,11 +9,10 @@ import time
 from datetime import datetime
 from typing import Any
 
+from csv_handler import format_date_for_mongo
 from pymongo.database import Database
 
 from common_config.utils.logger import get_logger
-
-from csv_handler import format_date_for_mongo
 
 logger = get_logger(__name__)
 

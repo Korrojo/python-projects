@@ -75,6 +75,7 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Allow unused imports in __init__.py
 "**/tests/**" = ["E731"]  # Allow lambda in tests
+"staff_appointment_visitStatus/**" = ["N999"]  # Legacy project naming
 
 [tool.ruff.lint.isort]
 known-first-party = ["common_config"]
@@ -90,14 +91,11 @@ cache_dir = "artifacts/.pytest_cache"
 addopts = [
     "-ra",                                      # Show summary of all test outcomes
     "-q",                                       # Quiet mode
-    "--maxfail=1",                             # Stop after first failure
     "--disable-warnings",                       # Disable warnings
-    "--cov=common_config",                     # Coverage for common_config
-    "--cov-report=term-missing",               # Show missing lines in terminal
-    "--cov-report=html:artifacts/coverage/htmlcov",  # HTML report
-    "--cov-report=xml:artifacts/coverage/coverage.xml",  # XML for CI
     "--junitxml=artifacts/test-reports/junit.xml",  # JUnit XML for CI
 ]
+# Note: Coverage is optional. To run with coverage, use:
+#   pytest --cov=<project> --cov-report=term-missing --cov-report=html
 filterwarnings = [
     "ignore::DeprecationWarning"
 ]

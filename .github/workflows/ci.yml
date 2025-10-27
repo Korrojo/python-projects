@@ -75,7 +75,8 @@ jobs:
           pip install pytest pytest-cov pytest-xdist
 
       - name: Create artifacts directory
-        run: mkdir -p artifacts/coverage artifacts/test-reports
+        run: |
+          python -c "import os; os.makedirs('artifacts/coverage', exist_ok=True); os.makedirs('artifacts/test-reports', exist_ok=True)"
 
       - name: Run tests
         run: |

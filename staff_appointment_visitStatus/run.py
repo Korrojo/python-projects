@@ -17,12 +17,9 @@ from pathlib import Path
 # Add current directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 
-import argparse
-from typing import Optional
 
 import typer
 
-from common_config.config.settings import get_settings
 from common_config.utils.logger import setup_logging
 
 app = typer.Typer(help="StaffAvailability MongoDB Query Tools")
@@ -30,14 +27,14 @@ app = typer.Typer(help="StaffAvailability MongoDB Query Tools")
 
 @app.command()
 def query(
-    athena_id: Optional[int] = typer.Option(None, "--athena-id", help="AthenaAppointmentId to query"),
-    patient_ref: Optional[int] = typer.Option(None, "--patient-ref", help="PatientRef to query"),
-    input_file: Optional[str] = typer.Option(
+    athena_id: int | None = typer.Option(None, "--athena-id", help="AthenaAppointmentId to query"),
+    patient_ref: int | None = typer.Option(None, "--patient-ref", help="PatientRef to query"),
+    input_file: str | None = typer.Option(
         None, "--input", "-i", help="Input CSV/Excel file (first 2 columns: AthenaAppointmentId, PatientRef)"
     ),
-    output_csv: Optional[str] = typer.Option(None, "--output", "-o", help="Output CSV file path"),
+    output_csv: str | None = typer.Option(None, "--output", "-o", help="Output CSV file path"),
     collection: str = typer.Option("StaffAvailability", "--collection", "-c", help="MongoDB collection name"),
-    env: Optional[str] = typer.Option(None, "--env", "-e", help="Environment override (PROD, LOCL, etc.)"),
+    env: str | None = typer.Option(None, "--env", "-e", help="Environment override (PROD, LOCL, etc.)"),
 ):
     """Run aggregation query on StaffAvailability collection.
 
@@ -87,11 +84,9 @@ def query(
 @app.command()
 def report(
     input_file: str = typer.Option(..., "--input", "-i", help="Input CSV file with appointment data"),
-    output_file: Optional[str] = typer.Option(
-        None, "--output", "-o", help="Output CSV file path (default: data/output/)"
-    ),
+    output_file: str | None = typer.Option(None, "--output", "-o", help="Output CSV file path (default: data/output/)"),
     collection: str = typer.Option("StaffAvailability", "--collection", "-c", help="MongoDB collection name"),
-    env: Optional[str] = typer.Option(None, "--env", "-e", help="Environment override (PROD, LOCL, etc.)"),
+    env: str | None = typer.Option(None, "--env", "-e", help="Environment override (PROD, LOCL, etc.)"),
 ):
     """Generate VisitStatus report from input CSV.
 

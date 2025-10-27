@@ -39,7 +39,8 @@ command_exists() {
 get_python_version() {
     local py_cmd="$1"
     if command_exists "$py_cmd"; then
-        "$py_cmd" --version 2>&1 | grep -oP '\d+\.\d+\.\d+' || echo "unknown"
+        # macOS compatible: use sed instead of grep -P
+        "$py_cmd" --version 2>&1 | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' || echo "unknown"
     else
         echo ""
     fi
@@ -110,7 +111,43 @@ echo ""
 if [[ ${#PYTHON_VERSIONS[@]} -eq 0 ]]; then
     echo -e "${RED}ERROR: No Python installations found!${NC}"
     echo ""
-    echo "Please install Python 3.11+ from:"
+    echo "Would you like to install Python 3.11 now?"
+    echo ""
+
+    if [[ "$OS_TYPE" == "macOS" ]]; then
+        if command_exists brew; then
+            read -p "Install Python 3.11 using Homebrew? (y/N): " install_confirm
+            if [[ "$install_confirm" =~ ^[Yy]$ ]]; then
+                echo ""
+                echo -e "${YELLOW}Installing Python 3.11 via Homebrew...${NC}"
+                brew install python@3.11
+                echo ""
+                echo -e "${GREEN}✓ Python 3.11 installed!${NC}"
+                echo "Re-running detection..."
+                exec "$0"
+            fi
+        else
+            echo "Homebrew not found. Install from: https://brew.sh"
+        fi
+    elif [[ "$OS_TYPE" == "Windows" ]]; then
+        if command_exists choco; then
+            read -p "Install Python 3.11 using Chocolatey? (y/N): " install_confirm
+            if [[ "$install_confirm" =~ ^[Yy]$ ]]; then
+                echo ""
+                echo -e "${YELLOW}Installing Python 3.11 via Chocolatey...${NC}"
+                choco install python311 -y
+                echo ""
+                echo -e "${GREEN}✓ Python 3.11 installed!${NC}"
+                echo "Re-running detection..."
+                exec "$0"
+            fi
+        else
+            echo "Chocolatey not found. Install from: https://chocolatey.org"
+        fi
+    fi
+
+    echo ""
+    echo "Manual installation options:"
     if [[ "$OS_TYPE" == "Windows" ]]; then
         echo "  https://www.python.org/downloads/windows/"
     elif [[ "$OS_TYPE" == "macOS" ]]; then
@@ -120,7 +157,7 @@ if [[ ${#PYTHON_VERSIONS[@]} -eq 0 ]]; then
         echo "  https://www.python.org/downloads/"
     fi
     echo ""
-    echo "After installation, ensure Python is in your PATH."
+    echo "After installation, ensure Python is in your PATH and re-run this script."
     exit 1
 fi
 
@@ -165,7 +202,8 @@ echo -e "${BLUE}Path: $SELECTED_PATH${NC}"
 echo ""
 
 # Determine venv directory name based on major.minor version
-VENV_VERSION=$(echo "$SELECTED_VERSION" | grep -oP '^\d+\.\d+')
+# macOS compatible: use sed instead of grep -P
+VENV_VERSION=$(echo "$SELECTED_VERSION" | sed -n 's/^\([0-9][0-9]*\.[0-9][0-9]*\).*/\1/p')
 VENV_DIR=".venv${VENV_VERSION//./}"
 
 # Warn if different version already exists
@@ -209,7 +247,7 @@ else
     VENV_PYTHON="$VENV_DIR/bin/python"
 fi
 
-VENV_VERSION_CHECK=$("$VENV_PYTHON" --version 2>&1 | grep -oP '\d+\.\d+\.\d+' || echo "unknown")
+VENV_VERSION_CHECK=$("$VENV_PYTHON" --version 2>&1 | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' || echo "unknown")
 echo -e "${GREEN}✓ Virtual environment Python version: $VENV_VERSION_CHECK${NC}"
 
 # Check if version matches

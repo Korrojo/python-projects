@@ -33,27 +33,42 @@ echo ""
 
 # Run Ruff (linter) - check only
 echo -e "${GREEN}2. Running Ruff (linter - check)...${NC}"
-ruff check "$TARGET"
+if ! ruff check "$TARGET"; then
+    echo ""
+    echo -e "${YELLOW}⚠ Ruff found issues. Attempting auto-fix...${NC}"
+    echo ""
+    # Run Ruff (linter) - fix
+    echo -e "${GREEN}3. Running Ruff (linter - auto-fix)...${NC}"
+    if ruff check "$TARGET" --fix; then
+        echo -e "${GREEN}✓ All fixable issues resolved!${NC}"
+    else
+        echo ""
+        echo -e "${RED}✗ Some issues remain after auto-fix${NC}"
+        echo -e "${YELLOW}To see remaining issues, run:${NC}"
+        echo -e "  ${YELLOW}ruff check $TARGET${NC}"
+        echo ""
+        echo -e "${YELLOW}To manually fix, run:${NC}"
+        echo -e "  ${YELLOW}ruff check $TARGET --fix${NC}"
+        exit 1
+    fi
+else
+    echo -e "${GREEN}✓ All checks passed!${NC}"
+fi
 echo ""
 
-# Run Ruff (linter) - fix
-echo -e "${GREEN}3. Running Ruff (linter - auto-fix)...${NC}"
-ruff check "$TARGET" --fix
-echo ""
-
-# Run Pyright (type checker) - optional
+# Run Pyright (type checker)
 if [ "$PYRIGHT_AVAILABLE" = true ]; then
     echo -e "${GREEN}4. Running Pyright (type checker)...${NC}"
     if pyright "$TARGET" 2>/dev/null; then
         echo -e "${GREEN}✓ Type checking passed${NC}"
     else
         echo -e "${YELLOW}⚠ Type checking found issues (see above)${NC}"
-        echo -e "${YELLOW}Note: Pyright may have package detection issues. VS Code Pylance is more reliable.${NC}"
     fi
     echo ""
 else
-    echo -e "${YELLOW}4. Pyright not available - skipping type checking${NC}"
-    echo -e "${YELLOW}   Type checking is still available in VS Code via Pylance${NC}"
+    echo -e "${RED}4. Pyright not found - skipping type checking${NC}"
+    echo -e "${YELLOW}   To install: ${NC}pip install -r requirements.txt"
+    echo -e "${YELLOW}   This ensures IDE-agnostic type checking on any platform${NC}"
     echo ""
 fi
 

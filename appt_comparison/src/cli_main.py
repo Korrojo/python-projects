@@ -7,12 +7,11 @@ import os
 from pathlib import Path
 
 import typer
+from validator import AppointmentValidator
 
 from common_config.config import get_settings, load_app_config
 from common_config.db.connection import MongoDBConnection
 from common_config.utils.logger import get_logger, setup_logging
-
-from validator import AppointmentValidator
 
 app = typer.Typer(help="Appointment Comparison Validator - Compare Athena CSV vs MongoDB StaffAvailability")
 

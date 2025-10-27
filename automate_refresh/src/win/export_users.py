@@ -1,6 +1,7 @@
 import os
 
 from automate_refresh.win.modules.exporter import export_sample
+
 from common_config.config.settings import get_settings
 from common_config.utils.logger import get_logger, setup_logging
 

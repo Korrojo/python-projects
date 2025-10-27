@@ -4,12 +4,11 @@ import os
 from pathlib import Path
 
 import typer
+from runner_csv import run_validation
+from runner_excel import run_validation_excel
 
 from common_config.config.settings import get_settings
 from common_config.utils.logger import get_logger, get_run_timestamp, setup_logging
-
-from runner_csv import run_validation
-from runner_excel import run_validation_excel
 
 app = typer.Typer(help="Patients HcmId validator - validate CSV rows against MongoDB Patients collection")
 

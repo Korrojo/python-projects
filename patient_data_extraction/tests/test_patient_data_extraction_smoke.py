@@ -10,8 +10,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-import pytest
-
 
 class TestImports:
     """Test that all critical modules can be imported."""

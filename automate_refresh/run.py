@@ -18,7 +18,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 import os
-from typing import Optional
 
 import typer
 
@@ -38,10 +37,10 @@ def _get_backup_dir() -> str:
 @app.command()
 def export(
     collection: str = typer.Option(..., "--collection", "-c", help="Collection name to export"),
-    env: Optional[str] = typer.Option(None, "--env", "-e", help="Environment (prod, locl, etc.)"),
-    limit: Optional[int] = typer.Option(None, "--limit", "-l", help="Limit number of documents (for testing)"),
+    env: str | None = typer.Option(None, "--env", "-e", help="Environment (prod, locl, etc.)"),
+    limit: int | None = typer.Option(None, "--limit", "-l", help="Limit number of documents (for testing)"),
     fraction: float = typer.Option(1.0, "--fraction", "-f", help="Fraction of documents to export (0.0-1.0)"),
-    output_dir: Optional[str] = typer.Option(None, "--output", "-o", help="Output directory (default: from settings)"),
+    output_dir: str | None = typer.Option(None, "--output", "-o", help="Output directory (default: from settings)"),
 ):
     """Export a MongoDB collection to JSON (compressed as .zip)."""
     # Setup logging
@@ -96,7 +95,7 @@ def export(
 def import_collection(
     collection: str = typer.Option(..., "--collection", "-c", help="Collection name to import"),
     file: str = typer.Option(..., "--file", "-f", help="Input JSON or ZIP file path"),
-    env: Optional[str] = typer.Option(None, "--env", "-e", help="Environment (locl, dev, etc.)"),
+    env: str | None = typer.Option(None, "--env", "-e", help="Environment (locl, dev, etc.)"),
     drop_first: bool = typer.Option(False, "--drop", help="Drop collection before import"),
 ):
     """Import a MongoDB collection from JSON (or .zip) file."""

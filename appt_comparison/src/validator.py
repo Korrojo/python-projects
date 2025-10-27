@@ -9,10 +9,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from pymongo.database import Database
-
-from common_config.utils.logger import get_logger, get_run_timestamp
-
 from csv_handler import (
     clean_cancelled_rows,
     parse_date,
@@ -23,6 +19,9 @@ from csv_handler import (
 )
 from field_comparator import FieldComparator
 from mongo_matcher import MongoMatcher
+from pymongo.database import Database
+
+from common_config.utils.logger import get_logger, get_run_timestamp
 
 logger = get_logger(__name__)
 
