@@ -79,16 +79,7 @@ jobs:
           python -c "import os; os.makedirs('artifacts/coverage', exist_ok=True); os.makedirs('artifacts/test-reports', exist_ok=True)"
 
       - name: Run tests
-        run: |
-          pytest -q \
-            --maxfail=1 \
-            --disable-warnings \
-            -m "not integration" \
-            --cov=common_config \
-            --cov-report=xml:artifacts/coverage/coverage.xml \
-            --cov-report=html:artifacts/coverage/htmlcov \
-            --cov-report=term-missing \
-            --junitxml=artifacts/test-reports/junit.xml
+        run: pytest -q --maxfail=1 --disable-warnings -m "not integration" --cov=common_config --cov-report=xml:artifacts/coverage/coverage.xml --cov-report=html:artifacts/coverage/htmlcov --cov-report=term-missing --junitxml=artifacts/test-reports/junit.xml
 
       - name: Upload coverage to Codecov
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
