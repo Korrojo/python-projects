@@ -94,6 +94,39 @@ pip install -e ./patients_hcmid_validator
 - **Directory Structure Convention**: All projects use **repo-level shared directories** for data and logs. Each project creates its own subdirectory within these shared directories (e.g., `data/input/appointment_comparison/`, `logs/patients_hcmid_validator/`). Projects should **NOT** create their own `data/`, `logs/`, `temp/`, or `archive/` directories at the project level to avoid confusion and maintain consistency.
 - Goal: avoid per-project `env/`, `config/` (for secrets), `data/`, `logs/` duplication. Prefer `shared_config/.env` and the shared `data/` and `logs/` roots. Some legacy projects still contain local folders; new work should follow the unified setup.
 
+## ⚠️ Before Pushing Code (IMPORTANT)
+
+**All code must pass validation before pushing to main or creating PRs.**
+
+A **git pre-push hook** is configured to automatically run validation checks. To ensure it runs:
+
+```bash
+# Ensure venv is activated
+source .venv311/bin/activate
+
+# Push (validation runs automatically)
+git push
+```
+
+**What gets checked automatically:**
+- ✅ Virtual environment activation
+- ✅ Code formatting (Black)
+- ✅ Linting (Ruff)
+- ✅ All tests pass
+- ✅ Cross-platform compatibility
+
+**Manual validation** (if hook is bypassed):
+```bash
+./scripts/pre-push-check.sh
+```
+
+**Emergency bypass** (not recommended):
+```bash
+git push --no-verify  # Skips validation - use only in emergencies
+```
+
+> **Why this matters:** Prevents CI failures, broken builds, and ensures Windows compatibility. See [docs/best-practices/CI_CD_LESSONS_LEARNED.md](docs/best-practices/CI_CD_LESSONS_LEARNED.md) for details.
+
 ## Current structure (key parts)
 
 ```text

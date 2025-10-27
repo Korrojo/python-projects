@@ -285,7 +285,26 @@ Fixes #456
    git rebase main
    ```
 
-2. **Run quality checks**:
+2. **Run pre-push validation** (REQUIRED):
+   ```bash
+   # Ensure virtual environment is activated
+   source .venv311/bin/activate
+
+   # Run automated validation
+   ./scripts/pre-push-check.sh
+   ```
+
+   **This script automatically checks:**
+   - ✅ Virtual environment is activated
+   - ✅ Code formatting (Black)
+   - ✅ Linting (Ruff)
+   - ✅ All tests pass
+   - ✅ Cross-platform compatibility issues
+
+   **Note:** A git pre-push hook is configured to run this automatically.
+   You can bypass it in emergencies with `git push --no-verify` (not recommended).
+
+3. **Manual quality checks** (if needed):
    ```bash
    # Format code
    black .
@@ -300,7 +319,7 @@ Fixes #456
    pyright
    ```
 
-3. **Update documentation**:
+4. **Update documentation**:
    - Update README if adding new features
    - Add docstrings to new functions
    - Update CHANGELOG.md if applicable
