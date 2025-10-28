@@ -270,7 +270,7 @@ if __name__ == "__main__":
 **❌ NEVER do this:**
 ```python
 logger.info(f"MongoDB URI: {settings.mongodb_uri}")
-# Logs: mongodb+srv://user:password@host/...  ← EXPOSES CREDENTIALS!
+# Logs: mongodb+srv://<username>:<password>@host/...  ← EXPOSES CREDENTIALS!
 ```
 
 **✅ ALWAYS do this:**
@@ -291,7 +291,7 @@ from common_config.utils.security import (
 )
 
 # Redact MongoDB URIs
-safe_uri = redact_uri("mongodb://user:pass@host:27017/db")
+safe_uri = redact_uri("mongodb://<username>:<password>@host:27017/db")
 # Returns: "mongodb://***:***@host:27017/db"
 
 # Redact passwords from any text

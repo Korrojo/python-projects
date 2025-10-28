@@ -700,8 +700,8 @@ code shared_config/.env
 
 Add your connection string (if not already present):
 ```env
-MONGODB_URI_DEV=mongodb://username:password@host:port/database?authSource=admin
-MONGODB_URI_PROD=mongodb://username:password@host:port/database?authSource=admin
+MONGODB_URI_DEV=mongodb://<username>:<password>@host:port/database?authSource=admin
+MONGODB_URI_PROD=mongodb://<username>:<password>@host:port/database?authSource=admin
 DATABASE_NAME_DEV=your_database
 DATABASE_NAME_PROD=your_database
 ```

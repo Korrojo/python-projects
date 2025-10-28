@@ -290,12 +290,12 @@ Redact credentials from URIs for safe logging.
 from common_config.utils.security import redact_uri
 
 # MongoDB URIs
-uri = "mongodb+srv://user:password@cluster.mongodb.net/?options"
+uri = "mongodb+srv://<username>:<password>@cluster.mongodb.net/?options"
 safe_uri = redact_uri(uri)
 # Returns: "mongodb+srv://***:***@cluster.mongodb.net/?options"
 
 # Standard MongoDB
-uri = "mongodb://admin:secret@localhost:27017/mydb"
+uri = "mongodb://<username>:<password>@localhost:27017/mydb"
 safe_uri = redact_uri(uri)
 # Returns: "mongodb://***:***@localhost:27017/mydb"
 
@@ -329,7 +329,7 @@ Get safe connection information dictionary for logging.
 from common_config.utils.security import get_safe_connection_info
 
 info = get_safe_connection_info(
-    "mongodb+srv://user:pass@cluster.mongodb.net/?options",
+    "mongodb+srv://<username>:<password>@cluster.mongodb.net/?options",
     "mydb"
 )
 
