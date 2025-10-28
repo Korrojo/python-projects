@@ -1,11 +1,30 @@
 # Documentation Directory
 
+> **📌 Note:** This is the **detailed documentation index**. For quick task-based navigation, see the [Master README](../README.md) at repository root.
+
 This directory contains all technical documentation for the Python Projects repository, organized by purpose and audience.
+
+## How to Use This Documentation
+
+**Two ways to find what you need:**
+
+1. **Task-Based (Faster)** → Use [Master README](../README.md)
+   - "I want to create a new project" → Direct link to guide
+   - "I'm getting import errors" → Direct link to troubleshooting
+   - "I need reference material" → Direct links to relevant docs
+
+2. **Browse by Type (Comprehensive)** → Use this page
+   - See all available documentation
+   - Understand organization structure
+   - Explore by category (guides, best practices, archives)
+
+---
 
 ## Directory Structure
 
 ```
 docs/
+├── AI_COLLABORATION_GUIDE.md  # 🤖 Guide for AI assistants (session context)
 ├── guides/              # Step-by-step how-to guides
 ├── best-practices/      # Reference material and patterns
 ├── archive/             # Historical documentation snapshots
@@ -17,20 +36,53 @@ docs/
 
 ---
 
+## Navigation Flow
+
+**Start here for common tasks:**
+
+### Your Situation → What to Read
+
+| If you want to... | Go to... |
+|-------------------|----------|
+| **🤖 AI assistant starting new session** | [AI_COLLABORATION_GUIDE.md](AI_COLLABORATION_GUIDE.md) ← Start here for context |
+| **Get started quickly** | [Master README](../README.md) → 5-Minute Quickstart |
+| **Create a new project** | [Master README](../README.md) → "I Want to Create a New Project" |
+| **Fix an error** | [Master README](../README.md) → "I'm Encountering Errors" |
+| **Browse all docs** | Stay here, see sections below |
+| **Find something specific** | Use sections below or search in your editor |
+
+---
+
 ## Quick Navigation
 
-### Getting Started
+### For New Developers
 
-**New to the repository?** Start here:
-1. Read the main [README.md](../README.md) in the repository root
-2. Follow [guides/NEW_PROJECT_GUIDE.md](guides/NEW_PROJECT_GUIDE.md) for complete walkthrough with environment setup
+**Complete path for first-time setup:**
+1. [Master README](../README.md) - Quickstart (5 minutes)
+2. [guides/NEW_PROJECT_GUIDE.md](guides/NEW_PROJECT_GUIDE.md) - Full walkthrough (30-60 minutes)
+3. [guides/COMMON_CONFIG_API_REFERENCE.md](guides/COMMON_CONFIG_API_REFERENCE.md) - ⭐ **Bookmark this** for development
 
-**Adding a new project?**
-- [guides/NEW_PROJECT_GUIDE.md](guides/NEW_PROJECT_GUIDE.md) - Comprehensive 9-phase guide from environment setup to Git commit
+### For Active Development
 
-**Setting up code quality tools?**
-- [guides/LINTING.md](guides/LINTING.md) - Ruff and Pyright setup
-- [guides/VENV_SETUP.md](guides/VENV_SETUP.md) - Virtual environment details
+**Keep these open while coding:**
+- ⭐⭐ [guides/COMMON_CONFIG_API_REFERENCE.md](guides/COMMON_CONFIG_API_REFERENCE.md) - Import paths & patterns
+- [Master README](../README.md) - Quick reference for common tasks
+
+**Before committing:**
+- [best-practices/CI_CD_LESSONS_LEARNED.md](best-practices/CI_CD_LESSONS_LEARNED.md) - Avoid CI failures
+
+### For Troubleshooting
+
+**Import errors:**
+- [guides/COMMON_CONFIG_API_REFERENCE.md](guides/COMMON_CONFIG_API_REFERENCE.md) - Correct paths
+- [best-practices/IMPORT_PATH_ISSUES.md](best-practices/IMPORT_PATH_ISSUES.md) - Why & prevention
+
+**Environment issues:**
+- [guides/VENV_SETUP.md](guides/VENV_SETUP.md) - Virtual environment
+- [Master README](../README.md) → Troubleshooting section
+
+**CI/CD failures:**
+- [best-practices/CI_CD_LESSONS_LEARNED.md](best-practices/CI_CD_LESSONS_LEARNED.md) - Common issues & fixes
 
 ---
 
@@ -41,6 +93,7 @@ Located in `guides/`
 | Document | Purpose | When to Use |
 |----------|---------|-------------|
 | [NEW_PROJECT_GUIDE.md](guides/NEW_PROJECT_GUIDE.md) | Comprehensive 9-phase guide for creating any new project | Starting any new project (PRIMARY GUIDE) |
+| [COMMON_CONFIG_API_REFERENCE.md](guides/COMMON_CONFIG_API_REFERENCE.md) | ⭐ Import paths and usage patterns for common_config | **Before adding ANY common_config imports** |
 | [VENV_SETUP.md](guides/VENV_SETUP.md) | Virtual environment setup scripts | First-time setup or troubleshooting |
 | [LINTING.md](guides/LINTING.md) | Code quality tools (Ruff, Pyright) | Setting up linting/formatting |
 | [TESTING_GUIDE.md](guides/TESTING_GUIDE.md) | Running tests across projects | Writing or running tests |
@@ -54,6 +107,10 @@ Located in `best-practices/`
 
 | Document | Purpose | Audience |
 |----------|---------|----------|
+| [CI_CD_LESSONS_LEARNED.md](best-practices/CI_CD_LESSONS_LEARNED.md) | CI/CD failures and prevention strategies | All developers |
+| [CLI_PATTERNS.md](best-practices/CLI_PATTERNS.md) ⭐ | Standard CLI patterns (--env, --collection) | All developers |
+| [FILE_NAMING_CONVENTIONS.md](best-practices/FILE_NAMING_CONVENTIONS.md) | Standard patterns for output files and logs | All developers |
+| [IMPORT_PATH_ISSUES.md](best-practices/IMPORT_PATH_ISSUES.md) | Common import errors and how to prevent them | All developers |
 | [MONGODB_VALIDATION_BEST_PRACTICES.md](best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md) | Technical patterns for validation/migration tools | Developers building data tools |
 | [REPOSITORY_LESSONS_LEARNED.md](best-practices/REPOSITORY_LESSONS_LEARNED.md) | Organizational patterns and common pitfalls | All developers |
 

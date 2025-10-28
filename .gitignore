@@ -246,6 +246,13 @@ shared_config/.env.*
 /data/*.xlsx
 /data/*.json
 /data/*.parquet
+# Ignore data files in subdirectories
+/data/input/**/*.csv
+/data/input/**/*.xlsx
+/data/input/**/*.json
+/data/output/**/*.csv
+/data/output/**/*.xlsx
+/data/output/**/*.json
 
 # Logs
 /logs/

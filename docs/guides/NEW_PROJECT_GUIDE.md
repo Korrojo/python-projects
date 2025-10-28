@@ -6,6 +6,60 @@
 
 ---
 
+<details open>
+<summary><strong>📖 Table of Contents</strong> (click to expand/collapse)</summary>
+
+- [🖥️ Cross-Platform Guide](#️-cross-platform-guide)
+- [Prerequisites Checklist](#prerequisites-checklist)
+- [PHASE 1: Environment Setup](#phase-1-environment-setup)
+  - [Step 1.1: Make Scripts Executable](#step-11-make-scripts-executable)
+    - [macOS / Linux / Git Bash](#macos--linux--git-bash)
+    - [Windows (PowerShell / CMD)](#windows-powershell--cmd)
+  - [Step 1.2: Install Virtual Environment](#step-12-install-virtual-environment)
+    - [macOS / Linux / Git Bash](#macos--linux--git-bash-1)
+    - [Windows PowerShell](#windows-powershell)
+  - [Step 1.3: Activate Virtual Environment](#step-13-activate-virtual-environment)
+    - [macOS / Linux / Git Bash (Windows)](#macos--linux--git-bash-windows)
+    - [Windows PowerShell](#windows-powershell-1)
+    - [Windows Command Prompt (CMD)](#windows-command-prompt-cmd)
+  - [Step 1.4: Upgrade pip](#step-14-upgrade-pip)
+  - [Step 1.5: Install Repository Dependencies](#step-15-install-repository-dependencies)
+  - [Step 1.6: Install common_config](#step-16-install-common_config)
+  - [Step 1.7: Verify Configuration](#step-17-verify-configuration)
+- [✅ PHASE 1 COMPLETE!](#-phase-1-complete)
+- [PHASE 2: Project Scaffolding](#phase-2-project-scaffolding)
+  - [Step 2.1: Create Project Structure](#step-21-create-project-structure)
+  - [Step 2.2: Inspect Generated Files](#step-22-inspect-generated-files)
+  - [Step 2.3: ⚠️ IMPORTANT - Before Adding Functionality](#step-23-️-important---before-adding-functionality)
+- [✅ PHASE 2 COMPLETE!](#-phase-2-complete)
+- [PHASE 3: Code Quality Baseline](#phase-3-code-quality-baseline)
+  - [Step 3.1: Run Linting and Formatting](#step-31-run-linting-and-formatting)
+  - [Step 3.2: Run Initial Tests](#step-32-run-initial-tests)
+- [✅ PHASE 3 COMPLETE!](#-phase-3-complete)
+- [Optional: Test Run the Project Template](#optional-test-run-the-project-template)
+- [PHASE 4: Database Configuration (If Needed)](#phase-4-database-configuration-if-needed)
+- [PHASE 5: Implement Your Logic](#phase-5-implement-your-logic)
+  - [Project Structure Reference](#project-structure-reference)
+  - [Main Entry Point: `run.py`](#main-entry-point-runpy)
+  - [Implementing CLI Commands (Standard Pattern)](#implementing-cli-commands-standard-pattern)
+    - [Standard CLI Template](#standard-cli-template)
+    - [Standard CLI Options](#standard-cli-options)
+  - [Create Modules in `src/`](#create-modules-in-src)
+  - [Utility Scripts in `scripts/`](#utility-scripts-in-scripts)
+- [PHASE 6: Managing Dependencies](#phase-6-managing-dependencies)
+- [PHASE 7: Write Tests](#phase-7-write-tests)
+- [PHASE 8: Run Your Project](#phase-8-run-your-project)
+- [PHASE 9: Git Commit and Documentation](#phase-9-git-commit-and-documentation)
+- [Integration with CI/CD](#integration-with-cicd)
+- [Common Tasks Quick Reference](#common-tasks-quick-reference)
+- [Troubleshooting](#troubleshooting)
+- [End-to-End Validation Checklist](#end-to-end-validation-checklist)
+- [Related Documentation](#related-documentation)
+
+</details>
+
+---
+
 ## 🖥️ Cross-Platform Guide
 
 This guide supports **all major platforms**:
@@ -454,6 +508,47 @@ ls -la <your-project-name>/tests/
 
 ---
 
+### Step 2.3: ⚠️ IMPORTANT - Before Adding Functionality
+
+**Before you start writing code and adding imports from `common_config`:**
+
+📖 **ALWAYS consult:** [COMMON_CONFIG_API_REFERENCE.md](COMMON_CONFIG_API_REFERENCE.md)
+
+**Why this is critical:**
+- Prevents import path errors (most common new project issue)
+- Shows correct usage patterns for MongoDB, logging, file operations
+- Provides copy-paste templates for common scenarios
+- Saves time debugging import errors
+
+**What it contains:**
+- ✅ Correct import paths for all common_config modules
+- ✅ MongoDB connection patterns (context manager, connector class)
+- ✅ Logging setup and usage
+- ✅ Complete working examples for common project types
+- ✅ Troubleshooting section for common errors
+
+**Common patterns you'll find:**
+```python
+# MongoDB connection (CORRECT way)
+from common_config.connectors.mongodb import get_mongo_client
+
+# Settings (CORRECT way)
+from common_config.config.settings import get_settings
+
+# Logging (CORRECT way)
+from common_config.utils.logger import get_logger, setup_logging
+```
+
+> **📝 Lesson Learned:** Guessing import paths leads to errors like `ModuleNotFoundError: No module named 'common_config.db.mongo_client'`. The API Reference prevents this. See [IMPORT_PATH_ISSUES.md](../best-practices/IMPORT_PATH_ISSUES.md) for details.
+
+**When to use the API Reference:**
+- ✅ Before adding MongoDB functionality
+- ✅ Before importing any common_config module
+- ✅ When you encounter import errors
+- ✅ When you need usage examples
+
+---
+
 ## ✅ PHASE 2 COMPLETE!
 
 **What we accomplished:**
@@ -671,6 +766,126 @@ The scaffolder creates a template `run.py` with:
 ```bash
 code <your-project-name>/run.py
 ```
+
+### Implementing CLI Commands (Standard Pattern)
+
+**⭐ IMPORTANT:** All projects should follow the [Standard CLI Patterns](../best-practices/CLI_PATTERNS.md) for consistency.
+
+#### Standard CLI Template
+
+If your project needs CLI commands, use this standard template:
+
+```python
+"""CLI interface for <project_name>."""
+
+import os
+from pathlib import Path
+import typer
+
+from common_config.config.settings import get_settings
+from common_config.connectors.mongodb import get_mongo_client
+from common_config.utils.logger import get_logger, setup_logging
+from common_config.utils.security import redact_uri  # ⭐ REQUIRED for security
+
+app = typer.Typer(
+    help="Project description",
+    no_args_is_help=True,
+)
+
+@app.command("command-name")
+def command_name(
+    env: str = typer.Option(
+        None,
+        "--env",
+        help="Environment to use (DEV, PROD, STG, etc.) - overrides APP_ENV",
+    ),
+    collection: str = typer.Option(
+        None,
+        "--collection",
+        "-c",
+        help="Collection name to process",
+    ),
+):
+    """Command description."""
+    # 1. Set environment if provided
+    if env:
+        os.environ["APP_ENV"] = env.upper()
+
+    # 2. Get settings (uses environment-specific variables)
+    settings = get_settings()
+    log_dir = Path(settings.paths.logs) / "<project_name>"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    setup_logging(log_dir=log_dir)
+    logger = get_logger(__name__)
+
+    logger.info("=" * 60)
+    logger.info("<Project Name> - <Command Name>")
+    logger.info("=" * 60)
+
+    # 3. Connect to MongoDB
+    try:
+        with get_mongo_client(
+            mongodb_uri=settings.mongodb_uri,
+            database_name=settings.database_name
+        ) as client:
+            db = client[settings.database_name]
+
+            logger.info(f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}")
+            logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")  # ⚠️ ALWAYS redact
+            logger.info(f"Database: {settings.database_name}")
+
+            if collection:
+                logger.info(f"Collection: {collection}")
+
+            # 4. Execute logic
+            logger.info("Executing command...")
+            # Your code here
+
+            logger.info("Completed successfully")
+
+    except Exception as e:
+        logger.error(f"Error: {e}", exc_info=True)
+        print(f"\n❌ Error: {e}\n")
+        raise typer.Exit(code=1)
+
+if __name__ == "__main__":
+    app()
+```
+
+#### Standard CLI Options
+
+**✅ DO use:**
+- `--env` - Switch environments (DEV, PROD, STG)
+- `--collection` / `-c` - Collection names (ALWAYS via CLI, never in .env)
+
+**❌ DO NOT use:**
+- `--mongodb-uri` - Use `--env` instead
+- `--database` - Use `--env` instead
+
+**Environment Configuration in `.env`:**
+```bash
+# Default environment
+APP_ENV=DEV
+
+# DEV environment
+MONGODB_URI_DEV=mongodb://localhost:27017
+DATABASE_NAME_DEV=dev_database
+
+# PROD environment
+MONGODB_URI_PROD=mongodb://prod-server:27017
+DATABASE_NAME_PROD=production_database
+```
+
+**Usage:**
+```bash
+# Use default environment
+python <project>/run.py command-name --collection MyCollection
+
+# Use PROD environment
+python <project>/run.py command-name --collection MyCollection --env PROD
+```
+
+**See:** [CLI Patterns Guide](../best-practices/CLI_PATTERNS.md) for complete documentation.
 
 ### Create Modules in `src/`
 
