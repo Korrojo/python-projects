@@ -7,13 +7,24 @@ set -e  # Exit on any error
 echo "=== Pre-Push Validation ==="
 echo ""
 
-# 1. Check if venv is activated
+# 1. Check if venv is activated, activate if not
 if [[ -z "$VIRTUAL_ENV" ]]; then
-    echo "❌ Virtual environment not activated!"
-    echo "   Run: source .venv311/bin/activate"
-    exit 1
+    echo "📦 Virtual environment not activated, activating..."
+    # Try to find and activate venv
+    if [ -d ".venv311" ]; then
+        source .venv311/bin/activate
+        echo "✅ Virtual environment activated: .venv311"
+    elif [ -d ".venv312" ]; then
+        source .venv312/bin/activate
+        echo "✅ Virtual environment activated: .venv312"
+    else
+        echo "❌ No virtual environment found (.venv311 or .venv312)"
+        echo "   Run: ./scripts/install_venv.sh"
+        exit 1
+    fi
+else
+    echo "✅ Virtual environment: $VIRTUAL_ENV"
 fi
-echo "✅ Virtual environment: $VIRTUAL_ENV"
 
 # 2. Run linting (catches N999 and formatting issues)
 echo ""
