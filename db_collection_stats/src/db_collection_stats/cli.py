@@ -58,9 +58,7 @@ def coll_stats(
     logger.info("=" * 60)
 
     try:
-        with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
-        ) as client:
+        with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
             logger.info(f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}")
             logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")
             logger.info(f"Database: {settings.database_name}")
@@ -68,9 +66,7 @@ def coll_stats(
 
             # Gather statistics
             logger.info("Gathering collection statistics...")
-            stats_list = gather_all_collections_stats(
-                client, settings.database_name, exclude_system=exclude_system
-            )
+            stats_list = gather_all_collections_stats(client, settings.database_name, exclude_system=exclude_system)
 
             logger.info(f"Found {len(stats_list)} collections")
 
@@ -147,9 +143,7 @@ def index_stats(
     logger.info("=" * 60)
 
     try:
-        with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
-        ) as client:
+        with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
             db = client[settings.database_name]
             logger.info(f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}")
             logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")
@@ -209,13 +203,15 @@ def index_stats(
                         print(f"  • {idx_name:30} | Keys: {key_str:40} | Usage: {usage_count:>10} {unused_marker}")
 
                         # Collect for CSV
-                        all_index_data.append({
-                            "collection_name": coll_name,
-                            "index_name": idx_name,
-                            "index_keys": key_str,
-                            "usage_count": usage_count if usage_count != "N/A" else "",
-                            "is_unused": "Yes" if is_unused else "No",
-                        })
+                        all_index_data.append(
+                            {
+                                "collection_name": coll_name,
+                                "index_name": idx_name,
+                                "index_keys": key_str,
+                                "usage_count": usage_count if usage_count != "N/A" else "",
+                                "is_unused": "Yes" if is_unused else "No",
+                            }
+                        )
 
                     logger.info(f"Analyzed {coll_name}: {len(indexes)} indexes")
 

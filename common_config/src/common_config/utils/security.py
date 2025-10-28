@@ -57,22 +57,15 @@ def redact_uri(uri: Optional[str], mask: str = "***") -> str:
             netloc = netloc.replace(old_auth, new_auth)
 
         # Reconstruct URI with redacted credentials
-        redacted = urlunparse((
-            parsed.scheme,
-            netloc,
-            parsed.path,
-            parsed.params,
-            parsed.query,
-            parsed.fragment
-        ))
+        redacted = urlunparse((parsed.scheme, netloc, parsed.path, parsed.params, parsed.query, parsed.fragment))
 
         return redacted
 
     except Exception:
         # If parsing fails, use regex as fallback
         # Pattern: protocol://username:password@host
-        pattern = r'([a-zA-Z][a-zA-Z0-9+.-]*://)[^:]+:[^@]+@'
-        redacted = re.sub(pattern, rf'\1{mask}:{mask}@', uri)
+        pattern = r"([a-zA-Z][a-zA-Z0-9+.-]*://)[^:]+:[^@]+@"
+        redacted = re.sub(pattern, rf"\1{mask}:{mask}@", uri)
         return redacted
 
 
@@ -98,10 +91,10 @@ def redact_password(text: str, mask: str = "***") -> str:
 
     # Common password patterns
     patterns = [
-        (r'(password\s*[=:]\s*)[^\s]+', rf'\1{mask}'),
-        (r'(PASSWORD\s*[=:]\s*)[^\s]+', rf'\1{mask}'),
-        (r'(pwd\s*[=:]\s*)[^\s]+', rf'\1{mask}'),
-        (r'(PWD\s*[=:]\s*)[^\s]+', rf'\1{mask}'),
+        (r"(password\s*[=:]\s*)[^\s]+", rf"\1{mask}"),
+        (r"(PASSWORD\s*[=:]\s*)[^\s]+", rf"\1{mask}"),
+        (r"(pwd\s*[=:]\s*)[^\s]+", rf"\1{mask}"),
+        (r"(PWD\s*[=:]\s*)[^\s]+", rf"\1{mask}"),
     ]
 
     result = text

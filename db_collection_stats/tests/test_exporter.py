@@ -1,11 +1,8 @@
 """Tests for exporter module."""
 
 import csv
-from datetime import datetime
-from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
-import pytest
 
 from db_collection_stats.collector import CollectionStats
 from db_collection_stats.exporter import export_to_csv, format_bytes, print_summary
@@ -270,10 +267,7 @@ class TestPrintSummary:
 
     def test_print_summary_shows_top_5_collections(self, capsys):
         """Test that top 5 largest collections are displayed."""
-        stats_list = [
-            CollectionStats(f"collection_{i}", 100, i * 10000, 100.0, i * 12000, 2, 1000)
-            for i in range(10)
-        ]
+        stats_list = [CollectionStats(f"collection_{i}", 100, i * 10000, 100.0, i * 12000, 2, 1000) for i in range(10)]
 
         print_summary(stats_list, "test_db")
 

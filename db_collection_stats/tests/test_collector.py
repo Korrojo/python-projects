@@ -1,8 +1,7 @@
 """Tests for collection stats collector."""
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
-import pytest
 
 from db_collection_stats.collector import (
     CollectionStats,

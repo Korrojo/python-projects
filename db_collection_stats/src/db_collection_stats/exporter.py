@@ -118,9 +118,7 @@ def print_summary(stats_list: List[CollectionStats], database_name: str) -> None
     print("=" * 80 + "\n")
 
 
-def export_index_stats_to_csv(
-    index_data: List[Dict], output_dir: Path, database_name: str
-) -> Path:
+def export_index_stats_to_csv(index_data: List[Dict], output_dir: Path, database_name: str) -> Path:
     """Export index statistics to CSV file.
 
     Args:
