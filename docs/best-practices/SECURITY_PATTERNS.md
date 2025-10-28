@@ -56,8 +56,9 @@ Security is non-negotiable in this repository. This document provides practical 
 **❌ NEVER do this:**
 ```python
 # Hardcoded credentials (NEVER!)
-MONGODB_URI = "mongodb+srv://admin:SuperSecret123@cluster.mongodb.net/"
-API_KEY = "sk-proj-abc123xyz789"
+MONGODB_URI = "mongodb+srv://<actual_username>:<actual_password>@cluster.mongodb.net/"
+API_KEY = "sk-proj-<actual_key_value>"
+# Even in comments: DO NOT hardcode real credential patterns!
 ```
 
 **✅ ALWAYS do this:**
@@ -102,7 +103,7 @@ API_KEY_PROD=<actual_prod_key>
 **❌ NEVER do this:**
 ```python
 logger.info(f"Connecting to: {settings.mongodb_uri}")
-# Logs: mongodb+srv://user:password@host/... ← EXPOSES CREDENTIALS!
+# Logs: mongodb+srv://<username>:<password>@host/... ← EXPOSES CREDENTIALS!
 ```
 
 **✅ ALWAYS do this:**
@@ -132,10 +133,13 @@ logger.info(f"Connecting to: {redact_uri(settings.mongodb_uri)}")
 
 **❌ NEVER use these patterns in documentation:**
 ```markdown
-mongodb+srv://user:password@cluster.mongodb.net/
-mongodb://admin:secret@localhost:27017
-postgres://username:pass123@db.example.com:5432
-API_KEY=sk-proj-abc123xyz789
+# DO NOT use literal credential patterns like:
+# mongodb+srv://[literal_user]:[literal_pass]@cluster.mongodb.net/
+# mongodb://[literal_user]:[literal_pass]@localhost:27017
+# postgres://[literal_user]:[literal_pass]@db.example.com:5432
+# API_KEY=sk-proj-[literal_key_value]
+
+# Even in "bad example" sections, these trigger GitHub Secret Scanning!
 ```
 
 **✅ ALWAYS use placeholder syntax:**
@@ -283,13 +287,13 @@ Redact credentials from connection URIs.
 ```python
 from common_config.utils.security import redact_uri
 
-# MongoDB URIs
-uri = "mongodb+srv://admin:secret123@cluster.mongodb.net/"
+# MongoDB URIs - using placeholder for demonstration
+uri = "mongodb+srv://<username>:<password>@cluster.mongodb.net/"
 safe_uri = redact_uri(uri)
 # Returns: "mongodb+srv://***:***@cluster.mongodb.net/"
 
-# PostgreSQL
-uri = "postgresql://user:pass@localhost:5432/mydb"
+# PostgreSQL - using placeholder for demonstration
+uri = "postgresql://<username>:<password>@localhost:5432/mydb"
 safe_uri = redact_uri(uri)
 # Returns: "postgresql://***:***@localhost:5432/mydb"
 
@@ -322,7 +326,7 @@ Get safe connection information for logging (no credentials).
 from common_config.utils.security import get_safe_connection_info
 
 info = get_safe_connection_info(
-    uri="mongodb+srv://user:pass@cluster.mongodb.net/",
+    uri="mongodb+srv://<username>:<password>@cluster.mongodb.net/",
     database="mydb"
 )
 
@@ -381,7 +385,7 @@ logger.info(f"Connection info: {info}")  # Safe to log
 
 **What Happened:**
 - Pushed documentation with example MongoDB URIs
-- Examples used patterns like `mongodb+srv://user:password@host/`
+- Examples used literal credential patterns (like literal_user:literal_pass in URIs)
 - GitHub's automated secret scanning flagged as potential credential leaks
 - Alerts opened: Issues #1, #2, #3
 
@@ -414,6 +418,47 @@ logger.info(f"Connection info: {info}")  # Safe to log
 2. Always use placeholder syntax in documentation
 3. Test documentation examples don't match credential patterns
 4. Quick response important to avoid confusion about real vs fake leaks
+
+---
+
+### 2025-10-28 (12 hours later): GitHub Secret Scanning - Security Documentation Itself
+
+**Severity:** Low (false positive, documentation examples only)
+**Impact:** 3 additional GitHub security alerts opened (#4, #5, #6)
+
+**What Happened:**
+- Created SECURITY_PATTERNS.md to document previous incident
+- Documentation included "bad example" patterns showing what NOT to do
+- These examples themselves triggered GitHub Secret Scanning
+- Alert #4: Line 287 (usage example showing redact_uri function)
+- Alert #5: Line 135 (showing patterns to avoid)
+- Alert #6: Line 59 (showing hardcoded credentials to avoid)
+
+**Root Cause:**
+- Meta-problem: Documenting security vulnerabilities can trigger the same scanning
+- "Bad examples" in security docs used literal patterns for clarity
+- GitHub scanning cannot distinguish documentation context
+
+**Resolution:**
+- Replaced all literal credential patterns in SECURITY_PATTERNS.md
+- Used placeholder syntax even in "what NOT to do" examples
+- Changed `user:password` → `<username>:<password>`
+- Changed literal examples → `[literal_user]:[literal_pass]` (in comments)
+- Added comments clarifying these are demonstrations
+- Committed fix: (pending)
+
+**Lessons Learned:**
+1. Even security documentation about credentials can trigger scanning
+2. Never use literal credential patterns anywhere—not even in "bad examples"
+3. Use broken/commented patterns or placeholders even when showing anti-patterns
+4. The irony: documenting the problem creates the same problem
+5. Consistency is key: use `<placeholder>` syntax universally
+
+**Prevention Going Forward:**
+- Always use `<placeholder>` syntax in all documentation
+- When showing "what NOT to do," use commented or broken patterns
+- Test all documentation: `grep -r "mongodb.*://.*:.*@" docs/`
+- This incident now part of the documentation it tried to create
 
 ---
 
