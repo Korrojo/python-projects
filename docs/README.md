@@ -109,10 +109,12 @@ Located in `best-practices/`
 |----------|---------|----------|
 | [CI_CD_LESSONS_LEARNED.md](best-practices/CI_CD_LESSONS_LEARNED.md) | CI/CD failures and prevention strategies | All developers |
 | [CLI_PATTERNS.md](best-practices/CLI_PATTERNS.md) ⭐ | Standard CLI patterns (--env, --collection) | All developers |
+| [DOCUMENTATION_STANDARDS.md](best-practices/DOCUMENTATION_STANDARDS.md) | Standards for writing technical documentation | All developers |
 | [FILE_NAMING_CONVENTIONS.md](best-practices/FILE_NAMING_CONVENTIONS.md) | Standard patterns for output files and logs | All developers |
 | [IMPORT_PATH_ISSUES.md](best-practices/IMPORT_PATH_ISSUES.md) | Common import errors and how to prevent them | All developers |
 | [MONGODB_VALIDATION_BEST_PRACTICES.md](best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md) | Technical patterns for validation/migration tools | Developers building data tools |
 | [REPOSITORY_LESSONS_LEARNED.md](best-practices/REPOSITORY_LESSONS_LEARNED.md) | Organizational patterns and common pitfalls | All developers |
+| [SECURITY_PATTERNS.md](best-practices/SECURITY_PATTERNS.md) ⭐ | Security best practices, credential management, incident log | All developers |
 
 These documents provide:
 - Reusable code patterns
