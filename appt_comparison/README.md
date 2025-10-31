@@ -355,6 +355,88 @@ This project follows the repository's unified pattern:
 - ✅ Supports `APP_ENV` environment switching
 - ✅ Standard Black & Ruff configuration
 
+## Conversion changes (recent)
+
+These changes were introduced during the recent conversion to add a lightweight export tool and to ensure the project follows repository standards for logging, configuration, and file naming.
+
+Files added/modified
+
+- `src/mongo_latest_status_export.py` (new)
+  - Standalone CLI script to export the latest appointment status for each `AthenaAppointmentId` in an input CSV.
+  - Key features:
+    - CLI options: `--input`, `--output` (auto-generated if not provided), `--collection`, `--env`, `--batch-size`, `--log`.
+    - Respects repo `APP_ENV` (can override with `--env`) and passes the environment explicitly to the MongoDB connector.
+    - Generates timestamped output and log filenames following repo naming conventions: `YYYYMMDD_HHMMSS_latest_status_export_<Database>.(csv|log)`.
+    - Uses `common_config` for settings, logging, and MongoDB connection.
+    - Batch processing of Athena IDs and conversion of CSV `AthenaAppointmentId` values to integers to match MongoDB types.
+    - Writes CSV with columns: `AthenaAppointmentId,AvailabilityDate,# of Dups,InsertedOn,VisitStatus,InsertedOn.1,VisitStatus.1,InsertedOn.2,VisitStatus.2,Comment`.
+
+- Minor lint/style fixes
+  - Adjusted small helper functions in the new script to satisfy Ruff (e.g., replacing list comprehensions with `list()` and renaming ambiguous variables).
+
+Notes and rationale
+
+- Security: MongoDB connection strings and credentials are no longer logged. Connector logging was sanitized to only reference the environment name (e.g., `env: PROD`).
+- Deterministic env selection: the script sets `os.environ['APP_ENV']` from `--env` and explicitly passes the resolved env to `get_mongo_client()` to avoid cached-settings or import-time defaults from selecting the wrong environment.
+- File naming: output and log filenames are auto-generated with timestamps and database names to match the repository's `FILE_NAMING_CONVENTIONS.md` guidance.
+
+
+## How to use the export scripts
+
+### 1. Latest Status Export (by AthenaAppointmentId)
+Activate the repo virtualenv and ensure `shared_config/.env` contains environment settings (or pass `--env`):
+
+```powershell
+python appt_comparison/src/mongo_latest_status_export.py -i data/input/appt_comparison/Daily_Appointment_Comparison_input1_20251028.csv -c StaffAvailabilityHistory --env PROD
+```
+
+Output CSV will be saved under `data/output/appt_comparison/` with a timestamped filename. Logs are saved under `logs/appt_comparison/` with a timestamped filename.
+
+### 2. Latest Status Export by VisitTypeValue (NEW)
+This script matches by both AthenaAppointmentId and VisitTypeValue, and copies PatientRef and apptcheckoutdate from the input CSV to the output.
+
+**Input CSV columns required:**
+- AthenaAppointmentId
+- VisitTypeValue
+- PatientRef
+- apptcheckoutdate
+
+**Output CSV columns:**
+- AthenaAppointmentId
+- VisitTypeValue
+- AvailabilityDate
+- VisitStatus
+- UpdatedOn
+- PatientRef (copied from input)
+- apptcheckoutdate (copied from input)
+- Comment
+
+**Features:**
+- Filters by AvailabilityDate (10/27/2025 to 10/30/2025)
+- Matches by AthenaAppointmentId and VisitTypeValue; falls back to id-only match if needed
+- Batches queries for efficiency
+- Uses repo-standard logging and output file naming
+
+**Usage example:**
+```powershell
+python appt_comparison/src/mongo_latest_status_export_by_visittype.py --input data/input/appt_comparison/2025-10-30_input.csv --env PROD --collection StaffAvailabilityHistory
+```
+
+
+**Options:**
+- `--input` (required): Path to input CSV
+- `--env` (optional): Environment (DEV, PROD, STG)
+- `--collection` (**required**): MongoDB collection name. If not provided, the script will abort with a clear error message.
+- `--batch-size` (optional): Batch size for queries (default: 1000)
+
+**Error Handling:**
+If `--collection` is not provided, the script will log and print:
+`Error: Collection name is missing. Please provide --collection <name>.`
+
+Output CSV will be saved under `data/output/appt_comparison/` with a timestamped filename. Logs are saved under `logs/appt_comparison/` with a timestamped filename.
+
+If you need the older validation flow, the original validator (`src/validator.py`) remains unchanged and can still be used via the project's `run.py`.
+
 ## License
 
 Internal use only - Optum Home Community
