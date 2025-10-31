@@ -203,6 +203,11 @@ def main(
     logger.info(f"Batch size: {batch_size}")
 
     try:
+        # Ensure database_name is set
+        if not settings.database_name:
+            logger.error("Database name not configured in settings")
+            raise typer.Exit(code=1)
+
         with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
             db = client[settings.database_name]
             coll = db[collection]

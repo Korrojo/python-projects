@@ -16,6 +16,7 @@ import csv
 import os
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import typer
 
@@ -64,7 +65,7 @@ def build_pipeline(
     ids: list[int],
     min_date: datetime | None = None,
     max_date: datetime | None = None,
-) -> list[dict[str, any]]:
+) -> list[dict[str, Any]]:
     """Build MongoDB aggregation pipeline.
 
     Args:
@@ -75,7 +76,7 @@ def build_pipeline(
     Returns:
         MongoDB aggregation pipeline
     """
-    match_filter: dict[str, any] = {
+    match_filter: dict[str, Any] = {
         "Slots.Appointments.0": {"$exists": True},
         "IsActive": True,
         "Slots.Appointments.AthenaAppointmentId": {"$in": ids},
@@ -108,9 +109,9 @@ def build_pipeline(
     ]
 
 
-def process_batch_results(results: list[dict[str, any]]) -> dict[str, list[dict[str, any]]]:
+def process_batch_results(results: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
     """Group results by AthenaAppointmentId|VisitTypeValue key."""
-    mapping: dict[str, list[dict[str, any]]] = {}
+    mapping: dict[str, list[dict[str, Any]]] = {}
     for doc in results:
         aid = doc.get("AthenaAppointmentId")
         vt = doc.get("VisitTypeValue") or ""
@@ -119,12 +120,12 @@ def process_batch_results(results: list[dict[str, any]]) -> dict[str, list[dict[
     return mapping
 
 
-def write_output(path: str, input_rows: list[dict[str, str]], mapping: dict[str, list[dict[str, any]]]):
+def write_output(path: str, input_rows: list[dict[str, str]], mapping: dict[str, list[dict[str, Any]]]):
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=OUTPUT_COLUMNS)
         writer.writeheader()
         for row in input_rows:
-            aid = row.get("AthenaAppointmentId")
+            aid = row.get("AthenaAppointmentId") or ""
             vt = row.get("VisitTypeValue") or ""
             out = dict.fromkeys(OUTPUT_COLUMNS, "")
             out["AthenaAppointmentId"] = aid
@@ -241,7 +242,12 @@ def main(
                 raise typer.Exit(code=1) from e
 
         # Query MongoDB
-        mapping: dict[str, list[dict[str, any]]] = {}
+        # Ensure database_name is set
+        if not settings.database_name:
+            logger.error("Database name not configured in settings")
+            raise typer.Exit(code=1)
+
+        mapping: dict[str, list[dict[str, Any]]] = {}
         with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
             db = client[settings.database_name]
             coll = db[collection]
