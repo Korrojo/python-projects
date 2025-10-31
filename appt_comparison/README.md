@@ -363,22 +363,29 @@ Files added/modified
 
 - `src/mongo_latest_status_export.py` (new)
   - Standalone CLI script to export the latest appointment status for each `AthenaAppointmentId` in an input CSV.
+  - Built with **Typer** (repo standard CLI framework) following `docs/best-practices/CLI_PATTERNS.md`
   - Key features:
-    - CLI options: `--input`, `--output` (auto-generated if not provided), `--collection`, `--env`, `--batch-size`, `--log`.
-    - Respects repo `APP_ENV` (can override with `--env`) and passes the environment explicitly to the MongoDB connector.
-    - Generates timestamped output and log filenames following repo naming conventions: `YYYYMMDD_HHMMSS_latest_status_export_<Database>.(csv|log)`.
-    - Uses `common_config` for settings, logging, and MongoDB connection.
-    - Batch processing of Athena IDs and conversion of CSV `AthenaAppointmentId` values to integers to match MongoDB types.
-    - Writes CSV with columns: `AthenaAppointmentId,AvailabilityDate,# of Dups,InsertedOn,VisitStatus,InsertedOn.1,VisitStatus.1,InsertedOn.2,VisitStatus.2,Comment`.
+    - CLI options: `--input`, `--output` (auto-generated if not provided), `--collection`, `--env`, `--batch-size`, `--log`
+    - Respects repo `APP_ENV` (can override with `--env`)
+    - Generates timestamped output and log filenames following repo naming conventions: `YYYYMMDD_HHMMSS_latest_status_export_<Database>.(csv|log)`
+    - Uses `common_config` for settings, logging, and MongoDB connection
+    - Batch processing of Athena IDs with progress logging
+    - Conversion of CSV `AthenaAppointmentId` values to integers to match MongoDB types
+    - Supports multiple date formats (M/D/YY and M/D/YYYY) with error handling
+    - Writes CSV with columns: `AthenaAppointmentId,AvailabilityDate,# of Dups,InsertedOn,VisitStatus,InsertedOn.1,VisitStatus.1,InsertedOn.2,VisitStatus.2,Comment`
 
-- Minor lint/style fixes
-  - Adjusted small helper functions in the new script to satisfy Ruff (e.g., replacing list comprehensions with `list()` and renaming ambiguous variables).
+- `src/mongo_latest_status_export_by_visittype.py` (new)
+  - Standalone CLI script matching by both AthenaAppointmentId and VisitTypeValue
+  - Built with **Typer** following repo standards
+  - Optional date filtering with `--min-date` and `--max-date` CLI parameters
 
-Notes and rationale
-
-- Security: MongoDB connection strings and credentials are no longer logged. Connector logging was sanitized to only reference the environment name (e.g., `env: PROD`).
-- Deterministic env selection: the script sets `os.environ['APP_ENV']` from `--env` and explicitly passes the resolved env to `get_mongo_client()` to avoid cached-settings or import-time defaults from selecting the wrong environment.
-- File naming: output and log filenames are auto-generated with timestamps and database names to match the repository's `FILE_NAMING_CONVENTIONS.md` guidance.
+**Code Quality & Security Improvements:**
+- **Typer CLI framework:** Both scripts use Typer (repo standard) instead of Click
+- **Security:** MongoDB URIs are redacted in logs using `redact_uri()` from `common_config.utils.security`
+- **Modern type hints:** Uses `from __future__ import annotations` for cleaner type syntax
+- **Error handling:** Comprehensive try/except blocks with detailed error messages
+- **Logging:** Extensive logging throughout execution with progress updates
+- **File naming:** Auto-generated timestamped output following `FILE_NAMING_CONVENTIONS.md`
 
 
 ## How to use the export scripts
@@ -412,26 +419,33 @@ This script matches by both AthenaAppointmentId and VisitTypeValue, and copies P
 - Comment
 
 **Features:**
-- Filters by AvailabilityDate (10/27/2025 to 10/30/2025)
 - Matches by AthenaAppointmentId and VisitTypeValue; falls back to id-only match if needed
-- Batches queries for efficiency
-- Uses repo-standard logging and output file naming
+- **Optional date filtering:** Use `--min-date` and `--max-date` to filter by AvailabilityDate range
+- Batch processing with progress logging for efficiency
+- Uses repo-standard Typer CLI, logging, and output file naming
+- Security: MongoDB URIs are redacted in logs
 
-**Usage example:**
+**Usage examples:**
+
+Basic usage (no date filtering):
 ```powershell
 python appt_comparison/src/mongo_latest_status_export_by_visittype.py --input data/input/appt_comparison/2025-10-30_input.csv --env PROD --collection StaffAvailabilityHistory
 ```
 
+With date range filtering:
+```powershell
+python appt_comparison/src/mongo_latest_status_export_by_visittype.py --input data/input/appt_comparison/2025-10-30_input.csv --env PROD --collection StaffAvailabilityHistory --min-date 2025-10-27 --max-date 2025-10-30
+```
 
-**Options:**
-- `--input` (required): Path to input CSV
-- `--env` (optional): Environment (DEV, PROD, STG)
-- `--collection` (**required**): MongoDB collection name. If not provided, the script will abort with a clear error message.
+**CLI Options:**
+- `--input`, `-i` (**required**): Path to input CSV
+- `--collection`, `-c` (**required**): MongoDB collection name
+- `--env` (optional): Environment (DEV, PROD, STG, etc.) - overrides APP_ENV
 - `--batch-size` (optional): Batch size for queries (default: 1000)
+- `--min-date` (optional): Minimum AvailabilityDate filter (YYYY-MM-DD format)
+- `--max-date` (optional): Maximum AvailabilityDate filter (YYYY-MM-DD format)
 
-**Error Handling:**
-If `--collection` is not provided, the script will log and print:
-`Error: Collection name is missing. Please provide --collection <name>.`
+**Note:** Both `--min-date` and `--max-date` must be provided together, or neither. If omitted, all dates will be queried.
 
 Output CSV will be saved under `data/output/appt_comparison/` with a timestamped filename. Logs are saved under `logs/appt_comparison/` with a timestamped filename.
 
