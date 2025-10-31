@@ -105,20 +105,20 @@ class MongoDBConnector:
 
             # Test connection
             client.admin.command("ping")
-            logger.info(f"✅ Connected to MongoDB ({self.env})")
+            logger.info(f"✅ Connected to MongoDB (env: {self.env})")
 
             yield client
 
         except ServerSelectionTimeoutError as e:
-            logger.error(f"❌ MongoDB connection timeout ({self.env}): {e}")
+            logger.error(f"❌ MongoDB connection timeout (env: {self.env}): {type(e).__name__}: {e}")
             raise ConnectionFailure(f"Could not connect to MongoDB ({self.env})") from e
         except Exception as e:
-            logger.error(f"❌ MongoDB connection error ({self.env}): {e}")
+            logger.error(f"❌ MongoDB connection error (env: {self.env}): {type(e).__name__}: {e}")
             raise
         finally:
             if client:
                 client.close()
-                logger.info(f"🔒 MongoDB connection closed ({self.env})")
+                logger.info(f"🔒 MongoDB connection closed (env: {self.env})")
 
     def get_database(self) -> Database:
         """Get database instance (requires active connection via connect()).
