@@ -355,6 +355,102 @@ This project follows the repository's unified pattern:
 - ✅ Supports `APP_ENV` environment switching
 - ✅ Standard Black & Ruff configuration
 
+## Conversion changes (recent)
+
+These changes were introduced during the recent conversion to add a lightweight export tool and to ensure the project follows repository standards for logging, configuration, and file naming.
+
+Files added/modified
+
+- `src/mongo_latest_status_export.py` (new)
+  - Standalone CLI script to export the latest appointment status for each `AthenaAppointmentId` in an input CSV.
+  - Built with **Typer** (repo standard CLI framework) following `docs/best-practices/CLI_PATTERNS.md`
+  - Key features:
+    - CLI options: `--input`, `--output` (auto-generated if not provided), `--collection`, `--env`, `--batch-size`, `--log`
+    - Respects repo `APP_ENV` (can override with `--env`)
+    - Generates timestamped output and log filenames following repo naming conventions: `YYYYMMDD_HHMMSS_latest_status_export_<Database>.(csv|log)`
+    - Uses `common_config` for settings, logging, and MongoDB connection
+    - Batch processing of Athena IDs with progress logging
+    - Conversion of CSV `AthenaAppointmentId` values to integers to match MongoDB types
+    - Supports multiple date formats (M/D/YY and M/D/YYYY) with error handling
+    - Writes CSV with columns: `AthenaAppointmentId,AvailabilityDate,# of Dups,InsertedOn,VisitStatus,InsertedOn.1,VisitStatus.1,InsertedOn.2,VisitStatus.2,Comment`
+
+- `src/mongo_latest_status_export_by_visittype.py` (new)
+  - Standalone CLI script matching by both AthenaAppointmentId and VisitTypeValue
+  - Built with **Typer** following repo standards
+  - Optional date filtering with `--min-date` and `--max-date` CLI parameters
+
+**Code Quality & Security Improvements:**
+- **Typer CLI framework:** Both scripts use Typer (repo standard) instead of Click
+- **Security:** MongoDB URIs are redacted in logs using `redact_uri()` from `common_config.utils.security`
+- **Modern type hints:** Uses `from __future__ import annotations` for cleaner type syntax
+- **Error handling:** Comprehensive try/except blocks with detailed error messages
+- **Logging:** Extensive logging throughout execution with progress updates
+- **File naming:** Auto-generated timestamped output following `FILE_NAMING_CONVENTIONS.md`
+
+
+## How to use the export scripts
+
+### 1. Latest Status Export (by AthenaAppointmentId)
+Activate the repo virtualenv and ensure `shared_config/.env` contains environment settings (or pass `--env`):
+
+```powershell
+python appt_comparison/src/mongo_latest_status_export.py -i data/input/appt_comparison/Daily_Appointment_Comparison_input1_20251028.csv -c StaffAvailabilityHistory --env PROD
+```
+
+Output CSV will be saved under `data/output/appt_comparison/` with a timestamped filename. Logs are saved under `logs/appt_comparison/` with a timestamped filename.
+
+### 2. Latest Status Export by VisitTypeValue (NEW)
+This script matches by both AthenaAppointmentId and VisitTypeValue, and copies PatientRef and apptcheckoutdate from the input CSV to the output.
+
+**Input CSV columns required:**
+- AthenaAppointmentId
+- VisitTypeValue
+- PatientRef
+- apptcheckoutdate
+
+**Output CSV columns:**
+- AthenaAppointmentId
+- VisitTypeValue
+- AvailabilityDate
+- VisitStatus
+- UpdatedOn
+- PatientRef (copied from input)
+- apptcheckoutdate (copied from input)
+- Comment
+
+**Features:**
+- Matches by AthenaAppointmentId and VisitTypeValue; falls back to id-only match if needed
+- **Optional date filtering:** Use `--min-date` and `--max-date` to filter by AvailabilityDate range
+- Batch processing with progress logging for efficiency
+- Uses repo-standard Typer CLI, logging, and output file naming
+- Security: MongoDB URIs are redacted in logs
+
+**Usage examples:**
+
+Basic usage (no date filtering):
+```powershell
+python appt_comparison/src/mongo_latest_status_export_by_visittype.py --input data/input/appt_comparison/2025-10-30_input.csv --env PROD --collection StaffAvailabilityHistory
+```
+
+With date range filtering:
+```powershell
+python appt_comparison/src/mongo_latest_status_export_by_visittype.py --input data/input/appt_comparison/2025-10-30_input.csv --env PROD --collection StaffAvailabilityHistory --min-date 2025-10-27 --max-date 2025-10-30
+```
+
+**CLI Options:**
+- `--input`, `-i` (**required**): Path to input CSV
+- `--collection`, `-c` (**required**): MongoDB collection name
+- `--env` (optional): Environment (DEV, PROD, STG, etc.) - overrides APP_ENV
+- `--batch-size` (optional): Batch size for queries (default: 1000)
+- `--min-date` (optional): Minimum AvailabilityDate filter (YYYY-MM-DD format)
+- `--max-date` (optional): Maximum AvailabilityDate filter (YYYY-MM-DD format)
+
+**Note:** Both `--min-date` and `--max-date` must be provided together, or neither. If omitted, all dates will be queried.
+
+Output CSV will be saved under `data/output/appt_comparison/` with a timestamped filename. Logs are saved under `logs/appt_comparison/` with a timestamped filename.
+
+If you need the older validation flow, the original validator (`src/validator.py`) remains unchanged and can still be used via the project's `run.py`.
+
 ## License
 
 Internal use only - Optum Home Community
