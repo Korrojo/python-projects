@@ -156,9 +156,13 @@ app = typer.Typer(help="Export latest appointment status from MongoDB")
 @app.command()
 def main(
     input_file: str = typer.Option(..., "--input", "-i", help="Input CSV file path"),
-    output_file: str | None = typer.Option(None, "--output", "-o", help="Output CSV file path (default: auto-generated)"),
+    output_file: str | None = typer.Option(
+        None, "--output", "-o", help="Output CSV file path (default: auto-generated)"
+    ),
     collection: str = typer.Option(..., "--collection", "-c", help="MongoDB collection name"),
-    batch_size: int = typer.Option(BATCH_SIZE_DEFAULT, "--batch-size", help="Batch size for AthenaAppointmentId lookup"),
+    batch_size: int = typer.Option(
+        BATCH_SIZE_DEFAULT, "--batch-size", help="Batch size for AthenaAppointmentId lookup"
+    ),
     log_file: str | None = typer.Option(None, "--log", "-l", help="Log file path (default: auto-generated)"),
     env: str | None = typer.Option(None, "--env", help="Environment to use (DEV, PROD, STG, etc.) - overrides APP_ENV"),
 ):
@@ -199,9 +203,7 @@ def main(
     logger.info(f"Batch size: {batch_size}")
 
     try:
-        with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
-        ) as client:
+        with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
             db = client[settings.database_name]
             coll = db[collection]
 

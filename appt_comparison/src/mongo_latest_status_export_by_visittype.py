@@ -126,7 +126,7 @@ def write_output(path: str, input_rows: list[dict[str, str]], mapping: dict[str,
         for row in input_rows:
             aid = row.get("AthenaAppointmentId")
             vt = row.get("VisitTypeValue") or ""
-            out = {col: "" for col in OUTPUT_COLUMNS}
+            out = dict.fromkeys(OUTPUT_COLUMNS, "")
             out["AthenaAppointmentId"] = aid
             out["VisitTypeValue"] = vt
             out["PatientRef"] = row.get("PatientRef", "")
@@ -218,7 +218,7 @@ def main(
         for r in rows:
             aid = r.get("AthenaAppointmentId")
             if not aid:
-                logger.warning(f"Skipping row with empty AthenaAppointmentId")
+                logger.warning("Skipping row with empty AthenaAppointmentId")
                 continue
             try:
                 aid_int = int(aid)
@@ -242,9 +242,7 @@ def main(
 
         # Query MongoDB
         mapping: dict[str, list[dict[str, any]]] = {}
-        with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
-        ) as client:
+        with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
             db = client[settings.database_name]
             coll = db[collection]
 
