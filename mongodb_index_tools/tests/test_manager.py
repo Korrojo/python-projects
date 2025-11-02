@@ -2,7 +2,6 @@
 
 from unittest.mock import MagicMock
 
-import pytest
 from pymongo.errors import OperationFailure
 
 from mongodb_index_tools.manager import create_index, drop_index, list_indexes

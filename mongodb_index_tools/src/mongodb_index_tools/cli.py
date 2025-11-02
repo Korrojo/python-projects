@@ -603,9 +603,7 @@ def create_index_cmd(
             raise typer.Exit(code=1)
 
         # Connect to MongoDB
-        with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
-        ) as client:
+        with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
             db = client[settings.database_name]
 
             # Validate collection exists
@@ -646,9 +644,7 @@ def create_index_cmd(
 
                 logger.info(f"Index operation completed: {result}")
             else:
-                print(
-                    f"\n❌ Failed to create index: {result.get('error', 'Unknown error')}"
-                )
+                print(f"\n❌ Failed to create index: {result.get('error', 'Unknown error')}")
                 logger.error(f"Index creation failed: {result}")
                 raise typer.Exit(code=1)
 
@@ -729,9 +725,7 @@ def drop_index_cmd(
         logger.info("=" * 60)
 
         # Connect to MongoDB
-        with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
-        ) as client:
+        with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
             db = client[settings.database_name]
 
             # Validate collection exists
