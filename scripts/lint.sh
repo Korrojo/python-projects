@@ -59,6 +59,7 @@ else
         ! -path "*/artifacts/*" \
         ! -path "*/build/*" \
         ! -path "*/dist/*" \
+        ! -path "*/archive/*" \
         -exec mdformat --check --wrap 120 {} + 2>/dev/null; then
         echo -e "${GREEN}✓ All markdown files properly formatted${NC}"
     else
@@ -71,6 +72,7 @@ else
             ! -path "*/artifacts/*" \
             ! -path "*/build/*" \
             ! -path "*/dist/*" \
+            ! -path "*/archive/*" \
             -exec mdformat --wrap 120 {} +
         echo -e "${GREEN}✓ Markdown files formatted${NC}"
     fi

@@ -47,6 +47,7 @@ if [ "$MODE" = "fix" ]; then
         ! -path "*/artifacts/*" \
         ! -path "*/build/*" \
         ! -path "*/dist/*" \
+        ! -path "*/archive/*" \
         -exec mdformat --wrap 120 {} +
 
     if [ $? -eq 0 ]; then
@@ -69,6 +70,7 @@ else
         ! -path "*/artifacts/*" \
         ! -path "*/build/*" \
         ! -path "*/dist/*" \
+        ! -path "*/archive/*" \
         -exec mdformat --check --wrap 120 {} +
 
     if [ $? -eq 0 ]; then

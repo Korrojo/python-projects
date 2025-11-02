@@ -58,6 +58,7 @@ jobs:
             ! -path "*/node_modules/*" \
             ! -path "*/temp/*" \
             ! -path "*/artifacts/*" \
+            ! -path "*/archive/*" \
             -exec mdformat --check --wrap 120 {} +
 
   test:
