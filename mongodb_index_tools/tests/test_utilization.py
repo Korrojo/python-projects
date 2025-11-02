@@ -1,10 +1,8 @@
 """Tests for utilization module."""
 
 from datetime import datetime
-from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
-import pytest
 
 from mongodb_index_tools.utilization import (
     export_utilization_to_csv,
@@ -157,9 +155,7 @@ def test_export_utilization_to_csv(tmp_path):
     }
 
     output_dir = tmp_path / "output"
-    csv_path = export_utilization_to_csv(
-        "test_collection", utilization_data, index_sizes, output_dir, "test_db"
-    )
+    csv_path = export_utilization_to_csv("test_collection", utilization_data, index_sizes, output_dir, "test_db")
 
     # Assertions
     assert csv_path.exists()

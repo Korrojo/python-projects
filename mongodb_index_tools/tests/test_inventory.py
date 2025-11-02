@@ -1,9 +1,7 @@
 """Tests for inventory module."""
 
-from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
-import pytest
 
 from mongodb_index_tools.inventory import (
     export_inventory_to_csv,
