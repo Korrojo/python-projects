@@ -4,8 +4,8 @@ Unified MongoDB index management and analysis toolkit. Consolidates functionalit
 
 ## Features
 
-- **Index Inventory**: List all indexes with detailed information (keys, attributes, uniqueness, etc.)
-- **Index Utilization**: Analyze index usage statistics (coming soon)
+- **Index Inventory**: List all indexes with detailed information (keys, attributes, uniqueness, etc.) ✅
+- **Index Utilization**: Analyze index usage statistics to identify unused or heavily-used indexes ✅
 - **Query Analyzer**: Analyze query execution plans (coming soon)
 - **Index Advisor**: Get index recommendations (coming soon)
 - **Index Manager**: Create and drop indexes safely (coming soon)
@@ -67,6 +67,37 @@ python mongodb_index_tools/run.py inventory --no-csv
 - Sparse (Yes/No)
 - Attributes (unique, sparse, TTL, etc.)
 
+### Index Utilization
+
+Analyze how often each index is used to identify optimization opportunities:
+
+```bash
+# Analyze index usage for a specific collection
+python mongodb_index_tools/run.py utilization -c Patients
+
+# Analyze for PROD environment
+python mongodb_index_tools/run.py utilization -c Patients --env PROD
+
+# Skip CSV export
+python mongodb_index_tools/run.py utilization -c Users --no-csv --env PROD
+```
+
+**Output:**
+- Console display with usage statistics (operations count, size, last reset date)
+- Highlights unused indexes (0 operations) with ⚠️  warning
+- CSV export to `data/output/mongodb_index_tools/index_utilization_<database>_<collection>_<timestamp>.csv`
+- Logs in `logs/mongodb_index_tools/`
+
+**CSV Columns:**
+- No (row number)
+- Index Name
+- Operations (total index uses since last MongoDB restart)
+- Size (MB)
+- Since (date when statistics tracking started)
+- Key1, Key2, Key3, ... (index key fields)
+
+**Note:** Index usage statistics are reset when MongoDB restarts. Run this command after MongoDB has been running for a representative period.
+
 ## Testing
 
 ```bash
@@ -94,13 +125,14 @@ mongodb_index_tools/
 ├── src/
 │   └── mongodb_index_tools/
 │       ├── cli.py              # Multi-command CLI interface
-│       ├── inventory.py        # Index inventory module
-│       ├── utilization.py      # Index utilization analysis (coming soon)
+│       ├── inventory.py        # Index inventory module ✅
+│       ├── utilization.py      # Index utilization analysis ✅
 │       ├── analyzer.py         # Query plan analyzer (coming soon)
 │       ├── advisor.py          # Index recommendations (coming soon)
 │       └── manager.py          # Index create/drop (coming soon)
 ├── tests/
-│   ├── test_inventory.py
+│   ├── test_inventory.py       # Inventory tests ✅
+│   ├── test_utilization.py     # Utilization tests ✅
 │   └── conftest.py
 └── run.py                      # Entry point
 ```

@@ -118,6 +118,113 @@ def inventory(
         raise typer.Exit(code=1)
 
 
+@app.command("utilization")
+def utilization(
+    env: str = typer.Option(
+        None,
+        "--env",
+        help="Environment to use (DEV, PROD, STG, etc.) - overrides APP_ENV",
+    ),
+    collection: str = typer.Option(
+        None,
+        "--collection",
+        "-c",
+        help="Collection name to analyze (required)",
+    ),
+    output_csv: bool = typer.Option(
+        True,
+        "--output-csv/--no-csv",
+        help="Export results to CSV file",
+    ),
+):
+    """Analyze index usage statistics for a collection.
+
+    Uses MongoDB's $indexStats aggregation to show how often each index
+    is used. Helps identify unused indexes that could be removed and
+    heavily-used indexes that may need optimization.
+
+    Note: Index usage statistics are reset when MongoDB restarts.
+    """
+    # Set environment if provided
+    if env:
+        os.environ["APP_ENV"] = env.upper()
+
+    settings = get_settings()
+    log_dir = Path(settings.paths.logs) / "mongodb_index_tools"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    setup_logging(log_dir=log_dir)
+    logger = get_logger(__name__)
+
+    logger.info("=" * 60)
+    logger.info("mongodb_index_tools - Index Utilization")
+    logger.info("=" * 60)
+
+    # Validate required settings
+    if not settings.mongodb_uri or not settings.database_name:
+        logger.error("MongoDB URI and database name are required in configuration")
+        print("❌ Error: MongoDB URI and database name must be configured in shared_config/.env")
+        raise typer.Exit(code=1)
+
+    # Validate collection parameter
+    if not collection:
+        logger.error("Collection name is required")
+        print("❌ Error: --collection is required for utilization analysis")
+        print("   Example: python run.py utilization -c Patients --env PROD")
+        raise typer.Exit(code=1)
+
+    try:
+        with get_mongo_client(mongodb_uri=settings.mongodb_uri, database_name=settings.database_name) as client:
+            db = client[settings.database_name]
+            logger.info(f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}")
+            logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")
+            logger.info(f"Database: {settings.database_name}")
+            logger.info(f"Collection: {collection}")
+
+            # Verify collection exists
+            if collection not in db.list_collection_names():
+                logger.error(f"Collection '{collection}' not found in database")
+                print(f"\n❌ Error: Collection '{collection}' not found in database '{settings.database_name}'")
+                raise typer.Exit(code=1)
+
+            # Gather utilization statistics
+            from mongodb_index_tools.utilization import gather_index_utilization
+
+            logger.info("Gathering index utilization statistics...")
+            utilization_data, index_sizes = gather_index_utilization(db, collection)
+
+            logger.info(f"Found {len(utilization_data)} indexes with usage statistics")
+
+            # Display utilization
+            from mongodb_index_tools.utilization import print_utilization
+
+            print_utilization(collection, utilization_data, index_sizes)
+
+            # Export to CSV if requested
+            if output_csv and utilization_data:
+                from mongodb_index_tools.utilization import export_utilization_to_csv
+
+                output_dir = Path(settings.paths.data_output) / "mongodb_index_tools"
+                logger.info("Exporting to CSV...")
+                csv_path = export_utilization_to_csv(
+                    collection, utilization_data, index_sizes, output_dir, settings.database_name
+                )
+                logger.info(f"CSV exported to: {csv_path}")
+                print(f"✅ CSV file saved to: {csv_path}\n")
+            elif not utilization_data:
+                logger.info("No utilization data to export")
+            else:
+                logger.info("CSV export skipped (--no-csv)")
+
+            logger.info("=" * 60)
+            logger.info("Completed successfully")
+            logger.info("=" * 60)
+
+    except Exception as e:
+        logger.error(f"Error: {e}", exc_info=True)
+        print(f"\n❌ Error: {e}\n")
+        raise typer.Exit(code=1)
+
+
 @app.callback()
 def main():
     """MongoDB index management and analysis tools.

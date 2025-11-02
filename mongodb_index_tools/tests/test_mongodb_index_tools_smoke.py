@@ -12,7 +12,8 @@ class TestImports:
         sys.path.insert(0, str(Path("mongodb_index_tools").absolute()))
         import run
 
-        assert hasattr(run, "main")
+        # run.py imports the Typer app, not a main function
+        assert hasattr(run, "app")
 
 
 class TestDependencies:
