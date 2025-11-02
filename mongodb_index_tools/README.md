@@ -8,7 +8,7 @@ Unified MongoDB index management and analysis toolkit. Consolidates functionalit
 - **Index Utilization**: Analyze index usage statistics to identify unused or heavily-used indexes ✅
 - **Query Analyzer**: Analyze query execution plans using MongoDB's explain command ✅
 - **Index Advisor**: Get index recommendations based on usage and redundancy analysis ✅
-- **Index Manager**: Create and drop indexes safely (coming soon)
+- **Index Manager**: Create and drop indexes safely with validation and dry-run support ✅
 
 ## Installation
 
@@ -218,6 +218,98 @@ python mongodb_index_tools/run.py advisor -c Users --no-csv --env PROD
 
 **Note:** This command combines data from `$indexStats` (usage) and index structure analysis. Run after MongoDB has been active for a representative period to get accurate usage statistics.
 
+### Index Manager
+
+Create and drop indexes safely with validation, confirmation prompts, and dry-run support:
+
+#### Create Index
+
+```bash
+# Create single-field ascending index
+python mongodb_index_tools/run.py create-index -c Users --keys email:1
+
+# Create compound index (multiple fields)
+python mongodb_index_tools/run.py create-index -c Users --keys status:1,created_at:-1
+
+# Create unique index with custom name
+python mongodb_index_tools/run.py create-index -c Users --keys email:1 --unique --name idx_unique_email
+
+# Create sparse index
+python mongodb_index_tools/run.py create-index -c Users --keys phone:1 --sparse
+
+# Create TTL index (expires documents after 30 days)
+python mongodb_index_tools/run.py create-index -c Sessions --keys created_at:1 --ttl 2592000
+
+# Build in foreground (default is background)
+python mongodb_index_tools/run.py create-index -c Users --keys email:1 --foreground
+
+# Dry run to preview without creating
+python mongodb_index_tools/run.py create-index -c Users --keys status:1 --dry-run
+
+# Create on PROD environment
+python mongodb_index_tools/run.py create-index -c Users --keys email:1 --env PROD
+```
+
+**Key Format:**
+- Use `field:1` for ascending order
+- Use `field:-1` for descending order
+- Use commas to separate multiple fields: `field1:1,field2:-1,field3:1`
+
+**Options:**
+- `--keys, -k`: Index keys (required) - format: `field1:1,field2:-1`
+- `--name, -n`: Custom index name (auto-generated if not provided)
+- `--unique`: Create unique constraint index
+- `--sparse`: Create sparse index (only indexes documents with the field)
+- `--ttl`: TTL in seconds for TTL indexes (auto-delete old documents)
+- `--background/--foreground`: Build in background (default) or foreground
+- `--dry-run`: Preview what would be created without actually creating
+- `--env`: Environment (DEV, PROD, STG)
+
+**Safety Features:**
+- Validates collection exists before creating
+- Checks if index already exists
+- Supports dry-run mode to preview changes
+- Validates key format
+- Logs all operations
+
+#### Drop Index
+
+```bash
+# Drop an index (with confirmation prompt)
+python mongodb_index_tools/run.py drop-index -c Users --name idx_email_1
+
+# Drop without confirmation
+python mongodb_index_tools/run.py drop-index -c Users --name idx_email_1 --force
+
+# Dry run to preview without dropping
+python mongodb_index_tools/run.py drop-index -c Users --name idx_email_1 --dry-run
+
+# Drop on PROD environment
+python mongodb_index_tools/run.py drop-index -c Users --name idx_email_1 --env PROD --force
+```
+
+**Options:**
+- `--name, -n`: Name of index to drop (required)
+- `--force, -f`: Skip confirmation prompt
+- `--dry-run`: Preview what would be dropped without actually dropping
+- `--env`: Environment (DEV, PROD, STG)
+
+**Safety Features:**
+- Prevents dropping the `_id` index
+- Confirmation prompt (unless `--force` or `--dry-run`)
+- Validates index exists before attempting drop
+- Validates collection exists
+- Shows index details before dropping
+- Logs all operations
+
+**Use Cases:**
+- Create indexes recommended by the advisor command
+- Drop unused or redundant indexes identified by the advisor
+- Test index creation strategies with dry-run mode
+- Safely manage indexes across environments (DEV, PROD, STG)
+- Create TTL indexes for automatic document expiration
+- Create unique indexes for data integrity constraints
+
 ## Testing
 
 ```bash
@@ -249,12 +341,13 @@ mongodb_index_tools/
 │       ├── utilization.py      # Index utilization analysis ✅
 │       ├── analyzer.py         # Query plan analyzer ✅
 │       ├── advisor.py          # Index recommendations ✅
-│       └── manager.py          # Index create/drop (coming soon)
+│       └── manager.py          # Index create/drop operations ✅
 ├── tests/
 │   ├── test_inventory.py       # Inventory tests ✅
 │   ├── test_utilization.py     # Utilization tests ✅
 │   ├── test_analyzer.py        # Analyzer tests ✅
 │   ├── test_advisor.py         # Advisor tests ✅
+│   ├── test_manager.py         # Manager tests ✅
 │   └── conftest.py
 └── run.py                      # Entry point
 ```

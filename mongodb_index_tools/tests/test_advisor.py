@@ -147,13 +147,9 @@ def test_print_recommendations(capsys):
     analysis = {
         "collection_name": "testcoll",
         "total_indexes": 3,
-        "unused_indexes": [
-            {"name": "idx_unused", "keys": ["field1"], "usage_count": 0, "size_mb": 1.0}
-        ],
+        "unused_indexes": [{"name": "idx_unused", "keys": ["field1"], "usage_count": 0, "size_mb": 1.0}],
         "redundant_indexes": [],
-        "useful_indexes": [
-            {"name": "idx_useful", "keys": ["field2"], "usage_count": 500, "size_mb": 2.0}
-        ],
+        "useful_indexes": [{"name": "idx_useful", "keys": ["field2"], "usage_count": 500, "size_mb": 2.0}],
     }
 
     recommendations = [
@@ -183,9 +179,7 @@ def test_export_recommendations_to_csv(tmp_path):
     analysis = {
         "collection_name": "testcoll",
         "total_indexes": 2,
-        "unused_indexes": [
-            {"name": "idx_unused", "keys": ["field1"], "usage_count": 0, "size_mb": 1.0}
-        ],
+        "unused_indexes": [{"name": "idx_unused", "keys": ["field1"], "usage_count": 0, "size_mb": 1.0}],
         "redundant_indexes": [],
         "useful_indexes": [],
     }
@@ -202,9 +196,7 @@ def test_export_recommendations_to_csv(tmp_path):
     ]
 
     output_dir = tmp_path / "output"
-    csv_path = export_recommendations_to_csv(
-        analysis, recommendations, output_dir, "testdb"
-    )
+    csv_path = export_recommendations_to_csv(analysis, recommendations, output_dir, "testdb")
 
     assert csv_path.exists()
     assert csv_path.name.startswith("index_recommendations_testdb_testcoll_")

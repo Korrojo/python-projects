@@ -495,6 +495,298 @@ def advisor(
         raise typer.Exit(code=1)
 
 
+@app.command("create-index")
+def create_index_cmd(
+    env: str = typer.Option(
+        None,
+        "--env",
+        help="Environment to use (DEV, PROD, STG, etc.) - overrides APP_ENV",
+    ),
+    collection: str = typer.Option(
+        ...,
+        "--collection",
+        "-c",
+        help="Collection to create index on",
+    ),
+    keys: str = typer.Option(
+        ...,
+        "--keys",
+        "-k",
+        help="Index keys in format: field1:1,field2:-1 (1=ascending, -1=descending)",
+    ),
+    name: str = typer.Option(
+        None,
+        "--name",
+        "-n",
+        help="Custom index name (auto-generated if not provided)",
+    ),
+    unique: bool = typer.Option(
+        False,
+        "--unique",
+        help="Create unique index",
+    ),
+    sparse: bool = typer.Option(
+        False,
+        "--sparse",
+        help="Create sparse index",
+    ),
+    background: bool = typer.Option(
+        True,
+        "--background/--foreground",
+        help="Build index in background (default: background)",
+    ),
+    ttl_seconds: int = typer.Option(
+        None,
+        "--ttl",
+        help="TTL in seconds (for TTL indexes)",
+    ),
+    dry_run: bool = typer.Option(
+        False,
+        "--dry-run",
+        help="Show what would be created without actually creating",
+    ),
+):
+    """Create an index on a collection.
+
+    Examples:
+        # Create single-field ascending index
+        python run.py create-index -c Users --keys email:1
+
+        # Create compound index
+        python run.py create-index -c Users --keys status:1,created_at:-1
+
+        # Create unique index with custom name
+        python run.py create-index -c Users --keys email:1 --unique --name idx_unique_email
+
+        # Create TTL index (expires documents after 30 days)
+        python run.py create-index -c Sessions --keys created_at:1 --ttl 2592000
+
+        # Dry run to preview
+        python run.py create-index -c Users --keys status:1 --dry-run
+    """
+    from mongodb_index_tools.manager import create_index
+
+    # Set environment if provided
+    if env:
+        os.environ["APP_ENV"] = env.upper()
+
+    # Setup logging
+    setup_logging()
+    logger = get_logger(__name__)
+
+    try:
+        # Get settings
+        settings = get_settings()
+
+        # Validate settings
+        if not settings.mongodb_uri or not settings.database_name:
+            logger.error("MongoDB URI and database name are required")
+            print("❌ Error: MongoDB URI and database name must be configured\n")
+            raise typer.Exit(code=1)
+
+        logger.info("=" * 60)
+        logger.info(f"Environment: {os.environ.get('APP_ENV', 'DEV')}")
+        logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")
+        logger.info(f"Database: {settings.database_name}")
+        logger.info(f"Collection: {collection}")
+        logger.info("=" * 60)
+
+        # Parse keys
+        try:
+            keys_dict = {}
+            for key_spec in keys.split(","):
+                field, direction = key_spec.strip().split(":")
+                keys_dict[field.strip()] = int(direction.strip())
+        except Exception as e:
+            logger.error(f"Invalid keys format: {e}")
+            print("\n❌ Error: Invalid keys format. Use 'field1:1,field2:-1' format\n")
+            raise typer.Exit(code=1)
+
+        # Connect to MongoDB
+        with get_mongo_client(
+            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
+        ) as client:
+            db = client[settings.database_name]
+
+            # Validate collection exists
+            if collection not in db.list_collection_names():
+                logger.error(f"Collection '{collection}' does not exist")
+                print(f"\n❌ Error: Collection '{collection}' does not exist\n")
+                raise typer.Exit(code=1)
+
+            # Create index
+            result = create_index(
+                db=db,
+                collection_name=collection,
+                keys=keys_dict,
+                name=name,
+                unique=unique,
+                sparse=sparse,
+                background=background,
+                expire_after_seconds=ttl_seconds,
+                dry_run=dry_run,
+            )
+
+            # Display result
+            if result["success"]:
+                if dry_run:
+                    print("\n🔍 DRY RUN - No changes made")
+                    print("=" * 60)
+                    print(f"Would create index: {result['index_name']}")
+                    print(f"Keys: {result['keys']}")
+                    print(f"Options: {result['options']}")
+                    print("=" * 60)
+                else:
+                    print("\n✅ Index created successfully!")
+                    print("=" * 60)
+                    print(f"Index name: {result['index_name']}")
+                    print(f"Keys: {result['keys']}")
+                    print(f"Options: {result['options']}")
+                    print("=" * 60)
+
+                logger.info(f"Index operation completed: {result}")
+            else:
+                print(
+                    f"\n❌ Failed to create index: {result.get('error', 'Unknown error')}"
+                )
+                logger.error(f"Index creation failed: {result}")
+                raise typer.Exit(code=1)
+
+    except Exception as e:
+        logger.error(f"Error: {e}", exc_info=True)
+        print(f"\n❌ Error: {e}\n")
+        raise typer.Exit(code=1)
+
+
+@app.command("drop-index")
+def drop_index_cmd(
+    env: str = typer.Option(
+        None,
+        "--env",
+        help="Environment to use (DEV, PROD, STG, etc.) - overrides APP_ENV",
+    ),
+    collection: str = typer.Option(
+        ...,
+        "--collection",
+        "-c",
+        help="Collection to drop index from",
+    ),
+    index_name: str = typer.Option(
+        ...,
+        "--name",
+        "-n",
+        help="Name of the index to drop",
+    ),
+    force: bool = typer.Option(
+        False,
+        "--force",
+        "-f",
+        help="Skip confirmation prompt",
+    ),
+    dry_run: bool = typer.Option(
+        False,
+        "--dry-run",
+        help="Show what would be dropped without actually dropping",
+    ),
+):
+    """Drop an index from a collection.
+
+    Examples:
+        # Drop an index (with confirmation)
+        python run.py drop-index -c Users --name idx_email_1
+
+        # Drop without confirmation
+        python run.py drop-index -c Users --name idx_email_1 --force
+
+        # Dry run to preview
+        python run.py drop-index -c Users --name idx_email_1 --dry-run
+    """
+    from mongodb_index_tools.manager import drop_index
+
+    # Set environment if provided
+    if env:
+        os.environ["APP_ENV"] = env.upper()
+
+    # Setup logging
+    setup_logging()
+    logger = get_logger(__name__)
+
+    try:
+        # Get settings
+        settings = get_settings()
+
+        # Validate settings
+        if not settings.mongodb_uri or not settings.database_name:
+            logger.error("MongoDB URI and database name are required")
+            print("❌ Error: MongoDB URI and database name must be configured\n")
+            raise typer.Exit(code=1)
+
+        logger.info("=" * 60)
+        logger.info(f"Environment: {os.environ.get('APP_ENV', 'DEV')}")
+        logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")
+        logger.info(f"Database: {settings.database_name}")
+        logger.info(f"Collection: {collection}")
+        logger.info("=" * 60)
+
+        # Connect to MongoDB
+        with get_mongo_client(
+            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
+        ) as client:
+            db = client[settings.database_name]
+
+            # Validate collection exists
+            if collection not in db.list_collection_names():
+                logger.error(f"Collection '{collection}' does not exist")
+                print(f"\n❌ Error: Collection '{collection}' does not exist\n")
+                raise typer.Exit(code=1)
+
+            # Confirmation prompt (unless force or dry-run)
+            if not force and not dry_run:
+                confirm = typer.confirm(
+                    f"Are you sure you want to drop index '{index_name}' from collection '{collection}'?"
+                )
+                if not confirm:
+                    print("\n❌ Operation cancelled\n")
+                    logger.info("User cancelled drop operation")
+                    raise typer.Exit(code=0)
+
+            # Drop index
+            result = drop_index(
+                db=db,
+                collection_name=collection,
+                index_name=index_name,
+                dry_run=dry_run,
+            )
+
+            # Display result
+            if result["success"]:
+                if dry_run:
+                    print("\n🔍 DRY RUN - No changes made")
+                    print("=" * 60)
+                    print(f"Would drop index: {result['index_name']}")
+                    if result.get("index_info"):
+                        print(f"Index keys: {result['index_info'].get('key', {})}")
+                    print("=" * 60)
+                else:
+                    print("\n✅ Index dropped successfully!")
+                    print("=" * 60)
+                    print(f"Index name: {result['index_name']}")
+                    if result.get("index_info"):
+                        print(f"Index keys: {result['index_info'].get('key', {})}")
+                    print("=" * 60)
+
+                logger.info(f"Index operation completed: {result}")
+            else:
+                print(f"\n❌ Failed to drop index: {result.get('error', 'Unknown error')}")
+                logger.error(f"Index drop failed: {result}")
+                raise typer.Exit(code=1)
+
+    except Exception as e:
+        logger.error(f"Error: {e}", exc_info=True)
+        print(f"\n❌ Error: {e}\n")
+        raise typer.Exit(code=1)
+
+
 @app.callback()
 def main():
     """MongoDB index management and analysis tools.
