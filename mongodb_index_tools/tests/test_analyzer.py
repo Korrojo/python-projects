@@ -1,6 +1,5 @@
 """Tests for analyzer module."""
 
-from datetime import datetime
 from unittest.mock import MagicMock
 
 
@@ -22,10 +21,7 @@ def test_get_plan_stage():
     assert get_plan_stage(plan) == "IXSCAN"
 
     # Test nested stage
-    plan = {
-        "stage": "FETCH",
-        "inputStage": {"stage": "IXSCAN"}
-    }
+    plan = {"stage": "FETCH", "inputStage": {"stage": "IXSCAN"}}
     assert get_plan_stage(plan) == "FETCH"
 
 
@@ -35,10 +31,7 @@ def test_get_index_name():
     assert get_index_name(plan) == "idx_age"
 
     # Test nested index name
-    plan = {
-        "stage": "FETCH",
-        "inputStage": {"stage": "IXSCAN", "indexName": "idx_email"}
-    }
+    plan = {"stage": "FETCH", "inputStage": {"stage": "IXSCAN", "indexName": "idx_email"}}
     assert get_index_name(plan) == "idx_email"
 
     # Test no index
@@ -56,24 +49,15 @@ def test_determine_scan_type():
 def test_assess_performance():
     """Test performance assessment."""
     # Good performance
-    metrics = {
-        "scan_type": "Index Scan (IXSCAN)",
-        "examined_to_returned_ratio": 1.2
-    }
+    metrics = {"scan_type": "Index Scan (IXSCAN)", "examined_to_returned_ratio": 1.2}
     assert "GOOD" in assess_performance(metrics)
 
     # Collection scan warning
-    metrics = {
-        "scan_type": "Collection Scan (COLLSCAN)",
-        "examined_to_returned_ratio": 1.0
-    }
+    metrics = {"scan_type": "Collection Scan (COLLSCAN)", "examined_to_returned_ratio": 1.0}
     assert "WARNING" in assess_performance(metrics)
 
     # High ratio warning
-    metrics = {
-        "scan_type": "Index Scan",
-        "examined_to_returned_ratio": 150
-    }
+    metrics = {"scan_type": "Index Scan", "examined_to_returned_ratio": 150}
     assessment = assess_performance(metrics)
     assert "WARNING" in assessment
     assert "High examined:returned ratio" in assessment
@@ -84,20 +68,14 @@ def test_extract_metrics():
     explain_result = {
         "queryPlanner": {
             "namespace": "testdb.testcoll",
-            "winningPlan": {
-                "stage": "FETCH",
-                "inputStage": {
-                    "stage": "IXSCAN",
-                    "indexName": "idx_test"
-                }
-            }
+            "winningPlan": {"stage": "FETCH", "inputStage": {"stage": "IXSCAN", "indexName": "idx_test"}},
         },
         "executionStats": {
             "executionTimeMillis": 25,
             "totalKeysExamined": 100,
             "totalDocsExamined": 100,
-            "nReturned": 50
-        }
+            "nReturned": 50,
+        },
     }
 
     metrics = extract_metrics(explain_result, "find")
@@ -121,20 +99,14 @@ def test_analyze_query_find():
     mock_explain_result = {
         "queryPlanner": {
             "namespace": "testdb.testcoll",
-            "winningPlan": {
-                "stage": "FETCH",
-                "inputStage": {
-                    "stage": "IXSCAN",
-                    "indexName": "idx_age"
-                }
-            }
+            "winningPlan": {"stage": "FETCH", "inputStage": {"stage": "IXSCAN", "indexName": "idx_age"}},
         },
         "executionStats": {
             "executionTimeMillis": 15,
             "totalKeysExamined": 50,
             "totalDocsExamined": 50,
-            "nReturned": 25
-        }
+            "nReturned": 25,
+        },
     }
 
     mock_cursor = MagicMock()
@@ -158,16 +130,13 @@ def test_analyze_query_aggregate():
     mock_db.__getitem__.return_value = mock_collection
 
     mock_explain_result = {
-        "queryPlanner": {
-            "namespace": "testdb.testcoll",
-            "winningPlan": {"stage": "COLLSCAN"}
-        },
+        "queryPlanner": {"namespace": "testdb.testcoll", "winningPlan": {"stage": "COLLSCAN"}},
         "executionStats": {
             "executionTimeMillis": 100,
             "totalKeysExamined": 0,
             "totalDocsExamined": 1000,
-            "nReturned": 10
-        }
+            "nReturned": 10,
+        },
     }
 
     mock_collection.aggregate.return_value = mock_explain_result
@@ -192,7 +161,7 @@ def test_print_analysis(capsys):
         "total_docs_examined": 100,
         "num_returned": 50,
         "examined_to_returned_ratio": 2.0,
-        "performance_assessment": "✅ GOOD: Query appears efficient"
+        "performance_assessment": "✅ GOOD: Query appears efficient",
     }
 
     print_analysis(analysis)
@@ -209,10 +178,7 @@ def test_print_analysis(capsys):
 
 def test_print_analysis_error(capsys):
     """Test printing analysis with error."""
-    analysis = {
-        "error": "Invalid query syntax",
-        "query_type": "find"
-    }
+    analysis = {"error": "Invalid query syntax", "query_type": "find"}
 
     print_analysis(analysis)
     captured = capsys.readouterr()
@@ -223,11 +189,7 @@ def test_print_analysis_error(capsys):
 
 def test_save_analysis_json(tmp_path):
     """Test saving analysis to JSON file."""
-    analysis = {
-        "query_type": "find",
-        "namespace": "testdb.testcoll",
-        "execution_time_ms": 25
-    }
+    analysis = {"query_type": "find", "namespace": "testdb.testcoll", "execution_time_ms": 25}
 
     output_path = tmp_path / "output" / "analysis.json"
     saved_path = save_analysis_json(analysis, output_path)
@@ -237,6 +199,7 @@ def test_save_analysis_json(tmp_path):
 
     # Verify content
     import json
+
     with open(saved_path, "r", encoding="utf-8") as f:
         loaded = json.load(f)
         assert loaded["query_type"] == "find"
