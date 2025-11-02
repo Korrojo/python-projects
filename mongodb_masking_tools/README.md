@@ -3,7 +3,7 @@
 **= SECURITY CRITICAL:** Mask Protected Health Information (PHI) and Personally Identifiable Information (PII) in
 MongoDB collections for compliance and testing purposes.
 
-  **WARNING:** This tool PERMANENTLY modifies data. Always backup before use!
+ **WARNING:** This tool PERMANENTLY modifies data. Always backup before use!
 
 ## Features
 
@@ -49,16 +49,16 @@ DATABASE_NAME_PROD=UbiquityProduction
 
 ### Field-Specific Masking
 
-| Field Type                 | Original            | Masked                                    | Preservation       |
-| -------------------------- | ------------------- | ----------------------------------------- | ------------------ |
-| **Names**                  | "John Doe"          | "ABCD EFG" (random uppercase)             | Length, spaces     |
-| **Notes/Text**             | "Patient has..."    | "xxxxxxxxxx"                              | None               |
-| **DOB**                    | 1990-01-15          | Timestamp + 207360000000ms                | None               |
-| **Phone**                  | "555-1234"          | Random 10-digit number                    | None               |
-| **Email**                  | "john@example.com"  | "xxxxxx@xxxx.com"                         | None               |
-| **Gender**                 | "Male"              | "xxxxxx"                                  | None               |
-| **Addresses/IDs**          | "123 Main St"       | "xxxxxxxxxx"                              | None               |
-| **File Paths**             | "/path/to/file.pdf" | "//vm_fs01/Projects/EMRQAReports/..."     | None               |
+| Field Type        | Original            | Masked                                | Preservation   |
+| ----------------- | ------------------- | ------------------------------------- | -------------- |
+| **Names**         | "John Doe"          | "ABCD EFG" (random uppercase)         | Length, spaces |
+| **Notes/Text**    | "Patient has..."    | "xxxxxxxxxx"                          | None           |
+| **DOB**           | 1990-01-15          | Timestamp + 207360000000ms            | None           |
+| **Phone**         | "555-1234"          | Random 10-digit number                | None           |
+| **Email**         | "john@example.com"  | "xxxxxx@xxxx.com"                     | None           |
+| **Gender**        | "Male"              | "xxxxxx"                              | None           |
+| **Addresses/IDs** | "123 Main St"       | "xxxxxxxxxx"                          | None           |
+| **File Paths**    | "/path/to/file.pdf" | "//vm_fs01/Projects/EMRQAReports/..." | None           |
 
 ### Name Fields
 
@@ -66,9 +66,9 @@ Masked: PatientName, PatientFirstName, PatientMiddleName, PatientLastName, First
 
 ### Text/Note Fields
 
-Masked: HPINote, Notes, FinalNotes, Comments, OtherReason, VisitNotes, HomeText, VisitStatusNote, ReasonDetails,
-Reason, EmployerStreet, HealthPlanMemberId, SubscriberId, Street1, Street2, City, StateCode, Zip5, StateName,
-PrimaryMemberName, SnapShot, Goals, VisitAddress
+Masked: HPINote, Notes, FinalNotes, Comments, OtherReason, VisitNotes, HomeText, VisitStatusNote, ReasonDetails, Reason,
+EmployerStreet, HealthPlanMemberId, SubscriberId, Street1, Street2, City, StateCode, Zip5, StateName, PrimaryMemberName,
+SnapShot, Goals, VisitAddress
 
 ### Phone Fields
 
@@ -141,30 +141,30 @@ python mongodb_masking_tools/run.py status --collection Patients --env DEV
 
 #### add-flag Command
 
-| Option         | Short | Description                            | Default |
-| -------------- | ----- | -------------------------------------- | ------- |
-| `--collection` | `-c`  | Specific collection (None = all)       | None    |
-| `--env`        | `-e`  | Environment (DEV, PROD, etc.)          | DEV     |
-| `--dry-run`    | -     | Dry run mode (no changes)              | True    |
-| `--execute`    | -     | Execute mode (make changes)            | False   |
+| Option         | Short | Description                      | Default |
+| -------------- | ----- | -------------------------------- | ------- |
+| `--collection` | `-c`  | Specific collection (None = all) | None    |
+| `--env`        | `-e`  | Environment (DEV, PROD, etc.)    | DEV     |
+| `--dry-run`    | -     | Dry run mode (no changes)        | True    |
+| `--execute`    | -     | Execute mode (make changes)      | False   |
 
 #### mask Command
 
-| Option         | Short | Description                            | Default |
-| -------------- | ----- | -------------------------------------- | ------- |
-| `--collection` | `-c`  | Specific collection (None = all)       | None    |
-| `--env`        | `-e`  | Environment (DEV, PROD, etc.)          | DEV     |
-| `--batch-size` | `-b`  | Documents per batch                    | 200     |
-| `--dry-run`    | -     | Dry run mode (no changes)              | True    |
-| `--execute`    | -     | Execute mode (make changes)            | False   |
-| `--seed`       | -     | Random seed (testing only)             | None    |
+| Option         | Short | Description                      | Default |
+| -------------- | ----- | -------------------------------- | ------- |
+| `--collection` | `-c`  | Specific collection (None = all) | None    |
+| `--env`        | `-e`  | Environment (DEV, PROD, etc.)    | DEV     |
+| `--batch-size` | `-b`  | Documents per batch              | 200     |
+| `--dry-run`    | -     | Dry run mode (no changes)        | True    |
+| `--execute`    | -     | Execute mode (make changes)      | False   |
+| `--seed`       | -     | Random seed (testing only)       | None    |
 
 #### status Command
 
-| Option         | Short | Description                            | Default |
-| -------------- | ----- | -------------------------------------- | ------- |
-| `--collection` | `-c`  | Specific collection (None = all)       | None    |
-| `--env`        | `-e`  | Environment (DEV, PROD, etc.)          | DEV     |
+| Option         | Short | Description                      | Default |
+| -------------- | ----- | -------------------------------- | ------- |
+| `--collection` | `-c`  | Specific collection (None = all) | None    |
+| `--env`        | `-e`  | Environment (DEV, PROD, etc.)    | DEV     |
 
 ## Workflow Example
 
@@ -205,7 +205,7 @@ python run.py mask --collection Patients --env DEV --execute
 When running against PROD environment, the tool displays warnings and requires confirmation:
 
 ```
-  WARNING: You are about to PERMANENTLY MASK PRODUCTION data!
+  WARNING: You are about to PERMANENTLY MASK PRODUCTION data!
 This operation is IRREVERSIBLE and will destroy original data!
 
 Are you absolutely sure you want to continue? [y/N]:
@@ -216,7 +216,7 @@ Are you absolutely sure you want to continue? [y/N]:
 The workflow requires two separate commands, preventing accidental execution:
 
 1. `add-flag` - Adds tracking field
-2. `mask` - Performs masking
+1. `mask` - Performs masking
 
 ### 4. Status Reporting
 
@@ -230,15 +230,15 @@ python run.py status --env DEV
 
 This project is a Python migration of the JavaScript `MASKING_SCRIPTS_PHI_PII` tool with equivalent functionality:
 
-| JavaScript                         | Python               | Status |
-| ---------------------------------- | -------------------- | ------ |
-| `add_isMasked_*.js`                | `add-flag` command   |      |
-| `mask_single_collection.js`        | `mask -c` command    |      |
-| `mask_multiple_collections.js`     | `mask` command       |      |
-| `maskFields()` function            | `MaskingEngine`      |      |
-| Batch processing (200 docs)        | Configurable batches |      |
-| Recursive masking                  | Recursive masking    |      |
-| Status tracking                    | `status` command     |      |
+| JavaScript                     | Python               | Status |
+| ------------------------------ | -------------------- | ------ |
+| `add_isMasked_*.js`            | `add-flag` command   |         |
+| `mask_single_collection.js`    | `mask -c` command    |         |
+| `mask_multiple_collections.js` | `mask` command       |         |
+| `maskFields()` function        | `MaskingEngine`      |         |
+| Batch processing (200 docs)    | Configurable batches |         |
+| Recursive masking              | Recursive masking    |         |
+| Status tracking                | `status` command     |         |
 
 ### Behavior Validation
 
@@ -372,7 +372,7 @@ Keep a log of when and what was masked for compliance auditing.
 
 ### 1. Irreversible Operation
 
-  **WARNING:** Masking permanently destroys original data. There is NO undo operation.
+ **WARNING:** Masking permanently destroys original data. There is NO undo operation.
 
 ### 2. Backup Policy
 
@@ -407,10 +407,10 @@ Always test masking operations on a copy of production data before applying to a
 When modifying this tool:
 
 1. **Maintain masking behavior** - Any changes to masking rules must be documented
-2. **Add tests** - Validate masking output matches expected results
-3. **Run linting:** `./scripts/lint.sh mongodb_masking_tools/`
-4. **Test thoroughly** - Test with realistic data structures
-5. **Document changes** - Update README with any new functionality
+1. **Add tests** - Validate masking output matches expected results
+1. **Run linting:** `./scripts/lint.sh mongodb_masking_tools/`
+1. **Test thoroughly** - Test with realistic data structures
+1. **Document changes** - Update README with any new functionality
 
 ## Author
 
@@ -423,9 +423,9 @@ When modifying this tool:
 
 Internal use only - Korrojo/Ubiquity
 
----
+______________________________________________________________________
 
-##   Final Warning
+##  Final Warning
 
 **This tool permanently modifies data. There is no undo.**
 
