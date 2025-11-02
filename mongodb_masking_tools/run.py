@@ -17,7 +17,6 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 import typer
 from pymongo import MongoClient
@@ -29,8 +28,9 @@ from rich.table import Table
 # Add parent directory to path for common_config import
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from common_config.config.settings import get_settings
 from src.masking_engine import MaskingEngine
+
+from common_config.config.settings import get_settings
 
 app = typer.Typer(help="MongoDB PHI/PII Data Masking - Mask sensitive data for compliance")
 console = Console()
@@ -43,9 +43,7 @@ def connect_to_database(
     client = None
     for attempt in range(max_retries):
         try:
-            console.print(
-                f"[yellow]Connecting to MongoDB (attempt {attempt + 1}/{max_retries})...[/yellow]"
-            )
+            console.print(f"[yellow]Connecting to MongoDB (attempt {attempt + 1}/{max_retries})...[/yellow]")
             client = MongoClient(connection_uri, serverSelectionTimeoutMS=5000)
             client.admin.command("ping")
             db = client[database_name]
@@ -57,16 +55,14 @@ def connect_to_database(
                 console.print(f"[yellow]Retrying in {retry_delay} seconds...[/yellow]")
                 time.sleep(retry_delay)
             else:
-                raise ConnectionError(
-                    f"Unable to connect to MongoDB after {max_retries} attempts"
-                ) from e
+                raise ConnectionError(f"Unable to connect to MongoDB after {max_retries} attempts") from e
 
     raise ConnectionError("Unable to connect to database")
 
 
 @app.command()
 def add_flag(
-    collection: Optional[str] = typer.Option(
+    collection: str | None = typer.Option(
         None, "--collection", "-c", help="Specific collection (if None, all collections)"
     ),
     env: str = typer.Option("DEV", "--env", "-e", help="Environment (DEV, PROD, etc.)"),
@@ -81,7 +77,7 @@ def add_flag(
         python mongodb_masking_tools/run.py add-flag --collection Patients --env DEV --execute
         python run.py add-flag --env DEV --execute  # All collections
     """
-    console.print(f"\n[bold cyan]MongoDB PHI/PII Masking - Add isMasked Flag[/bold cyan]")
+    console.print("\n[bold cyan]MongoDB PHI/PII Masking - Add isMasked Flag[/bold cyan]")
     console.print(f"[cyan]{'=' * 60}[/cyan]\n")
 
     if dry_run:
@@ -99,9 +95,7 @@ def add_flag(
 
     # Safety check for PROD
     if env == "PROD":
-        console.print(
-            "\n[bold red]⚠ WARNING: You are about to modify PRODUCTION data![/bold red]\n"
-        )
+        console.print("\n[bold red]⚠ WARNING: You are about to modify PRODUCTION data![/bold red]\n")
         if not Confirm.ask("[bold]Are you absolutely sure you want to continue?[/bold]"):
             console.print("[yellow]Operation cancelled by user[/yellow]")
             raise typer.Exit(code=0)
@@ -145,21 +139,17 @@ def add_flag(
                 console.print(f"[yellow]  Would add flag to {needs_flag:,} documents[/yellow]")
             else:
                 # Add isMasked: false to documents that don't have it
-                result = coll.update_many(
-                    {"isMasked": {"$exists": False}}, {"$set": {"isMasked": False}}
-                )
+                result = coll.update_many({"isMasked": {"$exists": False}}, {"$set": {"isMasked": False}})
                 total_modified += result.modified_count
-                console.print(
-                    f"[green]  ✓ Added flag to {result.modified_count:,} documents[/green]"
-                )
+                console.print(f"[green]  ✓ Added flag to {result.modified_count:,} documents[/green]")
 
         elapsed_time = time.time() - start_time
 
         console.print(f"\n[bold green]{'=' * 60}[/bold green]")
         if dry_run:
-            console.print(f"[bold yellow]DRY RUN COMPLETE[/bold yellow]")
+            console.print("[bold yellow]DRY RUN COMPLETE[/bold yellow]")
         else:
-            console.print(f"[bold green]✓ Flag Addition Complete![/bold green]")
+            console.print("[bold green]✓ Flag Addition Complete![/bold green]")
             console.print(f"[green]Total documents modified: {total_modified:,}[/green]")
         console.print(f"[green]Time elapsed: {elapsed_time:.2f} seconds[/green]\n")
 
@@ -176,13 +166,13 @@ def add_flag(
 
 @app.command()
 def mask(
-    collection: Optional[str] = typer.Option(
+    collection: str | None = typer.Option(
         None, "--collection", "-c", help="Specific collection (if None, all collections)"
     ),
     env: str = typer.Option("DEV", "--env", "-e", help="Environment (DEV, PROD, etc.)"),
     batch_size: int = typer.Option(200, "--batch-size", "-b", help="Documents per batch"),
     dry_run: bool = typer.Option(True, "--dry-run/--execute", help="Dry run mode (default: True)"),
-    seed: Optional[int] = typer.Option(None, "--seed", help="Random seed (testing only)"),
+    seed: int | None = typer.Option(None, "--seed", help="Random seed (testing only)"),
 ):
     """
     Mask PHI/PII data in documents where isMasked=false.
@@ -193,7 +183,7 @@ def mask(
         python mongodb_masking_tools/run.py mask --collection Patients --env DEV --execute
         python run.py mask --env DEV --execute  # All collections
     """
-    console.print(f"\n[bold cyan]MongoDB PHI/PII Masking - Mask Sensitive Data[/bold cyan]")
+    console.print("\n[bold cyan]MongoDB PHI/PII Masking - Mask Sensitive Data[/bold cyan]")
     console.print(f"[cyan]{'=' * 60}[/cyan]\n")
 
     if dry_run:
@@ -211,12 +201,8 @@ def mask(
 
     # Safety check for PROD
     if env == "PROD":
-        console.print(
-            "\n[bold red]⚠ WARNING: You are about to PERMANENTLY MASK PRODUCTION data![/bold red]\n"
-        )
-        console.print(
-            "[bold red]This operation is IRREVERSIBLE and will destroy original data![/bold red]\n"
-        )
+        console.print("\n[bold red]⚠ WARNING: You are about to PERMANENTLY MASK PRODUCTION data![/bold red]\n")
+        console.print("[bold red]This operation is IRREVERSIBLE and will destroy original data![/bold red]\n")
         if not Confirm.ask("[bold]Are you absolutely sure you want to continue?[/bold]"):
             console.print("[yellow]Operation cancelled by user[/yellow]")
             raise typer.Exit(code=0)
@@ -233,9 +219,7 @@ def mask(
 
         # Initialize masking engine
         engine = MaskingEngine(seed=seed)
-        console.print(
-            f"[green]✓ Masking engine initialized{' (seed: ' + str(seed) + ')' if seed else ''}[/green]"
-        )
+        console.print(f"[green]✓ Masking engine initialized{' (seed: ' + str(seed) + ')' if seed else ''}[/green]")
 
         # Get collections to process
         if collection:
@@ -260,9 +244,7 @@ def mask(
                 console.print(f"[dim]{coll_name}: No unmasked documents, skipping[/dim]")
                 continue
 
-            console.print(
-                f"\n[cyan]Processing: {coll_name}[/cyan] ({unmasked_count:,} unmasked documents)"
-            )
+            console.print(f"\n[cyan]Processing: {coll_name}[/cyan] ({unmasked_count:,} unmasked documents)")
 
             if dry_run:
                 console.print(f"[yellow]  Would mask {unmasked_count:,} documents[/yellow]")
@@ -313,9 +295,9 @@ def mask(
         console.print(f"\n[bold green]{'=' * 60}[/bold green]")
         console.print(f"[yellow]Masking ended at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}[/yellow]")
         if dry_run:
-            console.print(f"[bold yellow]DRY RUN COMPLETE[/bold yellow]")
+            console.print("[bold yellow]DRY RUN COMPLETE[/bold yellow]")
         else:
-            console.print(f"[bold green]✓ Masking Complete![/bold green]")
+            console.print("[bold green]✓ Masking Complete![/bold green]")
             console.print(f"[green]Total documents masked: {total_masked:,}[/green]")
         console.print(f"[green]Time elapsed: {elapsed_time:.2f} seconds[/green]\n")
 
@@ -335,7 +317,7 @@ def mask(
 
 @app.command()
 def status(
-    collection: Optional[str] = typer.Option(None, "--collection", "-c", help="Specific collection"),
+    collection: str | None = typer.Option(None, "--collection", "-c", help="Specific collection"),
     env: str = typer.Option("DEV", "--env", "-e", help="Environment (DEV, PROD, etc.)"),
 ):
     """
@@ -345,7 +327,7 @@ def status(
         python mongodb_masking_tools/run.py status --collection Patients --env DEV
         python run.py status --env DEV  # All collections
     """
-    console.print(f"\n[bold cyan]MongoDB PHI/PII Masking - Status Report[/bold cyan]")
+    console.print("\n[bold cyan]MongoDB PHI/PII Masking - Status Report[/bold cyan]")
     console.print(f"[cyan]{'=' * 60}[/cyan]\n")
 
     # Load configuration

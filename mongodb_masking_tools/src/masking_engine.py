@@ -14,7 +14,7 @@ Date: 2025-11-02
 import random
 import string
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 
 
 class MaskingEngine:
@@ -109,9 +109,7 @@ class MaskingEngine:
             return ""
 
         # Replace non-space characters with random uppercase letters
-        result = "".join(
-            " " if char == " " else random.choice(string.ascii_uppercase) for char in value
-        )
+        result = "".join(" " if char == " " else random.choice(string.ascii_uppercase) for char in value)
         return result
 
     def mask_text_field(self, value: Any) -> str:
@@ -210,7 +208,7 @@ class MaskingEngine:
         else:
             return value
 
-    def mask_fields(self, doc: Dict[str, Any]) -> Dict[str, Any]:
+    def mask_fields(self, doc: dict[str, Any]) -> dict[str, Any]:
         """
         Recursively mask PHI/PII fields in a document.
 
@@ -238,9 +236,7 @@ class MaskingEngine:
             elif isinstance(value, dict):
                 doc[field] = self.mask_fields(value)
             elif isinstance(value, list):
-                doc[field] = [
-                    self.mask_fields(item) if isinstance(item, dict) else item for item in value
-                ]
+                doc[field] = [self.mask_fields(item) if isinstance(item, dict) else item for item in value]
 
             # Apply field-specific masking
             elif field in self.NAME_FIELDS:
