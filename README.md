@@ -1,6 +1,8 @@
 # Python Projects Repository
 
-> **Monorepo containing 8+ Python projects with shared configuration, centralized data/logs, and unified tooling.**
+> **Monorepo containing 13 Python projects with shared configuration, centralized data/logs, and unified tooling.**
+
+**Latest:** 🆕 JavaScript to Python migration complete (12 JS projects → 4 Python tools) - Nov 2025
 
 ______________________________________________________________________
 
@@ -176,10 +178,14 @@ python/
 ├── requirements.txt             # Shared dependencies
 └── README.md                    # ← THIS FILE (Master documentation hub)
 
-# Individual Projects (8 total)
+# Individual Projects (13 total)
 ├── appointment_comparison/      # Athena CSV vs MongoDB validator
 ├── automate_refresh/            # MongoDB export/import automation
 ├── db_collection_stats/         # MongoDB collection statistics tool
+├── mongodb_index_tools/         # 🆕 MongoDB index management & analysis (6 tools consolidated)
+├── mongodb_masking_tools/       # 🆕 PHI/PII data masking (SECURITY CRITICAL)
+├── mongodb_profiler_tools/      # 🆕 Query performance analysis (3 tools consolidated)
+├── mongodb_test_data_tools/     # 🆕 Fake test data generation
 ├── patient_data_extraction/     # Cross-DB patient extractor
 ├── patient_demographic/         # Demographics pipeline
 ├── patients_hcmid_validator/    # High-volume CSV validator
