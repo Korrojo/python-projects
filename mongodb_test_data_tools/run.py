@@ -84,7 +84,7 @@ def generate(
     Generate fake test data and insert into MongoDB collection.
 
     Example:
-        python run.py generate --collection Patients --total 100 --batch-size 10 --env DEV
+        python mongodb_test_data_tools/run.py generate --collection Patients --total 100 --batch-size 10 --env DEV
     """
     console.print("\n[bold cyan]MongoDB Test Data Generator[/bold cyan]")
     console.print(f"[cyan]{'=' * 60}[/cyan]\n")
@@ -187,7 +187,7 @@ def info():
     console.print("  • Environment-based configuration")
     console.print("  • Optional random seed for reproducibility\n")
     console.print("[green]Usage:[/green]")
-    console.print("  python run.py generate --collection Patients --total 100 --env DEV\n")
+    console.print("  python mongodb_test_data_tools/run.py generate --collection Patients --total 100 --env DEV\n")
 
 
 if __name__ == "__main__":

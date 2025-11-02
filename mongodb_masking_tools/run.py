@@ -78,7 +78,7 @@ def add_flag(
     This is Step 1 of the masking process. Must be run before mask command.
 
     Example:
-        python run.py add-flag --collection Patients --env DEV --execute
+        python mongodb_masking_tools/run.py add-flag --collection Patients --env DEV --execute
         python run.py add-flag --env DEV --execute  # All collections
     """
     console.print(f"\n[bold cyan]MongoDB PHI/PII Masking - Add isMasked Flag[/bold cyan]")
@@ -190,7 +190,7 @@ def mask(
     This is Step 2 of the masking process. Must run add-flag first.
 
     Example:
-        python run.py mask --collection Patients --env DEV --execute
+        python mongodb_masking_tools/run.py mask --collection Patients --env DEV --execute
         python run.py mask --env DEV --execute  # All collections
     """
     console.print(f"\n[bold cyan]MongoDB PHI/PII Masking - Mask Sensitive Data[/bold cyan]")
@@ -342,7 +342,7 @@ def status(
     Show masking status for collections.
 
     Example:
-        python run.py status --collection Patients --env DEV
+        python mongodb_masking_tools/run.py status --collection Patients --env DEV
         python run.py status --env DEV  # All collections
     """
     console.print(f"\n[bold cyan]MongoDB PHI/PII Masking - Status Report[/bold cyan]")
@@ -431,9 +431,9 @@ def info():
     console.print("  2. mask      - Mask PHI/PII data (IRREVERSIBLE)")
     console.print("  3. status    - Check masking status\n")
     console.print("[green]Usage:[/green]")
-    console.print("  python run.py add-flag --collection Patients --env DEV --execute")
-    console.print("  python run.py mask --collection Patients --env DEV --execute")
-    console.print("  python run.py status --env DEV\n")
+    console.print("  python mongodb_masking_tools/run.py add-flag --collection Patients --env DEV --execute")
+    console.print("  python mongodb_masking_tools/run.py mask --collection Patients --env DEV --execute")
+    console.print("  python mongodb_masking_tools/run.py status --env DEV\n")
 
 
 if __name__ == "__main__":
