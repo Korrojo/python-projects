@@ -7,7 +7,7 @@ Unified MongoDB index management and analysis toolkit. Consolidates functionalit
 - **Index Inventory**: List all indexes with detailed information (keys, attributes, uniqueness, etc.) ✅
 - **Index Utilization**: Analyze index usage statistics to identify unused or heavily-used indexes ✅
 - **Query Analyzer**: Analyze query execution plans using MongoDB's explain command ✅
-- **Index Advisor**: Get index recommendations (coming soon)
+- **Index Advisor**: Get index recommendations based on usage and redundancy analysis ✅
 - **Index Manager**: Create and drop indexes safely (coming soon)
 
 ## Installation
@@ -160,6 +160,64 @@ Aggregate query (`query_agg.json`):
 - Find queries with high examined:returned ratios
 - Validate that new indexes are being used
 
+### Index Advisor
+
+Get intelligent index recommendations based on usage statistics and redundancy analysis:
+
+```bash
+# Get recommendations for a specific collection
+python mongodb_index_tools/run.py advisor -c Patients
+
+# Analyze for PROD environment
+python mongodb_index_tools/run.py advisor -c Patients --env PROD
+
+# Skip CSV export
+python mongodb_index_tools/run.py advisor -c Users --no-csv --env PROD
+```
+
+**Output:**
+- Console display with categorized indexes (unused, redundant, useful)
+- Actionable recommendations with severity levels (HIGH, MEDIUM, INFO)
+- Drop commands for each recommendation
+- Impact assessment for each action
+- CSV export to `data/output/mongodb_index_tools/index_recommendations_<database>_<collection>_<timestamp>.csv`
+- Logs in `logs/mongodb_index_tools/`
+
+**Recommendation Types:**
+
+1. **DROP - HIGH Severity**: Unused indexes (0 operations)
+   - Impact: Saves storage and improves write performance
+   - Safe to drop: No queries are using these indexes
+
+2. **DROP - MEDIUM Severity**: Redundant indexes
+   - Covered by compound indexes with matching prefix
+   - Example: Index on `{a: 1}` is redundant if `{a: 1, b: 1}` exists
+   - Impact: Saves storage, minimal impact on reads (covered by compound index)
+
+3. **INFO**: Useful indexes
+   - Actively used indexes that should be kept
+   - Recommendation to monitor usage over time
+
+**CSV Columns:**
+- Type (DROP, INFO)
+- Severity (HIGH, MEDIUM, INFO)
+- Index Name
+- Keys (comma-separated field names)
+- Usage Count (number of operations)
+- Size (MB)
+- Reason (why this recommendation was made)
+- Action (MongoDB command to execute)
+- Impact (expected outcome)
+
+**Use Cases:**
+- Identify unused indexes consuming storage and slowing writes
+- Find redundant indexes that can be safely removed
+- Optimize database performance by reducing index overhead
+- Clean up indexes after schema or query pattern changes
+- Prepare for database migration or optimization initiatives
+
+**Note:** This command combines data from `$indexStats` (usage) and index structure analysis. Run after MongoDB has been active for a representative period to get accurate usage statistics.
+
 ## Testing
 
 ```bash
@@ -190,12 +248,13 @@ mongodb_index_tools/
 │       ├── inventory.py        # Index inventory module ✅
 │       ├── utilization.py      # Index utilization analysis ✅
 │       ├── analyzer.py         # Query plan analyzer ✅
-│       ├── advisor.py          # Index recommendations (coming soon)
+│       ├── advisor.py          # Index recommendations ✅
 │       └── manager.py          # Index create/drop (coming soon)
 ├── tests/
 │   ├── test_inventory.py       # Inventory tests ✅
 │   ├── test_utilization.py     # Utilization tests ✅
 │   ├── test_analyzer.py        # Analyzer tests ✅
+│   ├── test_advisor.py         # Advisor tests ✅
 │   └── conftest.py
 └── run.py                      # Entry point
 ```
