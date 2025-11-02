@@ -10,6 +10,7 @@ Version: 1.0.0
 Date: 2025-11-02
 """
 
+import os
 import sys
 import time
 from pathlib import Path
@@ -90,7 +91,9 @@ def generate(
 
     # Load configuration
     try:
-        settings = get_settings(env)
+        # Set environment before loading settings
+        os.environ["APP_ENV"] = env
+        settings = get_settings()
         console.print(f"[green]✓ Loaded configuration for environment: {env}[/green]")
     except Exception as e:
         console.print(f"[red]✗ Error loading configuration: {e}[/red]")
