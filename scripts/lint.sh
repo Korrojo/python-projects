@@ -1,6 +1,6 @@
 #!/bin/bash
 # Linting and formatting script for Python projects
-# Uses Ruff (formatter + linter) and Pyright (type checker)
+# Uses Black (formatter), Ruff (linter), and Pyright (type checker)
 
 set -e
 
@@ -12,6 +12,9 @@ NC='\033[0m' # No Color
 
 echo -e "${GREEN}=== Python Code Quality Tools ===${NC}"
 echo ""
+
+# Check if black is installed
+command -v black >/dev/null 2>&1 || { echo -e "${RED}Error: black is not installed. Run: pip install black${NC}"; exit 1; }
 
 # Check if ruff is installed
 command -v ruff >/dev/null 2>&1 || { echo -e "${RED}Error: ruff is not installed. Run: pip install ruff${NC}"; exit 1; }
@@ -26,9 +29,9 @@ TARGET="${1:-.}"
 echo -e "${YELLOW}Target: $TARGET${NC}"
 echo ""
 
-# Run Ruff (formatter)
-echo -e "${GREEN}1. Running Ruff (formatter)...${NC}"
-ruff format "$TARGET"
+# Run Black (formatter)
+echo -e "${GREEN}1. Running Black (formatter)...${NC}"
+black "$TARGET"
 echo ""
 
 # Run Ruff (linter) - check only
@@ -74,11 +77,14 @@ fi
 
 echo -e "${GREEN}=== Done! ===${NC}"
 echo ""
-echo "To check without fixing:"
-echo "  ruff check $TARGET"
+echo "To check formatting without applying:"
+echo "  black --check --diff $TARGET"
 echo ""
-echo "To format without linting:"
-echo "  ruff format $TARGET"
+echo "To format code:"
+echo "  black $TARGET"
+echo ""
+echo "To lint without fixing:"
+echo "  ruff check $TARGET"
 echo ""
 if [ "$PYRIGHT_AVAILABLE" = true ]; then
     echo "To run type checking only:"
