@@ -578,6 +578,39 @@ ______________________________________________________________________
 
 ## Git Workflow
 
+⚠️ **CRITICAL: Feature Branches Are MANDATORY**
+
+**NEVER commit directly to `main` or `master` branches.** This is the #1 most important git workflow rule.
+
+### STEP 1: Create Feature Branch (ALWAYS DO THIS FIRST)
+
+**Before starting ANY new work:**
+
+```bash
+# 1. Sync with main
+git checkout main
+git pull origin main
+
+# 2. Create and checkout feature branch (MANDATORY)
+git checkout -b feature/your-feature-name
+# OR for bug fixes
+git checkout -b fix/bug-description
+
+# 3. Verify you're on the feature branch
+git branch --show-current
+```
+
+**Branch naming convention:**
+
+- `feature/` - New features
+- `fix/` - Bug fixes
+- `docs/` - Documentation updates
+- `refactor/` - Code refactoring
+- `test/` - Adding or updating tests
+- `chore/` - Maintenance tasks
+
+### STEP 2: Commit Changes
+
 **When committing:**
 
 - Only commit when user explicitly asks
@@ -586,7 +619,32 @@ ______________________________________________________________________
 - Add co-author: `Co-Authored-By: Claude <noreply@anthropic.com>`
 - Check git status before and after
 
-**See:** Git Safety Protocol in Bash tool description
+### STEP 3: Create Pull Request
+
+**After completing work:**
+
+1. Push feature branch: `git push origin feature/your-feature-name`
+2. Create pull request on GitHub
+3. Wait for review and approval
+4. Maintainer will merge to main
+
+**Why feature branches matter:**
+
+- ✅ Keeps main branch stable and production-ready
+- ✅ Enables code review through pull requests
+- ✅ Allows multiple features to be developed in parallel
+- ✅ Makes it easy to abandon or iterate on changes
+- ✅ Provides clear history and attribution
+
+**Protection:**
+
+A pre-commit hook prevents commits to main/master. Install hooks with:
+
+```bash
+./scripts/install-hooks.sh
+```
+
+**See also:** Git Safety Protocol in Bash tool description, CONTRIBUTING.md Development Workflow section
 
 ______________________________________________________________________
 
@@ -633,6 +691,8 @@ ______________________________________________________________________
 
 ## Quick Reference Card
 
+⚠️ **BEFORE STARTING ANY WORK:** → Create feature branch: `git checkout -b feature/name`
+
 **When user asks to create a new CLI project:** → Use template from `docs/best-practices/CLI_PATTERNS.md`
 
 **When user reports import error:** → Check `docs/guides/COMMON_CONFIG_API_REFERENCE.md` for correct path
@@ -646,6 +706,8 @@ ______________________________________________________________________
 **When user opens a file:** → Wait for their question/feedback, don't proactively comment
 
 **When user says "fix tests":** → Run tests, fix issues, explain what broke and why
+
+**Before committing:** → Verify branch: `git branch --show-current` (must NOT be main/master)
 
 ______________________________________________________________________
 
@@ -667,6 +729,13 @@ ______________________________________________________________________
 - MongoDB URIs with credentials: `mongodb://user:pass@host` (use placeholders)
 - API keys or tokens in examples without placeholders
 
+🚨 **Git Workflow (CRITICAL):**
+
+- Working directly on `main` or `master` branch without feature branch
+- Committing to protected branches
+- Skipping feature branch creation before starting work
+- Not verifying current branch before committing
+
 🚨 **Code Quality:**
 
 - Local `lint.sh` doesn't match CI/CD configuration
@@ -687,22 +756,37 @@ ______________________________________________________________________
 
 Before considering a task complete:
 
+**Git Workflow (CRITICAL - Check FIRST):**
+
+- [ ] **Feature branch created BEFORE starting work**
+- [ ] Verified current branch: `git branch --show-current`
+- [ ] NOT working on `main` or `master` directly
+- [ ] Branch follows naming convention (feature/, fix/, docs/, etc.)
+
+**Code Quality:**
+
 - [ ] Code follows standards in `docs/best-practices/`
 - [ ] Correct import paths from `COMMON_CONFIG_API_REFERENCE.md`
-- [ ] Credentials redacted in all logs
 - [ ] Standard CLI pattern used if applicable
 - [ ] Tests pass
+- [ ] Black used for formatting (not Ruff)
+- [ ] Pre-push validation passes
+- [ ] Local `lint.sh` matches CI/CD (`.github/workflows/ci.yml`)
+
+**Security:**
+
+- [ ] Credentials redacted in all logs
+- [ ] Documentation uses `<placeholder>` syntax for all credentials
+- [ ] No literal credential patterns (user:password, API keys, etc.)
+- [ ] Searched for patterns: `grep -r "mongodb.*://.*:.*@" docs/`
+- [ ] No hardcoded values
+
+**Documentation:**
+
 - [ ] Documentation updated
 - [ ] Root cause explained
 - [ ] Prevention strategy documented
 - [ ] File naming conventions followed
-- [ ] No hardcoded values
-- [ ] Documentation uses `<placeholder>` syntax for all credentials
-- [ ] No literal credential patterns (user:password, API keys, etc.)
-- [ ] Searched for patterns: `grep -r "mongodb.*://.*:.*@" docs/`
-- [ ] Local `lint.sh` matches CI/CD (`.github/workflows/ci.yml`)
-- [ ] Black used for formatting (not Ruff)
-- [ ] Pre-push validation passes
 
 ______________________________________________________________________
 
