@@ -24,7 +24,7 @@ MONGODB_URI_DEV=mongodb://localhost:27017
 DATABASE_NAME_DEV=UbiquityDevelopment
 
 # PROD Environment
-MONGODB_URI_PROD=mongodb+srv://user:password@cluster.mongodb.net
+MONGODB_URI_PROD=mongodb+srv://<username>:<password>@cluster.mongodb.net
 DATABASE_NAME_PROD=UbiquityProduction
 ```
 
