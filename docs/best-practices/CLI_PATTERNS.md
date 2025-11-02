@@ -1,11 +1,10 @@
 # Standard CLI Patterns
 
-**Version:** 1.0
-**Last Updated:** 2025-01-27
+**Version:** 1.0 **Last Updated:** 2025-01-27
 
 This document defines the standard CLI patterns used across all Python projects in this repository.
 
----
+______________________________________________________________________
 
 <details open>
 <summary><strong>📖 Table of Contents</strong> (click to expand/collapse)</summary>
@@ -35,13 +34,14 @@ This document defines the standard CLI patterns used across all Python projects 
 
 </details>
 
----
+______________________________________________________________________
 
 ## Overview
 
-All projects that use CLI commands should follow these standardized patterns for consistency, maintainability, and ease of use.
+All projects that use CLI commands should follow these standardized patterns for consistency, maintainability, and ease
+of use.
 
----
+______________________________________________________________________
 
 ## Standard CLI Options
 
@@ -50,6 +50,7 @@ All projects that use CLI commands should follow these standardized patterns for
 **Purpose:** Switch between environments (DEV, PROD, STG, etc.) without modifying `.env` files
 
 **Pattern:**
+
 ```python
 env: str = typer.Option(
     None,
@@ -59,6 +60,7 @@ env: str = typer.Option(
 ```
 
 **Implementation:**
+
 ```python
 if env:
     os.environ["APP_ENV"] = env.upper()
@@ -67,6 +69,7 @@ settings = get_settings()  # Will now use environment-specific variables
 ```
 
 **Usage:**
+
 ```bash
 # Use default environment from .env
 python my_project/run.py command
@@ -79,6 +82,7 @@ python my_project/run.py command --env STG
 ```
 
 **Environment Configuration in `.env`:**
+
 ```bash
 # Default environment
 APP_ENV=DEV
@@ -97,17 +101,19 @@ DATABASE_NAME_STG=staging_database
 ```
 
 **Priority Order:**
-1. `--env` CLI option (highest priority)
-2. `APP_ENV` environment variable
-3. Default in `.env` file
 
----
+1. `--env` CLI option (highest priority)
+1. `APP_ENV` environment variable
+1. Default in `.env` file
+
+______________________________________________________________________
 
 ### 2. Collection Name (`--collection` / `-c`)
 
 **Purpose:** Specify MongoDB collection name(s) to operate on
 
 **Pattern:**
+
 ```python
 collection: str = typer.Option(
     None,
@@ -117,16 +123,17 @@ collection: str = typer.Option(
 )
 ```
 
-**❌ DO NOT put collection names in `.env` files**
-**✅ ALWAYS pass collection names via CLI**
+**❌ DO NOT put collection names in `.env` files** **✅ ALWAYS pass collection names via CLI**
 
 **Reason:** Collection names are:
+
 - Specific to each command execution
 - Not environment-wide configuration
 - May vary per operation
 - Should be explicit, not hidden in config
 
 **Usage:**
+
 ```bash
 # Process specific collection
 python my_project/run.py command --collection Patients
@@ -138,17 +145,19 @@ python my_project/run.py command -c Patients
 python my_project/run.py command --collection Patients --env PROD
 ```
 
----
+______________________________________________________________________
 
 ### 3. What Goes in `.env` vs CLI
 
 **❌ DO NOT put in `.env`:**
+
 - Collection names
 - Specific IDs or filters
 - Operation-specific parameters
 - Temporary/one-time values
 
 **✅ DO put in `.env`:**
+
 - MongoDB connection URIs
 - Database names
 - API keys
@@ -157,10 +166,11 @@ python my_project/run.py command --collection Patients --env PROD
 - Log/data directory paths
 
 **Rule of Thumb:**
+
 - `.env` = Configuration that rarely changes per environment
 - CLI = Parameters that change per execution
 
----
+______________________________________________________________________
 
 ## Standard Command Template
 
@@ -259,7 +269,7 @@ if __name__ == "__main__":
     app()
 ```
 
----
+______________________________________________________________________
 
 ## 🔒 Security Requirements
 
@@ -268,12 +278,14 @@ if __name__ == "__main__":
 **⚠️ CRITICAL:** Never log credentials or sensitive information.
 
 **❌ NEVER do this:**
+
 ```python
 logger.info(f"MongoDB URI: {settings.mongodb_uri}")
 # Logs: mongodb+srv://<username>:<password>@host/...  ← EXPOSES CREDENTIALS!
 ```
 
 **✅ ALWAYS do this:**
+
 ```python
 from common_config.utils.security import redact_uri
 
@@ -315,45 +327,52 @@ When implementing CLI commands:
 - [ ] Use environment variables (not hardcoded) for credentials
 
 **Consequences of logging credentials:**
+
 - Security vulnerability
 - Credentials exposed in log files
 - Credentials exposed in CI/CD logs
 - Credentials exposed in error tracking systems
 - Compliance violations (SOC2, GDPR, etc.)
 
----
+______________________________________________________________________
 
 ## Standard Option Naming Conventions
 
 **Environment Selection:**
+
 - Long: `--env`
 - No short form
 - Values: DEV, PROD, STG (uppercase)
 
 **Collection Name:**
+
 - Long: `--collection`
 - Short: `-c`
 - Value: Collection name as it appears in MongoDB
 
 **Database Override (rare, avoid if possible):**
+
 - Long: `--database`
 - Short: `-d`
 - Only use when truly needed (prefer --env)
 
 **Dry Run:**
+
 - Long: `--dry-run`
 - No short form
 - Boolean flag
 
 **CSV Export:**
+
 - Long: `--output-csv` / `--no-csv`
 - Default: True (always export unless explicitly disabled)
 
 **System Collections:**
+
 - Long: `--exclude-system` / `--include-system`
 - Default: exclude-system
 
----
+______________________________________________________________________
 
 ## Examples
 
@@ -375,6 +394,7 @@ def process_collection(
 ```
 
 **Usage:**
+
 ```bash
 # DEV environment
 python my_project/run.py process-collection -c Patients --dry-run
@@ -404,6 +424,7 @@ def process_all(
 ```
 
 **Usage:**
+
 ```bash
 # DEV environment (default)
 python my_project/run.py process-all
@@ -451,6 +472,7 @@ def analyze(
 ```
 
 **Usage:**
+
 ```bash
 # Analyze all collections
 python my_project/run.py analyze --env PROD
@@ -462,13 +484,14 @@ python my_project/run.py analyze -c Patients --env PROD
 python my_project/run.py analyze --include-system --env DEV
 ```
 
----
+______________________________________________________________________
 
 ## Migration Guide
 
 If you have an existing project using `--mongodb-uri` and `--database` options:
 
-### Before (Non-Standard):
+### Before (Non-Standard)
+
 ```python
 @app.command("command")
 def command(
@@ -483,6 +506,7 @@ def command(
 ```
 
 **Usage:**
+
 ```bash
 python project/run.py command \
   --mongodb-uri mongodb://prod:27017 \
@@ -490,7 +514,8 @@ python project/run.py command \
   --collection Patients
 ```
 
-### After (Standard):
+### After (Standard)
+
 ```python
 @app.command("command")
 def command(
@@ -506,17 +531,19 @@ def command(
 ```
 
 **Usage:**
+
 ```bash
 python project/run.py command --env PROD --collection Patients
 ```
 
 **Setup `.env`:**
+
 ```bash
 MONGODB_URI_PROD=mongodb://prod:27017
 DATABASE_NAME_PROD=prod_db
 ```
 
----
+______________________________________________________________________
 
 ## Checklist for New Projects
 
@@ -533,47 +560,54 @@ When creating a new CLI-based project:
 - [ ] Add `no_args_is_help=True` to Typer app
 - [ ] Document all commands with clear help text
 
----
+______________________________________________________________________
 
 ## Benefits of This Pattern
 
 **Consistency:**
+
 - All projects use the same CLI interface
 - Easy to learn once, use everywhere
 - Predictable behavior across projects
 
 **Safety:**
+
 - Environment switching is explicit and visible
 - No accidental production operations
 - Dry-run support encourages testing
 
 **Flexibility:**
+
 - Quick environment switching without file changes
 - CI/CD friendly (can set APP_ENV dynamically)
 - Collection-specific operations are clear and explicit
 
 **Maintainability:**
+
 - Single source of truth for environment config (`.env`)
 - Easy to add new environments
 - Clear separation: configuration vs. parameters
 
----
+______________________________________________________________________
 
 ## Anti-Patterns to Avoid
 
 **❌ Don't hardcode environment values:**
+
 ```python
 # BAD
 mongodb_uri = "mongodb://prod-server:27017"
 ```
 
 **❌ Don't put collection names in .env:**
+
 ```bash
 # BAD - in .env
 COLLECTION_NAME=Patients
 ```
 
 **❌ Don't use positional arguments for environment/collection:**
+
 ```python
 # BAD
 @app.command()
@@ -582,12 +616,14 @@ def command(env: str, collection: str):  # Positional
 ```
 
 **❌ Don't mix environment config sources:**
+
 ```python
 # BAD - confusing priority
 mongo_uri = mongodb_uri or os.environ.get("MONGO_URI") or settings.mongodb_uri
 ```
 
 **✅ Do use standard pattern:**
+
 ```python
 # GOOD
 if env:
@@ -596,7 +632,7 @@ if env:
 settings = get_settings()  # Single source, clear priority
 ```
 
----
+______________________________________________________________________
 
 ## Related Documentation
 
@@ -604,6 +640,6 @@ settings = get_settings()  # Single source, clear priority
 - [New Project Guide](../guides/NEW_PROJECT_GUIDE.md) - Creating projects with this pattern
 - [Environment Configuration](../guides/ENVIRONMENT_CONFIGURATION.md) - Detailed .env setup
 
----
+______________________________________________________________________
 
 **Questions or Issues?** Update this document and share with the team.

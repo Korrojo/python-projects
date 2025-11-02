@@ -2,17 +2,19 @@
 
 **How to add new functionality to a multi-command CLI project**
 
----
+______________________________________________________________________
 
 ## Overview
 
-This project uses a **CLI with subcommands** architecture, allowing multiple related use cases to coexist in a single project.
+This project uses a **CLI with subcommands** architecture, allowing multiple related use cases to coexist in a single
+project.
 
 **Current commands:**
+
 - `coll-stats` - Gather collection statistics (original feature)
 - `index-stats` - Analyze index usage (example of adding new functionality)
 
----
+______________________________________________________________________
 
 ## Architecture Pattern
 
@@ -37,20 +39,23 @@ db_collection_stats/
 ### Key Components
 
 **1. cli.py** - Command definitions
+
 - Uses Typer for CLI framework
 - Each command is a function decorated with `@app.command()`
 - Handles argument parsing, logging setup, error handling
 
 **2. Feature modules** - Business logic
+
 - `collector.py` - Collection statistics gathering
 - `exporter.py` - Export and display utilities
 - (Add new modules for new features)
 
 **3. run.py** - Entry point
+
 - Minimal wrapper that imports and runs the CLI app
 - All logic lives in `cli.py` and feature modules
 
----
+______________________________________________________________________
 
 ## Usage Examples
 
@@ -97,7 +102,7 @@ python db_collection_stats/run.py coll-stats --help
 python db_collection_stats/run.py index-stats --help
 ```
 
----
+______________________________________________________________________
 
 ## How to Add New Functionality
 
@@ -195,11 +200,12 @@ def test_analyze_schema():
 ### Step 4: Update Documentation
 
 Update `README.md`:
+
 - Add new command to usage examples
 - Document what the command does
 - Show example output
 
----
+______________________________________________________________________
 
 ## Design Principles
 
@@ -212,6 +218,7 @@ Update `README.md`:
 ### 2. Testability
 
 Each feature module should:
+
 - Have minimal dependencies
 - Be testable with mocked MongoDB connections
 - Not depend on CLI framework (pure Python functions)
@@ -219,6 +226,7 @@ Each feature module should:
 ### 3. Consistency
 
 All commands should:
+
 - Use the same logging setup
 - Follow the same error handling pattern
 - Use consistent naming conventions
@@ -230,7 +238,7 @@ All commands should:
 - Help text explains what command does and why you'd use it
 - Options have clear descriptions
 
----
+______________________________________________________________________
 
 ## Command Template
 
@@ -295,7 +303,7 @@ def command_name(
         raise typer.Exit(code=1)
 ```
 
----
+______________________________________________________________________
 
 ## Advanced Patterns
 
@@ -361,7 +369,7 @@ def analyze(
         # Use cfg["option_name"]
 ```
 
----
+______________________________________________________________________
 
 ## Migration from Single-Purpose Script
 
@@ -395,17 +403,19 @@ if __name__ == "__main__":
 ```
 
 **Benefits:**
+
 - ✅ Easy to add new functionality
 - ✅ Each feature is self-contained
 - ✅ Consistent interface
 - ✅ Better help documentation
 - ✅ Each command can have unique options
 
----
+______________________________________________________________________
 
 ## Why Typer?
 
 **Typer advantages:**
+
 - ✅ Type hints for argument validation
 - ✅ Automatic help generation
 - ✅ Rich formatting (colors, tables)
@@ -414,12 +424,13 @@ if __name__ == "__main__":
 - ✅ Subcommands support
 
 **Alternative: argparse**
+
 - More verbose
 - Manual help text
 - Less type-safe
 - More boilerplate
 
----
+______________________________________________________________________
 
 ## Testing Strategy
 
@@ -449,7 +460,7 @@ def test_coll_stats_command():
     assert "Gather statistics" in result.stdout
 ```
 
----
+______________________________________________________________________
 
 ## Real-World Example: Index Statistics
 
@@ -462,6 +473,7 @@ def test_coll_stats_command():
 ### Implementation
 
 **1. Core Logic:**
+
 ```python
 # In cli.py - Uses MongoDB's $indexStats aggregation
 index_stats = list(coll.aggregate([{"$indexStats": {}}]))
@@ -470,6 +482,7 @@ usage_lookup = {stat["name"]: stat.get("accesses", {}).get("ops", 0)
 ```
 
 **2. User Interface:**
+
 ```python
 # Options for flexibility
 --collection <name>     # Analyze specific collection
@@ -478,6 +491,7 @@ usage_lookup = {stat["name"]: stat.get("accesses", {}).get("ops", 0)
 ```
 
 **3. Output:**
+
 ```
 📊 Collection: Patients (5 indexes)
   • _id_           | Keys: _id: 1              | Usage:  1,234,567
@@ -485,23 +499,25 @@ usage_lookup = {stat["name"]: stat.get("accesses", {}).get("ops", 0)
   • name_dob_1     | Keys: name: 1, dob: 1     | Usage:          0 ⚠️  UNUSED
 ```
 
----
+______________________________________________________________________
 
 ## Summary
 
 **To add new functionality:**
+
 1. Create feature module with core logic
-2. Add command to `cli.py`
-3. Write tests
-4. Update documentation
+1. Add command to `cli.py`
+1. Write tests
+1. Update documentation
 
 **Benefits of this architecture:**
+
 - ✅ Scalable (easy to add commands)
 - ✅ Maintainable (separation of concerns)
 - ✅ Discoverable (--help shows all features)
 - ✅ Testable (modular design)
 - ✅ Professional (standard CLI patterns)
 
----
+______________________________________________________________________
 
 **Questions?** See the implementation in `src/db_collection_stats/cli.py` for complete working examples.

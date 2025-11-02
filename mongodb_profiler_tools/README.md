@@ -1,6 +1,7 @@
 # MongoDB Profiler Tools
 
-MongoDB profiler analysis toolkit for identifying slow queries and monitoring database performance. Consolidates functionality from 3 independent JavaScript profiler projects into a single Python tool with standardized CLI.
+MongoDB profiler analysis toolkit for identifying slow queries and monitoring database performance. Consolidates
+functionality from 3 independent JavaScript profiler projects into a single Python tool with standardized CLI.
 
 ## Features
 
@@ -58,6 +59,7 @@ python mongodb_profiler_tools/run.py slow-queries --env PROD --threshold 500
 ```
 
 **Output:**
+
 - Console display with top slow operations
 - Operation details: timestamp, duration, examined vs returned docs, plan summary
 - Summary statistics: total time, average time, operation breakdown
@@ -65,6 +67,7 @@ python mongodb_profiler_tools/run.py slow-queries --env PROD --threshold 500
 - Logs in `logs/mongodb_profiler_tools/`
 
 **CSV Columns:**
+
 - Timestamp
 - Operation (query, update, delete, command, etc.)
 - Namespace (database.collection)
@@ -77,8 +80,8 @@ python mongodb_profiler_tools/run.py slow-queries --env PROD --threshold 500
 - User
 - Command (query/update details)
 
-**Prerequisites:**
-Profiling must be enabled in MongoDB:
+**Prerequisites:** Profiling must be enabled in MongoDB:
+
 ```javascript
 // Check profiling level
 db.getProfilingLevel()
@@ -91,6 +94,7 @@ db.setProfilingLevel(2)
 ```
 
 **Use Cases:**
+
 - Identify performance bottlenecks
 - Find queries doing collection scans (COLLSCAN)
 - Track slow operations over time
@@ -111,17 +115,20 @@ python mongodb_profiler_tools/run.py profiler-stats --env PROD
 ```
 
 **Output:**
+
 - Profiling status (enabled/disabled, level, slow threshold)
 - Collection size (documents, MB, storage)
 - Time range covered (oldest/newest entries, duration)
 - Recommendations for optimal profiling setup
 
 **Profiling Levels:**
+
 - **Level 0**: Off - no data collected
 - **Level 1**: Slow operations only (recommended for production)
 - **Level 2**: All operations (use with caution - performance impact)
 
 **Use Cases:**
+
 - Verify profiling is enabled before analyzing slow queries
 - Monitor profiler collection growth
 - Determine if profiler data covers sufficient time period
@@ -176,24 +183,29 @@ mongodb_profiler_tools/
 ### Profiling in Production
 
 1. **Use Level 1** (slow operations only) to minimize overhead
-2. **Set appropriate slowms** threshold (100-500ms depending on workload)
-3. **Use capped collection** to limit system.profile size:
+
+1. **Set appropriate slowms** threshold (100-500ms depending on workload)
+
+1. **Use capped collection** to limit system.profile size:
+
    ```javascript
    db.setProfilingLevel(0)
    db.system.profile.drop()
    db.createCollection("system.profile", { capped: true, size: 104857600 })  // 100MB
    db.setProfilingLevel(1, { slowms: 100 })
    ```
-4. **Monitor collection size** regularly with `profiler-stats` command
-5. **Analyze periodically** to identify new slow queries
+
+1. **Monitor collection size** regularly with `profiler-stats` command
+
+1. **Analyze periodically** to identify new slow queries
 
 ### Analyzing Slow Queries
 
 1. **Start with high threshold** (500ms+) to find critical issues
-2. **Look for COLLSCAN** operations - candidates for indexing
-3. **High examined:returned ratio** indicates inefficient queries
-4. **Check plan summary** to verify indexes are being used
-5. **Cross-reference** with index advisor recommendations
+1. **Look for COLLSCAN** operations - candidates for indexing
+1. **High examined:returned ratio** indicates inefficient queries
+1. **Check plan summary** to verify indexes are being used
+1. **Cross-reference** with index advisor recommendations
 
 ## License
 

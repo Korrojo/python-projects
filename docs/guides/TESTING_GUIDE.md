@@ -3,6 +3,7 @@
 ## Overview
 
 This repository now has test coverage for all 9 projects:
+
 - ✅ common_config (68.87% coverage)
 - ✅ PatientOtherDetail_isActive_false
 - ✅ automate_refresh (NEW)
@@ -11,7 +12,7 @@ This repository now has test coverage for all 9 projects:
 - ✅ patients_hcmid_validator (NEW)
 - ✅ staff_appointment_visitStatus (NEW)
 - ✅ users-provider-update (NEW)
-- ℹ️  appointment_comparison (archived)
+- ℹ️ appointment_comparison (archived)
 
 ## Running Tests
 
@@ -72,9 +73,9 @@ project_name/
 All projects include smoke tests that verify:
 
 1. **Imports**: All modules can be imported without errors
-2. **CLI**: Command-line interface responds to `--help`
-3. **Dependencies**: Required packages are installed
-4. **Structure**: Expected files and directories exist
+1. **CLI**: Command-line interface responds to `--help`
+1. **Dependencies**: Required packages are installed
+1. **Structure**: Expected files and directories exist
 
 ## Shared Fixtures
 
@@ -135,8 +136,8 @@ open artifacts/coverage/htmlcov/index.html   # macOS
 GitHub Actions runs tests automatically on push/PR:
 
 1. **Lint** job: Ruff linting and formatting
-2. **Type-check** job: Pyright static analysis
-3. **Tests** job: Full test suite with coverage
+1. **Type-check** job: Pyright static analysis
+1. **Tests** job: Full test suite with coverage
    - Uploads coverage reports (30-day retention)
    - Uploads test results (JUnit XML)
    - Codecov integration (optional)
@@ -188,8 +189,8 @@ def test_with_mock_db(mock_mongo_connection):
 If you see `ModuleNotFoundError`:
 
 1. Check `tests/conftest.py` adds project paths to `sys.path`
-2. Ensure `__init__.py` exists in test directories
-3. Install project in editable mode: `pip install -e .`
+1. Ensure `__init__.py` exists in test directories
+1. Install project in editable mode: `pip install -e .`
 
 ### Pytest Not Found
 

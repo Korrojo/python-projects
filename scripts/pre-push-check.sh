@@ -26,17 +26,27 @@ else
     echo "✅ Virtual environment: $VIRTUAL_ENV"
 fi
 
-# 2. Run linting (catches N999 and formatting issues)
+# 2. Run markdown linting
+echo ""
+echo "Running markdown linting..."
+./scripts/markdown-lint.sh check
+if [ $? -ne 0 ]; then
+    echo "❌ Markdown linting failed! Fix issues before pushing."
+    exit 1
+fi
+echo "✅ Markdown linting passed"
+
+# 3. Run code linting (catches N999 and formatting issues)
 echo ""
 echo "Running code quality checks..."
 ./scripts/lint.sh
 if [ $? -ne 0 ]; then
-    echo "❌ Linting failed! Fix issues before pushing."
+    echo "❌ Code linting failed! Fix issues before pushing."
     exit 1
 fi
 echo "✅ Code quality checks passed"
 
-# 3. Run tests
+# 4. Run tests
 echo ""
 echo "Running tests..."
 pytest -q --maxfail=1 --disable-warnings -m "not integration"
@@ -46,7 +56,7 @@ if [ $? -ne 0 ]; then
 fi
 echo "✅ Tests passed"
 
-# 4. Check for common cross-platform issues
+# 5. Check for common cross-platform issues
 echo ""
 echo "Checking for cross-platform issues..."
 

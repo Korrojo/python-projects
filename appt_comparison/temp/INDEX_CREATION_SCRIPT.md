@@ -1,6 +1,6 @@
 # Index Creation Script for Appointment Comparison Performance
 
-## Critical Index Missing!
+## Critical Index Missing
 
 The `appointment_comparison` project performs lookups by `Slots.Appointments.AthenaAppointmentId` for **every single row** in the CSV. Without a proper index, this requires full collection scans.
 
@@ -20,7 +20,8 @@ db.StaffAvailability.createIndex(
 
 **Purpose**: Enables fast lookup by AthenaAppointmentId (used in primary matching for every CSV row)
 
-**Expected Impact**: 
+**Expected Impact**:
+
 - Reduces query time from O(n) to O(log n) where n = total appointments
 - Batch queries with `$in` operator will be significantly faster
 - Processing 2,127 rows could go from hours to minutes
@@ -93,11 +94,13 @@ db.StaffAvailability.getIndexes().filter(idx => idx.name.includes("AthenaAppoint
 4. Click on the "Indexes" tab
 5. Click "Create Index"
 6. Paste this JSON:
+
 ```json
 {
   "Slots.Appointments.AthenaAppointmentId": 1
 }
 ```
+
 7. Set index name: `IX_Appointments_AthenaAppointmentId`
 8. Click "Create Index"
 
@@ -130,12 +133,14 @@ for idx in indexes:
 ## Index Creation Time Estimate
 
 **Factors affecting creation time:**
+
 - Collection size (number of documents)
 - Number of appointments per document
 - Server resources
 - Current server load
 
 **Typical estimates:**
+
 - Small collection (<10K docs): 1-5 minutes
 - Medium collection (10K-100K docs): 5-30 minutes
 - Large collection (>100K docs): 30 minutes - 2 hours
@@ -165,6 +170,7 @@ db.StaffAvailability.explain("executionStats").aggregate([
 ```
 
 **Look for:**
+
 - `executionStats.totalDocsExamined` - Should be low (not scanning entire collection)
 - `executionStats.executionTimeMillis` - Should be under 100ms for small batches
 - `winningPlan.inputStage.indexName` - Should show `"IX_Appointments_AthenaAppointmentId"`
@@ -175,12 +181,14 @@ db.StaffAvailability.explain("executionStats").aggregate([
 
 After creating the critical index, you should have:
 
-### Existing Indexes (from your file):
+### Existing Indexes (from your file)
+
 - ✅ `PatientRef` - Exists (helps with secondary matching)
 - ✅ `AvailabilityDate` - Exists (helps with date filtering)
 - ❌ `AthenaAppointmentId` - **MISSING - MUST CREATE**
 
-### Recommended Final Index Set:
+### Recommended Final Index Set
+
 1. ✅ `{ "Slots.Appointments.AthenaAppointmentId": 1 }` ← **CREATE THIS NOW**
 2. ✅ `{ "Slots.Appointments.PatientRef": 1 }` ← Already exists
 3. ✅ `{ "AvailabilityDate": 1 }` ← Already exists
@@ -190,8 +198,10 @@ After creating the critical index, you should have:
 
 ## Performance Impact Measurement
 
-### Before Index:
+### Before Index
+
 Run a test query and note the time:
+
 ```javascript
 db.StaffAvailability.aggregate([
   { $unwind: "$Slots" },
@@ -201,8 +211,10 @@ db.StaffAvailability.aggregate([
 ]).explain("executionStats")
 ```
 
-### After Index:
+### After Index
+
 Run the same query and compare:
+
 - Execution time should be 10-100x faster
 - Documents examined should be dramatically reduced
 - Index should be used in the winning plan
@@ -233,14 +245,14 @@ db.StaffAvailability.aggregate([
 
 ## Summary
 
-### Action Items:
+### Action Items
 
 1. ✅ **Immediately Create**: `db.StaffAvailability.createIndex({"Slots.Appointments.AthenaAppointmentId": 1})`
 2. ⚠️ **Monitor**: Check index creation progress
 3. ✅ **Verify**: Run explain query to confirm index is used
 4. ⚠️ **Optional**: Create compound index for secondary matching if needed
 
-### Expected Results:
+### Expected Results
 
 - **Before**: 2,127 row validation could take 2-4 hours
 - **After**: 2,127 row validation should take 5-15 minutes

@@ -2,10 +2,9 @@
 
 **Purpose:** Document security patterns, common vulnerabilities, and prevention strategies for this repository.
 
-**Version:** 1.0
-**Last Updated:** 2025-10-28
+**Version:** 1.0 **Last Updated:** 2025-10-28
 
----
+______________________________________________________________________
 
 <details open>
 <summary><strong>📖 Table of Contents</strong> (click to expand/collapse)</summary>
@@ -35,25 +34,28 @@
 
 </details>
 
----
+______________________________________________________________________
 
 ## Overview
 
-Security is non-negotiable in this repository. This document provides practical patterns and guidelines to prevent common security vulnerabilities, particularly around credential management and data exposure.
+Security is non-negotiable in this repository. This document provides practical patterns and guidelines to prevent
+common security vulnerabilities, particularly around credential management and data exposure.
 
 **Key Principles:**
-1. **Never commit credentials** - Use environment variables and `.gitignore`
-2. **Never log credentials** - Use redaction utilities for all logging
-3. **Never use real-looking credentials in docs** - Use placeholder syntax
-4. **Verify before pushing** - Pre-push hooks catch many issues
 
----
+1. **Never commit credentials** - Use environment variables and `.gitignore`
+1. **Never log credentials** - Use redaction utilities for all logging
+1. **Never use real-looking credentials in docs** - Use placeholder syntax
+1. **Verify before pushing** - Pre-push hooks catch many issues
+
+______________________________________________________________________
 
 ## 1. Credential Management
 
 ### Never Commit Credentials
 
 **❌ NEVER do this:**
+
 ```python
 # Hardcoded credentials (NEVER!)
 MONGODB_URI = "mongodb+srv://<actual_username>:<actual_password>@cluster.mongodb.net/"
@@ -62,6 +64,7 @@ API_KEY = "sk-proj-<actual_key_value>"
 ```
 
 **✅ ALWAYS do this:**
+
 ```python
 # Use environment variables
 import os
@@ -75,6 +78,7 @@ api_key = os.environ.get("API_KEY")
 ### Environment Variables Pattern
 
 **File: `shared_config/.env`** (gitignored)
+
 ```bash
 # Default environment
 APP_ENV=DEV
@@ -91,6 +95,7 @@ API_KEY_PROD=<actual_prod_key>
 ```
 
 **Why this works:**
+
 - `.env` files are gitignored
 - Credentials never touch version control
 - Easy to rotate without code changes
@@ -101,12 +106,14 @@ API_KEY_PROD=<actual_prod_key>
 **⚠️ CRITICAL:** Always redact credentials before logging.
 
 **❌ NEVER do this:**
+
 ```python
 logger.info(f"Connecting to: {settings.mongodb_uri}")
 # Logs: mongodb+srv://<username>:<password>@host/... ← EXPOSES CREDENTIALS!
 ```
 
 **✅ ALWAYS do this:**
+
 ```python
 from common_config.utils.security import redact_uri
 
@@ -115,23 +122,26 @@ logger.info(f"Connecting to: {redact_uri(settings.mongodb_uri)}")
 ```
 
 **Why credential logging is dangerous:**
+
 - Credentials visible in log files
 - Credentials visible in CI/CD logs (GitHub Actions, Jenkins, etc.)
 - Credentials sent to error tracking systems (Sentry, Rollbar, etc.)
 - Compliance violations (SOC2, GDPR, HIPAA, etc.)
 - Security incident if logs are compromised or shared
 
----
+______________________________________________________________________
 
 ## 2. Documentation Security
 
 ### Example Credentials in Documentation
 
-**🚨 INCIDENT (2025-10-28):** GitHub Secret Scanning detected "credential leaks" in documentation that were actually just examples.
+**🚨 INCIDENT (2025-10-28):** GitHub Secret Scanning detected "credential leaks" in documentation that were actually just
+examples.
 
 **Problem:** Using realistic-looking credential patterns in documentation triggers automated security scanning.
 
 **❌ NEVER use these patterns in documentation:**
+
 ```markdown
 # DO NOT use literal credential patterns like:
 # mongodb+srv://[literal_user]:[literal_pass]@cluster.mongodb.net/
@@ -143,6 +153,7 @@ logger.info(f"Connecting to: {redact_uri(settings.mongodb_uri)}")
 ```
 
 **✅ ALWAYS use placeholder syntax:**
+
 ```markdown
 mongodb+srv://<username>:<password>@cluster.mongodb.net/
 mongodb://<username>:<password>@localhost:27017
@@ -153,6 +164,7 @@ API_KEY=<your_api_key>
 ### GitHub Secret Scanning
 
 **What it detects:**
+
 - MongoDB Atlas URIs with credentials
 - AWS access keys
 - GitHub personal access tokens
@@ -161,18 +173,21 @@ API_KEY=<your_api_key>
 - Database connection strings with credentials
 
 **How it works:**
+
 - Automated scanning on every push
 - Pattern matching against known credential formats
 - Cannot distinguish real credentials from examples
 - Alerts opened immediately for matches
 
 **When alerts occur:**
+
 1. GitHub opens a security alert
-2. Alert shows file, line number, and pattern matched
-3. Repository owner notified
-4. Alert marked "Public leak" if in public repo
+1. Alert shows file, line number, and pattern matched
+1. Repository owner notified
+1. Alert marked "Public leak" if in public repo
 
 **Resolution:**
+
 - Fix the pattern in documentation (use placeholders)
 - Push the fix
 - GitHub re-scans and auto-closes alert if pattern removed
@@ -181,21 +196,22 @@ API_KEY=<your_api_key>
 
 Use these patterns in documentation to avoid triggering secret scanning:
 
-| Type | ❌ Avoid | ✅ Use Instead |
-|------|----------|----------------|
-| **MongoDB URI** | `mongodb://user:pass@host` | `mongodb://<username>:<password>@host` |
-| **Username/Password** | `user:password` | `<username>:<password>` |
-| **API Key** | `sk-proj-abc123` | `<your_api_key>` or `YOUR_API_KEY` |
-| **AWS Credentials** | `AKIA...` | `<AWS_ACCESS_KEY_ID>` |
-| **Generic Secret** | `secret123` | `<secret_value>` or `***` |
+| Type                  | ❌ Avoid                   | ✅ Use Instead                         |
+| --------------------- | -------------------------- | -------------------------------------- |
+| **MongoDB URI**       | `mongodb://user:pass@host` | `mongodb://<username>:<password>@host` |
+| **Username/Password** | `user:password`            | `<username>:<password>`                |
+| **API Key**           | `sk-proj-abc123`           | `<your_api_key>` or `YOUR_API_KEY`     |
+| **AWS Credentials**   | `AKIA...`                  | `<AWS_ACCESS_KEY_ID>`                  |
+| **Generic Secret**    | `secret123`                | `<secret_value>` or `***`              |
 
 **Pattern Rules:**
-1. Use angle brackets: `<placeholder_name>`
-2. Use descriptive names: `<username>` not `<user>`
-3. Use uppercase for environment variables: `<YOUR_API_KEY>`
-4. Use `***` when showing redacted output examples
 
----
+1. Use angle brackets: `<placeholder_name>`
+1. Use descriptive names: `<username>` not `<user>`
+1. Use uppercase for environment variables: `<YOUR_API_KEY>`
+1. Use `***` when showing redacted output examples
+
+______________________________________________________________________
 
 ## 3. .gitignore Best Practices
 
@@ -223,11 +239,13 @@ Use these patterns in documentation to avoid triggering secret scanning:
 ```
 
 **Why subdirectory patterns matter:**
+
 - `/data/*.csv` only excludes root-level CSVs
 - `/data/**/*.csv` excludes CSVs in all subdirectories
 - Without `**` pattern, files in subdirectories get committed
 
 **Verification before committing:**
+
 ```bash
 # Dry-run to see what would be added
 git add -n data/
@@ -263,13 +281,14 @@ shared_config/.env.*
 */config/.env.*
 ```
 
----
+______________________________________________________________________
 
 ## 4. Security Utilities
 
 ### Available Tools
 
 **Import from:**
+
 ```python
 from common_config.utils.security import (
     redact_uri,              # Redact credentials from URIs
@@ -341,7 +360,7 @@ info = get_safe_connection_info(
 logger.info(f"Connection info: {info}")  # Safe to log
 ```
 
----
+______________________________________________________________________
 
 ## 5. Security Checklist
 
@@ -374,27 +393,29 @@ logger.info(f"Connection info: {info}")  # Safe to log
 - [ ] Review log output to verify no credentials visible
 - [ ] Check CI/CD logs for accidental exposure
 
----
+______________________________________________________________________
 
 ## Incident Log
 
 ### 2025-10-28: GitHub Secret Scanning - Documentation Examples
 
-**Severity:** Low (false positive, no real credentials exposed)
-**Impact:** 3 GitHub security alerts opened
+**Severity:** Low (false positive, no real credentials exposed) **Impact:** 3 GitHub security alerts opened
 
 **What Happened:**
+
 - Pushed documentation with example MongoDB URIs
 - Examples used literal credential patterns (like literal_user:literal_pass in URIs)
 - GitHub's automated secret scanning flagged as potential credential leaks
 - Alerts opened: Issues #1, #2, #3
 
 **Root Cause:**
+
 - Documentation examples used realistic credential patterns
 - Automated scanning cannot distinguish real from fake credentials
 - Pattern matching triggered on `user:password` format
 
 **Resolution:**
+
 - Replaced all example credentials with placeholder syntax
 - Changed `user:password` → `<username>:<password>`
 - Updated 4 documentation files
@@ -402,31 +423,35 @@ logger.info(f"Connection info: {info}")  # Safe to log
 - GitHub re-scanned and alerts auto-closed
 
 **Prevention:**
+
 - Always use `<placeholder>` syntax in documentation
 - Added this document to establish standards
 - Added to pre-commit checklist
 - Search pattern: `grep -r "mongodb.*://.*:.*@" docs/`
 
 **Files Affected:**
+
 - `docs/AI_COLLABORATION_GUIDE.md`
 - `docs/guides/COMMON_CONFIG_API_REFERENCE.md`
 - `docs/guides/NEW_PROJECT_GUIDE.md`
 - `docs/best-practices/CLI_PATTERNS.md`
 
 **Lessons Learned:**
-1. Even fake credentials trigger security scanning
-2. Always use placeholder syntax in documentation
-3. Test documentation examples don't match credential patterns
-4. Quick response important to avoid confusion about real vs fake leaks
 
----
+1. Even fake credentials trigger security scanning
+1. Always use placeholder syntax in documentation
+1. Test documentation examples don't match credential patterns
+1. Quick response important to avoid confusion about real vs fake leaks
+
+______________________________________________________________________
 
 ### 2025-10-28 (12 hours later): GitHub Secret Scanning - Security Documentation Itself
 
-**Severity:** Low (false positive, documentation examples only)
-**Impact:** 3 additional GitHub security alerts opened (#4, #5, #6)
+**Severity:** Low (false positive, documentation examples only) **Impact:** 3 additional GitHub security alerts opened
+(#4, #5, #6)
 
 **What Happened:**
+
 - Created SECURITY_PATTERNS.md to document previous incident
 - Documentation included "bad example" patterns showing what NOT to do
 - These examples themselves triggered GitHub Secret Scanning
@@ -435,11 +460,13 @@ logger.info(f"Connection info: {info}")  # Safe to log
 - Alert #6: Line 59 (showing hardcoded credentials to avoid)
 
 **Root Cause:**
+
 - Meta-problem: Documenting security vulnerabilities can trigger the same scanning
 - "Bad examples" in security docs used literal patterns for clarity
 - GitHub scanning cannot distinguish documentation context
 
 **Resolution:**
+
 - Replaced all literal credential patterns in SECURITY_PATTERNS.md
 - Used placeholder syntax even in "what NOT to do" examples
 - Changed `user:password` → `<username>:<password>`
@@ -448,19 +475,21 @@ logger.info(f"Connection info: {info}")  # Safe to log
 - Committed fix: (pending)
 
 **Lessons Learned:**
+
 1. Even security documentation about credentials can trigger scanning
-2. Never use literal credential patterns anywhere—not even in "bad examples"
-3. Use broken/commented patterns or placeholders even when showing anti-patterns
-4. The irony: documenting the problem creates the same problem
-5. Consistency is key: use `<placeholder>` syntax universally
+1. Never use literal credential patterns anywhere—not even in "bad examples"
+1. Use broken/commented patterns or placeholders even when showing anti-patterns
+1. The irony: documenting the problem creates the same problem
+1. Consistency is key: use `<placeholder>` syntax universally
 
 **Prevention Going Forward:**
+
 - Always use `<placeholder>` syntax in all documentation
 - When showing "what NOT to do," use commented or broken patterns
 - Test all documentation: `grep -r "mongodb.*://.*:.*@" docs/`
 - This incident now part of the documentation it tried to create
 
----
+______________________________________________________________________
 
 ## Related Documentation
 
@@ -469,12 +498,13 @@ logger.info(f"Connection info: {info}")  # Safe to log
 - [AI_COLLABORATION_GUIDE.md](../AI_COLLABORATION_GUIDE.md) - Security is Non-Negotiable section
 - [DOCUMENTATION_STANDARDS.md](DOCUMENTATION_STANDARDS.md) - Documentation security patterns
 
----
+______________________________________________________________________
 
 **Questions or new security patterns?** Update this document and notify the team.
 
 **Security Vulnerability Found?**
+
 1. DO NOT commit to public repo
-2. Create private GitHub security advisory
-3. Rotate compromised credentials immediately
-4. Review git history for exposure
+1. Create private GitHub security advisory
+1. Rotate compromised credentials immediately
+1. Review git history for exposure

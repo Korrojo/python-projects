@@ -5,6 +5,7 @@ This document tracks planned enhancements for the `automate_refresh` tooling acr
 ## High priority
 
 - Export compression (gz)
+
   - Write exports as `yyyymmdd_HHMMSS_export_<collection>.json.gz` by default
   - CLI flags:
     - `--compress [none|gz]` (default: `gz` for prod, `none` elsewhere or configurable)
@@ -18,6 +19,7 @@ This document tracks planned enhancements for the `automate_refresh` tooling acr
     - Importer: support `.json.gz` by opening via `gzip.open` when applicable; prefer `.json.gz` when both exist
 
 - Progress logging knob
+
   - Current: fixed 10,000-doc increments
   - Add CLI flag `--progress-step N` (default: 10000) to tune verbosity
   - Log format preserved: `Progress: written/size (percent) | rate=docs/s | eta=s`
@@ -25,36 +27,44 @@ This document tracks planned enhancements for the `automate_refresh` tooling acr
 ## Medium priority
 
 - Chunked exports
+
   - Flag `--chunk-size N` to split large exports into multiple files: `..._part0001.json(.gz)`
   - Importer: detect and import all parts for selected collection (sorted by part index)
   - Advantages: parallelizable copy and safer large transfers
 
 - Pull hardening
+
   - Retries with backoff for `azcopy` failures and transient network issues
   - Optional `--max-age-days` to limit pulls to recent files only
 
 - Integrity checks
+
   - Optional sha256 sidecar for each export and verification after pull
 
 ## Low priority
 
 - Index management UX
+
   - CLI to list/apply indexes only (no import)
   - Validate index files before apply
 
 - Automation examples
+
   - Windows Task Scheduler sample `.bat`
   - macOS `launchd` or cron sample
 
 ## Testing & docs
 
 - Unit tests for:
+
   - Strict filename matching logic (yyyymmdd_HHMMSS)
   - Importer handling of `.json` vs `.json.gz`
   - Progress logging cadence
 
 - Docs:
+
   - Update README with compression usage and troubleshooting once implemented
+
 # TODO - Python Projects
 
 ## 🔴 Critical / Unfinished Items
@@ -175,19 +185,23 @@ This document tracks planned enhancements for the `automate_refresh` tooling acr
    ruff check . --fix --config pyproject.toml
    ```
 
-2. **Write basic unit tests** for `common_config` (30 min)
+1. **Write basic unit tests** for `common_config` (30 min)
+
    - Start with `config/settings.py` and `db/connection.py`
 
-3. **Add pre-commit hooks** (15 min)
+1. **Add pre-commit hooks** (15 min)
+
    - Prevent committing code with linting issues
 
-4. **Document shared_config/.env** (10 min)
+1. **Document shared_config/.env** (10 min)
+
    - List all variables and their purpose
 
-5. **Review and archive `common_project/`** (20 min)
+1. **Review and archive `common_project/`** (20 min)
+
    - Confirm nothing critical is lost
 
----
+______________________________________________________________________
 
-**Last Updated:** 2025-10-01  
+**Last Updated:** 2025-10-01\
 **Status:** Active development, 2 production projects running

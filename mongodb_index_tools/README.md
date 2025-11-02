@@ -1,6 +1,7 @@
 # MongoDB Index Tools
 
-Unified MongoDB index management and analysis toolkit. Consolidates functionality from 6 independent JavaScript projects into a single Python tool with standardized CLI.
+Unified MongoDB index management and analysis toolkit. Consolidates functionality from 6 independent JavaScript projects
+into a single Python tool with standardized CLI.
 
 ## Features
 
@@ -55,11 +56,13 @@ python mongodb_index_tools/run.py inventory --no-csv
 ```
 
 **Output:**
+
 - Console display with collection-grouped indexes
 - CSV export to `data/output/mongodb_index_tools/index_inventory_<database>_<timestamp>.csv`
 - Logs in `logs/mongodb_index_tools/`
 
 **CSV Columns:**
+
 - Collection Name
 - Index Name
 - Index Keys
@@ -83,12 +86,14 @@ python mongodb_index_tools/run.py utilization -c Users --no-csv --env PROD
 ```
 
 **Output:**
+
 - Console display with usage statistics (operations count, size, last reset date)
-- Highlights unused indexes (0 operations) with ⚠️  warning
+- Highlights unused indexes (0 operations) with ⚠️ warning
 - CSV export to `data/output/mongodb_index_tools/index_utilization_<database>_<collection>_<timestamp>.csv`
 - Logs in `logs/mongodb_index_tools/`
 
 **CSV Columns:**
+
 - No (row number)
 - Index Name
 - Operations (total index uses since last MongoDB restart)
@@ -96,7 +101,8 @@ python mongodb_index_tools/run.py utilization -c Users --no-csv --env PROD
 - Since (date when statistics tracking started)
 - Key1, Key2, Key3, ... (index key fields)
 
-**Note:** Index usage statistics are reset when MongoDB restarts. Run this command after MongoDB has been running for a representative period.
+**Note:** Index usage statistics are reset when MongoDB restarts. Run this command after MongoDB has been running for a
+representative period.
 
 ### Query Analyzer
 
@@ -118,6 +124,7 @@ python mongodb_index_tools/run.py analyzer -c Users -f query.json --save-json
 ```
 
 **Supported Query Types:**
+
 - `find` (default): Regular find queries with filter, projection, sort, limit
 - `aggregate`: Aggregation pipeline queries
 - `update`: Update queries
@@ -126,6 +133,7 @@ python mongodb_index_tools/run.py analyzer -c Users -f query.json --save-json
 **Example Query Files:**
 
 Find query (`query_find.json`):
+
 ```json
 {
   "filter": {"status": "active", "age": {"$gte": 18}},
@@ -136,6 +144,7 @@ Find query (`query_find.json`):
 ```
 
 Aggregate query (`query_agg.json`):
+
 ```json
 {
   "pipeline": [
@@ -147,6 +156,7 @@ Aggregate query (`query_agg.json`):
 ```
 
 **Output:**
+
 - Console display with execution metrics
 - Scan type (COLLSCAN, IXSCAN, etc.)
 - Index used (if any)
@@ -155,6 +165,7 @@ Aggregate query (`query_agg.json`):
 - Optional JSON export of full explain output
 
 **Use Cases:**
+
 - Understand how MongoDB executes specific queries
 - Identify queries doing collection scans that need indexes
 - Find queries with high examined:returned ratios
@@ -176,6 +187,7 @@ python mongodb_index_tools/run.py advisor -c Users --no-csv --env PROD
 ```
 
 **Output:**
+
 - Console display with categorized indexes (unused, redundant, useful)
 - Actionable recommendations with severity levels (HIGH, MEDIUM, INFO)
 - Drop commands for each recommendation
@@ -186,19 +198,23 @@ python mongodb_index_tools/run.py advisor -c Users --no-csv --env PROD
 **Recommendation Types:**
 
 1. **DROP - HIGH Severity**: Unused indexes (0 operations)
+
    - Impact: Saves storage and improves write performance
    - Safe to drop: No queries are using these indexes
 
-2. **DROP - MEDIUM Severity**: Redundant indexes
+1. **DROP - MEDIUM Severity**: Redundant indexes
+
    - Covered by compound indexes with matching prefix
    - Example: Index on `{a: 1}` is redundant if `{a: 1, b: 1}` exists
    - Impact: Saves storage, minimal impact on reads (covered by compound index)
 
-3. **INFO**: Useful indexes
+1. **INFO**: Useful indexes
+
    - Actively used indexes that should be kept
    - Recommendation to monitor usage over time
 
 **CSV Columns:**
+
 - Type (DROP, INFO)
 - Severity (HIGH, MEDIUM, INFO)
 - Index Name
@@ -210,13 +226,15 @@ python mongodb_index_tools/run.py advisor -c Users --no-csv --env PROD
 - Impact (expected outcome)
 
 **Use Cases:**
+
 - Identify unused indexes consuming storage and slowing writes
 - Find redundant indexes that can be safely removed
 - Optimize database performance by reducing index overhead
 - Clean up indexes after schema or query pattern changes
 - Prepare for database migration or optimization initiatives
 
-**Note:** This command combines data from `$indexStats` (usage) and index structure analysis. Run after MongoDB has been active for a representative period to get accurate usage statistics.
+**Note:** This command combines data from `$indexStats` (usage) and index structure analysis. Run after MongoDB has been
+active for a representative period to get accurate usage statistics.
 
 ### Index Manager
 
@@ -251,11 +269,13 @@ python mongodb_index_tools/run.py create-index -c Users --keys email:1 --env PRO
 ```
 
 **Key Format:**
+
 - Use `field:1` for ascending order
 - Use `field:-1` for descending order
 - Use commas to separate multiple fields: `field1:1,field2:-1,field3:1`
 
 **Options:**
+
 - `--keys, -k`: Index keys (required) - format: `field1:1,field2:-1`
 - `--name, -n`: Custom index name (auto-generated if not provided)
 - `--unique`: Create unique constraint index
@@ -266,6 +286,7 @@ python mongodb_index_tools/run.py create-index -c Users --keys email:1 --env PRO
 - `--env`: Environment (DEV, PROD, STG)
 
 **Safety Features:**
+
 - Validates collection exists before creating
 - Checks if index already exists
 - Supports dry-run mode to preview changes
@@ -289,12 +310,14 @@ python mongodb_index_tools/run.py drop-index -c Users --name idx_email_1 --env P
 ```
 
 **Options:**
+
 - `--name, -n`: Name of index to drop (required)
 - `--force, -f`: Skip confirmation prompt
 - `--dry-run`: Preview what would be dropped without actually dropping
 - `--env`: Environment (DEV, PROD, STG)
 
 **Safety Features:**
+
 - Prevents dropping the `_id` index
 - Confirmation prompt (unless `--force` or `--dry-run`)
 - Validates index exists before attempting drop
@@ -303,6 +326,7 @@ python mongodb_index_tools/run.py drop-index -c Users --name idx_email_1 --env P
 - Logs all operations
 
 **Use Cases:**
+
 - Create indexes recommended by the advisor command
 - Drop unused or redundant indexes identified by the advisor
 - Test index creation strategies with dry-run mode

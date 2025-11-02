@@ -2,7 +2,7 @@
 
 > **Monorepo containing 8+ Python projects with shared configuration, centralized data/logs, and unified tooling.**
 
----
+______________________________________________________________________
 
 ## 🚀 5-Minute Quickstart
 
@@ -27,85 +27,110 @@ pip install -e ./common_config
 ```
 
 **Verify setup:**
+
 ```bash
 python -c "from common_config.config.settings import get_settings; print('✅ Setup complete!')"
 ```
 
 **Next:** Configure your environment → See [Environment Setup](#environment-setup) below
 
----
+______________________________________________________________________
 
 ## 📖 Documentation Hub
 
 **Choose your path based on what you want to do:**
 
 ### 🆕 I'm New Here
+
 **Start here:** [Repository Overview & First-Time Setup](#repository-overview)
 
 **Then read:**
+
 1. [Environment Setup](#environment-setup) - Configure MongoDB and paths
-2. [Creating Your First Project](#creating-your-first-project) - Scaffold a new project
-3. [Code Quality Standards](#code-quality-standards) - Pre-push validation
+1. [Creating Your First Project](#creating-your-first-project) - Scaffold a new project
+1. [Code Quality Standards](#code-quality-standards) - Pre-push validation
 
 ### 🔨 I Want to Create a New Project
+
 **Primary guide:** [`docs/guides/NEW_PROJECT_GUIDE.md`](docs/guides/NEW_PROJECT_GUIDE.md) ⭐ **← START HERE**
+
 - 9-phase walkthrough from environment setup to Git commit
 - Cross-platform (macOS, Linux, Windows)
 - Complete with verification steps
 
 **Essential reading:**
+
 - [`docs/guides/COMMON_CONFIG_API_REFERENCE.md`](docs/guides/COMMON_CONFIG_API_REFERENCE.md) ⭐⭐ **← READ BEFORE CODING**
   - Correct import paths for common_config (prevents errors)
   - MongoDB connection patterns
   - Copy-paste code templates
 
 **Supporting docs:**
+
 - [`docs/guides/TESTING_GUIDE.md`](docs/guides/TESTING_GUIDE.md) - Writing and running tests
 - [`docs/guides/REPOSITORY_STANDARDS.md`](docs/guides/REPOSITORY_STANDARDS.md) - Directory structure
 
 ### 🐛 I'm Encountering Errors
+
 **Import errors?**
+
 - [`docs/guides/COMMON_CONFIG_API_REFERENCE.md`](docs/guides/COMMON_CONFIG_API_REFERENCE.md) - Correct import paths
-- [`docs/best-practices/IMPORT_PATH_ISSUES.md`](docs/best-practices/IMPORT_PATH_ISSUES.md) - Why errors happen & prevention
+- [`docs/best-practices/IMPORT_PATH_ISSUES.md`](docs/best-practices/IMPORT_PATH_ISSUES.md) - Why errors happen &
+  prevention
 
 **CI/CD failures?**
-- [`docs/best-practices/CI_CD_LESSONS_LEARNED.md`](docs/best-practices/CI_CD_LESSONS_LEARNED.md) - Common failures & fixes
+
+- [`docs/best-practices/CI_CD_LESSONS_LEARNED.md`](docs/best-practices/CI_CD_LESSONS_LEARNED.md) - Common failures &
+  fixes
 - [Code Quality Standards](#code-quality-standards) - Pre-push validation
 
 **Environment issues?**
+
 - [`docs/guides/VENV_SETUP.md`](docs/guides/VENV_SETUP.md) - Virtual environment troubleshooting
 
 ### 📚 I Need Reference Material
+
 **Best practices:**
+
 - [`docs/AI_COLLABORATION_GUIDE.md`](docs/AI_COLLABORATION_GUIDE.md) 🤖 - Guide for AI assistants (session context)
-- [`docs/best-practices/CLI_PATTERNS.md`](docs/best-practices/CLI_PATTERNS.md) ⭐ - Standard CLI patterns (--env, --collection)
-- [`docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md`](docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md) - 20 reusable patterns
-- [`docs/best-practices/REPOSITORY_LESSONS_LEARNED.md`](docs/best-practices/REPOSITORY_LESSONS_LEARNED.md) - Organizational patterns
+- [`docs/best-practices/CLI_PATTERNS.md`](docs/best-practices/CLI_PATTERNS.md) ⭐ - Standard CLI patterns (--env,
+  --collection)
+- [`docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md`](docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md)
+  \- 20 reusable patterns
+- [`docs/best-practices/REPOSITORY_LESSONS_LEARNED.md`](docs/best-practices/REPOSITORY_LESSONS_LEARNED.md) -
+  Organizational patterns
 
 **Technical guides:**
+
 - [`docs/guides/LINTING.md`](docs/guides/LINTING.md) - Ruff and Pyright setup
 - [`docs/guides/TESTING_GUIDE.md`](docs/guides/TESTING_GUIDE.md) - Testing strategies
 
 **Complete index:**
+
 - [`docs/README.md`](docs/README.md) - All documentation organized by type
 
 ### 🔍 I'm Looking for Something Specific
+
 **Use the docs index:** [`docs/README.md`](docs/README.md)
 
 **Common searches:**
+
 - CLI patterns (--env, --collection) → [`docs/best-practices/CLI_PATTERNS.md`](docs/best-practices/CLI_PATTERNS.md)
-- MongoDB patterns → [`docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md`](docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md)
+- MongoDB patterns →
+  [`docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md`](docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md)
 - Performance optimization → `appointment_comparison/PERFORMANCE_OPTIMIZATIONS.md`
 - Project structure → [`docs/guides/REPOSITORY_STANDARDS.md`](docs/guides/REPOSITORY_STANDARDS.md)
-- Migrating legacy projects → [`docs/best-practices/REPOSITORY_LESSONS_LEARNED.md`](docs/best-practices/REPOSITORY_LESSONS_LEARNED.md) Section 7
+- Migrating legacy projects →
+  [`docs/best-practices/REPOSITORY_LESSONS_LEARNED.md`](docs/best-practices/REPOSITORY_LESSONS_LEARNED.md) Section 7
 
----
+______________________________________________________________________
 
 ## 🏗️ Repository Overview
 
 ### What is This Repository?
 
 A **monorepo** containing multiple Python projects that share:
+
 - ✅ Single virtual environment (`.venv311/`)
 - ✅ Shared configuration (`shared_config/.env`)
 - ✅ Common utilities (`common_config` package)
@@ -116,10 +141,10 @@ A **monorepo** containing multiple Python projects that share:
 ### Key Principles
 
 1. **One Virtual Environment** - All projects use `.venv311/` (Python 3.11)
-2. **Shared Configuration** - MongoDB URIs, database names in `shared_config/.env`
-3. **Centralized Paths** - All projects use `data/`, `logs/`, `artifacts/` at repo root
-4. **Common Utilities** - `common_config` provides settings, logging, MongoDB connectors
-5. **Code Quality** - Automated pre-push validation prevents CI failures
+1. **Shared Configuration** - MongoDB URIs, database names in `shared_config/.env`
+1. **Centralized Paths** - All projects use `data/`, `logs/`, `artifacts/` at repo root
+1. **Common Utilities** - `common_config` provides settings, logging, MongoDB connectors
+1. **Code Quality** - Automated pre-push validation prevents CI failures
 
 ### Directory Structure
 
@@ -163,7 +188,7 @@ python/
 └── users-provider-update/       # Provider data updater
 ```
 
----
+______________________________________________________________________
 
 ## ⚙️ Environment Setup
 
@@ -190,6 +215,7 @@ python -c "from common_config.config.settings import get_settings; s=get_setting
 ```
 
 **Expected output:**
+
 ```
 ENV: DEV
 URI: mongodb://localhost:27017
@@ -201,21 +227,24 @@ DB: UbiquityDevelopment
 **Pattern:** `<VARIABLE>_<ENV>`
 
 **Required variables:**
+
 - `MONGODB_URI_<ENV>` - MongoDB connection string
 - `DATABASE_NAME_<ENV>` - Database name
 - `APP_ENV` - Selects which environment to use
 
 **Optional variables:**
+
 - `BACKUP_DIR_<ENV>` - Backup/export directory
 - `LOG_DIR_<ENV>` - Override default log location
 
 **Precedence (last wins):**
-1. `shared_config/.env` (lowest priority)
-2. `config/.env` (project-level, if exists)
-3. `.env` (project root, rare)
-4. OS environment variables (highest priority)
 
----
+1. `shared_config/.env` (lowest priority)
+1. `config/.env` (project-level, if exists)
+1. `.env` (project root, rare)
+1. OS environment variables (highest priority)
+
+______________________________________________________________________
 
 ## 🆕 Creating Your First Project
 
@@ -227,6 +256,7 @@ common my_new_project
 ```
 
 **This creates:**
+
 - `my_new_project/` with standard structure
 - Template `run.py` with logging setup
 - Smoke tests in `tests/`
@@ -234,19 +264,19 @@ common my_new_project
 
 ### ⚠️ IMPORTANT - Before Writing Code
 
-**Step 1:** Read the scaffolding guide
-→ [`docs/guides/NEW_PROJECT_GUIDE.md`](docs/guides/NEW_PROJECT_GUIDE.md)
+**Step 1:** Read the scaffolding guide → [`docs/guides/NEW_PROJECT_GUIDE.md`](docs/guides/NEW_PROJECT_GUIDE.md)
 
-**Step 2:** Before adding ANY imports from `common_config`:
-→ [`docs/guides/COMMON_CONFIG_API_REFERENCE.md`](docs/guides/COMMON_CONFIG_API_REFERENCE.md) ⭐
+**Step 2:** Before adding ANY imports from `common_config`: →
+[`docs/guides/COMMON_CONFIG_API_REFERENCE.md`](docs/guides/COMMON_CONFIG_API_REFERENCE.md) ⭐
 
-**Why Step 2 is critical:**
-Guessing import paths causes errors like:
+**Why Step 2 is critical:** Guessing import paths causes errors like:
+
 ```
 ModuleNotFoundError: No module named 'common_config.db.mongo_client'
 ```
 
 The API Reference shows you the **correct** paths:
+
 ```python
 # ✅ CORRECT
 from common_config.connectors.mongodb import get_mongo_client
@@ -254,7 +284,7 @@ from common_config.config.settings import get_settings
 from common_config.utils.logger import get_logger
 ```
 
----
+______________________________________________________________________
 
 ## ✅ Code Quality Standards
 
@@ -263,6 +293,7 @@ from common_config.utils.logger import get_logger
 **All code must pass validation before pushing to main or creating PRs.**
 
 A **git pre-push hook** automatically runs:
+
 - ✅ Virtual environment check
 - ✅ Code formatting (Black)
 - ✅ Linting (Ruff)
@@ -270,23 +301,25 @@ A **git pre-push hook** automatically runs:
 - ✅ Cross-platform compatibility
 
 **Normal workflow:**
+
 ```bash
 # Just push - validation runs automatically
 git push
 ```
 
 **Manual validation:**
+
 ```bash
 ./scripts/pre-push-check.sh
 ```
 
 **Emergency bypass** (not recommended):
+
 ```bash
 git push --no-verify  # Skips validation
 ```
 
-**Why this matters:**
-Prevents CI failures, broken builds, and Windows compatibility issues.
+**Why this matters:** Prevents CI failures, broken builds, and Windows compatibility issues.
 
 **Details:** [`docs/best-practices/CI_CD_LESSONS_LEARNED.md`](docs/best-practices/CI_CD_LESSONS_LEARNED.md)
 
@@ -306,26 +339,26 @@ pytest my_project/tests/ -v
 pytest -q --maxfail=1 --disable-warnings -m "not integration"
 ```
 
----
+______________________________________________________________________
 
 ## 📦 Current Projects
 
 This repository contains 8+ production projects:
 
-| Project | Purpose | Documentation |
-|---------|---------|---------------|
-| **appointment_comparison** | Validates Athena CSV appointments vs MongoDB StaffAvailability | `appointment_comparison/README.md` |
-| **automate_refresh** | MongoDB export/import automation (Windows/Mac) | `automate_refresh/README.md` |
-| **db_collection_stats** | Gathers and exports MongoDB collection statistics | `db_collection_stats/README.md` |
-| **patient_data_extraction** | Cross-database patient data extractor | `patient_data_extraction/README.md` |
-| **patient_demographic** | Patient demographics pipeline | `patient_demographic/README.md` |
-| **patients_hcmid_validator** | High-volume CSV validator with MongoDB lookup | `patients_hcmid_validator/README.md` |
-| **PatientOtherDetail_isActive_false** | Bulk updates Admits.IsActive field | `PatientOtherDetail_isActive_false/README.md` |
-| **staff_appointment_visitStatus** | Staff appointment status management | `staff_appointment_visitStatus/README.md` |
+| Project                               | Purpose                                                        | Documentation                                 |
+| ------------------------------------- | -------------------------------------------------------------- | --------------------------------------------- |
+| **appointment_comparison**            | Validates Athena CSV appointments vs MongoDB StaffAvailability | `appointment_comparison/README.md`            |
+| **automate_refresh**                  | MongoDB export/import automation (Windows/Mac)                 | `automate_refresh/README.md`                  |
+| **db_collection_stats**               | Gathers and exports MongoDB collection statistics              | `db_collection_stats/README.md`               |
+| **patient_data_extraction**           | Cross-database patient data extractor                          | `patient_data_extraction/README.md`           |
+| **patient_demographic**               | Patient demographics pipeline                                  | `patient_demographic/README.md`               |
+| **patients_hcmid_validator**          | High-volume CSV validator with MongoDB lookup                  | `patients_hcmid_validator/README.md`          |
+| **PatientOtherDetail_isActive_false** | Bulk updates Admits.IsActive field                             | `PatientOtherDetail_isActive_false/README.md` |
+| **staff_appointment_visitStatus**     | Staff appointment status management                            | `staff_appointment_visitStatus/README.md`     |
 
 **See individual project READMEs for usage instructions.**
 
----
+______________________________________________________________________
 
 ## 🧪 Testing
 
@@ -347,31 +380,36 @@ pytest -m "integration"
 
 ### Testing Philosophy
 
-- **Unit tests:** Fast (<1s each), no external dependencies, use mocks
+- **Unit tests:** Fast (\<1s each), no external dependencies, use mocks
 - **Integration tests:** Marked with `@pytest.mark.integration`, may require MongoDB
 - **CI runs:** Unit tests only (integration tests excluded)
 
 **Full guide:** [`docs/guides/TESTING_GUIDE.md`](docs/guides/TESTING_GUIDE.md)
 
----
+______________________________________________________________________
 
 ## 🛠️ Common Tasks
 
 ### Scaffold a New Project
+
 ```bash
 common my_new_project
 ```
+
 **Guide:** [`docs/guides/NEW_PROJECT_GUIDE.md`](docs/guides/NEW_PROJECT_GUIDE.md)
 
 ### Run Code Quality Checks
+
 ```bash
 ./scripts/lint.sh my_project/
 ```
 
 ### Add MongoDB to a Project
+
 **FIRST:** Read [`docs/guides/COMMON_CONFIG_API_REFERENCE.md`](docs/guides/COMMON_CONFIG_API_REFERENCE.md)
 
 **Then:** Use this pattern:
+
 ```python
 from common_config.connectors.mongodb import get_mongo_client
 from common_config.config.settings import get_settings
@@ -386,41 +424,50 @@ with get_mongo_client(
 ```
 
 ### Fix Import Errors
+
 1. Check [`docs/guides/COMMON_CONFIG_API_REFERENCE.md`](docs/guides/COMMON_CONFIG_API_REFERENCE.md) for correct path
-2. See [`docs/best-practices/IMPORT_PATH_ISSUES.md`](docs/best-practices/IMPORT_PATH_ISSUES.md) for common mistakes
+1. See [`docs/best-practices/IMPORT_PATH_ISSUES.md`](docs/best-practices/IMPORT_PATH_ISSUES.md) for common mistakes
 
 ### Migrate a Legacy Project
-**Guide:** [`docs/best-practices/REPOSITORY_LESSONS_LEARNED.md`](docs/best-practices/REPOSITORY_LESSONS_LEARNED.md) Section 7
 
----
+**Guide:** [`docs/best-practices/REPOSITORY_LESSONS_LEARNED.md`](docs/best-practices/REPOSITORY_LESSONS_LEARNED.md)
+Section 7
+
+______________________________________________________________________
 
 ## 🔗 Quick Links
 
 ### Essential Reading (Everyone)
+
 1. [NEW_PROJECT_GUIDE.md](docs/guides/NEW_PROJECT_GUIDE.md) - Creating new projects
-2. [COMMON_CONFIG_API_REFERENCE.md](docs/guides/COMMON_CONFIG_API_REFERENCE.md) - Import paths & patterns
-3. [CI_CD_LESSONS_LEARNED.md](docs/best-practices/CI_CD_LESSONS_LEARNED.md) - Preventing CI failures
+1. [COMMON_CONFIG_API_REFERENCE.md](docs/guides/COMMON_CONFIG_API_REFERENCE.md) - Import paths & patterns
+1. [CI_CD_LESSONS_LEARNED.md](docs/best-practices/CI_CD_LESSONS_LEARNED.md) - Preventing CI failures
 
 ### Reference Material
+
 - [CLI_PATTERNS.md](docs/best-practices/CLI_PATTERNS.md) - Standard CLI patterns (--env, --collection)
-- [MONGODB_VALIDATION_BEST_PRACTICES.md](docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md) - 20 reusable patterns
+- [MONGODB_VALIDATION_BEST_PRACTICES.md](docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md) - 20 reusable
+  patterns
 - [REPOSITORY_LESSONS_LEARNED.md](docs/best-practices/REPOSITORY_LESSONS_LEARNED.md) - Project structure patterns
 - [TESTING_GUIDE.md](docs/guides/TESTING_GUIDE.md) - Testing strategies
 
 ### Complete Documentation Index
+
 - [docs/README.md](docs/README.md) - All docs organized by type
 
----
+______________________________________________________________________
 
 ## 🆘 Troubleshooting
 
 ### "ModuleNotFoundError: No module named 'common_config'"
+
 ```bash
 # Install common_config in editable mode
 pip install -e ./common_config
 ```
 
 ### "ModuleNotFoundError: No module named 'common_config.db.mongo_client'"
+
 **Wrong import path.** See: [`docs/guides/COMMON_CONFIG_API_REFERENCE.md`](docs/guides/COMMON_CONFIG_API_REFERENCE.md)
 
 ```python
@@ -429,7 +476,9 @@ from common_config.connectors.mongodb import get_mongo_client
 ```
 
 ### "MongoDB URI not found"
+
 Add to `shared_config/.env`:
+
 ```bash
 MONGODB_URI_DEV=mongodb://localhost:27017
 DATABASE_NAME_DEV=your_database
@@ -437,18 +486,21 @@ APP_ENV=DEV
 ```
 
 ### CI/CD Failures
+
 **Read:** [`docs/best-practices/CI_CD_LESSONS_LEARNED.md`](docs/best-practices/CI_CD_LESSONS_LEARNED.md)
 
 **Quick fix:**
+
 ```bash
 # Run validation before pushing
 ./scripts/pre-push-check.sh
 ```
 
 ### Virtual Environment Issues
+
 **Guide:** [`docs/guides/VENV_SETUP.md`](docs/guides/VENV_SETUP.md)
 
----
+______________________________________________________________________
 
 ## 📊 Repository Statistics
 
@@ -459,25 +511,24 @@ APP_ENV=DEV
 - **Testing:** pytest with coverage tracking
 - **CI/CD:** GitHub Actions (automated testing, multi-platform)
 
----
+______________________________________________________________________
 
 ## 🤝 Contributing
 
 ### Before Making Changes
 
 1. **Read:** [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
-2. **Run:** `./scripts/pre-push-check.sh` before committing
-3. **Ensure:** All tests pass and code is formatted
+1. **Run:** `./scripts/pre-push-check.sh` before committing
+1. **Ensure:** All tests pass and code is formatted
 
 ### Creating New Documentation
 
-**How-to guides** → `docs/guides/`
-**Reference material** → `docs/best-practices/`
-**Historical records** → `docs/archive/`
+**How-to guides** → `docs/guides/` **Reference material** → `docs/best-practices/` **Historical records** →
+`docs/archive/`
 
 **Then:** Update `docs/README.md` to include your new document
 
----
+______________________________________________________________________
 
 ## 📝 License & Support
 
@@ -485,6 +536,6 @@ See individual project READMEs for project-specific licensing.
 
 For questions or issues, create an issue in the repository.
 
----
+______________________________________________________________________
 
 **Last Updated:** 2025-01-27

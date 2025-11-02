@@ -4,12 +4,12 @@
 
 **Supports:** macOS, Linux, and Windows (PowerShell, CMD, Git Bash)
 
----
+______________________________________________________________________
 
 <details open>
 <summary><strong>📖 Table of Contents</strong> (click to expand/collapse)</summary>
 
-- [🖥️ Cross-Platform Guide](#️-cross-platform-guide)
+- [🖥️ Cross-Platform Guide](#%EF%B8%8F-cross-platform-guide)
 - [Prerequisites Checklist](#prerequisites-checklist)
 - [PHASE 1: Environment Setup](#phase-1-environment-setup)
   - [Step 1.1: Make Scripts Executable](#step-11-make-scripts-executable)
@@ -30,7 +30,7 @@
 - [PHASE 2: Project Scaffolding](#phase-2-project-scaffolding)
   - [Step 2.1: Create Project Structure](#step-21-create-project-structure)
   - [Step 2.2: Inspect Generated Files](#step-22-inspect-generated-files)
-  - [Step 2.3: ⚠️ IMPORTANT - Before Adding Functionality](#step-23-️-important---before-adding-functionality)
+  - [Step 2.3: ⚠️ IMPORTANT - Before Adding Functionality](#step-23-%EF%B8%8F-important---before-adding-functionality)
 - [✅ PHASE 2 COMPLETE!](#-phase-2-complete)
 - [PHASE 3: Code Quality Baseline](#phase-3-code-quality-baseline)
   - [Step 3.1: Run Linting and Formatting](#step-31-run-linting-and-formatting)
@@ -58,27 +58,30 @@
 
 </details>
 
----
+______________________________________________________________________
 
 ## 🖥️ Cross-Platform Guide
 
 This guide supports **all major platforms**:
+
 - ✅ **macOS** (primary)
 - ✅ **Linux**
 - ✅ **Windows** (PowerShell, CMD, Git Bash)
 
 **Platform-specific commands are clearly marked:**
+
 - 🍎 macOS/Linux/Git Bash → Use `bash` syntax
 - 🪟 Windows PowerShell → Use `powershell` syntax
 - 🪟 Windows CMD → Use `cmd` syntax
 
 **Most commands are identical across platforms** (Python, pip, etc.)
 
----
+______________________________________________________________________
 
 ## Prerequisites Checklist
 
 Before starting, ensure you have:
+
 - [ ] Terminal/command line access
   - macOS: Terminal or iTerm2
   - Windows: PowerShell, CMD, or Git Bash
@@ -86,7 +89,7 @@ Before starting, ensure you have:
 - [ ] Git repository cloned
 - [ ] Write permissions in the repository directory
 
----
+______________________________________________________________________
 
 ## PHASE 1: Environment Setup
 
@@ -104,13 +107,16 @@ chmod +x scripts/bootstrap_project.sh
 ```
 
 **What this does:**
+
 - Grants execute permissions to all setup scripts
 - Prevents "Permission denied" errors
 
 **Verify:**
+
 ```bash
 ls -la *.sh scripts/*.sh | grep "rwx"
 ```
+
 You should see `-rwxr-xr-x` in the output.
 
 #### Windows (PowerShell / CMD)
@@ -118,17 +124,19 @@ You should see `-rwxr-xr-x` in the output.
 **Not needed on Windows** - `.ps1` and `.bat` files are executable by default.
 
 **However, PowerShell execution policy may need to be enabled:**
+
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
----
+______________________________________________________________________
 
 ### Step 1.2: Install Virtual Environment
 
 #### macOS / Linux / Git Bash
 
 **Run this command:**
+
 ```bash
 ./scripts/install_venv.sh
 ```
@@ -136,14 +144,19 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 #### Windows PowerShell
 
 **Run this command:**
+
 ```powershell
 .\scripts\install_venv.ps1
 ```
 
 **What will happen:**
+
 1. Script detects your OS
-2. Searches for all Python installations on your system
-3. Shows you a numbered list like:
+
+1. Searches for all Python installations on your system
+
+1. Shows you a numbered list like:
+
    ```
    Found 2 Python installation(s):
 
@@ -152,14 +165,18 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
    Select Python version (1-2) [default: 1]:
    ```
-4. **You type a number** (recommend: choose Python 3.11 if available)
-5. If Python 3.11 not found, script offers to install it via Homebrew
+
+1. **You type a number** (recommend: choose Python 3.11 if available)
+
+1. If Python 3.11 not found, script offers to install it via Homebrew
 
 **Interactive Prompts:**
+
 - **"Select Python version"** → Type `1` for Python 3.11 (recommended)
 - **"Install Python 3.11 using Homebrew? (y/N)"** → Type `y` if you want auto-install
 
 **Expected Output:**
+
 ```
 ✓ Virtual environment created successfully!
 ✓ Virtual environment Python version: 3.11.9
@@ -171,6 +188,7 @@ Virtual environment created at: .venv311
 ```
 
 **Verify:**
+
 ```bash
 # Check venv was created
 ls -d .venv*
@@ -178,45 +196,52 @@ ls -d .venv*
 # Should show: .venv311 or .venv312 (depending on Python version chosen)
 ```
 
----
+______________________________________________________________________
 
 ### Step 1.3: Activate Virtual Environment
 
 **⚠️ IMPORTANT: Activate the venv created in Step 1.2**
 
 The venv directory name depends on which Python version you selected:
+
 - Python 3.11 → `.venv311`
 - Python 3.12 → `.venv312`
 
 #### macOS / Linux / Git Bash (Windows)
 
 **If you have Python 3.11:**
+
 ```bash
 source .venv311/bin/activate
 ```
 
 **If you have Python 3.12:**
+
 ```bash
 source .venv312/bin/activate
 ```
 
 **⚠️ CRITICAL: Must use `source`**
+
 - `source .venv311/bin/activate` ✅ Correct
 - `./.venv311/bin/activate` ❌ Won't work (creates subshell)
 
 #### Windows PowerShell
 
 **If you have Python 3.11:**
+
 ```powershell
 .\.venv311\Scripts\Activate.ps1
 ```
 
 **If you have Python 3.12:**
+
 ```powershell
 .\.venv312\Scripts\Activate.ps1
 ```
 
 **Note:** If you get an execution policy error, run:
+
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
@@ -224,24 +249,28 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 #### Windows Command Prompt (CMD)
 
 **If you have Python 3.11:**
+
 ```cmd
 .venv311\Scripts\activate.bat
 ```
 
 **If you have Python 3.12:**
+
 ```cmd
 .venv312\Scripts\activate.bat
 ```
 
----
+______________________________________________________________________
 
 **Expected Result (All Platforms):**
+
 - Your prompt will change to show `(.venv311)` or `(.venv312)` at the beginning
 - Example: `(.venv311) ➜ python git:(main) ✗`
 
 **Verify (All Platforms):**
 
 **macOS/Linux/Git Bash:**
+
 ```bash
 # Check Python is from venv
 which python
@@ -257,6 +286,7 @@ which pip
 ```
 
 **Windows (PowerShell/CMD):**
+
 ```powershell
 # Check Python is from venv
 where python
@@ -272,46 +302,53 @@ where pip
 ```
 
 **✅ Success Criteria (All Platforms):**
+
 - `(.venv311)` or `(.venv312)` appears in your terminal prompt
 - Python path shows `.venv*` directory
 - `python --version` shows the version you selected
 - No error messages
 
 **To deactivate later (All Platforms):**
+
 ```bash
 deactivate
 ```
 
----
+______________________________________________________________________
 
 ### Step 1.4: Upgrade pip
 
 **Run this command:**
+
 ```bash
 pip install --upgrade pip
 ```
 
 **Expected Output:**
+
 ```
 Successfully installed pip-24.x.x
 ```
 
 **Verify:**
+
 ```bash
 pip --version
 # Should show latest version (24.x or higher)
 ```
 
----
+______________________________________________________________________
 
 ### Step 1.5: Install Repository Dependencies
 
 **Run this command:**
+
 ```bash
 pip install -r requirements.txt
 ```
 
 **What this installs:**
+
 - pydantic (settings management)
 - pymongo (MongoDB driver)
 - pandas (data processing)
@@ -320,6 +357,7 @@ pip install -r requirements.txt
 - All other shared dependencies
 
 **Expected Output:**
+
 ```
 Collecting pydantic>=2.6.0
 ...
@@ -329,32 +367,37 @@ Successfully installed pydantic-2.x.x pymongo-4.x.x pandas-2.x.x ...
 **⏱️ Time:** ~1-2 minutes
 
 **Verify:**
+
 ```bash
 pip list | grep -E "pydantic|pymongo|pandas|pytest|ruff"
 ```
 
 You should see all packages listed with version numbers.
 
----
+______________________________________________________________________
 
 ### Step 1.6: Install common_config
 
 **Run this command:**
+
 ```bash
 pip install -e ./common_config
 ```
 
 **What this does:**
+
 - Installs `common_config` in **editable mode** (`-e`)
 - Editable = changes to code take effect immediately (no reinstall needed)
 - Makes `common_config` available as a package in all projects
 
 **Expected Output:**
+
 ```
 Successfully installed common-config-0.1.0
 ```
 
 **Verify:**
+
 ```bash
 pip show common-config
 
@@ -365,16 +408,18 @@ pip show common-config
 # Editable project location: /Users/demesewabebe/Projects/python/common_config
 ```
 
----
+______________________________________________________________________
 
 ### Step 1.7: Verify Configuration
 
 **Run this command:**
+
 ```bash
 python -c "from common_config.config import get_settings; import os; s=get_settings(); print(f'APP_ENV={os.environ.get(\"APP_ENV\", \"(not set)\")}\nURI={s.mongodb_uri}\nDB={s.database_name}')"
 ```
 
 **Expected Output:**
+
 ```
 APP_ENV=DEV (or "(not set)" - both are fine)
 URI=mongodb+srv://<username>:<password>@<hostname>.mongodb.net/?retryWrites=true&w=majority
@@ -384,14 +429,16 @@ DB=sample_mflix
 **If this works, you're ready to proceed!**
 
 **If you get errors:**
+
 - `ModuleNotFoundError: No module named 'common_config'` → Re-run step 1.6
 - `ValueError: MongoDB URI not found` → Check `shared_config/.env` has `MONGODB_URI_DEV`
 
----
+______________________________________________________________________
 
-## ✅ PHASE 1 COMPLETE!
+## ✅ PHASE 1 COMPLETE
 
 **What we accomplished:**
+
 - ✅ Virtual environment created
 - ✅ Virtual environment activated
 - ✅ All dependencies installed
@@ -399,6 +446,7 @@ DB=sample_mflix
 - ✅ Configuration verified (can connect to DEV MongoDB)
 
 **Verification Checklist:**
+
 - [ ] `(.venv311)` or `(.venv312)` shows in terminal prompt
 - [ ] `which python` shows venv path
 - [ ] `pip list` shows all required packages
@@ -407,31 +455,36 @@ DB=sample_mflix
 
 **Time taken:** ~5-10 minutes
 
----
+______________________________________________________________________
 
 ## PHASE 2: Project Scaffolding
 
 ### Step 2.1: Create Project Structure
 
-**Choose your project name** - use lowercase with underscores (e.g., `user_validator`, `data_reporter`, `collection_stats`).
+**Choose your project name** - use lowercase with underscores (e.g., `user_validator`, `data_reporter`,
+`collection_stats`).
 
 **Run this command:**
+
 ```bash
 common <your-project-name>
 ```
 
 **Example:**
+
 ```bash
 common user_validator
 ```
 
 **What this does:**
+
 - Creates `<your-project-name>/` directory
 - Generates standard project structure
 - Creates centralized directories in `data/` and `logs/`
 - Generates template files (run.py, README.md, tests, etc.)
 
 **Expected Output:**
+
 ```
 ✅ Project created at: ./<your-project-name>
 
@@ -465,9 +518,11 @@ Next steps:
      python <your-project-name>/run.py
 ```
 
-> **📝 Note:** The CLI suggests these next steps, but **don't run them yet!** Phase 3 will walk through each step with proper validation and explanations.
+> **📝 Note:** The CLI suggests these next steps, but **don't run them yet!** Phase 3 will walk through each step with
+> proper validation and explanations.
 
 **Verify:**
+
 ```bash
 # Check project directory was created
 ls -la <your-project-name>/
@@ -481,32 +536,36 @@ ls -la data/output/<your-project-name>/
 ls -la logs/<your-project-name>/
 ```
 
----
+______________________________________________________________________
 
 ### Step 2.2: Inspect Generated Files
 
 **View the template run.py:**
+
 ```bash
 cat <your-project-name>/run.py
 ```
 
 **What you'll see:**
+
 - Logging setup using `common_config`
 - Settings loader for environment config
 - Template main() function with TODOs
 - Standard log directory resolution
 
 **View project README:**
+
 ```bash
 cat <your-project-name>/README.md
 ```
 
 **View test structure:**
+
 ```bash
 ls -la <your-project-name>/tests/
 ```
 
----
+______________________________________________________________________
 
 ### Step 2.3: ⚠️ IMPORTANT - Before Adding Functionality
 
@@ -515,12 +574,14 @@ ls -la <your-project-name>/tests/
 📖 **ALWAYS consult:** [COMMON_CONFIG_API_REFERENCE.md](COMMON_CONFIG_API_REFERENCE.md)
 
 **Why this is critical:**
+
 - Prevents import path errors (most common new project issue)
 - Shows correct usage patterns for MongoDB, logging, file operations
 - Provides copy-paste templates for common scenarios
 - Saves time debugging import errors
 
 **What it contains:**
+
 - ✅ Correct import paths for all common_config modules
 - ✅ MongoDB connection patterns (context manager, connector class)
 - ✅ Logging setup and usage
@@ -528,6 +589,7 @@ ls -la <your-project-name>/tests/
 - ✅ Troubleshooting section for common errors
 
 **Common patterns you'll find:**
+
 ```python
 # MongoDB connection (CORRECT way)
 from common_config.connectors.mongodb import get_mongo_client
@@ -539,25 +601,30 @@ from common_config.config.settings import get_settings
 from common_config.utils.logger import get_logger, setup_logging
 ```
 
-> **📝 Lesson Learned:** Guessing import paths leads to errors like `ModuleNotFoundError: No module named 'common_config.db.mongo_client'`. The API Reference prevents this. See [IMPORT_PATH_ISSUES.md](../best-practices/IMPORT_PATH_ISSUES.md) for details.
+> **📝 Lesson Learned:** Guessing import paths leads to errors like
+> `ModuleNotFoundError: No module named 'common_config.db.mongo_client'`. The API Reference prevents this. See
+> [IMPORT_PATH_ISSUES.md](../best-practices/IMPORT_PATH_ISSUES.md) for details.
 
 **When to use the API Reference:**
+
 - ✅ Before adding MongoDB functionality
 - ✅ Before importing any common_config module
 - ✅ When you encounter import errors
 - ✅ When you need usage examples
 
----
+______________________________________________________________________
 
-## ✅ PHASE 2 COMPLETE!
+## ✅ PHASE 2 COMPLETE
 
 **What we accomplished:**
+
 - ✅ Project structure created
 - ✅ Template files generated
 - ✅ Centralized directories set up
 - ✅ Ready for code implementation
 
 **Verification Checklist:**
+
 - [ ] `<your-project-name>/` directory exists
 - [ ] `<your-project-name>/run.py` exists
 - [ ] `<your-project-name>/tests/` exists
@@ -567,28 +634,32 @@ from common_config.utils.logger import get_logger, setup_logging
 
 **Time taken:** ~1 minute
 
----
+______________________________________________________________________
 
 ## PHASE 3: Code Quality Baseline
 
-> **🎯 Goal:** Execute the suggested "Next steps" from Phase 2 with proper validation. We'll verify the generated project works correctly by running linting, tests, and the project itself.
+> **🎯 Goal:** Execute the suggested "Next steps" from Phase 2 with proper validation. We'll verify the generated project
+> works correctly by running linting, tests, and the project itself.
 
 ### Step 3.1: Run Linting and Formatting
 
 **This implements:** "Next steps" item #2 from Phase 2
 
 **Run this command:**
+
 ```bash
 ./scripts/lint.sh <your-project-name>/
 ```
 
 **What this does:**
+
 1. **Ruff format** - Formats all Python code
-2. **Ruff check** - Checks for code issues
-3. **Ruff fix** - Auto-fixes issues where possible
-4. **Pyright** - Type checking (optional, may not be installed)
+1. **Ruff check** - Checks for code issues
+1. **Ruff fix** - Auto-fixes issues where possible
+1. **Pyright** - Type checking (optional, may not be installed)
 
 **Expected Output:**
+
 ```
 === Python Code Quality Tools ===
 
@@ -611,23 +682,26 @@ Fixed 0 errors
 
 **⏱️ Time:** ~5-10 seconds
 
----
+______________________________________________________________________
 
 ### Step 3.2: Run Initial Tests
 
 **This implements:** "Next steps" item #3 from Phase 2
 
 **Run this command:**
+
 ```bash
 pytest <your-project-name>/tests/ -v
 ```
 
 **What this tests:**
+
 - Smoke tests (can import modules)
 - Dependency availability
 - Project structure integrity
 
 **Expected Output:**
+
 ```
 ========================= test session starts =========================
 collected 5 items
@@ -642,6 +716,7 @@ collected 5 items
 ```
 
 **Verify:**
+
 ```bash
 # Run with more verbose output
 pytest <your-project-name>/tests/ -vv
@@ -650,24 +725,26 @@ pytest <your-project-name>/tests/ -vv
 pytest <your-project-name>/tests/ --cov=<your-project-name>
 ```
 
----
+______________________________________________________________________
 
-## ✅ PHASE 3 COMPLETE!
+## ✅ PHASE 3 COMPLETE
 
 **What we accomplished:**
+
 - ✅ Code formatted to standards (item #2 from "Next steps")
 - ✅ All linting checks passed
 - ✅ Initial smoke tests passed (item #3 from "Next steps")
 - ✅ Clean baseline established
 
 **Verification Checklist:**
+
 - [ ] No linting errors
 - [ ] All tests pass
 - [ ] No import errors
 
 **Time taken:** ~1 minute
 
----
+______________________________________________________________________
 
 ## Optional: Test Run the Project Template
 
@@ -680,6 +757,7 @@ python <your-project-name>/run.py
 ```
 
 **What to expect:**
+
 - Logging initialization
 - Settings loaded from `common_config`
 - TODO placeholders for implementation
@@ -687,7 +765,7 @@ python <your-project-name>/run.py
 
 This is optional now since the template doesn't do much yet. The real work begins in Phase 4.
 
----
+______________________________________________________________________
 
 ## PHASE 4: Database Configuration (If Needed)
 
@@ -699,6 +777,7 @@ code shared_config/.env
 ```
 
 Add your connection string (if not already present):
+
 ```env
 MONGODB_URI_DEV=mongodb://<username>:<password>@host:port/database?authSource=admin
 MONGODB_URI_PROD=mongodb://<username>:<password>@host:port/database?authSource=admin
@@ -709,11 +788,12 @@ DATABASE_NAME_PROD=your_database
 **Note:** All projects share this `.env` file - no per-project config files.
 
 **Test the connection:**
+
 ```bash
 python -c "from common_config.config import get_settings; s=get_settings(); print(f'Connected to: {s.database_name}')"
 ```
 
----
+______________________________________________________________________
 
 ## PHASE 5: Implement Your Logic
 
@@ -741,6 +821,7 @@ Your project has the following structure:
 ```
 
 **Centralized directories at repository root:**
+
 ```
 data/
 ├── input/<your-project-name>/    # Input files
@@ -758,18 +839,21 @@ artifacts/                        # Build outputs (shared)
 ### Main Entry Point: `run.py`
 
 The scaffolder creates a template `run.py` with:
+
 - Logging setup (outputs to `logs/<project>/`)
 - Settings loading from `shared_config/.env`
 - Basic structure
 
 **Edit it:**
+
 ```bash
 code <your-project-name>/run.py
 ```
 
 ### Implementing CLI Commands (Standard Pattern)
 
-**⭐ IMPORTANT:** All projects should follow the [Standard CLI Patterns](../best-practices/CLI_PATTERNS.md) for consistency.
+**⭐ IMPORTANT:** All projects should follow the [Standard CLI Patterns](../best-practices/CLI_PATTERNS.md) for
+consistency.
 
 #### Standard CLI Template
 
@@ -855,14 +939,17 @@ if __name__ == "__main__":
 #### Standard CLI Options
 
 **✅ DO use:**
+
 - `--env` - Switch environments (DEV, PROD, STG)
 - `--collection` / `-c` - Collection names (ALWAYS via CLI, never in .env)
 
 **❌ DO NOT use:**
+
 - `--mongodb-uri` - Use `--env` instead
 - `--database` - Use `--env` instead
 
 **Environment Configuration in `.env`:**
+
 ```bash
 # Default environment
 APP_ENV=DEV
@@ -877,6 +964,7 @@ DATABASE_NAME_PROD=production_database
 ```
 
 **Usage:**
+
 ```bash
 # Use default environment
 python <project>/run.py command-name --collection MyCollection
@@ -890,12 +978,14 @@ python <project>/run.py command-name --collection MyCollection --env PROD
 ### Create Modules in `src/`
 
 Add your business logic:
+
 ```bash
 # Create a module
 code <your-project-name>/src/<your_project_name>/processor.py
 ```
 
 **Example module structure:**
+
 ```python
 from common_config.config import get_settings
 
@@ -909,62 +999,73 @@ def process_data():
 ### Utility Scripts in `scripts/`
 
 For maintenance tasks (index creation, migrations):
+
 ```bash
 code <your-project-name>/scripts/create_indexes.py
 ```
 
----
+______________________________________________________________________
 
 ## PHASE 6: Managing Dependencies
 
 **IMPORTANT:** This repository uses a **shared virtual environment** with a **root-level `requirements.txt`**.
 
-### Check if dependency already exists:
+### Check if dependency already exists
+
 ```bash
 pip list | grep <package-name>
 ```
 
-### If dependency is already installed:
+### If dependency is already installed
+
 ✅ **No action needed!** Just use it in your project.
 
-### If you need a NEW dependency:
+### If you need a NEW dependency
 
 **Option 1: Shared dependency (used by multiple projects)**
+
 1. **Add to ROOT `requirements.txt`:**
+
    ```bash
    echo "pandas==2.1.0" >> requirements.txt
    ```
 
-2. **Install in shared venv:**
+1. **Install in shared venv:**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 **Option 2: Project-specific dependency (ONLY this project needs it)**
+
 1. **Create project requirements.txt:**
+
    ```bash
    echo "special-library==1.0.0" > <your-project-name>/requirements.txt
    ```
 
-2. **Install it:**
+1. **Install it:**
+
    ```bash
    pip install -r <your-project-name>/requirements.txt
    ```
 
 **Best Practice:** Prefer Option 1 (root-level) to avoid version conflicts and duplication.
 
----
+______________________________________________________________________
 
 ## PHASE 7: Write Tests
 
 The scaffolder creates initial smoke tests in `tests/test_<package>_smoke.py`.
 
 **Add more tests:**
+
 ```bash
 code <your-project-name>/tests/test_processor.py
 ```
 
 **Example test:**
+
 ```python
 import pytest
 from <your_project_name>.processor import process_data
@@ -976,38 +1077,43 @@ def test_process_data():
 ```
 
 **Run tests:**
+
 ```bash
 pytest <your-project-name>/tests/ -v
 ```
 
 **With coverage:**
+
 ```bash
 pytest <your-project-name>/tests/ --cov=<your-project-name> --cov-report=term-missing
 ```
 
----
+______________________________________________________________________
 
 ## PHASE 8: Run Your Project
 
 ### Option 1: Direct Python
+
 ```bash
 python <your-project-name>/run.py
 ```
 
 ### Option 2: Windows Batch File
+
 ```bash
 <your-project-name>\run.bat
 ```
 
 The batch file automatically activates the shared venv and runs `run.py`.
 
----
+______________________________________________________________________
 
 ## PHASE 9: Git Commit and Documentation
 
 ### Update Project README
 
 Edit your project's README to document:
+
 - Purpose and functionality
 - Usage instructions
 - Configuration requirements
@@ -1020,11 +1126,13 @@ code <your-project-name>/README.md
 ### Create a Git Commit
 
 **Check status:**
+
 ```bash
 git status
 ```
 
 **Add your new project:**
+
 ```bash
 git add <your-project-name>/
 git add data/input/<your-project-name>/
@@ -1033,6 +1141,7 @@ git add logs/<your-project-name>/
 ```
 
 **Commit with descriptive message:**
+
 ```bash
 git commit -m "feat: Add <your-project-name> project
 
@@ -1044,23 +1153,24 @@ git commit -m "feat: Add <your-project-name> project
 Co-Authored-By: Claude <noreply@anthropic.com>"
 ```
 
----
+______________________________________________________________________
 
 ## Integration with CI/CD
 
 Your project is automatically included in the GitHub Actions pipeline:
 
 1. **Linting**: Ruff checks code quality
-2. **Type Checking**: Pyright validates types
-3. **Testing**: Pytest runs all tests with coverage
+1. **Type Checking**: Pyright validates types
+1. **Testing**: Pytest runs all tests with coverage
 
 No additional setup needed - just push your code!
 
----
+______________________________________________________________________
 
 ## Common Tasks Quick Reference
 
 **Phase 1: Environment Setup**
+
 ```bash
 # Activate venv (manual)
 source .venv311/bin/activate
@@ -1073,12 +1183,14 @@ python -c "from common_config.config import get_settings; print(get_settings())"
 ```
 
 **Phase 2: Project Scaffolding**
+
 ```bash
 # Create new project
 common <your-project-name>
 ```
 
 **Phase 3: Code Quality Baseline**
+
 ```bash
 # Run linting (implements "Next steps" item #2)
 ./scripts/lint.sh <your-project-name>/
@@ -1091,6 +1203,7 @@ python <your-project-name>/run.py
 ```
 
 **Development Workflow**
+
 ```bash
 # Format code
 ruff format <your-project-name>/
@@ -1105,18 +1218,22 @@ pyright <your-project-name>/
 pytest <your-project-name>/tests/ --cov=<your-project-name>
 ```
 
----
+______________________________________________________________________
 
 ## Troubleshooting
 
 ### "Permission denied" error
+
 **Solution:** Run `chmod +x scripts/install_venv.sh scripts/lint.sh scripts/bootstrap_project.sh`
 
 ### "No Python installations found"
+
 **Solution:** Let the script install Python 3.11 via Homebrew, or install manually
 
 ### "ModuleNotFoundError: No module named 'common_config'"
+
 **Solution:**
+
 ```bash
 # Ensure venv is activated
 source .venv311/bin/activate
@@ -1126,10 +1243,13 @@ pip install -e ./common_config
 ```
 
 ### "grep: invalid option -- P"
+
 **Solution:** This issue has been fixed in the updated scripts (using `sed` instead of `grep -P`)
 
 ### Tests fail with import errors
+
 **Solution:**
+
 ```bash
 # Ensure pytest is installed
 pip install pytest pytest-cov
@@ -1139,17 +1259,21 @@ pwd  # Should show: /Users/demesewabebe/Projects/python
 ```
 
 ### "Permission denied" on run.bat
+
 **Solution:**
+
 - Run from Command Prompt or Git Bash, not PowerShell
 - Or use: `python <your-project-name>/run.py`
 
 ### Database connection issues
+
 **Solution:**
+
 - Verify `shared_config/.env` has correct `MONGODB_URI_DEV`
 - Check network access to database
 - Verify credentials are correct
 
----
+______________________________________________________________________
 
 ## End-to-End Validation Checklist
 
@@ -1168,7 +1292,7 @@ pwd  # Should show: /Users/demesewabebe/Projects/python
 - [ ] README documentation complete
 - [ ] Code committed to Git
 
----
+______________________________________________________________________
 
 ## Related Documentation
 
@@ -1177,7 +1301,7 @@ pwd  # Should show: /Users/demesewabebe/Projects/python
 - [REPOSITORY_STANDARDS.md](REPOSITORY_STANDARDS.md) - Directory structure conventions
 - [VENV_SETUP.md](VENV_SETUP.md) - Virtual environment details
 
----
+______________________________________________________________________
 
 **Ready to start? Begin with Phase 1, Step 1.1!** 🚀
 

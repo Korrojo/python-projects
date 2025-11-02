@@ -1,6 +1,7 @@
 # Shared Configuration
 
-This directory contains shared environment variables and configuration for all Python projects under `C:/Users/dabebe/projects/python/`.
+This directory contains shared environment variables and configuration for all Python projects under
+`C:/Users/dabebe/projects/python/`.
 
 ## Files
 
@@ -19,7 +20,7 @@ setx COMMON_CONFIG_ENV_FILE "C:\path\to\custom\.env"
 
 ## Usage
 
-### In your project code:
+### In your project code
 
 ```python
 from common_config.config import get_settings, load_shared_config
@@ -37,9 +38,9 @@ batch_size = shared_cfg.get("processing", {}).get("batch_size", 1000)
 Environment variables are loaded in this order (last wins):
 
 1. Shared `.env` (this directory)
-2. Project `config/.env`
-3. Project root `.env`
-4. OS environment variables (highest priority)
+1. Project `config/.env`
+1. Project root `.env`
+1. OS environment variables (highest priority)
 
 ### Project-specific overrides
 

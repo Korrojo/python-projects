@@ -83,6 +83,7 @@ self.stats = {
 **File**: `validator.py` - `_process_row()` method
 
 When AthenaAppointmentId is found but fields don't match:
+
 ```python
 else:
     row["Total Match?"] = "False"
@@ -96,6 +97,7 @@ else:
 **File**: `validator.py` - `_secondary_matching()` method
 
 When no matching record is found:
+
 ```python
 else:
     row["Total Match?"] = "False"
@@ -172,6 +174,7 @@ Total mismatches: 12 (7 field mismatches + 5 not found)
 ```
 
 **Interpretation**:
+
 - 88 records matched perfectly
 - 7 records had AthenaAppointmentId but some fields differed
 - 5 records had no matching AthenaAppointmentId in MongoDB (and secondary matching failed)
@@ -182,12 +185,14 @@ Total mismatches: 12 (7 field mismatches + 5 not found)
 ## Testing
 
 Test with limited rows:
+
 ```bash
 cd f:/ubiquityMongo_phiMasking/python
 python -m appointment_comparison --input Daily_Appointment_Comparison_input1_20251023_cleaned.csv --env PROD --limit 100
 ```
 
 Test with full dataset:
+
 ```bash
 cd f:/ubiquityMongo_phiMasking/python
 python -m appointment_comparison --input Daily_Appointment_Comparison_input1_20251023_cleaned.csv --env PROD
@@ -232,6 +237,7 @@ The statistics are also available in JSON format at the end of execution:
 ## Summary
 
 The improved statistics provide clear, accurate, and verifiable reporting that makes it easy to understand:
+
 - How many records matched exactly
 - How many had field-level differences
 - How many couldn't be found at all

@@ -48,6 +48,18 @@ jobs:
         run: pyright || true
         continue-on-error: true
 
+      - name: Install mdformat (Python markdown formatter)
+        run: pip install mdformat mdformat-gfm mdformat-tables mdformat-frontmatter
+
+      - name: Check markdown formatting
+        run: |
+          find . -name "*.md" \
+            ! -path "*/.venv*/*" \
+            ! -path "*/node_modules/*" \
+            ! -path "*/temp/*" \
+            ! -path "*/artifacts/*" \
+            -exec mdformat --check --wrap 120 {} +
+
   test:
     name: Test Suite
     runs-on: ${{ matrix.os }}

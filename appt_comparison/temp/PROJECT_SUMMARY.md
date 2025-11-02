@@ -1,6 +1,6 @@
 # Appointment Comparison Validator - Project Summary
 
-## ✅ Project Bootstrap Complete!
+## ✅ Project Bootstrap Complete
 
 The `appointment_comparison` project has been successfully created following the repository's integrated pattern.
 
@@ -39,6 +39,7 @@ Shared Data Directories (created):
 ## 🎯 Core Features Implemented
 
 ### 1. CSV Processing (`csv_handler.py`)
+
 - ✅ Read CSV with UTF-8 BOM handling
 - ✅ Parse dates from M/D/YY format (25=2025, 26=2026)
 - ✅ Clean cancelled rows automatically
@@ -46,18 +47,21 @@ Shared Data Directories (created):
 - ✅ Write enriched output CSV
 
 ### 2. Field Comparison (`field_comparator.py`)
+
 - ✅ **PatientRef**: Exact number match (no decimals)
 - ✅ **VisitTypeValue**: Case-insensitive, trimmed comparison
 - ✅ **AvailabilityDate**: Date-only comparison (ignores time)
 - ✅ **VisitStartDateTime**: Exact string match
 
 ### 3. MongoDB Matching (`mongo_matcher.py`)
+
 - ✅ **Primary matching**: Batch lookup by AthenaAppointmentId using `$in`
 - ✅ **Secondary matching**: 4-field combination fallback
 - ✅ Retry logic with exponential backoff (max 3 attempts)
 - ✅ Aggregation pipeline with `$unwind` for nested documents
 
 ### 4. Validation Orchestration (`validator.py`)
+
 - ✅ Batch processing (default: 100 rows per batch)
 - ✅ Progress logging (every 100 rows)
 - ✅ Statistics tracking (matches, mismatches, missing fields)
@@ -65,6 +69,7 @@ Shared Data Directories (created):
 - ✅ JSON summary for machine reading
 
 ### 5. CLI Interface (`__main__.py`)
+
 - ✅ `--input`: Input CSV filename
 - ✅ `--env`: Override APP_ENV (PROD, STG, LOCL)
 - ✅ `--collection`: MongoDB collection name
@@ -75,17 +80,20 @@ Shared Data Directories (created):
 ## 🔧 Integration with Repository
 
 ### Uses Common Config ✅
+
 - Settings management via `get_settings()`
 - Logging via `setup_logging()` and `get_logger()`
 - MongoDB connection via `MongoDBConnection`
 - Standard paths: data/input, data/output, logs
 
 ### Environment Configuration ✅
+
 - Supports `APP_ENV` switching (PROD, STG, LOCL)
 - Reads from `shared_config/.env`
 - Environment-suffixed variables: `MONGODB_URI_<ENV>`, `DATABASE_NAME_<ENV>`
 
 ### Standard Patterns ✅
+
 - Black & Ruff code formatting (120 line length)
 - Typer CLI framework
 - Batch processing with progress logging
@@ -95,6 +103,7 @@ Shared Data Directories (created):
 ## 📊 Validation Logic
 
 ### Primary Matching
+
 1. Batch query MongoDB by `AthenaAppointmentId` using `$in`
 2. If found:
    - Mark `AthenaAppointmentId Found? = True`
@@ -103,6 +112,7 @@ Shared Data Directories (created):
    - If mismatch → `Total Match? = False`, list mismatched fields
 
 ### Secondary Matching (Fallback)
+
 3. If `AthenaAppointmentId` not found:
    - Mark `AthenaAppointmentId Found? = False`
    - Query using 4-field combination (PatientRef, VisitTypeValue, AvailabilityDate, VisitStartDateTime)
@@ -110,6 +120,7 @@ Shared Data Directories (created):
    - If no match → `Total Match? = False`
 
 ### Missing Fields Handling
+
 - If required fields missing → List in `Missing Fields` column
 - No MongoDB query executed
 - Comment: "Missing required fields - no comparison performed"
@@ -129,12 +140,14 @@ Output CSV includes all original columns plus:
 ## 🧪 Testing
 
 Basic smoke tests included in `tests/test_smoke.py`:
+
 - ✅ Import test for all modules
 - ✅ Date parsing test
 - ✅ PatientRef comparison test
 - ✅ VisitTypeValue comparison test
 
 Run tests:
+
 ```bash
 cd appointment_comparison
 pytest tests/
@@ -143,17 +156,20 @@ pytest tests/
 ## 🚀 How to Run
 
 ### Quick Test (10 rows)
+
 ```bash
 cd appointment_comparison
 python run.py --input Daily_Appointment_Comparison_input1_20251023.csv --env PROD --limit 10
 ```
 
 ### Full Production Run
+
 ```bash
 python run.py --input Daily_Appointment_Comparison_input1_20251023.csv --env PROD
 ```
 
 ### With Custom Settings
+
 ```bash
 python run.py --input myfile.csv --env PROD --batch-size 200 --progress-frequency 500
 ```
@@ -183,6 +199,7 @@ All requirements from `REQUIRMENT.md` have been implemented:
 ## 🎉 Next Steps
 
 1. **Test the project**:
+
    ```bash
    cd appointment_comparison
    python run.py --input Daily_Appointment_Comparison_input1_20251023.csv --env PROD --limit 10
@@ -193,6 +210,7 @@ All requirements from `REQUIRMENT.md` have been implemented:
    - Review `logs/appointment_comparison/{timestamp}_app.log`
 
 3. **Run full validation**:
+
    ```bash
    python run.py --input Daily_Appointment_Comparison_input1_20251023.csv --env PROD
    ```

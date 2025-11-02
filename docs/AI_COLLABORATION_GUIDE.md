@@ -1,11 +1,11 @@
 # AI Collaboration Guide
 
-**Purpose:** Provide this document to AI assistants at the start of new sessions to establish collaboration principles and provide repository context.
+**Purpose:** Provide this document to AI assistants at the start of new sessions to establish collaboration principles
+and provide repository context.
 
-**Version:** 1.0
-**Last Updated:** 2025-01-28
+**Version:** 1.1 **Last Updated:** 2025-11-02
 
----
+______________________________________________________________________
 
 <details open>
 <summary><strong>📖 Table of Contents</strong> (click to expand/collapse)</summary>
@@ -17,6 +17,7 @@
   - [3. Security is Non-Negotiable](#3-security-is-non-negotiable)
   - [4. Follow Standards](#4-follow-standards)
   - [5. Testing and Validation](#5-testing-and-validation)
+- [Code Quality Tools Explained](#code-quality-tools-explained)
 - [Essential Documentation (Read First)](#essential-documentation-read-first)
   - [Start Here](#start-here)
   - [Standards and Best Practices](#standards-and-best-practices)
@@ -24,7 +25,7 @@
 - [Repository Structure](#repository-structure)
 - [Standard CLI Pattern](#standard-cli-pattern)
 - [Environment Configuration Pattern](#environment-configuration-pattern)
-- [Common Import Paths](#common-import-paths-critical)
+- \[Common Import Paths(⭐ Critical)\](#Common-Import-Paths-(⭐ Critical))
 - [Common Patterns and Anti-Patterns](#common-patterns-and-anti-patterns)
   - [✅ DO](#-do)
   - [❌ DON'T](#-dont)
@@ -39,18 +40,21 @@
 - [Communication Style](#communication-style)
 - [Project-Specific Notes](#project-specific-notes)
 - [Git Workflow](#git-workflow)
+- [Pre-Push Validation & Hooks](#pre-push-validation--hooks)
 - [Quick Reference Card](#quick-reference-card)
 - [Red Flags to Watch For](#red-flags-to-watch-for)
 - [Summary Checklist](#summary-checklist)
 - [Getting Help](#getting-help)
+- [Related Documentation](#related-documentation)
 
 </details>
 
----
+______________________________________________________________________
 
 ## Quick Context
 
 This is a **Python monorepo** with multiple production projects sharing:
+
 - Virtual environment (`.venv311/`)
 - Common configuration library (`common_config/`)
 - Centralized data, logs, and artifacts
@@ -58,13 +62,14 @@ This is a **Python monorepo** with multiple production projects sharing:
 
 **Key fact:** All projects follow strict standards documented in `docs/best-practices/` and `docs/guides/`.
 
----
+______________________________________________________________________
 
 ## Core Principles
 
 ### 1. **Documentation First**
 
 **DO:**
+
 - ✅ Check existing documentation before implementing
 - ✅ Consult `docs/guides/COMMON_CONFIG_API_REFERENCE.md` for correct import paths
 - ✅ Follow `docs/best-practices/CLI_PATTERNS.md` for CLI implementations
@@ -72,6 +77,7 @@ This is a **Python monorepo** with multiple production projects sharing:
 - ✅ Create documentation for new patterns
 
 **DON'T:**
+
 - ❌ Guess import paths (causes `ModuleNotFoundError`)
 - ❌ Create new patterns without documenting them
 - ❌ Skip reading existing guides
@@ -80,37 +86,56 @@ This is a **Python monorepo** with multiple production projects sharing:
 ### 2. **Explain, Don't Just Fix**
 
 **DO:**
+
 - ✅ Explain WHY errors happened
 - ✅ Explain HOW to prevent them in future
 - ✅ Document root causes and prevention strategies
 - ✅ Create lessons-learned documents when appropriate
 
 **DON'T:**
+
 - ❌ Just fix issues without explanation
 - ❌ Skip root cause analysis
 - ❌ Leave the user vulnerable to repeating the same mistake
 
 **User's direct quote:**
-> "please dont just fix things. Explain why it happened, and most importantly discuss what can be done to avoid this from happening in future projects."
+
+> "please dont just fix things. Explain why it happened, and most importantly discuss what can be done to avoid this
+> from happening in future projects."
 
 ### 3. **Security is Non-Negotiable**
 
 **DO:**
+
 - ✅ ALWAYS redact credentials in logs using `redact_uri()`
 - ✅ Import from `common_config.utils.security`
 - ✅ Review logs for credential exposure
 - ✅ Use environment variables, never hardcode credentials
+- ✅ Use `<placeholder>` syntax in documentation (e.g., `<username>:<password>`)
 
 **DON'T:**
+
 - ❌ NEVER log raw URIs, passwords, or API keys
 - ❌ NEVER expose credentials in console output
 - ❌ NEVER commit credentials to git
+- ❌ NEVER use literal credential patterns in documentation (e.g., `user:password`)
 
-**Critical:** Logging credentials is a security vulnerability. See `docs/best-practices/CLI_PATTERNS.md` Security Requirements section.
+**Documentation Security:**
+
+- Use `<username>:<password>` NOT `user:password` in examples
+- Literal patterns trigger GitHub Secret Scanning
+- See SECURITY_PATTERNS.md lines 184-190 for approved patterns
+- Previous incidents: 2025-10-28 (GitHub Secret Scanning alerts)
+
+**Critical References:**
+
+- `docs/best-practices/SECURITY_PATTERNS.md` - Comprehensive security guide
+- `docs/best-practices/CLI_PATTERNS.md` - Security Requirements section
 
 ### 4. **Follow Standards**
 
 **DO:**
+
 - ✅ Use `--env` for environment switching (not `--mongodb-uri`, `--database`)
 - ✅ Pass collection names via CLI `--collection` (never in `.env`)
 - ✅ Follow file naming: `YYYYMMDD_HHMMSS_description.ext`
@@ -118,6 +143,7 @@ This is a **Python monorepo** with multiple production projects sharing:
 - ✅ Follow monorepo structure and conventions
 
 **DON'T:**
+
 - ❌ Create project-specific .env files (use `shared_config/.env`)
 - ❌ Create custom CLI patterns (use standard)
 - ❌ Put collection names in configuration files
@@ -126,30 +152,91 @@ This is a **Python monorepo** with multiple production projects sharing:
 ### 5. **Testing and Validation**
 
 **DO:**
+
 - ✅ Run tests after making changes
 - ✅ Verify commands work before claiming completion
 - ✅ Test edge cases and error scenarios
-- ✅ Run linting (Black, Ruff) before committing
+- ✅ Run formatting (Black) and linting (Ruff) before committing
+- ✅ Run type checking (Pyright) to catch type errors
+- ✅ Use `./scripts/lint.sh` which runs all quality checks
 
 **DON'T:**
+
 - ❌ Skip testing
 - ❌ Assume code works without verification
 - ❌ Ignore linting errors
 - ❌ Break existing tests
+- ❌ Confuse Black (formatter) with Ruff (linter)
 
----
+______________________________________________________________________
+
+## Code Quality Tools Explained
+
+**Three tools, three purposes:**
+
+### 1. Black (Formatter) 🎨
+
+**Purpose:** Automatically formats code to a consistent style
+
+**Usage:**
+
+```bash
+black .              # Format all files
+black --check .      # Check without modifying
+black --diff .       # Show what would change
+```
+
+**In CI/CD:** `black --check --diff .` (line 42 of `.github/workflows/ci.yml`)
+
+### 2. Ruff (Linter) 🔍
+
+**Purpose:** Finds code quality issues, unused imports, etc.
+
+**Usage:**
+
+```bash
+ruff check .         # Check for issues
+ruff check . --fix   # Auto-fix issues
+```
+
+**In CI/CD:** `ruff check .` (line 45 of `.github/workflows/ci.yml`)
+
+### 3. Pyright (Type Checker) 🔧
+
+**Purpose:** Finds type errors and type inconsistencies
+
+**Usage:**
+
+```bash
+pyright .            # Check types
+pyright <file>       # Check specific file
+```
+
+**In CI/CD:** `pyright || true` (line 48 of `.github/workflows/ci.yml`, continues on error)
+
+______________________________________________________________________
+
+**CRITICAL RULE:**
+
+- `scripts/lint.sh` MUST use the same tools and configuration as CI/CD
+- CI/CD uses **Black for formatting** (not Ruff)
+- Mismatch = push will fail CI/CD checks
+
+______________________________________________________________________
 
 ## Essential Documentation (Read First)
 
 ### Start Here
 
 1. **[README.md](../README.md)** - Repository overview, task-based navigation
-2. **[COMMON_CONFIG_API_REFERENCE.md](guides/COMMON_CONFIG_API_REFERENCE.md)** ⭐⭐⭐ - Correct import paths
-3. **[CLI_PATTERNS.md](best-practices/CLI_PATTERNS.md)** ⭐⭐ - Standard CLI patterns
-4. **[NEW_PROJECT_GUIDE.md](guides/NEW_PROJECT_GUIDE.md)** - Creating projects
+1. **[SECURITY_PATTERNS.md](best-practices/SECURITY_PATTERNS.md)** ⭐⭐⭐ - Security guidelines (CRITICAL)
+1. **[COMMON_CONFIG_API_REFERENCE.md](guides/COMMON_CONFIG_API_REFERENCE.md)** ⭐⭐⭐ - Correct import paths
+1. **[CLI_PATTERNS.md](best-practices/CLI_PATTERNS.md)** ⭐⭐ - Standard CLI patterns
+1. **[NEW_PROJECT_GUIDE.md](guides/NEW_PROJECT_GUIDE.md)** - Creating projects
 
 ### Standards and Best Practices
 
+- **[SECURITY_PATTERNS.md](best-practices/SECURITY_PATTERNS.md)** - Security guidelines, credential handling
 - **[CLI_PATTERNS.md](best-practices/CLI_PATTERNS.md)** - CLI standards (--env, --collection, security)
 - **[FILE_NAMING_CONVENTIONS.md](best-practices/FILE_NAMING_CONVENTIONS.md)** - Output/log file naming
 - **[IMPORT_PATH_ISSUES.md](best-practices/IMPORT_PATH_ISSUES.md)** - Common import errors
@@ -161,7 +248,7 @@ This is a **Python monorepo** with multiple production projects sharing:
 - **[REPOSITORY_LESSONS_LEARNED.md](best-practices/REPOSITORY_LESSONS_LEARNED.md)** - Organizational patterns
 - **[TESTING_GUIDE.md](guides/TESTING_GUIDE.md)** - Testing strategies
 
----
+______________________________________________________________________
 
 ## Repository Structure
 
@@ -189,7 +276,7 @@ python/
     └── README.md          # Project documentation
 ```
 
----
+______________________________________________________________________
 
 ## Standard CLI Pattern
 
@@ -241,7 +328,7 @@ def command_name(
 
 **See:** `docs/best-practices/CLI_PATTERNS.md` for complete details.
 
----
+______________________________________________________________________
 
 ## Environment Configuration Pattern
 
@@ -265,6 +352,7 @@ DATABASE_NAME_STG=staging_database
 ```
 
 **Usage:**
+
 ```bash
 # Use default (DEV)
 python project/run.py command
@@ -278,7 +366,7 @@ python project/run.py command --env STG
 
 **How it works:** `common_config` automatically resolves `MONGODB_URI_<ENV>` → `MONGODB_URI` when `APP_ENV` is set.
 
----
+______________________________________________________________________
 
 ## Common Import Paths (⭐ Critical)
 
@@ -303,7 +391,7 @@ from common_config.utils.file_ops import ensure_dir, archive_file
 
 **Why this is critical:** Wrong paths cause `ModuleNotFoundError`. See `docs/best-practices/IMPORT_PATH_ISSUES.md`.
 
----
+______________________________________________________________________
 
 ## Common Patterns and Anti-Patterns
 
@@ -349,7 +437,7 @@ mongodb_uri = "mongodb://prod-server:27017"  # WRONG
 from common_config.db.mongo_client import ...  # WRONG PATH
 ```
 
----
+______________________________________________________________________
 
 ## File Naming Conventions
 
@@ -360,6 +448,7 @@ YYYYMMDD_HHMMSS_description.ext
 ```
 
 **Examples:**
+
 - ✅ `20250128_143022_collection_stats_prod.csv`
 - ✅ `20250128_143022_app.log`
 - ✅ `20250128_143022_index_stats_dev.csv`
@@ -368,32 +457,36 @@ YYYYMMDD_HHMMSS_description.ext
 
 **Why:** Chronological sorting, easy cleanup, consistent across projects.
 
----
+______________________________________________________________________
 
 ## Todo List Management
 
 **Use the TodoWrite tool for:**
+
 - Complex multi-step tasks (3+ steps)
 - Tasks with dependencies
 - User-provided task lists
 - Long-running implementations
 
 **Don't use for:**
+
 - Single trivial tasks
 - Purely conversational tasks
 - Tasks completable in 1-2 steps
 
 **Pattern:**
-1. Create todos at task start
-2. Mark ONE todo as in_progress before working on it
-3. Mark completed IMMEDIATELY when done (don't batch)
-4. Keep list current and accurate
 
----
+1. Create todos at task start
+1. Mark ONE todo as in_progress before working on it
+1. Mark completed IMMEDIATELY when done (don't batch)
+1. Keep list current and accurate
+
+______________________________________________________________________
 
 ## When User Opens Files
 
 **The user opening a file in the IDE is a signal:**
+
 - They may be reviewing your changes
 - They may be about to ask about that file
 - They may have found an issue
@@ -401,53 +494,55 @@ YYYYMMDD_HHMMSS_description.ext
 
 **Don't:** Immediately comment on every file opened. Wait for user's question/feedback.
 
----
+______________________________________________________________________
 
 ## Collaboration Workflow
 
 ### When Starting a Task
 
 1. **Understand the requirement** - Ask clarifying questions if needed
-2. **Check existing patterns** - Review relevant documentation
-3. **Plan if complex** - Use TodoWrite for multi-step tasks
-4. **Explain approach** - Let user know your plan
+1. **Check existing patterns** - Review relevant documentation
+1. **Plan if complex** - Use TodoWrite for multi-step tasks
+1. **Explain approach** - Let user know your plan
 
 ### During Implementation
 
 1. **Follow standards** - Use documented patterns
-2. **Explain as you go** - Don't just code silently
-3. **Update documentation** - Keep docs current
-4. **Test your changes** - Verify they work
+1. **Explain as you go** - Don't just code silently
+1. **Update documentation** - Keep docs current
+1. **Test your changes** - Verify they work
 
 ### After Completion
 
 1. **Verify it works** - Test the implementation
-2. **Explain what you did** - Summary of changes
-3. **Document prevention** - How to avoid similar issues
-4. **Update standards** - If new patterns emerged
+1. **Explain what you did** - Summary of changes
+1. **Document prevention** - How to avoid similar issues
+1. **Update standards** - If new patterns emerged
 
----
+______________________________________________________________________
 
 ## Error Handling Philosophy
 
 **When errors occur:**
 
 1. **Don't just fix** - Explain the root cause
-2. **Prevent recurrence** - Document prevention strategy
-3. **Update guides** - Add to relevant documentation
-4. **Share lessons** - Create lessons-learned docs if needed
+1. **Prevent recurrence** - Document prevention strategy
+1. **Update guides** - Add to relevant documentation
+1. **Share lessons** - Create lessons-learned docs if needed
 
 **Example:**
+
 - Error: `ModuleNotFoundError: No module named 'common_config.db.mongo_client'`
 - Fix: Change to `from common_config.connectors.mongodb import get_mongo_client`
 - Prevention: Created `IMPORT_PATH_ISSUES.md` and updated `COMMON_CONFIG_API_REFERENCE.md`
 - Result: Future developers avoid this mistake
 
----
+______________________________________________________________________
 
 ## Communication Style
 
 **DO:**
+
 - ✅ Be concise but thorough
 - ✅ Use code examples
 - ✅ Explain reasoning
@@ -455,12 +550,13 @@ YYYYMMDD_HHMMSS_description.ext
 - ✅ Anticipate follow-up questions
 
 **DON'T:**
+
 - ❌ Be overly verbose
 - ❌ Use emojis unless user does
 - ❌ Assume user knows internal details
 - ❌ Skip explanations
 
----
+______________________________________________________________________
 
 ## Project-Specific Notes
 
@@ -478,11 +574,12 @@ YYYYMMDD_HHMMSS_description.ext
 - Used by: All projects in the monorepo
 - Documentation: `docs/guides/COMMON_CONFIG_API_REFERENCE.md`
 
----
+______________________________________________________________________
 
 ## Git Workflow
 
 **When committing:**
+
 - Only commit when user explicitly asks
 - Follow commit message pattern from git history
 - Include footer: `🤖 Generated with [Claude Code](https://claude.com/claude-code)`
@@ -491,36 +588,71 @@ YYYYMMDD_HHMMSS_description.ext
 
 **See:** Git Safety Protocol in Bash tool description
 
----
+______________________________________________________________________
+
+## Pre-Push Validation & Hooks
+
+**Automatic Safety Net:**
+
+The repository has an automatic pre-push hook that validates code before pushing.
+
+**Location:** `.git/hooks/pre-push`
+
+**What it does:**
+
+1. Activates virtual environment (.venv311 or .venv312)
+1. Runs `scripts/lint.sh`:
+   - Black (formatter)
+   - Ruff (linter)
+   - Pyright (type checker)
+1. Runs tests: `pytest -q --maxfail=1 --disable-warnings -m "not integration"`
+1. Checks for cross-platform issues
+
+**Manual execution:**
+
+```bash
+./scripts/pre-push-check.sh
+```
+
+**To bypass (NOT recommended):**
+
+```bash
+git push --no-verify
+```
+
+**CRITICAL:** Never bypass unless emergency. Always fix issues instead.
+
+**Why this matters:**
+
+- Catches issues before they reach CI/CD
+- Prevents failed builds
+- Ensures code quality standards
+- Saves time by catching errors early
+
+______________________________________________________________________
 
 ## Quick Reference Card
 
-**When user asks to create a new CLI project:**
-→ Use template from `docs/best-practices/CLI_PATTERNS.md`
+**When user asks to create a new CLI project:** → Use template from `docs/best-practices/CLI_PATTERNS.md`
 
-**When user reports import error:**
-→ Check `docs/guides/COMMON_CONFIG_API_REFERENCE.md` for correct path
+**When user reports import error:** → Check `docs/guides/COMMON_CONFIG_API_REFERENCE.md` for correct path
 
-**When user wants to add new functionality:**
-→ Check if pattern exists, if not discuss and document
+**When user wants to add new functionality:** → Check if pattern exists, if not discuss and document
 
-**When credentials appear in logs:**
-→ Implement `redact_uri()` immediately
+**When credentials appear in logs:** → Implement `redact_uri()` immediately
 
-**When user says "document this":**
-→ Add to existing docs or create new doc in `docs/best-practices/`
+**When user says "document this":** → Add to existing docs or create new doc in `docs/best-practices/`
 
-**When user opens a file:**
-→ Wait for their question/feedback, don't proactively comment
+**When user opens a file:** → Wait for their question/feedback, don't proactively comment
 
-**When user says "fix tests":**
-→ Run tests, fix issues, explain what broke and why
+**When user says "fix tests":** → Run tests, fix issues, explain what broke and why
 
----
+______________________________________________________________________
 
 ## Red Flags to Watch For
 
 🚨 **Immediate action required:**
+
 - Credentials in logs
 - Import errors (check API reference)
 - Hardcoded environment values
@@ -528,13 +660,28 @@ YYYYMMDD_HHMMSS_description.ext
 - Missing documentation for new patterns
 - Skipped security utilities
 
+🚨 **Documentation Security:**
+
+- Literal credential patterns in docs (`user:password` instead of `<username>:<password>`)
+- Realistic-looking credentials (triggers GitHub Secret Scanning)
+- MongoDB URIs with credentials: `mongodb://user:pass@host` (use placeholders)
+- API keys or tokens in examples without placeholders
+
+🚨 **Code Quality:**
+
+- Local `lint.sh` doesn't match CI/CD configuration
+- Using Ruff for formatting when CI/CD expects Black
+- Skipping formatter checks before committing
+- Pre-push hook bypassed (`--no-verify`)
+
 ⚠️ **Discussion needed:**
+
 - Creating new patterns vs. using existing
 - Deviating from standards
 - Adding new dependencies
 - Major architectural changes
 
----
+______________________________________________________________________
 
 ## Summary Checklist
 
@@ -550,22 +697,58 @@ Before considering a task complete:
 - [ ] Prevention strategy documented
 - [ ] File naming conventions followed
 - [ ] No hardcoded values
+- [ ] Documentation uses `<placeholder>` syntax for all credentials
+- [ ] No literal credential patterns (user:password, API keys, etc.)
+- [ ] Searched for patterns: `grep -r "mongodb.*://.*:.*@" docs/`
+- [ ] Local `lint.sh` matches CI/CD (`.github/workflows/ci.yml`)
+- [ ] Black used for formatting (not Ruff)
+- [ ] Pre-push validation passes
 
----
+______________________________________________________________________
 
 ## Getting Help
 
 **If uncertain:**
+
 1. Search `docs/` for relevant guides
-2. Check `docs/README.md` for documentation index
-3. Ask user for clarification
-4. Don't guess - verify
+1. Check `docs/README.md` for documentation index
+1. Ask user for clarification
+1. Don't guess - verify
 
 **Master documentation hub:** `README.md` at repository root
 
 **Complete documentation index:** `docs/README.md`
 
----
+______________________________________________________________________
+
+## Related Documentation
+
+**Essential Reading:**
+
+- [SECURITY_PATTERNS.md](best-practices/SECURITY_PATTERNS.md) ⭐⭐⭐ - Security guidelines
+- [CLI_PATTERNS.md](best-practices/CLI_PATTERNS.md) - CLI standards
+- [COMMON_CONFIG_API_REFERENCE.md](guides/COMMON_CONFIG_API_REFERENCE.md) - Import paths
+- [FILE_NAMING_CONVENTIONS.md](best-practices/FILE_NAMING_CONVENTIONS.md) - Output file naming
+
+**Standards & Patterns:**
+
+- [DOCUMENTATION_STANDARDS.md](best-practices/DOCUMENTATION_STANDARDS.md)
+- [IMPORT_PATH_ISSUES.md](best-practices/IMPORT_PATH_ISSUES.md)
+- [MONGODB_VALIDATION_BEST_PRACTICES.md](best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md)
+
+**CI/CD & Infrastructure:**
+
+- [CI_CD_LESSONS_LEARNED.md](best-practices/CI_CD_LESSONS_LEARNED.md)
+- `.github/workflows/ci.yml` - CI/CD pipeline configuration
+- `.github/REPOSITORY_SETUP.md` - Repository setup guide
+
+**Scripts:**
+
+- `scripts/lint.sh` - Local code quality checks
+- `scripts/pre-push-check.sh` - Pre-push validation
+- `.git/hooks/pre-push` - Automatic pre-push hook
+
+______________________________________________________________________
 
 **Questions?** Ask the user. Better to clarify than to assume incorrectly.
 

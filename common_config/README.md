@@ -1,7 +1,7 @@
 # common_config
 
-Shared configuration, logging, database utilities, and a Typer-based scaffolder
-to create new sibling projects with consistent repository standards.
+Shared configuration, logging, database utilities, and a Typer-based scaffolder to create new sibling projects with
+consistent repository standards.
 
 ## Features
 
@@ -40,6 +40,7 @@ repository-root/
 ```
 
 **Key Principles:**
+
 - ❌ No per-project `config/`, `data/`, `logs/`, `archive/` directories
 - ✅ Single `.env` at `shared_config/.env`
 - ✅ Centralized data and logs at repository root
@@ -73,6 +74,7 @@ This creates:
 This creates:
 
 **Project Structure:**
+
 ```
 my_new_project/
 ├── src/my_new_project/    # Python package
@@ -90,14 +92,15 @@ my_new_project/
 ```
 
 **Centralized Directories Created:**
+
 ```
 data/input/my_new_project/    # At repository root
 data/output/my_new_project/   # At repository root
 logs/my_new_project/          # At repository root
 ```
 
-**Note:** No per-project `config/`, `data/`, `logs/`, or `archive/` directories are created.
-All environment variables go in `shared_config/.env` at repository root.
+**Note:** No per-project `config/`, `data/`, `logs/`, or `archive/` directories are created. All environment variables
+go in `shared_config/.env` at repository root.
 
 ## Using in a Project
 
@@ -159,6 +162,7 @@ LOG_DIR=logs
 ```
 
 **Environment Suffix Resolution:**
+
 - Set `APP_ENV=LOCL` → uses `MONGODB_URI_LOCL`, `DATABASE_NAME_LOCL`
 - Set `APP_ENV=PROD` → uses `MONGODB_URI_PROD`, `DATABASE_NAME_PROD`
 
@@ -194,8 +198,8 @@ pytest my_project/tests/ --cov=my_project
 # Coverage reports go to artifacts/coverage/
 ```
 
-**Shared Fixtures:**
-Use fixtures from `tests/conftest.py` at repository root:
+**Shared Fixtures:** Use fixtures from `tests/conftest.py` at repository root:
+
 - `mock_mongo_connection` - Mock MongoDB for testing
 - `mock_settings` - Mock settings
 - `temp_data_dir`, `temp_log_dir` - Temporary directories
@@ -206,9 +210,10 @@ See `docs/TESTING_GUIDE.md` for complete testing documentation.
 ## CI/CD Integration
 
 Projects automatically tested via GitHub Actions:
+
 1. **Lint** - Ruff linting and formatting checks
-2. **Type-check** - Pyright static analysis
-3. **Tests** - pytest with coverage reports uploaded to artifacts
+1. **Type-check** - Pyright static analysis
+1. **Tests** - pytest with coverage reports uploaded to artifacts
 
 See `.github/workflows/README.md` for workflow details.
 
@@ -217,17 +222,24 @@ See `.github/workflows/README.md` for workflow details.
 If you have projects with old structure (`config/.env`, per-project `data/`, `logs/`):
 
 1. **Move environment variables** to `shared_config/.env`
-2. **Move data files**:
+
+1. **Move data files**:
+
    - `my_project/data/input/*` → `data/input/my_project/`
    - `my_project/data/output/*` → `data/output/my_project/`
-3. **Move logs**: `my_project/logs/*` → `logs/my_project/`
-4. **Archive old files**: `my_project/archive/*` → `archive/projects/my_project/`
-5. **Remove** `my_project/config/`, `my_project/data/`, `my_project/logs/`, `my_project/archive/`
-6. **Update code** to use centralized paths:
+
+1. **Move logs**: `my_project/logs/*` → `logs/my_project/`
+
+1. **Archive old files**: `my_project/archive/*` → `archive/projects/my_project/`
+
+1. **Remove** `my_project/config/`, `my_project/data/`, `my_project/logs/`, `my_project/archive/`
+
+1. **Update code** to use centralized paths:
+
    ```python
    # Old
    log_dir = Path("logs")
-   
+
    # New  
    log_dir = Path(settings.paths.logs) / "my_project"
    log_dir.mkdir(parents=True, exist_ok=True)
@@ -237,7 +249,7 @@ If you have projects with old structure (`config/.env`, per-project `data/`, `lo
 
 - `REPOSITORY_STANDARDS.md` - Complete repository structure and standards
 - `docs/TESTING_GUIDE.md` - Testing guidelines and fixtures
-- `.github/workflows/README.md` - CI/CD pipeline documentation  
+- `.github/workflows/README.md` - CI/CD pipeline documentation
 - `archive/README.md` - Archive directory usage and policies
 
 ## CLI Options Reference

@@ -4,7 +4,7 @@ This document provides instructions for configuring the GitHub repository settin
 
 ## Repository URL
 
-**https://github.com/Korrojo/python-projects**
+**<https://github.com/Korrojo/python-projects>**
 
 ## Initial Setup Completed ✅
 
@@ -34,12 +34,14 @@ Configure branch protection for the `main` branch:
 **Protect matching branches:**
 
 - [x] **Require a pull request before merging**
+
   - [x] Require approvals: 1
   - [ ] Dismiss stale pull request approvals when new commits are pushed
   - [ ] Require review from Code Owners
   - [ ] Restrict who can dismiss pull request reviews
 
 - [x] **Require status checks to pass before merging**
+
   - [x] Require branches to be up to date before merging
   - Required status checks:
     - `Code Quality & Linting`
@@ -56,6 +58,7 @@ Configure branch protection for the `main` branch:
 - [ ] **Include administrators** (optional - apply rules to admins too)
 
 - [x] **Allow force pushes** → Specify who can force push
+
   - Only allow specific people/teams (maintainers only)
 
 - [ ] **Allow deletions** (keep unchecked)
@@ -65,6 +68,7 @@ Configure branch protection for the `main` branch:
 Create similar rules for `develop` branch if using Git Flow:
 
 **Branch name pattern: `develop`**
+
 - Similar settings as main, but may allow fewer restrictions
 
 ### 2. Repository Topics
@@ -74,6 +78,7 @@ Add relevant topics to improve discoverability:
 **Settings → General → Topics**
 
 Suggested topics:
+
 - `python`
 - `python3`
 - `mongodb`
@@ -129,6 +134,7 @@ Enable the following:
 Create environments for deployment protection:
 
 #### Environment: `production`
+
 - Required reviewers: [Add team/user]
 - Wait timer: 0 minutes
 - Deployment branches: Only `main` branch
@@ -139,6 +145,7 @@ Create environments for deployment protection:
 **Issues → Labels**
 
 The following labels are automatically created:
+
 - `bug` ✅
 - `enhancement` ✅
 - `dependencies` ✅ (via Dependabot)
@@ -147,22 +154,22 @@ The following labels are automatically created:
 
 **Recommended additional labels:**
 
-| Label | Color | Description |
-|-------|-------|-------------|
-| `documentation` | `0075ca` | Improvements or additions to documentation |
-| `good first issue` | `7057ff` | Good for newcomers |
-| `help wanted` | `008672` | Extra attention is needed |
-| `question` | `d876e3` | Further information is requested |
-| `wontfix` | `ffffff` | This will not be worked on |
-| `duplicate` | `cfd3d7` | This issue or PR already exists |
-| `invalid` | `e4e669` | This doesn't seem right |
-| `performance` | `f9d0c4` | Performance improvements |
-| `refactor` | `fbca04` | Code refactoring |
-| `testing` | `0e8a16` | Related to testing |
-| `security` | `b60205` | Security-related issues |
-| `project:common_config` | `c5def5` | Related to common_config |
-| `project:patients_validator` | `c5def5` | Related to patients_hcmid_validator |
-| `project:automate_refresh` | `c5def5` | Related to automate_refresh |
+| Label                        | Color    | Description                                |
+| ---------------------------- | -------- | ------------------------------------------ |
+| `documentation`              | `0075ca` | Improvements or additions to documentation |
+| `good first issue`           | `7057ff` | Good for newcomers                         |
+| `help wanted`                | `008672` | Extra attention is needed                  |
+| `question`                   | `d876e3` | Further information is requested           |
+| `wontfix`                    | `ffffff` | This will not be worked on                 |
+| `duplicate`                  | `cfd3d7` | This issue or PR already exists            |
+| `invalid`                    | `e4e669` | This doesn't seem right                    |
+| `performance`                | `f9d0c4` | Performance improvements                   |
+| `refactor`                   | `fbca04` | Code refactoring                           |
+| `testing`                    | `0e8a16` | Related to testing                         |
+| `security`                   | `b60205` | Security-related issues                    |
+| `project:common_config`      | `c5def5` | Related to common_config                   |
+| `project:patients_validator` | `c5def5` | Related to patients_hcmid_validator        |
+| `project:automate_refresh`   | `c5def5` | Related to automate_refresh                |
 
 ### 8. Collaborators & Teams (If working with a team)
 
@@ -177,6 +184,7 @@ The following labels are automatically created:
 **Settings → Webhooks**
 
 Consider adding webhooks for:
+
 - Slack/Discord notifications
 - CI/CD pipelines
 - Issue tracking systems
@@ -187,6 +195,7 @@ Consider adding webhooks for:
 **Settings → Pages**
 
 If you want to host documentation:
+
 - Source: Deploy from a branch
 - Branch: `gh-pages` or `main` with `/docs` folder
 - Custom domain: (optional)
@@ -207,7 +216,9 @@ After configuration, verify:
 ## Best Practices for Repository Management
 
 ### Commit Messages
+
 Follow Conventional Commits format:
+
 ```
 type(scope): subject
 
@@ -219,6 +230,7 @@ footer
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`
 
 ### Branch Naming
+
 - `feature/description` - New features
 - `fix/description` - Bug fixes
 - `docs/description` - Documentation
@@ -226,22 +238,25 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`
 - `test/description` - Testing updates
 
 ### Pull Request Workflow
+
 1. Create feature branch from `main`
-2. Make changes and commit
-3. Push branch and create PR
-4. Wait for CI checks to pass
-5. Request review
-6. Address feedback
-7. Merge when approved
+1. Make changes and commit
+1. Push branch and create PR
+1. Wait for CI checks to pass
+1. Request review
+1. Address feedback
+1. Merge when approved
 
 ### Release Process
+
 1. Update CHANGELOG.md
-2. Bump version in relevant files
-3. Create and push version tag: `git tag -a v1.0.0 -m "Release v1.0.0"`
-4. Push tag: `git push origin v1.0.0`
-5. GitHub Actions will create release automatically
+1. Bump version in relevant files
+1. Create and push version tag: `git tag -a v1.0.0 -m "Release v1.0.0"`
+1. Push tag: `git push origin v1.0.0`
+1. GitHub Actions will create release automatically
 
 ### Security
+
 - Never commit `.env` files
 - Keep dependencies updated
 - Review and fix Dependabot alerts promptly
@@ -251,16 +266,19 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`
 ## Useful Commands
 
 ### View Repository Info
+
 ```bash
 gh repo view Korrojo/python-projects
 ```
 
 ### Open Repository in Browser
+
 ```bash
 gh repo view Korrojo/python-projects --web
 ```
 
 ### Clone Repository
+
 ```bash
 gh repo clone Korrojo/python-projects
 # OR
@@ -268,16 +286,19 @@ git clone https://github.com/Korrojo/python-projects.git
 ```
 
 ### Create Issue
+
 ```bash
 gh issue create --title "Bug: Something broken" --body "Description here"
 ```
 
 ### Create Pull Request
+
 ```bash
 gh pr create --title "feat: Add new feature" --body "Description here"
 ```
 
 ### View CI Status
+
 ```bash
 gh run list --limit 10
 gh run view [run-id]
@@ -285,9 +306,9 @@ gh run view [run-id]
 
 ## Support & Resources
 
-- **Repository**: https://github.com/Korrojo/python-projects
-- **Issues**: https://github.com/Korrojo/python-projects/issues
-- **Discussions**: https://github.com/Korrojo/python-projects/discussions
+- **Repository**: <https://github.com/Korrojo/python-projects>
+- **Issues**: <https://github.com/Korrojo/python-projects/issues>
+- **Discussions**: <https://github.com/Korrojo/python-projects/discussions>
 - **Documentation**: See `/docs` directory
 - **Contributing**: See `CONTRIBUTING.md`
 - **Security**: See `SECURITY.md`
@@ -295,23 +316,26 @@ gh run view [run-id]
 ## Monitoring & Maintenance
 
 ### Weekly Tasks
+
 - [ ] Review and merge Dependabot PRs
 - [ ] Check GitHub Security alerts
 - [ ] Review open issues and PRs
 - [ ] Update documentation as needed
 
 ### Monthly Tasks
+
 - [ ] Review repository analytics
 - [ ] Update dependencies manually if needed
 - [ ] Archive inactive issues
 - [ ] Review and update labels
 
 ### Quarterly Tasks
+
 - [ ] Major dependency updates
 - [ ] Security audit
 - [ ] Documentation review
 - [ ] Repository settings review
 
----
+______________________________________________________________________
 
 Last updated: 2025-01-26

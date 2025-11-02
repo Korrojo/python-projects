@@ -2,12 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
+[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ### Added
+
 - Initial repository setup with GitHub best practices
 - Comprehensive .gitignore for Python projects
 - MIT License
@@ -27,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Release automation workflow
 
 ### Projects Included
+
 - **common_config** - Shared configuration library
 - **patients_hcmid_validator** - High-volume CSV vs MongoDB validator
 - **patient_data_extraction** - Cross-DB patient data extractor
@@ -40,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2025-01-26
 
 ### Added
+
 - Initial commit
 - 8 production-ready Python projects
 - Unified configuration system via common_config
@@ -48,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Code quality tooling (Black, Ruff, Pyright)
 - Shared data/logs directory structure
 
----
+______________________________________________________________________
 
 ## Version History
 

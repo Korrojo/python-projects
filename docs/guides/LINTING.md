@@ -186,12 +186,15 @@ ignore = ["E501"]
 ## Troubleshooting
 
 **Black and Ruff conflict:**
+
 - Black handles line length (E501), so Ruff ignores it
 - Run Black first, then Ruff
 
 **Import sorting:**
+
 - Ruff's isort is enabled by default
 - First-party packages defined in `pyproject.toml`
 
 **Unused imports in `__init__.py`:**
+
 - Automatically ignored via `per-file-ignores`

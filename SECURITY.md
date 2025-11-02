@@ -10,13 +10,14 @@ We release patches for security vulnerabilities in the following versions:
 
 ## Reporting a Vulnerability
 
-We take the security of our software seriously. If you believe you have found a security vulnerability, please report it to us as described below.
+We take the security of our software seriously. If you believe you have found a security vulnerability, please report it
+to us as described below.
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
 ### How to Report
 
-Please report security vulnerabilities by emailing: **48iaemm5@duck.com**
+Please report security vulnerabilities by emailing: **<48iaemm5@duck.com>**
 
 Include the following information:
 
@@ -101,7 +102,8 @@ Before submitting code:
 
 ### MongoDB Injection
 
-This codebase uses PyMongo which provides protection against MongoDB injection when using proper query construction. However:
+This codebase uses PyMongo which provides protection against MongoDB injection when using proper query construction.
+However:
 
 - Always validate and sanitize user inputs
 - Use PyMongo's query operators properly
@@ -126,7 +128,8 @@ This codebase primarily handles database operations:
 
 ## Acknowledgments
 
-We appreciate the security research community's efforts in keeping open-source software secure. Security researchers who responsibly disclose vulnerabilities will be acknowledged in our release notes (unless they prefer to remain anonymous).
+We appreciate the security research community's efforts in keeping open-source software secure. Security researchers who
+responsibly disclose vulnerabilities will be acknowledged in our release notes (unless they prefer to remain anonymous).
 
 ## Updates to This Policy
 

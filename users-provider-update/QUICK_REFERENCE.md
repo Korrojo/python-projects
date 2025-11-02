@@ -17,34 +17,35 @@ python validate_users_update.py \
   --sample 10
 ```
 
----
+______________________________________________________________________
 
 ## 📁 File Locations
 
-| What | Where |
-|------|-------|
+| What          | Where                               |
+| ------------- | ----------------------------------- |
 | Raw CSV files | `data/input/users-provider-update/` |
-| Logs | `logs/users-provider-update/` |
+| Logs          | `logs/users-provider-update/`       |
 
----
+______________________________________________________________________
 
 ## 🔧 Configuration
 
-Uses unified `shared_config/.env` via `common_config` with `APP_ENV` and suffixed keys like `MONGODB_URI_TRNG`, `DATABASE_NAME_TRNG`.
+Uses unified `shared_config/.env` via `common_config` with `APP_ENV` and suffixed keys like `MONGODB_URI_TRNG`,
+`DATABASE_NAME_TRNG`.
 
----
+______________________________________________________________________
 
 ## 📊 CSV Column Mapping
 
-| CSV Column | MongoDB Field | Type |
-|------------|---------------|------|
-| `ID` | `AthenaProviderId` | Integer |
-| `First` | Match against `FirstName` | String |
-| `Last` | Match against `LastName` | String |
-| `User Name` | `AthenaUserName` | String |
-| `NPI` | `NPI` | String |
+| CSV Column  | MongoDB Field             | Type    |
+| ----------- | ------------------------- | ------- |
+| `ID`        | `AthenaProviderId`        | Integer |
+| `First`     | Match against `FirstName` | String  |
+| `Last`      | Match against `LastName`  | String  |
+| `User Name` | `AthenaUserName`          | String  |
+| `NPI`       | `NPI`                     | String  |
 
----
+______________________________________________________________________
 
 ## 🔍 Check Logs
 
@@ -59,18 +60,18 @@ ls -lt logs/users-provider-update/*_validation_users_update.log | head -1
 tail -50 logs/$(ls -t logs/ | head -1)
 ```
 
----
+______________________________________________________________________
 
 ## ⚠️ Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| Connection failed | Check `shared_config/.env` and `APP_ENV` |
-| CSV not found | Verify file is in `data/input/users-provider-update/` |
-| No updates | Check users have `IsActive: true` |
-| Import error | Run `pip install -r requirements.txt` |
+| Issue             | Solution                                              |
+| ----------------- | ----------------------------------------------------- |
+| Connection failed | Check `shared_config/.env` and `APP_ENV`              |
+| CSV not found     | Verify file is in `data/input/users-provider-update/` |
+| No updates        | Check users have `IsActive: true`                     |
+| Import error      | Run `pip install -r requirements.txt`                 |
 
----
+______________________________________________________________________
 
 ## 📝 Quick Commands
 
@@ -93,16 +94,16 @@ python validate_users_update.py \
 find logs/users-provider-update/ -name "*.log" -mtime +30 -delete
 ```
 
----
+______________________________________________________________________
 
 ## 🎯 Success Indicators
 
-✅ Update log shows "Successfully updated user..."  
-✅ Summary shows successful updates count  
-✅ Validation shows high match rate (>90%)  
+✅ Update log shows "Successfully updated user..."\
+✅ Summary shows successful updates count\
+✅ Validation shows high match rate (>90%)\
 ✅ No errors in log files
 
----
+______________________________________________________________________
 
 ## 📋 Processing Rules
 
@@ -112,6 +113,6 @@ find logs/users-provider-update/ -name "*.log" -mtime +30 -delete
 - ✅ Users with existing `AthenaProviderId` are skipped
 - ✅ Updates 3 fields: `AthenaProviderId`, `AthenaUserName`, `NPI`
 
----
+______________________________________________________________________
 
 **For Full Documentation**: See [README.md](README.md)

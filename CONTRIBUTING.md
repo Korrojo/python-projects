@@ -1,6 +1,7 @@
 # Contributing to Python Projects
 
-Thank you for your interest in contributing! This document provides guidelines and instructions for contributing to this repository.
+Thank you for your interest in contributing! This document provides guidelines and instructions for contributing to this
+repository.
 
 ## Table of Contents
 
@@ -16,7 +17,8 @@ Thank you for your interest in contributing! This document provides guidelines a
 
 ## Code of Conduct
 
-This project adheres to a Code of Conduct that all contributors are expected to follow. Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before contributing.
+This project adheres to a Code of Conduct that all contributors are expected to follow. Please read
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before contributing.
 
 ## Getting Started
 
@@ -31,18 +33,21 @@ This project adheres to a Code of Conduct that all contributors are expected to 
 
 1. **Fork the repository** on GitHub
 
-2. **Clone your fork**:
+1. **Clone your fork**:
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/python-projects.git
    cd python-projects
    ```
 
-3. **Add upstream remote**:
+1. **Add upstream remote**:
+
    ```bash
    git remote add upstream https://github.com/Korrojo/python-projects.git
    ```
 
-4. **Set up virtual environment**:
+1. **Set up virtual environment**:
+
    ```bash
    # Automated setup (recommended)
    ./install_venv.sh  # macOS/Linux/Git Bash
@@ -55,19 +60,22 @@ This project adheres to a Code of Conduct that all contributors are expected to 
    ./activate_venv.ps1  # Windows PowerShell
    ```
 
-5. **Install dependencies**:
+1. **Install dependencies**:
+
    ```bash
    pip install -r requirements.txt
    pip install -e ./common_config
    ```
 
-6. **Configure environment**:
+1. **Configure environment**:
+
    ```bash
    cp shared_config/.env.example shared_config/.env
    # Edit shared_config/.env with your configuration
    ```
 
-7. **Verify setup**:
+1. **Verify setup**:
+
    ```bash
    python -c "from common_config.config import get_settings; print(get_settings())"
    pytest -q
@@ -127,8 +135,11 @@ pyright
 ### Type Hints
 
 - Use type hints for all function signatures
+
 - Use `from typing import` for complex types
+
 - Example:
+
   ```python
   from typing import Optional, Dict, List
 
@@ -142,8 +153,11 @@ pyright
 ### Documentation
 
 - Use docstrings for all public functions/classes
+
 - Follow Google or NumPy docstring format
+
 - Example:
+
   ```python
   def validate_patient(patient_id: str, collection: str) -> bool:
       """Validate patient record against database.
@@ -166,9 +180,13 @@ pyright
 ### Writing Tests
 
 - Place tests in `tests/` directory
+
 - Use pytest framework
+
 - Aim for >80% code coverage
+
 - Use markers for test categorization:
+
   ```python
   import pytest
 
@@ -237,6 +255,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -278,6 +297,7 @@ Fixes #456
 ### Before Submitting
 
 1. **Update your branch**:
+
    ```bash
    git checkout main
    git pull upstream main
@@ -285,7 +305,8 @@ Fixes #456
    git rebase main
    ```
 
-2. **Run pre-push validation** (REQUIRED):
+1. **Run pre-push validation** (REQUIRED):
+
    ```bash
    # Ensure virtual environment is activated
    source .venv311/bin/activate
@@ -295,16 +316,18 @@ Fixes #456
    ```
 
    **This script automatically checks:**
+
    - ✅ Virtual environment is activated
    - ✅ Code formatting (Black)
    - ✅ Linting (Ruff)
    - ✅ All tests pass
    - ✅ Cross-platform compatibility issues
 
-   **Note:** A git pre-push hook is configured to run this automatically.
-   You can bypass it in emergencies with `git push --no-verify` (not recommended).
+   **Note:** A git pre-push hook is configured to run this automatically. You can bypass it in emergencies with
+   `git push --no-verify` (not recommended).
 
-3. **Manual quality checks** (if needed):
+1. **Manual quality checks** (if needed):
+
    ```bash
    # Format code
    black .
@@ -319,7 +342,8 @@ Fixes #456
    pyright
    ```
 
-4. **Update documentation**:
+1. **Update documentation**:
+
    - Update README if adding new features
    - Add docstrings to new functions
    - Update CHANGELOG.md if applicable
@@ -327,18 +351,21 @@ Fixes #456
 ### Submitting Pull Request
 
 1. **Push your branch**:
+
    ```bash
    git push origin your-feature-branch
    ```
 
-2. **Create PR on GitHub**:
+1. **Create PR on GitHub**:
+
    - Use a clear, descriptive title
    - Fill out the PR template completely
    - Link related issues
    - Add screenshots for UI changes
    - Request review from maintainers
 
-3. **PR Title Format**:
+1. **PR Title Format**:
+
    ```
    feat(scope): Short description of change
    ```
@@ -405,6 +432,7 @@ python -m common_config scaffold my_new_project
 ```
 
 This creates:
+
 - Project directory structure
 - Sample source files
 - README template
@@ -414,18 +442,21 @@ This creates:
 ### Manual Setup
 
 1. **Create project directory**:
+
    ```bash
    mkdir my_new_project
    cd my_new_project
    ```
 
-2. **Create structure**:
+1. **Create structure**:
+
    ```bash
    mkdir -p src tests
    touch README.md requirements.txt
    ```
 
-3. **Create requirements.txt**:
+1. **Create requirements.txt**:
+
    ```
    # Common config (shared library)
    -e ../common_config
@@ -433,13 +464,15 @@ This creates:
    # Additional dependencies
    ```
 
-4. **Create data directories**:
+1. **Create data directories**:
+
    ```bash
    mkdir -p ../data/input/my_new_project
    mkdir -p ../data/output/my_new_project
    ```
 
-5. **Follow conventions**:
+1. **Follow conventions**:
+
    - Use `common_config` for settings, logging, DB connections
    - Write to shared `data/output/{project}/`
    - Log to shared `logs/{project}/`
@@ -466,6 +499,7 @@ This creates:
 ## Recognition
 
 Contributors will be recognized in:
+
 - GitHub contributors page
 - Release notes
 - CONTRIBUTORS.md (if created)

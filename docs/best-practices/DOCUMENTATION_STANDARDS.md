@@ -2,10 +2,9 @@
 
 **Purpose:** Standards and best practices for writing technical documentation in this repository.
 
-**Version:** 1.0
-**Last Updated:** 2025-10-28
+**Version:** 1.0 **Last Updated:** 2025-10-28
 
----
+______________________________________________________________________
 
 <details open>
 <summary><strong>📖 Table of Contents</strong> (click to expand/collapse)</summary>
@@ -52,19 +51,21 @@
 
 </details>
 
----
+______________________________________________________________________
 
 ## Overview
 
-Good documentation is critical for maintainability, onboarding, and collaboration. This document establishes standards to ensure consistency and quality across all documentation in this repository.
+Good documentation is critical for maintainability, onboarding, and collaboration. This document establishes standards
+to ensure consistency and quality across all documentation in this repository.
 
 **Core Principles:**
-1. **Clear and Concise** - Get to the point quickly
-2. **Example-Driven** - Show, don't just tell
-3. **Secure by Default** - No credentials, use placeholders
-4. **Maintainable** - Easy to update and extend
 
----
+1. **Clear and Concise** - Get to the point quickly
+1. **Example-Driven** - Show, don't just tell
+1. **Secure by Default** - No credentials, use placeholders
+1. **Maintainable** - Easy to update and extend
+
+______________________________________________________________________
 
 ## File Organization
 
@@ -80,6 +81,7 @@ docs/
 ```
 
 **Guidelines:**
+
 - **Guides** (`guides/`) - Tutorials, setup instructions, how-to guides
 - **Best Practices** (`best-practices/`) - Design patterns, standards, reference material
 - **Archive** (`archive/`) - Completed project summaries, deprecated guides
@@ -89,6 +91,7 @@ docs/
 **Format:** `UPPERCASE_WITH_UNDERSCORES.md`
 
 **Examples:**
+
 - ✅ `NEW_PROJECT_GUIDE.md`
 - ✅ `CLI_PATTERNS.md`
 - ✅ `COMMON_CONFIG_API_REFERENCE.md`
@@ -96,6 +99,7 @@ docs/
 - ❌ `CLIPatterns.md`
 
 **Why uppercase?**
+
 - Easy to spot documentation files in file listings
 - Consistent with industry conventions (README, CHANGELOG, etc.)
 - Clear distinction from code files
@@ -103,21 +107,24 @@ docs/
 ### When to Create New Documents
 
 **Create a new guide when:**
+
 - Setting up a new tool or process (>5 steps)
 - Documenting a complete workflow
 - Providing comprehensive tutorials
 
 **Create a new best practices document when:**
+
 - Establishing standards for a specific pattern
 - Documenting lessons learned from incidents
 - Providing reference material for common tasks
 
 **Update existing documents when:**
+
 - Adding examples to existing patterns
 - Clarifying existing instructions
 - Fixing errors or outdated information
 
----
+______________________________________________________________________
 
 ## Document Structure
 
@@ -126,13 +133,14 @@ docs/
 Every documentation file MUST include:
 
 1. **Title** (H1)
-2. **Purpose statement** (2-3 sentences)
-3. **Table of Contents** (if >100 lines) - Use collapsible format
-4. **Content sections** with clear headings
-5. **Related Documentation** links at end
-6. **Last Updated date**
+1. **Purpose statement** (2-3 sentences)
+1. **Table of Contents** (if >100 lines) - Use collapsible format
+1. **Content sections** with clear headings
+1. **Related Documentation** links at end
+1. **Last Updated date**
 
 **Template:**
+
 ```markdown
 # Document Title
 
@@ -178,6 +186,7 @@ Include these when relevant:
 ### Table of Contents
 
 **When required:**
+
 - Documents >100 lines
 - Documents with >5 major sections
 - Complex guides with multiple phases
@@ -197,17 +206,19 @@ Include these when relevant:
 ```
 
 **Why collapsible?**
+
 - Saves screen space
 - User can hide if not needed
 - `open` attribute shows by default
 
----
+______________________________________________________________________
 
 ## Writing Style
 
 ### Tone and Voice
 
 **DO:**
+
 - ✅ Use clear, direct language
 - ✅ Write in second person ("you") for guides
 - ✅ Use active voice: "Run this command" not "This command should be run"
@@ -215,6 +226,7 @@ Include these when relevant:
 - ✅ Use examples liberally
 
 **DON'T:**
+
 - ❌ Be overly formal or academic
 - ❌ Use passive voice excessively
 - ❌ Include unnecessary filler words
@@ -223,16 +235,19 @@ Include these when relevant:
 ### Formatting Guidelines
 
 **Emphasis:**
+
 - **Bold** for emphasis, important terms
 - *Italics* for slight emphasis, technical terms
 - `Code` for commands, variables, file names
 
 **Lists:**
+
 - Use bullet points for unordered items
 - Use numbered lists for sequential steps
 - Indent sub-items for hierarchy
 
 **Sections:**
+
 - H1 (`#`) - Document title only
 - H2 (`##`) - Major sections
 - H3 (`###`) - Subsections
@@ -241,23 +256,27 @@ Include these when relevant:
 ### Code Examples
 
 **Always include:**
+
 1. **Context** - What the code does
-2. **The code** - Properly formatted
-3. **Expected output** - What to expect
+1. **The code** - Properly formatted
+1. **Expected output** - What to expect
 
 **Example pattern:**
-```markdown
+
+````markdown
 Run this command to check Python version:
 
 ```bash
 python --version
-```
+````
 
 **Expected output:**
+
 ```
 Python 3.11.9
 ```
-```
+
+````
 
 ---
 
@@ -272,9 +291,10 @@ Python 3.11.9
 mongodb+srv://user:password@cluster.mongodb.net/
 API_KEY=sk-proj-abc123xyz789
 AWS_ACCESS_KEY_ID=AKIA1234567890ABCDEF
-```
+````
 
 **✅ ALWAYS use placeholders:**
+
 ```markdown
 mongodb+srv://<username>:<password>@cluster.mongodb.net/
 API_KEY=<your_api_key>
@@ -282,23 +302,26 @@ AWS_ACCESS_KEY_ID=<YOUR_AWS_ACCESS_KEY_ID>
 ```
 
 **Why this matters:**
+
 - Prevents GitHub Secret Scanning alerts
 - Avoids confusion about real vs fake credentials
 - Industry standard for documentation
 - Prevents accidental credential exposure if patterns are copied
 
 **Approved placeholder patterns:**
-| Type | Pattern |
-|------|---------|
-| Username/Password | `<username>:<password>` |
-| API Keys | `<your_api_key>` or `YOUR_API_KEY` |
-| AWS Keys | `<AWS_ACCESS_KEY_ID>` |
-| Tokens | `<token>` or `YOUR_TOKEN` |
-| Redacted Output | `***:***` |
+
+| Type              | Pattern                            |
+| ----------------- | ---------------------------------- |
+| Username/Password | `<username>:<password>`            |
+| API Keys          | `<your_api_key>` or `YOUR_API_KEY` |
+| AWS Keys          | `<AWS_ACCESS_KEY_ID>`              |
+| Tokens            | `<token>` or `YOUR_TOKEN`          |
+| Redacted Output   | `***:***`                          |
 
 ### Sensitive Information
 
 **Never include in documentation:**
+
 - Real credentials (even for dev/test environments)
 - Real API keys or tokens
 - Real database URIs with credentials
@@ -306,6 +329,7 @@ AWS_ACCESS_KEY_ID=<YOUR_AWS_ACCESS_KEY_ID>
 - Internal system details (hostnames, IPs for production)
 
 **Safe to include:**
+
 - Localhost URIs: `mongodb://localhost:27017`
 - Example domains: `example.com`, `test.local`
 - Placeholder values with clear markers: `<value>`
@@ -326,11 +350,12 @@ grep -rE "mongodb.*://.+:.+@" docs/
 ```
 
 **If matches found:**
+
 - Review each match
 - Replace with placeholder syntax
 - Re-run checks to verify
 
----
+______________________________________________________________________
 
 ## Code Blocks
 
@@ -338,12 +363,13 @@ grep -rE "mongodb.*://.+:.+@" docs/
 
 **Always specify language for syntax highlighting:**
 
-```markdown
+````markdown
 ```python
 def hello():
     print("Hello, World!")
-```
-```
+````
+
+````
 
 **Supported languages:**
 - `python` - Python code
@@ -362,32 +388,38 @@ def hello():
 from common_config.config.settings import get_settings
 
 settings = get_settings()
-```
-```
+````
+
+````
 
 **DON'T:**
 ```markdown
+````
+
+from common_config.config.settings import get_settings settings = get_settings()
+
 ```
-from common_config.config.settings import get_settings
-settings = get_settings()
 ```
-```
+
 (Missing language tag results in no syntax highlighting)
 
 ### Example Patterns
 
 **Pattern 1: Command with output**
-```markdown
+
+````markdown
 **Run this command:**
 ```bash
 python --version
-```
+````
 
 **Expected output:**
+
 ```
 Python 3.11.9
 ```
-```
+
+````
 
 **Pattern 2: Before/After comparison**
 ```markdown
@@ -396,9 +428,10 @@ Python 3.11.9
 # Old way
 uri = settings.mongodb_uri
 logger.info(f"URI: {uri}")  # ❌ Exposes credentials
-```
+````
 
 **After:**
+
 ```python
 # New way
 from common_config.utils.security import redact_uri
@@ -406,20 +439,23 @@ from common_config.utils.security import redact_uri
 uri = settings.mongodb_uri
 logger.info(f"URI: {redact_uri(uri)}")  # ✅ Safe
 ```
-```
+
+````
 
 **Pattern 3: Do's and Don'ts**
 ```markdown
 **❌ Don't do this:**
 ```python
 password = "hardcoded123"  # Bad!
-```
+````
 
 **✅ Do this instead:**
+
 ```python
 password = os.environ.get("PASSWORD")  # Good!
 ```
-```
+
+````
 
 ---
 
@@ -430,14 +466,16 @@ password = os.environ.get("PASSWORD")  # Good!
 **Use relative paths:**
 ```markdown
 See [CLI Patterns](../best-practices/CLI_PATTERNS.md) for details.
-```
+````
 
 **Anchor links for same document:**
+
 ```markdown
 See [Security Section](#security-in-documentation) above.
 ```
 
 **Why relative paths?**
+
 - Work in both GitHub and local editors
 - Don't break if repository name changes
 - More maintainable
@@ -445,12 +483,14 @@ See [Security Section](#security-in-documentation) above.
 ### External Links
 
 **Always include link text:**
+
 ```markdown
 ✅ Good: See [Python Documentation](https://docs.python.org/) for details.
 ❌ Bad: See https://docs.python.org/ for details.
 ```
 
 **For external tools/services:**
+
 - Link to official documentation
 - Include version if relevant
 - Use stable URLs, not version-specific when possible
@@ -458,6 +498,7 @@ See [Security Section](#security-in-documentation) above.
 ### Cross-References
 
 **At end of every document:**
+
 ```markdown
 ## Related Documentation
 
@@ -465,7 +506,7 @@ See [Security Section](#security-in-documentation) above.
 - [Document 2](path/to/doc2.md) - Brief description
 ```
 
----
+______________________________________________________________________
 
 ## Version Control
 
@@ -480,6 +521,7 @@ See [Security Section](#security-in-documentation) above.
 ```
 
 **When to update:**
+
 - Major content changes
 - Structural changes
 - Important corrections
@@ -488,6 +530,7 @@ See [Security Section](#security-in-documentation) above.
 ### Version Numbers
 
 **Use semantic versioning:**
+
 - `1.0` - Initial release
 - `1.1` - Minor additions/clarifications
 - `2.0` - Major restructure or breaking changes
@@ -500,6 +543,7 @@ See [Security Section](#security-in-documentation) above.
 ### Change History
 
 **For major documents, include change log:**
+
 ```markdown
 ## Change History
 
@@ -512,13 +556,14 @@ See [Security Section](#security-in-documentation) above.
 - Initial release
 ```
 
----
+______________________________________________________________________
 
 ## Common Patterns
 
 ### Do's and Don'ts Sections
 
 **Use clear markers:**
+
 ```markdown
 **✅ DO:**
 - Use clear examples
@@ -534,6 +579,7 @@ See [Security Section](#security-in-documentation) above.
 ### Warning and Info Boxes
 
 **Use emoji for visual emphasis:**
+
 ```markdown
 🚨 **CRITICAL:** This is a critical security warning.
 
@@ -549,19 +595,22 @@ See [Security Section](#security-in-documentation) above.
 ### Examples and Counter-Examples
 
 **Always show both:**
-```markdown
+
+````markdown
 **Example - Correct Usage:**
 ```python
 # Good code here
-```
+````
 
 **Example - Incorrect Usage:**
+
 ```python
 # Bad code here
 ```
 
 **Why this is wrong:** Explanation of the problem.
-```
+
+````
 
 ---
 
@@ -573,9 +622,10 @@ See [Security Section](#security-in-documentation) above.
 ```markdown
 ## Setting Up Virtual Environment
 ## Troubleshooting Import Errors
-```
+````
 
 **DON'T:**
+
 ```markdown
 ## Setup
 ## Errors
@@ -584,6 +634,7 @@ See [Security Section](#security-in-documentation) above.
 ### Alt Text for Images
 
 **If using images (avoid when possible):**
+
 ```markdown
 ![Architecture diagram showing MongoDB connection flow](images/architecture.png)
 ```
@@ -595,13 +646,14 @@ See [Security Section](#security-in-documentation) above.
 - Use simple sentence structure
 - Break complex topics into steps
 
----
+______________________________________________________________________
 
 ## Quality Checklist
 
 Before finalizing documentation:
 
 **Structure:**
+
 - [ ] Title is clear and descriptive
 - [ ] Purpose statement present
 - [ ] Table of contents included (if >100 lines)
@@ -610,6 +662,7 @@ Before finalizing documentation:
 - [ ] Last updated date included
 
 **Content:**
+
 - [ ] All code examples tested and working
 - [ ] No real credentials or secrets
 - [ ] Placeholders use `<angle_brackets>` syntax
@@ -618,24 +671,27 @@ Before finalizing documentation:
 - [ ] No typos or grammatical errors
 
 **Security:**
+
 - [ ] No credential patterns that trigger GitHub scanning
 - [ ] All examples use placeholder syntax
 - [ ] Ran security grep checks (see checklist above)
 - [ ] No internal/sensitive system information
 
 **Style:**
+
 - [ ] Consistent formatting throughout
 - [ ] Code blocks have language tags
 - [ ] Lists are properly formatted
 - [ ] Tone is clear and professional
 
 **Verification:**
+
 - [ ] Rendered correctly in Markdown viewer
 - [ ] All anchor links work
 - [ ] File follows naming conventions
 - [ ] Located in correct directory
 
----
+______________________________________________________________________
 
 ## Related Documentation
 
@@ -644,7 +700,7 @@ Before finalizing documentation:
 - [FILE_NAMING_CONVENTIONS.md](FILE_NAMING_CONVENTIONS.md) - File naming standards
 - [AI_COLLABORATION_GUIDE.md](../AI_COLLABORATION_GUIDE.md) - Documentation principles for AI collaboration
 
----
+______________________________________________________________________
 
 **Questions about documentation standards?** Update this document and share with the team.
 
