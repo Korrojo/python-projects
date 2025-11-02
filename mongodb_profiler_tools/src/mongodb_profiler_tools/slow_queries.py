@@ -39,11 +39,7 @@ def analyze_slow_queries(
         profile_collection = db["system.profile"]
 
         # Get slow operations
-        slow_ops = list(
-            profile_collection.find(query)
-            .sort("millis", -1)  # Sort by slowest first
-            .limit(limit)
-        )
+        slow_ops = list(profile_collection.find(query).sort("millis", -1).limit(limit))  # Sort by slowest first
 
         # Extract and format relevant fields
         formatted_ops = []
