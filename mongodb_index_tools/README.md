@@ -6,7 +6,7 @@ Unified MongoDB index management and analysis toolkit. Consolidates functionalit
 
 - **Index Inventory**: List all indexes with detailed information (keys, attributes, uniqueness, etc.) ✅
 - **Index Utilization**: Analyze index usage statistics to identify unused or heavily-used indexes ✅
-- **Query Analyzer**: Analyze query execution plans (coming soon)
+- **Query Analyzer**: Analyze query execution plans using MongoDB's explain command ✅
 - **Index Advisor**: Get index recommendations (coming soon)
 - **Index Manager**: Create and drop indexes safely (coming soon)
 
@@ -98,6 +98,68 @@ python mongodb_index_tools/run.py utilization -c Users --no-csv --env PROD
 
 **Note:** Index usage statistics are reset when MongoDB restarts. Run this command after MongoDB has been running for a representative period.
 
+### Query Analyzer
+
+Analyze how MongoDB executes a specific query using the explain command:
+
+```bash
+# Create a query file (query.json)
+{
+  "filter": {"age": {"$gt": 25}},
+  "sort": {"name": 1},
+  "limit": 100
+}
+
+# Analyze the query
+python mongodb_index_tools/run.py analyzer -c Users -f query.json --env PROD
+
+# Save full explain output to JSON
+python mongodb_index_tools/run.py analyzer -c Users -f query.json --save-json
+```
+
+**Supported Query Types:**
+- `find` (default): Regular find queries with filter, projection, sort, limit
+- `aggregate`: Aggregation pipeline queries
+- `update`: Update queries
+- `delete`: Delete queries
+
+**Example Query Files:**
+
+Find query (`query_find.json`):
+```json
+{
+  "filter": {"status": "active", "age": {"$gte": 18}},
+  "projection": {"name": 1, "email": 1},
+  "sort": {"createdAt": -1},
+  "limit": 50
+}
+```
+
+Aggregate query (`query_agg.json`):
+```json
+{
+  "pipeline": [
+    {"$match": {"status": "active"}},
+    {"$group": {"_id": "$city", "count": {"$sum": 1}}},
+    {"$sort": {"count": -1}}
+  ]
+}
+```
+
+**Output:**
+- Console display with execution metrics
+- Scan type (COLLSCAN, IXSCAN, etc.)
+- Index used (if any)
+- Performance metrics (execution time, documents examined vs returned)
+- Performance assessment with warnings for inefficient queries
+- Optional JSON export of full explain output
+
+**Use Cases:**
+- Understand how MongoDB executes specific queries
+- Identify queries doing collection scans that need indexes
+- Find queries with high examined:returned ratios
+- Validate that new indexes are being used
+
 ## Testing
 
 ```bash
@@ -127,12 +189,13 @@ mongodb_index_tools/
 │       ├── cli.py              # Multi-command CLI interface
 │       ├── inventory.py        # Index inventory module ✅
 │       ├── utilization.py      # Index utilization analysis ✅
-│       ├── analyzer.py         # Query plan analyzer (coming soon)
+│       ├── analyzer.py         # Query plan analyzer ✅
 │       ├── advisor.py          # Index recommendations (coming soon)
 │       └── manager.py          # Index create/drop (coming soon)
 ├── tests/
 │   ├── test_inventory.py       # Inventory tests ✅
 │   ├── test_utilization.py     # Utilization tests ✅
+│   ├── test_analyzer.py        # Analyzer tests ✅
 │   └── conftest.py
 └── run.py                      # Entry point
 ```
