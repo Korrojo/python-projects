@@ -624,9 +624,9 @@ git branch --show-current
 **After completing work:**
 
 1. Push feature branch: `git push origin feature/your-feature-name`
-2. Create pull request on GitHub
-3. Wait for review and approval
-4. Maintainer will merge to main
+1. Create pull request on GitHub
+1. Wait for review and approval
+1. Maintainer will merge to main
 
 **Why feature branches matter:**
 
