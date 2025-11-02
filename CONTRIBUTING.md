@@ -74,6 +74,14 @@ This project adheres to a Code of Conduct that all contributors are expected to 
    # Edit shared_config/.env with your configuration
    ```
 
+1. **Install git hooks** (IMPORTANT):
+
+   ```bash
+   ./scripts/install-hooks.sh
+   ```
+
+   This installs hooks that enforce proper workflow (e.g., preventing commits to main branch).
+
 1. **Verify setup**:
 
    ```bash
@@ -83,17 +91,26 @@ This project adheres to a Code of Conduct that all contributors are expected to 
 
 ## Development Workflow
 
-### Creating a Feature Branch
+⚠️ **MANDATORY: Always Create a Feature Branch First**
+
+**NEVER commit directly to `main` or `master` branches.** Always create a feature branch before starting any work.
+
+### Creating a Feature Branch (REQUIRED FIRST STEP)
+
+**Before starting ANY new work:**
 
 ```bash
-# Sync with upstream
+# 1. Sync with upstream
 git checkout main
 git pull upstream main
 
-# Create feature branch
+# 2. Create and checkout feature branch (MANDATORY)
 git checkout -b feature/your-feature-name
 # OR for bug fixes
 git checkout -b fix/bug-description
+
+# 3. Verify you're on the feature branch
+git branch --show-current
 ```
 
 ### Branch Naming Convention
@@ -104,6 +121,14 @@ git checkout -b fix/bug-description
 - `refactor/` - Code refactoring
 - `test/` - Adding or updating tests
 - `chore/` - Maintenance tasks
+
+### Why Feature Branches Matter
+
+- ✅ Keeps main branch stable and production-ready
+- ✅ Enables code review through pull requests
+- ✅ Allows multiple features to be developed in parallel
+- ✅ Makes it easy to abandon or iterate on changes
+- ✅ Provides clear history and attribution
 
 ## Coding Standards
 
