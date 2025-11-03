@@ -1,7 +1,6 @@
 """Unit tests for data masking/transformation logic."""
 
-import pytest
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import Mock, patch
 
 from src.core.masker import DocumentMasker
 from src.models.masking_rule import MaskingRule, MaskingRuleType
@@ -59,11 +58,7 @@ class TestDocumentMasking:
 
     def test_mask_document_with_matching_rule(self):
         """Test masking document with matching rule."""
-        rules = [
-            MaskingRule(
-                "name", MaskingRuleType.REPLACE_STRING, params={"replacement": "MASKED"}
-            )
-        ]
+        rules = [MaskingRule("name", MaskingRuleType.REPLACE_STRING, params={"replacement": "MASKED"})]
         masker = DocumentMasker(rules=rules)
         document = {"name": "John Doe", "age": 30}
 
@@ -76,11 +71,7 @@ class TestDocumentMasking:
 
     def test_mask_document_preserves_original(self):
         """Test that masking doesn't modify original document."""
-        rules = [
-            MaskingRule(
-                "name", MaskingRuleType.REPLACE_STRING, params={"replacement": "MASKED"}
-            )
-        ]
+        rules = [MaskingRule("name", MaskingRuleType.REPLACE_STRING, params={"replacement": "MASKED"})]
         masker = DocumentMasker(rules=rules)
         original = {"name": "John Doe", "age": 30}
 
@@ -94,9 +85,7 @@ class TestDocumentMasking:
     def test_mask_document_multiple_fields(self):
         """Test masking multiple fields in document."""
         rules = [
-            MaskingRule(
-                "name", MaskingRuleType.REPLACE_STRING, params={"replacement": "NAME_MASKED"}
-            ),
+            MaskingRule("name", MaskingRuleType.REPLACE_STRING, params={"replacement": "NAME_MASKED"}),
             MaskingRule(
                 "email",
                 MaskingRuleType.REPLACE_EMAIL,
@@ -106,9 +95,7 @@ class TestDocumentMasking:
         masker = DocumentMasker(rules=rules)
         document = {"name": "John Doe", "email": "john@example.com", "age": 30}
 
-        with patch.object(
-            masker, "_apply_rule_to_value", side_effect=["NAME_MASKED", "masked@example.com"]
-        ):
+        with patch.object(masker, "_apply_rule_to_value", side_effect=["NAME_MASKED", "masked@example.com"]):
             result = masker.mask_document(document)
 
             assert result["name"] == "NAME_MASKED"
@@ -150,10 +137,10 @@ class TestFieldMasking:
         document = {"name": "John", "address": {"street": "123 Main St", "city": "Springfield"}}
 
         # Need to mock both _get_nested_value and _set_nested_value
-        with patch.object(
-            masker.rule_engine, "_get_nested_value", return_value="123 Main St"
-        ), patch.object(masker.rule_engine, "_set_nested_value") as mock_set, patch.object(
-            masker, "_apply_rule_to_value", return_value="MASKED_STREET"
+        with (
+            patch.object(masker.rule_engine, "_get_nested_value", return_value="123 Main St"),
+            patch.object(masker.rule_engine, "_set_nested_value") as mock_set,
+            patch.object(masker, "_apply_rule_to_value", return_value="MASKED_STREET"),
         ):
             masker._mask_field_in_document(document, "address.street", rules[0])
 
@@ -327,9 +314,7 @@ class TestComplexDocumentMasking:
 
     def test_mask_nested_array_document(self):
         """Test masking document with nested arrays."""
-        rules = [
-            MaskingRule("Slots.*.Appointments.*.PatientName", MaskingRuleType.REPLACE_STRING)
-        ]
+        rules = [MaskingRule("Slots.*.Appointments.*.PatientName", MaskingRuleType.REPLACE_STRING)]
         masker = DocumentMasker(rules=rules)
 
         document = {

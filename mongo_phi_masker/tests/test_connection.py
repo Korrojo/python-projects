@@ -2,7 +2,7 @@
 
 import pytest
 from pymongo.errors import ConnectionFailure, PyMongoError, ServerSelectionTimeoutError
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, patch
 
 from src.core.connector import MongoConnector, ConnectionError
 
@@ -31,9 +31,7 @@ class TestMongoConnectorInitialization:
 
     def test_connector_init_with_collection(self):
         """Test connector initialization with database and collection."""
-        connector = MongoConnector(
-            uri="mongodb://localhost:27017", database="test_db", collection="test_coll"
-        )
+        connector = MongoConnector(uri="mongodb://localhost:27017", database="test_db", collection="test_coll")
 
         assert connector.database_name == "test_db"
         assert connector.collection_name == "test_coll"
@@ -92,9 +90,7 @@ class TestMongoConnectorConnection:
         mock_db.__getitem__.return_value = mock_coll
         mock_mongo_client.return_value = mock_client
 
-        connector = MongoConnector(
-            uri="mongodb://localhost:27017", database="test_db", collection="test_coll"
-        )
+        connector = MongoConnector(uri="mongodb://localhost:27017", database="test_db", collection="test_coll")
         result = connector.connect()
 
         assert result is True
@@ -233,9 +229,7 @@ class TestMongoConnectorErrorHandling:
         mock_client.admin.command.side_effect = PyMongoError("Authentication failed")
         mock_mongo_client.return_value = mock_client
 
-        connector = MongoConnector(
-            uri="mongodb://user:pass@localhost:27017", auth_database="admin"
-        )
+        connector = MongoConnector(uri="mongodb://user:pass@localhost:27017", auth_database="admin")
 
         with pytest.raises(ConnectionFailure):
             connector.connect()
