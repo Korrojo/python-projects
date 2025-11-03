@@ -332,10 +332,10 @@ def should_validate_collection(collection_name):
 def run_masking(
     config_path: str,
     env_path: str,
-    collection: str = None,
+    collection: str | None = None,
     in_situ: bool = False,
     reset_checkpoint: bool = False,
-    log_file: str = None,
+    log_file: str | None = None,
 ) -> int:
     """
     Programmatic entry point for PHI masking.
