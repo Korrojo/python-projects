@@ -9,7 +9,6 @@ Processes 4M+ documents with 8 PHI complexity categories.
 import typer
 from pathlib import Path
 from typing import Optional
-import sys
 
 # Import from masking.py to keep existing functionality
 from masking import run_masking
@@ -23,24 +22,14 @@ app = typer.Typer(
 
 @app.command()
 def mask(
-    config: Path = typer.Option(
-        ..., "--config", "-c", help="Path to configuration JSON file", exists=True
-    ),
-    env: Path = typer.Option(
-        ..., "--env", "-e", help="Path to environment file (.env)", exists=True
-    ),
+    config: Path = typer.Option(..., "--config", "-c", help="Path to configuration JSON file", exists=True),
+    env: Path = typer.Option(..., "--env", "-e", help="Path to environment file (.env)", exists=True),
     collection: Optional[str] = typer.Option(
         None, "--collection", help="Process specific collection (overrides config)"
     ),
-    in_situ: bool = typer.Option(
-        False, "--in-situ", help="Enable in-situ masking (irreversible!)"
-    ),
-    reset_checkpoint: bool = typer.Option(
-        False, "--reset-checkpoint", help="Reset checkpoint and start fresh"
-    ),
-    log_file: Optional[Path] = typer.Option(
-        None, "--log-file", help="Custom log file path"
-    ),
+    in_situ: bool = typer.Option(False, "--in-situ", help="Enable in-situ masking (irreversible!)"),
+    reset_checkpoint: bool = typer.Option(False, "--reset-checkpoint", help="Reset checkpoint and start fresh"),
+    log_file: Optional[Path] = typer.Option(None, "--log-file", help="Custom log file path"),
 ):
     """
     Mask PHI/PII data in MongoDB collections.
