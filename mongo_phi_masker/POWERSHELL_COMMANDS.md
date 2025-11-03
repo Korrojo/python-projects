@@ -3,9 +3,10 @@
 ## Quick Reference for Running Background Jobs on Windows
 
 ### ⚠️ **Important: Bash vs PowerShell**
+
 The README contains **Linux/Bash** commands (with `nohup`, `&`, `2>&1`). On Windows PowerShell, use these alternatives:
 
----
+______________________________________________________________________
 
 ## 🚀 **Easy Way: Use the Helper Script**
 
@@ -23,11 +24,12 @@ The README contains **Linux/Bash** commands (with `nohup`, `&`, `2>&1`). On Wind
 .\run_masking_job.ps1 -Collection "Patients" -ConfigFile "config/config_rules/config_Patients.json"
 ```
 
----
+______________________________________________________________________
 
 ## 📝 **Manual Background Job Commands**
 
 ### **Method 1: Start-Job (Recommended)**
+
 ```powershell
 Start-Job -ScriptBlock {
     Set-Location "C:\Users\demesew\projects\python\mongo_phi_masker"
@@ -42,6 +44,7 @@ Start-Job -ScriptBlock {
 ```
 
 ### **Method 2: Start-Process (Background Process)**
+
 ```powershell
 Start-Process -FilePath ".\venv-3.11\Scripts\python.exe" `
     -ArgumentList "masking.py --config config/config_rules/config_StaffAavailability.json --env .env.phi --in-situ --batch-size 5000 --collection StaffAvailabilityHistory" `
@@ -51,21 +54,24 @@ Start-Process -FilePath ".\venv-3.11\Scripts\python.exe" `
     -PassThru
 ```
 
----
+______________________________________________________________________
 
 ## 📊 **Monitoring Jobs**
 
 ### **Check All Background Jobs**
+
 ```powershell
 Get-Job
 ```
 
 ### **Check Specific Job**
+
 ```powershell
 Get-Job -Id 1
 ```
 
 ### **View Job Output**
+
 ```powershell
 # View and keep in buffer
 Receive-Job -Id 1 -Keep
@@ -75,6 +81,7 @@ Receive-Job -Id 1
 ```
 
 ### **Monitor Log File in Real-Time**
+
 ```powershell
 # Tail and follow (like tail -f in Linux)
 Get-Content -Path "logs/phi/20251010_000000_masking_StaffAvailabilityHistory.log" -Tail 20 -Wait
@@ -84,6 +91,7 @@ Get-Content -Path "logs/phi/20251010_000000_masking_StaffAvailabilityHistory.log
 ```
 
 ### **Check Running Python Processes**
+
 ```powershell
 # All Python processes
 Get-Process | Where-Object { $_.ProcessName -like "*python*" }
@@ -92,16 +100,18 @@ Get-Process | Where-Object { $_.ProcessName -like "*python*" }
 Get-Process | Where-Object { $_.ProcessName -like "*python*" } | Format-Table ProcessName, Id, CPU, WorkingSet64 -AutoSize
 ```
 
----
+______________________________________________________________________
 
 ## 🛑 **Stopping Jobs**
 
 ### **Stop Background Job**
+
 ```powershell
 Stop-Job -Id 1
 ```
 
 ### **Stop Python Process**
+
 ```powershell
 # Get the process ID first
 Get-Process | Where-Object { $_.ProcessName -like "*python*" }
@@ -114,6 +124,7 @@ Stop-Process -Id <ProcessId> -Force
 ```
 
 ### **Remove Completed Jobs**
+
 ```powershell
 # Remove specific job
 Remove-Job -Id 1
@@ -125,31 +136,33 @@ Get-Job -State Completed | Remove-Job
 Get-Job | Remove-Job -Force
 ```
 
----
+______________________________________________________________________
 
 ## 📋 **Common Command Translations**
 
-| Linux/Bash Command | PowerShell Equivalent |
-|--------------------|-----------------------|
-| `nohup command &` | `Start-Job -ScriptBlock { command }` |
-| `command > file 2>&1` | `command *>&1 \| Out-File file` |
-| `tail -f file` | `Get-Content file -Tail 20 -Wait` |
-| `tail -n 20 file` | `Get-Content file -Tail 20` |
+| Linux/Bash Command      | PowerShell Equivalent                                             |
+| ----------------------- | ----------------------------------------------------------------- |
+| `nohup command &`       | `Start-Job -ScriptBlock { command }`                              |
+| `command > file 2>&1`   | `command *>&1 \| Out-File file`                                   |
+| `tail -f file`          | `Get-Content file -Tail 20 -Wait`                                 |
+| `tail -n 20 file`       | `Get-Content file -Tail 20`                                       |
 | `ps aux \| grep python` | `Get-Process \| Where-Object { $_.ProcessName -like "*python*" }` |
-| `kill -9 <pid>` | `Stop-Process -Id <pid> -Force` |
-| `jobs` | `Get-Job` |
-| `bg` | (Jobs run in background by default) |
+| `kill -9 <pid>`         | `Stop-Process -Id <pid> -Force`                                   |
+| `jobs`                  | `Get-Job`                                                         |
+| `bg`                    | (Jobs run in background by default)                               |
 
----
+______________________________________________________________________
 
 ## 🎯 **Common Usage Examples**
 
 ### **Example 1: Run single collection with custom batch size**
+
 ```powershell
 .\run_masking_job.ps1 -Collection "StaffAvailabilityHistory" -BatchSize 5000
 ```
 
 ### **Example 2: Run and wait for completion**
+
 ```powershell
 # Script will prompt if you want to wait
 .\run_masking_job.ps1 -Collection "Patients" -BatchSize 3500
@@ -157,6 +170,7 @@ Get-Job | Remove-Job -Force
 ```
 
 ### **Example 3: Run multiple collections sequentially**
+
 ```powershell
 $collections = @("StaffAvailability", "StaffAvailabilityHistory", "Tasks")
 foreach ($coll in $collections) {
@@ -166,6 +180,7 @@ foreach ($coll in $collections) {
 ```
 
 ### **Example 4: Monitor all running jobs**
+
 ```powershell
 # Watch jobs in real-time (refresh every 5 seconds)
 while ($true) {
@@ -177,26 +192,27 @@ while ($true) {
 }
 ```
 
----
+______________________________________________________________________
 
 ## 🔧 **Batch Size Priority**
 
 When running `masking.py`, batch size is determined in this order:
 
 1. **Command line `--batch-size`** (Highest Priority)
-2. **Environment variable `PROCESSING_BATCH_SIZE`** from `.env.phi`
-3. **Default hardcoded value** of `100` (Lowest Priority)
+1. **Environment variable `PROCESSING_BATCH_SIZE`** from `.env.phi`
+1. **Default hardcoded value** of `100` (Lowest Priority)
 
 **Note:** The JSON config file batch size is **NOT** used by `masking.py`.
 
 ### Current `.env.phi` setting:
+
 ```
 PROCESSING_BATCH_SIZE=9000
 ```
 
 So if you don't specify `--batch-size`, it will use **9000**.
 
----
+______________________________________________________________________
 
 ## 📁 **Log Files**
 
@@ -205,31 +221,39 @@ Logs are created in: `logs/phi/`
 Format: `YYYYMMDD_HHMMSS_masking_<CollectionName>.log`
 
 **View errors:**
+
 ```powershell
 Get-Content "logs/phi/20251010_000000_masking_StaffAvailabilityHistory.log.err"
 ```
 
----
+______________________________________________________________________
 
 ## 🆘 **Troubleshooting**
 
 ### **"The ampersand (&) character is not allowed"**
+
 You're using Linux syntax. Use `Start-Job` or the helper script instead.
 
 ### **"Cannot find path"**
+
 Make sure you're in the project directory:
+
 ```powershell
 Set-Location "C:\Users\demesew\projects\python\mongo_phi_masker"
 ```
 
 ### **"Python not found"**
+
 Activate the virtual environment first:
+
 ```powershell
 .\venv-3.11\Scripts\Activate.ps1
 ```
+
 Or use the full path: `.\venv-3.11\Scripts\python.exe`
 
 ### **Job stuck or not responding**
+
 ```powershell
 # Check job state
 Get-Job -Id <JobId>
@@ -239,6 +263,6 @@ Stop-Job -Id <JobId>
 Remove-Job -Id <JobId> -Force
 ```
 
----
+______________________________________________________________________
 
 *End of Quick Reference*

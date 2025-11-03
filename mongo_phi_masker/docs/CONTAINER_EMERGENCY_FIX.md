@@ -1,24 +1,27 @@
 # Container Collection - Immediate Emergency Fixes
+
 ## Critical Issues Found in 32M Document Processing
 
----
+______________________________________________________________________
 
 ## 🚨 **CRITICAL FINDINGS**
 
 ### **Performance Crisis Pattern**
+
 - **Batch 33**: 158 docs/sec (22s duration, 2.5GB memory)
 - **Batch 34**: **131 docs/sec (27s duration, 3.7GB memory)** ← WORST
 - **Batch 46**: **2,756 docs/sec (1.3s duration, 1.5GB memory)** ← BEST
 
 **Variance**: 2,400% performance difference between document types!
 
----
+______________________________________________________________________
 
 ## 🛠️ **Emergency Configuration Updates**
 
 ### **1. Adaptive Batch Size Configuration**
 
 #### **Container Collection Emergency Config (config_container_emergency.json)**
+
 ```json
 {
     "mongodb": {
@@ -89,6 +92,7 @@
 ```
 
 ### **2. Emergency Memory Management (.env.phi updates)**
+
 ```dotenv
 # Emergency Memory Settings for Container Collection
 PROCESSING_BATCH_SIZE=2000              # Reduced from 3500
@@ -101,6 +105,7 @@ PROCESSING_MEMORY_THRESHOLD=2048MB      # Emergency memory limit
 ```
 
 ### **3. Emergency Batch Script (run_container_emergency.bat)**
+
 ```batch
 @echo off
 setlocal enabledelayedexpansion
@@ -163,28 +168,31 @@ popd
 exit /b %EXIT_STATUS%
 ```
 
----
+______________________________________________________________________
 
 ## 📊 **Expected Emergency Improvements**
 
 ### **Memory Spike Prevention**
-| Scenario | Before | Emergency Fix | Improvement |
-|----------|--------|---------------|-------------|
-| **Complex Documents** | 3.7GB memory | 2.0GB max | **46% reduction** |
-| **Worst Batch Duration** | 26.8 seconds | <8 seconds | **70% improvement** |
-| **Performance Variance** | 2,400% | <800% | **67% more consistent** |
+
+| Scenario                 | Before       | Emergency Fix | Improvement             |
+| ------------------------ | ------------ | ------------- | ----------------------- |
+| **Complex Documents**    | 3.7GB memory | 2.0GB max     | **46% reduction**       |
+| **Worst Batch Duration** | 26.8 seconds | \<8 seconds   | **70% improvement**     |
+| **Performance Variance** | 2,400%       | \<800%        | **67% more consistent** |
 
 ### **Adaptive Batching Benefits**
+
 - **Complex Documents**: Batch size 1,000 (vs 3,500)
-- **Simple Documents**: Batch size 10,000 (vs 3,500)  
+- **Simple Documents**: Batch size 10,000 (vs 3,500)
 - **Memory Control**: Hard limit at 2GB per batch
 - **Auto-adjustment**: Batch size adapts to document complexity
 
----
+______________________________________________________________________
 
 ## 🎯 **Implementation Steps**
 
 ### **Step 1: Stop Current Processing**
+
 ```bash
 # Find and stop current Container masking
 tasklist | findstr python
@@ -192,12 +200,14 @@ taskkill /F /PID [container_masking_process_id]
 ```
 
 ### **Step 2: Backup Current State**
+
 ```bash
 # Note: Currently at batch 53 (185,500 documents processed)
 # Remaining: 32,003,971 documents (99.42%)
 ```
 
 ### **Step 3: Deploy Emergency Configuration**
+
 ```bash
 # Create emergency config files
 cp config_container_emergency.json config/
@@ -207,6 +217,7 @@ cp run_container_emergency.bat ./
 ```
 
 ### **Step 4: Test Emergency Settings**
+
 ```bash
 # Run emergency version with monitoring
 run_container_emergency.bat
@@ -217,45 +228,50 @@ run_container_emergency.bat
 # - Batch duration <8 seconds max
 ```
 
----
+______________________________________________________________________
 
 ## 📈 **Performance Targets**
 
 ### **Emergency Success Criteria**
-| Metric | Target | Critical Threshold |
-|--------|--------|--------------------|
-| **Memory Usage** | <2GB per batch | Stop if >3GB |
-| **Batch Duration** | <8 seconds | Alert if >15s |
-| **Processing Rate** | >300 docs/sec | Alert if <200 |
-| **Performance Variance** | <800% | Monitor closely |
+
+| Metric                   | Target          | Critical Threshold |
+| ------------------------ | --------------- | ------------------ |
+| **Memory Usage**         | \<2GB per batch | Stop if >3GB       |
+| **Batch Duration**       | \<8 seconds     | Alert if >15s      |
+| **Processing Rate**      | >300 docs/sec   | Alert if \<200     |
+| **Performance Variance** | \<800%          | Monitor closely    |
 
 ### **Expected Results**
+
 - **Worst Case**: 300 docs/sec (vs 131 previously)
-- **Best Case**: 2,000 docs/sec (vs 3,100 previously)  
+- **Best Case**: 2,000 docs/sec (vs 3,100 previously)
 - **Average**: 800 docs/sec (vs 680 previously)
 - **Total Duration**: 11.2 hours (vs 13.1 hours)
 
----
+______________________________________________________________________
 
 ## 🚨 **Monitoring Alerts**
 
 ### **Red Alerts** (Stop Processing)
+
 - Memory usage >3GB for any batch
 - Batch duration >20 seconds
-- Processing rate <150 docs/sec for 3+ consecutive batches
+- Processing rate \<150 docs/sec for 3+ consecutive batches
 
 ### **Yellow Alerts** (Monitor Closely)
+
 - Memory usage >2.5GB
-- Batch duration >10 seconds  
-- Processing rate <250 docs/sec
+- Batch duration >10 seconds
+- Processing rate \<250 docs/sec
 
 ### **Green Status**
-- Memory usage <2GB
-- Batch duration <5 seconds
+
+- Memory usage \<2GB
+- Batch duration \<5 seconds
 - Processing rate >500 docs/sec
 
----
+______________________________________________________________________
 
-*Emergency Configuration Created: August 20, 2025*  
-*Purpose: Prevent memory spikes and performance degradation*  
+*Emergency Configuration Created: August 20, 2025*\
+*Purpose: Prevent memory spikes and performance degradation*\
 *Next: Full optimization after emergency testing*

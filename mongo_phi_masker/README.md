@@ -1,6 +1,7 @@
 # MongoDB PHI Masker
 
-A comprehensive data pipeline for extracting data from MongoDB, masking Protected Health Information (PHI), and restoring it to another MongoDB collection.
+A comprehensive data pipeline for extracting data from MongoDB, masking Protected Health Information (PHI), and
+restoring it to another MongoDB collection.
 
 ## Documentation
 
@@ -11,6 +12,7 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 ## Quick Start
 
 ### Prerequisites
+
 - Python 3.8+
 - MongoDB 4.4+
 - Docker (optional)
@@ -18,23 +20,27 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/mongophimasker.git
    cd mongophimasker
    ```
 
-2. Install dependencies:
+1. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Copy and configure the environment:
+1. Copy and configure the environment:
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
-4. Run the masker:
+1. Run the masker:
+
    ```bash
    python -m src.main --env .env.dev --config config/config_rules/config.json
    ```
@@ -49,7 +55,9 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 
 ## Latest Updates
 
-- **PowerShell Wrapper Script (Oct 2025)**: Added `run_masking_job.ps1` for Windows users with automatic log file management, background job support, and real-time monitoring capabilities. Fixed issues with path resolution and output redirection in background jobs.
+- **PowerShell Wrapper Script (Oct 2025)**: Added `run_masking_job.ps1` for Windows users with automatic log file
+  management, background job support, and real-time monitoring capabilities. Fixed issues with path resolution and
+  output redirection in background jobs.
 - **Enhanced Logging**: Added support for log rotation and configurable log levels
 - **Backward Compatibility Layer**: New compatibility module to maintain backward compatibility
 - **In-situ Masking**: New functionality to mask documents in-place without copying to a destination collection
@@ -58,11 +66,18 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 - **Configuration Examples**: Added example configuration files for easier setup
 - **Test Utilities**: Created test runner scripts for different testing scenarios
 - **Documentation Updates**: Added detailed documentation of test fixes and status
-- **Strict Category Ordering:** PHI collection categories are now strictly ordered by complexity (most to least) in `collection_rule_mapping.py`. Each category is clearly numbered (1-8) for reference and automation.
-- **Category-Specific Masking Rules:** Masking rules are now split into `rule_group_1.json` through `rule_group_8.json`, each aligned to the new category order and field mapping. Each rule group file contains only the PHI fields and masking logic relevant to its category.
-- **Updated Masking Logic:** The `PatientName` field now uses the `random_uppercase_name` rule, generating two random uppercase words (first and last name). Fax fields (e.g., Fax, MRRFax, FaxNumber, etc.) are masked with `1111111111111` for HIPAA compliance.
-- **rules.json as Template:** The main `rules.json` now serves as a template/example and is not used directly for masking. Category-specific rule groups are used for actual processing.
-- **Documentation & Config Updates:** Comments and documentation in config files have been updated to reflect these changes.
+- **Strict Category Ordering:** PHI collection categories are now strictly ordered by complexity (most to least) in
+  `collection_rule_mapping.py`. Each category is clearly numbered (1-8) for reference and automation.
+- **Category-Specific Masking Rules:** Masking rules are now split into `rule_group_1.json` through `rule_group_8.json`,
+  each aligned to the new category order and field mapping. Each rule group file contains only the PHI fields and
+  masking logic relevant to its category.
+- **Updated Masking Logic:** The `PatientName` field now uses the `random_uppercase_name` rule, generating two random
+  uppercase words (first and last name). Fax fields (e.g., Fax, MRRFax, FaxNumber, etc.) are masked with `1111111111111`
+  for HIPAA compliance.
+- **rules.json as Template:** The main `rules.json` now serves as a template/example and is not used directly for
+  masking. Category-specific rule groups are used for actual processing.
+- **Documentation & Config Updates:** Comments and documentation in config files have been updated to reflect these
+  changes.
 
 ## Architecture
 
@@ -92,23 +107,27 @@ The application follows a modular architecture with the following components:
 ### Local Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/MongoPHIMasker.git
    cd MongoPHIMasker
    ```
 
-2. Create a virtual environment:
+1. Create a virtual environment:
+
    ```bash
    python3 -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Install dependencies:
+1. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Configure the application:
+1. Configure the application:
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
@@ -119,11 +138,13 @@ The application follows a modular architecture with the following components:
 ### Docker Installation
 
 1. Build the Docker image:
+
    ```bash
    docker build -t phi-masker:latest .
    ```
 
-2. Run with Docker Compose:
+1. Run with Docker Compose:
+
    ```bash
    docker-compose up
    ```
@@ -139,6 +160,7 @@ python masking.py [options]
 ```
 
 Options:
+
 - `--config`: Path to configuration file (required)
 - `--env`: Path to environment file (required)
 - `--limit`: Maximum number of documents to process
@@ -159,50 +181,63 @@ Options:
 We've added several scripts to help run tests with different configurations:
 
 1. **Run Specific Tests**:
+
    ```bash
    ./run_specific_tests.sh
    ```
+
    This runs specific test modules that are known to work.
 
-2. **Run Filtered Tests**:
+1. **Run Filtered Tests**:
+
    ```bash
    ./run_filtered_tests.sh
    ```
+
    This runs all tests except those that depend on dask/pyarrow.
 
-3. **Run Key Tests**:
+1. **Run Key Tests**:
+
    ```bash
    ./run_key_tests.sh
    ```
+
    This runs specific tests that have been fixed to verify they now pass.
 
-4. **Run All Tests**:
+1. **Run All Tests**:
+
    ```bash
    ./run_all_tests.sh
    ```
+
    This runs all unit tests.
 
 ## Test Environment Setup
 
-All scripts and documentation for creating a test environment with sample data are now organized under the `test_env/` folder.
+All scripts and documentation for creating a test environment with sample data are now organized under the `test_env/`
+folder.
 
-- Scripts: `test_env/create_test_samples.py`, `test_env/create_test_config.py`, `test_env/setup_test_environment.py`, `test_env/setup_test_environment.bat`
+- Scripts: `test_env/create_test_samples.py`, `test_env/create_test_config.py`, `test_env/setup_test_environment.py`,
+  `test_env/setup_test_environment.bat`
 - Documentation: `test_env/TEST_ENVIRONMENT_SETUP.md`
 
-See [test_env/TEST_ENVIRONMENT_SETUP.md](test_env/TEST_ENVIRONMENT_SETUP.md) for instructions on creating and running a test environment for orchestration and masking workflows.
+See [test_env/TEST_ENVIRONMENT_SETUP.md](test_env/TEST_ENVIRONMENT_SETUP.md) for instructions on creating and running a
+test environment for orchestration and masking workflows.
 
 ### Performance Optimization
 
 For optimal performance with large datasets, configure:
 
 1. **Batch Size**: Set in `.env.prod` file with `PROCESSING_BATCH_SIZE` (recommended: 1000-5000)
-2. **Connection Pool Size**: Adjust MongoDB connection pool settings in config file
+1. **Connection Pool Size**: Adjust MongoDB connection pool settings in config file
 
 ### Windows PowerShell Wrapper Script
 
-For Windows users, a dedicated PowerShell wrapper script (`run_masking_job.ps1`) is provided for running masking jobs in the background with automatic log file management.
+For Windows users, a dedicated PowerShell wrapper script (`run_masking_job.ps1`) is provided for running masking jobs in
+the background with automatic log file management.
 
 #### Features
+
 - Runs masking jobs as PowerShell background jobs
 - Automatic timestamped log file creation
 - Built-in error logging with separate `.err` files
@@ -212,16 +247,19 @@ For Windows users, a dedicated PowerShell wrapper script (`run_masking_job.ps1`)
 #### Usage
 
 **Basic usage:**
+
 ```powershell
 .\run_masking_job.ps1 -Collection "StaffAvailabilityHistory"
 ```
 
 **With custom parameters:**
+
 ```powershell
 .\run_masking_job.ps1 -Collection "StaffAvailabilityHistory" -BatchSize 5000 -ConfigFile "config/config_rules/config_StaffAavailability.json" -EnvFile ".env.phi" -LogDir "logs/phi"
 ```
 
 #### Parameters
+
 - `-Collection` (required): MongoDB collection name to mask
 - `-BatchSize` (optional): Documents per batch (default: 9000)
 - `-ConfigFile` (optional): Config file path (default: "config/config_rules/config_StaffAavailability.json")
@@ -230,13 +268,16 @@ For Windows users, a dedicated PowerShell wrapper script (`run_masking_job.ps1`)
 - `-LogDir` (optional): Log directory (default: "logs/phi")
 
 #### Log Files
+
 Log files are automatically created with the format:
+
 ```
 logs/phi/{YYYYMMDD_HHMMSS}_masking_{CollectionName}.log
 logs/phi/{YYYYMMDD_HHMMSS}_masking_{CollectionName}.log.err
 ```
 
 #### Monitoring Jobs
+
 ```powershell
 # Check job status
 Get-Job
@@ -257,31 +298,37 @@ Remove-Job -Id <JobId>
 ### Examples
 
 1. Process a collection in production:
+
    ```bash
    nohup python masking.py --config config/config.json --env .env.prod > logs/prod/Patients_$(date +%Y%m%d_%H%M%S).log 2>&1 &
    ```
 
-2. Process multiple collections in-situ:
+1. Process multiple collections in-situ:
+
    ```bash
    nohup python masking.py --config config/config.json --env .env.prod --in-situ --reset-checkpoint >logs/prod/nohup.out 2>&1 &
    ```
 
-3. Process with a specific limit:
+1. Process with a specific limit:
+
    ```bash
    source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --limit 10000
    ```
 
-4. Process a specific collection in-situ:
+1. Process a specific collection in-situ:
+
    ```bash
    source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --in-situ --collection YourCollectionName
    ```
 
-5. Process with a specific query:
+1. Process with a specific query:
+
    ```bash
    source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --query '{"createdAt": {"$gt": {"$date": "2023-01-01T00:00:00Z"}}}'
    ```
 
-6. Process with custom logging configuration:
+1. Process with custom logging configuration:
+
    ```bash
    source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --log-file logs/custom_log.log --log-level DEBUG --log-max-bytes 5242880 --log-backup-count 10
    ```
@@ -398,16 +445,18 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## In-Situ Masking
 
 The default masking process follows a read-mask-transfer-insert approach:
+
 1. Read documents from source database
-2. Apply masking in memory
-3. Transfer masked documents over network 
-4. Insert into destination database
+1. Apply masking in memory
+1. Transfer masked documents over network
+1. Insert into destination database
 
 This approach is safe but introduces network transfer overhead and requires additional storage for duplicate data.
 
 ### Using In-Situ Masking
 
-The new in-situ masking feature modifies documents directly in the source collection, eliminating network transfer overhead and reducing processing time significantly:
+The new in-situ masking feature modifies documents directly in the source collection, eliminating network transfer
+overhead and reducing processing time significantly:
 
 ```bash
 # Mask documents in-place

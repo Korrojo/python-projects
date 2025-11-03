@@ -2,9 +2,10 @@
 
 ## 🚀 **Quick Win #1: Optimized Configuration Files**
 
-Based on system resource analysis showing 94% memory underutilization and 98% CPU underutilization, here are the immediate configuration changes to implement:
+Based on system resource analysis showing 94% memory underutilization and 98% CPU underutilization, here are the
+immediate configuration changes to implement:
 
----
+______________________________________________________________________
 
 ## 📝 **Environment Configuration (.env.phi)**
 
@@ -37,11 +38,12 @@ PROCESSING_MEMORY_TARGET=16GB           # 25% of total RAM
 PROCESSING_WORKER_MEMORY=512MB          # Per worker memory limit
 ```
 
----
+______________________________________________________________________
 
 ## 📝 **Collection-Specific Optimized Configs**
 
 ### **Container Collection (config_container_optimized.json)**
+
 ```json
 {
     "mongodb": {
@@ -101,6 +103,7 @@ PROCESSING_WORKER_MEMORY=512MB          # Per worker memory limit
 ```
 
 ### **Tasks Collection (tasks_config_optimized.json)**
+
 ```json
 {
     "mongodb": {
@@ -160,6 +163,7 @@ PROCESSING_WORKER_MEMORY=512MB          # Per worker memory limit
 ```
 
 ### **StaffAvailability Collection (staff_availability_config_optimized.json)**
+
 ```json
 {
     "mongodb": {
@@ -223,11 +227,12 @@ PROCESSING_WORKER_MEMORY=512MB          # Per worker memory limit
 }
 ```
 
----
+______________________________________________________________________
 
 ## 🔧 **Updated Batch Scripts with Optimization**
 
 ### **Optimized Production Masker (run_production_masker_optimized.bat)**
+
 ```batch
 # Add these parameters to the existing script
 set BATCH_SIZE_INITIAL=8000
@@ -246,44 +251,51 @@ set MEMORY_ALLOCATION=16GB
   --log-backup-count %LOG_BACKUP_COUNT% >> "%SCHEDULER_LOG_FILE%" 2>&1
 ```
 
----
+______________________________________________________________________
 
 ## 📊 **Container Collection Analysis - CRITICAL INSIGHTS**
 
 ### **32M Document Dataset Findings (August 20, 2025)**
+
 - **Total Documents**: 32,189,471 (~400GB)
 - **Critical Issue**: 2,400% performance variance (131-3,100 docs/sec)
 - **Memory Crisis**: Spikes from 1.3GB to 3.7GB causing 76% slowdown
-- **Document Complexity**: Batches 33-44 contain complex documents requiring 26+ seconds vs 1-2 seconds for simple documents
+- **Document Complexity**: Batches 33-44 contain complex documents requiring 26+ seconds vs 1-2 seconds for simple
+  documents
 
 ### **Before Optimization (Container Collection)**
-| Metric | Current Value | Issue |
-|--------|---------------|-------|
-| Processing Rate | 131-3,100 docs/sec | 2,400% variance |
-| Memory Usage | 676MB-3,763MB | Uncontrolled spikes |
-| Batch Duration | 1.1-26.8 seconds | Extreme inconsistency |
-| ETA for Completion | 13.1 hours | Too long for maintenance window |
+
+| Metric             | Current Value      | Issue                           |
+| ------------------ | ------------------ | ------------------------------- |
+| Processing Rate    | 131-3,100 docs/sec | 2,400% variance                 |
+| Memory Usage       | 676MB-3,763MB      | Uncontrolled spikes             |
+| Batch Duration     | 1.1-26.8 seconds   | Extreme inconsistency           |
+| ETA for Completion | 13.1 hours         | Too long for maintenance window |
 
 ### **Critical Need: Document Complexity Handling**
+
 The Container collection contains documents with varying PHI complexity:
+
 - **Simple Documents**: Process at 3,000+ docs/sec with 1.3GB memory
-- **Complex Documents**: Process at 131 docs/sec with 3.7GB memory  
+- **Complex Documents**: Process at 131 docs/sec with 3.7GB memory
 - **Impact**: 2,270% processing time variance between document types
 
 ## 📈 **Updated Optimization Strategy**
-| Metric | Expected Value | Improvement |
-|--------|----------------|-------------|
-| Processing Rate | 1,500-2,000 docs/sec | **3-4x faster** |
-| Memory Usage | 16GB (25% of total) | **4x increase** |
-| CPU Usage | 20-32 cores (50% of total) | **16x increase** |
-| Batch Size | 8,000-10,000 documents | **2.3x larger** |
-| StaffAvailability Duration | 30-40 minutes | **75% reduction** |
 
----
+| Metric                     | Expected Value             | Improvement       |
+| -------------------------- | -------------------------- | ----------------- |
+| Processing Rate            | 1,500-2,000 docs/sec       | **3-4x faster**   |
+| Memory Usage               | 16GB (25% of total)        | **4x increase**   |
+| CPU Usage                  | 20-32 cores (50% of total) | **16x increase**  |
+| Batch Size                 | 8,000-10,000 documents     | **2.3x larger**   |
+| StaffAvailability Duration | 30-40 minutes              | **75% reduction** |
+
+______________________________________________________________________
 
 ## ⚠️ **Implementation Steps**
 
 ### **Step 1: Backup Current Configuration**
+
 ```bash
 cp config/config_container.json config/config_container_backup.json
 cp config/tasks_config.json config/tasks_config_backup.json  
@@ -292,24 +304,29 @@ cp .env.phi .env.phi.backup
 ```
 
 ### **Step 2: Implement Optimized Configurations**
+
 1. Update `.env.phi` with optimized processing parameters
-2. Create optimized config files for each collection
-3. Update batch scripts with new parameters
+1. Create optimized config files for each collection
+1. Update batch scripts with new parameters
 
 ### **Step 3: Test with Single Collection**
+
 ```bash
 # Test with StaffAvailability first (smallest collection)
 run_staffavailability_masker_optimized.bat
 ```
 
 ### **Step 4: Monitor and Adjust**
+
 - Watch memory usage (should reach ~16GB)
 - Monitor CPU usage (should reach 40-60%)
 - Verify processing rate improvements
 - Check for any errors or bottlenecks
 
 ### **Step 5: Scale to All Collections**
+
 Once StaffAvailability runs successfully with optimized settings:
+
 ```bash
 # Run all collections in parallel
 start run_production_masker_optimized.bat
@@ -317,23 +334,25 @@ start run_tasks_masker_optimized.bat
 start run_staffavailability_masker_optimized.bat
 ```
 
----
+______________________________________________________________________
 
 ## 📈 **Success Metrics**
 
 ### **Resource Utilization Targets**
+
 - **Memory**: 25-35% utilization (16-20GB)
 - **CPU**: 40-60% utilization (25-40 cores)
 - **Processing Rate**: 1,500+ docs/sec per collection
-- **Total Duration**: All collections complete in <1 hour
+- **Total Duration**: All collections complete in \<1 hour
 
 ### **Performance Indicators**
-- Batch processing time: <4 seconds per batch
+
+- Batch processing time: \<4 seconds per batch
 - Memory growth: Linear and controlled
 - No memory leaks or crashes
 - Consistent throughput rates
 
----
+______________________________________________________________________
 
-*Configuration Date: August 20, 2025*  
+*Configuration Date: August 20, 2025*\
 *Target: 75% performance improvement with immediate optimizations*

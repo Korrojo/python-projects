@@ -1,6 +1,7 @@
 # MongoDB PHI Masker
 
 ## Table of Contents
+
 - [Project Overview](#project-overview)
 - [Features](#features)
 - [Getting Started](#getting-started)
@@ -9,7 +10,8 @@
 
 ## Project Overview
 
-A comprehensive data pipeline for extracting data from MongoDB, masking Protected Health Information (PHI), and restoring it to another MongoDB collection.
+A comprehensive data pipeline for extracting data from MongoDB, masking Protected Health Information (PHI), and
+restoring it to another MongoDB collection.
 
 ## Features
 
@@ -32,6 +34,7 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 ## Getting Started
 
 ### Prerequisites
+
 - Python 3.8+
 - MongoDB 4.4+
 - Docker (optional)
@@ -39,18 +42,21 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/mongophimasker.git
    cd mongophimasker
    ```
 
-2. Create and activate a virtual environment:
+1. Create and activate a virtual environment:
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Install dependencies:
+1. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
@@ -58,6 +64,7 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 ## Project Status
 
 ### Current Status
+
 - ✅ Integration tests fixed and passing in Docker environment
 - ✅ Validator improved with robust type checking
 - ✅ Basic collections successfully processed and validated
@@ -67,6 +74,7 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 ## Roadmap
 
 ### Version 1.1 (Current)
+
 - [x] Clean up working branch
 - [x] Create feature branch `feature/fax-field-masking`
 - [x] Run unit tests before each commit
@@ -76,17 +84,21 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 - [ ] Schedule periodic full test suite runs
 
 ### Future Enhancements
+
 1. **Performance Optimization**
+
    - Implement batch processing for large collections
    - Add parallel processing capabilities
    - Optimize memory usage
 
-2. **New Features**
+1. **New Features**
+
    - Support for additional data types
    - Enhanced reporting capabilities
    - Web-based dashboard for monitoring
 
-3. **Documentation**
+1. **Documentation**
+
    - Complete API documentation
    - Add more usage examples
    - Create video tutorials
@@ -94,10 +106,10 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 ## Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+1. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+1. Push to the branch (`git push origin feature/AmazingFeature`)
+1. Open a Pull Request
 
 ## License
 
