@@ -5,9 +5,14 @@ Script to verify masking results for StaffAvailability collection.
 
 import json
 import logging
+import os
 import sys
 
+from dotenv import load_dotenv
 from pymongo import MongoClient
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging to both console and file
 log_file = "masking_verification_results.log"
@@ -23,8 +28,12 @@ results_file = "masking_verification_data.json"
 
 
 def main():
-    # MongoDB connection string
-    mongo_uri = "mongodb+srv://dabebe:pdemes@Ubiquityproduction-pl-1.rgmqs.mongodb.net/test?authSource=admin&ssl=true"
+    # MongoDB connection string from environment variable
+    mongo_uri = os.getenv("MONGO_VERIFY_URI")
+    if not mongo_uri:
+        logger.error("MONGO_VERIFY_URI environment variable not set")
+        logger.error("Please set MONGO_VERIFY_URI in your .env file")
+        return 1
 
     # Connect to MongoDB
     logger.info("Connecting to MongoDB...")
