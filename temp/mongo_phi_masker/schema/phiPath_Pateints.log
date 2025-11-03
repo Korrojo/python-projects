@@ -1,0 +1,39 @@
+2025-03-30 18:07:59,549 - Starting field check in collection: Patients
+2025-03-30 18:10:39,789 - Collection contains 1655604 documents. Sampling 1000.
+2025-03-30 18:10:41,039 - 34/51 fields found.
+2025-03-30 18:10:41,039 - Found field 'PatientName' at path: PatientCallLog.PatientName
+2025-03-30 18:10:41,039 - Found field 'FinalNotes' at path: PatientProblemList.EncounterProblemList.FinalNotes
+2025-03-30 18:10:41,039 - Found field 'LastNameLower' at path: LastNameLower
+2025-03-30 18:10:41,039 - Found field 'Email' at path: Email
+2025-03-30 18:10:41,039 - Found field 'Zip5' at path: Address.Zip5
+2025-03-30 18:10:41,039 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:10:41,039 - Found field 'FirstNameLower' at path: FirstNameLower
+2025-03-30 18:10:41,039 - Found field 'Fax' at path: Pcp.Fax
+2025-03-30 18:10:41,039 - Found field 'Street1' at path: Address.Street1
+2025-03-30 18:10:41,039 - Found field 'City' at path: Address.City
+2025-03-30 18:10:41,039 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:10:41,039 - Found field 'LastName' at path: LastName
+2025-03-30 18:10:41,039 - Found field 'MedicareId' at path: MedicareId
+2025-03-30 18:10:41,039 - Found field 'PrimaryMemberName' at path: Insurance.PrimaryMemberName
+2025-03-30 18:10:41,039 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:10:41,039 - Found field 'VisitAddress' at path: PatientCallLog.VisitAddress
+2025-03-30 18:10:41,039 - Found field 'StateCode' at path: Address.StateCode (do not mask)
+2025-03-30 18:10:41,039 - Found field 'HomePhoneNumber' at path: Contacts.HomePhoneNumber
+2025-03-30 18:10:41,039 - Found field 'MRRFax' at path: Pcp.MRRFax
+2025-03-30 18:10:41,039 - Found field 'MRRFaxNumber' at path: Specialists.MRRFaxNumber
+2025-03-30 18:10:41,039 - Found field 'MiddleNameLower' at path: MiddleNameLower
+2025-03-30 18:10:41,039 - Found field 'OtherReason' at path: PatientDat.OtherReason
+2025-03-30 18:10:41,039 - Found field 'PrimaryMemberDOB' at path: Insurance.PrimaryMemberDOB
+2025-03-30 18:10:41,039 - Found field 'Street2' at path: Address.Street2
+2025-03-30 18:10:41,039 - Found field 'PcpSecondaryFaxNumber' at path: Pcp.PcpSecondaryFaxNumber
+2025-03-30 18:10:41,039 - Found field 'Dob' at path: Dob
+2025-03-30 18:10:41,039 - Found field 'Notes' at path: Phones.Notes
+2025-03-30 18:10:41,039 - Found field 'StateName' at path: Address.StateName
+2025-03-30 18:10:41,039 - Found field 'Comments' at path: PatientProblemList.EncounterProblemList.Comments
+2025-03-30 18:10:41,039 - Found field 'Gender' at path: Gender
+2025-03-30 18:10:41,039 - Found field 'PhoneNumber' at path: Phones.PhoneNumber
+2025-03-30 18:10:41,039 - Found field 'WorkPhoneNumber' at path: Contacts.WorkPhoneNumber
+2025-03-30 18:10:41,039 - Found field 'EmployerStreet' at path: Insurance.EmployerStreet
+2025-03-30 18:10:41,039 - Found field 'Reason' at path: OutreachActivitiesList.Reason
+2025-03-30 18:10:41,039 - Found field 'FaxNumber2' at path: Specialists.FaxNumber2
+2025-03-30 18:10:41,126 - Field check completed for 'Patients'.----------------------------

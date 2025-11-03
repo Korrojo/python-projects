@@ -1,0 +1,9 @@
+{
+  "rules": [
+    {"field": "PatientFirstName", "rule": "random_uppercase", "params": null},
+    {"field": "PatientLastName", "rule": "random_uppercase", "params": null},
+    {"field": "PatientMiddleName", "rule": "random_uppercase", "params": null},
+    {"field": "Goals", "rule": "replace_string", "params": "xxxxxxxxxx"},
+    {"field": "SnapShot", "rule": "replace_string", "params": "xxxxxxxxxx"}
+  ]
+}

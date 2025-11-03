@@ -1,0 +1,62 @@
+# MongoDB PHI Masker - Production Requirements
+# Core dependencies needed to run the application in production
+
+# ============================================================================
+# Core MongoDB & Data Processing
+# ============================================================================
+pymongo==4.5.0                      # MongoDB driver (CRITICAL)
+dnspython==2.4.2                    # MongoDB SRV connection support
+python-dotenv==1.0.0                # Environment variable management
+
+# ============================================================================
+# Parallel Processing (Dask)
+# ============================================================================
+distributed==2025.2.0               # Dask distributed computing
+locket==1.0.0                       # File-based locks for Dask
+cloudpickle==3.1.1                  # Enhanced pickling for Dask
+toolz==1.0.0                        # Functional programming utilities for Dask
+partd==1.4.2                        # Partitioned data structures for Dask
+tblib==3.0.0                        # Traceback serialization for Dask
+zict==3.0.0                         # Mutable mapping tools for Dask
+fsspec==2025.3.0                    # Filesystem abstraction for Dask
+msgpack==1.1.0                      # Binary serialization for Dask
+lz4==4.4.3                          # Fast compression for Dask
+sortedcontainers==2.4.0             # Sorted collections for Dask
+
+# ============================================================================
+# System Monitoring & Performance
+# ============================================================================
+psutil==5.9.6                       # System and process monitoring
+multiprocessing-logging==0.3.4      # Multi-process safe logging
+
+# ============================================================================
+# Logging & Output
+# ============================================================================
+colorama==0.4.6                     # Colored terminal output (cross-platform)
+
+# ============================================================================
+# Network & HTTP (for monitoring/alerts)
+# ============================================================================
+aiohttp==3.11.14                    # Async HTTP client/server
+aiohappyeyeballs==2.6.1             # Fast address resolution for aiohttp
+aiosignal==1.3.2                    # Async signal handling
+async-timeout==5.0.1                # Async timeout utilities
+attrs==25.3.0                       # Classes without boilerplate
+frozenlist==1.5.0                   # Immutable list for aiohttp
+multidict==6.2.0                    # Multi-value dictionary for aiohttp
+propcache==0.3.0                    # Property caching for aiohttp
+yarl==1.18.3                        # URL parsing for aiohttp
+idna==3.10                          # Internationalized domain names
+
+# ============================================================================
+# Date/Time Utilities
+# ============================================================================
+python-dateutil==2.9.0.post0        # Date parsing and manipulation
+pytz==2023.3                        # Timezone definitions
+tzdata==2025.1                      # IANA timezone database
+
+# ============================================================================
+# General Utilities
+# ============================================================================
+six==1.17.0                         # Python 2/3 compatibility utilities
+packaging==24.2                     # Package version parsing

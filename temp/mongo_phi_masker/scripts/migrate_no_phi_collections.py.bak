@@ -1,0 +1,682 @@
+#!/usr/bin/env python3
+"""
+Script to migrate collections without PHI data, bypassing the masking process.
+These collections can be directly copied from source to destination without any data transformation.
+"""
+
+import json
+import os
+import sys
+import argparse
+import logging
+import concurrent.futures
+import threading
+from pathlib import Path
+from datetime import datetime
+import time
+from dotenv import load_dotenv
+from pymongo import MongoClient
+from pymongo.errors import PyMongoError, ConfigurationError, ServerSelectionTimeoutError, BulkWriteError
+
+# Add project root to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+# Import project modules
+from src.utils.config_loader import ConfigLoader
+
+# Define paths
+PROJECT_ROOT = Path(__file__).parent.parent
+DOCS_DIR = PROJECT_ROOT / "docs"
+LOGS_DIR = PROJECT_ROOT / "logs"
+NO_PHI_COLLECTIONS_PATH = DOCS_DIR / "no-phi_collections.txt"
+MIGRATION_LOG_PATH = DOCS_DIR / "migration_log.json"
+DETAILED_LOG_PATH = LOGS_DIR / f"no_phi_migration_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+
+# Ensure logs directory exists
+LOGS_DIR.mkdir(exist_ok=True)
+
+# Thread-local storage for per-thread logging
+thread_local = threading.local()
+
+# Setup logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler(DETAILED_LOG_PATH)
+    ]
+)
+logger = logging.getLogger("migration")
+
+logger.info(f"Starting migration process. Detailed log will be saved to: {DETAILED_LOG_PATH}")
+
+# Define paths
+PROJECT_ROOT = Path(__file__).parent.parent
+DOCS_DIR = PROJECT_ROOT / "docs"
+NO_PHI_COLLECTIONS_PATH = DOCS_DIR / "no-phi_collections.txt"
+MIGRATION_LOG_PATH = DOCS_DIR / "migration_log.json"
+
+
+def get_mongo_clients(config):
+    """
+    Create MongoDB clients for source and destination databases.
+    Handles SRV connections for Atlas and other cloud MongoDB providers.
+    Reads connection details primarily from environment variables.
+
+    Args:
+        config: Configuration dictionary (currently unused in favor of env vars)
+
+    Returns:
+        Tuple of (source_client, destination_client)
+    """
+    logger.info("Building MongoDB URIs from environment variables...")
+
+    # Source connection parameters from environment
+    src_host = os.environ.get("MONGO_SOURCE_HOST")
+    src_port = os.environ.get("MONGO_SOURCE_PORT")
+    src_user = os.environ.get("MONGO_SOURCE_USERNAME")
+    src_pass = os.environ.get("MONGO_SOURCE_PASSWORD")
+    src_auth_db = os.environ.get("MONGO_SOURCE_AUTH_DB", "admin")
+    src_use_ssl = os.environ.get("MONGO_SOURCE_USE_SSL", "false").lower() == "true"
+    src_use_srv = os.environ.get("MONGO_SOURCE_USE_SRV", "false").lower() == "true"
+
+    # Destination connection parameters from environment
+    dest_host = os.environ.get("MONGO_DEST_HOST")
+    dest_port = os.environ.get("MONGO_DEST_PORT")
+    dest_user = os.environ.get("MONGO_DEST_USERNAME")
+    dest_pass = os.environ.get("MONGO_DEST_PASSWORD")
+    dest_auth_db = os.environ.get("MONGO_DEST_AUTH_DB", "admin")
+    dest_use_ssl = os.environ.get("MONGO_DEST_USE_SSL", "false").lower() == "true"
+    dest_use_srv = os.environ.get("MONGO_DEST_USE_SRV", "false").lower() == "true"
+
+    # Check if essential parameters are missing
+    if not src_host:
+        logger.error("MONGO_SOURCE_HOST environment variable is missing.")
+        sys.exit(1)
+    if not dest_host:
+        logger.error("MONGO_DEST_HOST environment variable is missing.")
+        sys.exit(1)
+
+    # Build URIs using the helper function
+    source_uri = build_mongodb_uri(
+        src_host, src_port, src_user, src_pass, src_auth_db, src_use_srv, src_use_ssl
+    )
+    dest_uri = build_mongodb_uri(
+        dest_host, dest_port, dest_user, dest_pass, dest_auth_db, dest_use_srv, dest_use_ssl
+    )
+
+    if not source_uri or not dest_uri:
+        logger.error("Failed to build MongoDB URIs from environment variables. Check build_mongodb_uri function and env vars.")
+        sys.exit(1)
+
+    # Mask passwords in log output
+    masked_source_uri = source_uri
+    masked_dest_uri = dest_uri
+    if src_pass and src_pass in source_uri:
+        masked_source_uri = source_uri.replace(src_pass, "****")
+    if dest_pass and dest_pass in dest_uri:
+        masked_dest_uri = dest_uri.replace(dest_pass, "****")
+
+    logger.info(f"Attempting connection to source MongoDB: {masked_source_uri}")
+    logger.info(f"Attempting connection to destination MongoDB: {masked_dest_uri}")
+
+    # Connect to MongoDB with increased timeouts and better error handling
+    try:
+        source_client = MongoClient(
+            source_uri,
+            serverSelectionTimeoutMS=30000, # 30 seconds
+            connectTimeoutMS=30000
+        )
+        dest_client = MongoClient(
+            dest_uri,
+            serverSelectionTimeoutMS=30000,
+            connectTimeoutMS=30000
+        )
+
+        # Test connections by pinging the admin database
+        logger.info("Pinging source database...")
+        source_client.admin.command('ping')
+        logger.info("Source MongoDB connection successful.")
+
+        logger.info("Pinging destination database...")
+        dest_client.admin.command('ping')
+        logger.info("Destination MongoDB connection successful.")
+
+        return source_client, dest_client
+
+    except ConfigurationError as e:
+        logger.error(f"MongoDB Configuration Error: {str(e)}")
+        logger.error("Please check your MONGO_* environment variables, especially SRV/SSL settings and URI format.")
+        sys.exit(1)
+    except ServerSelectionTimeoutError as e:
+        logger.error(f"MongoDB Connection Timeout Error: {str(e)}")
+        logger.error("Could not connect to MongoDB within the time limit.")
+        logger.error("Verify network connectivity, firewall rules, VPN status, and if the MongoDB server/service is running and accessible.")
+        sys.exit(1)
+    except Exception as e:
+        # Catch other potential errors like authentication failures
+        logger.error(f"An unexpected error occurred connecting to MongoDB: {str(e)}")
+        sys.exit(1)
+
+
+def build_mongodb_uri(host, port, username=None, password=None, auth_db="admin", use_srv=False, use_ssl=False):
+    """
+    Build a MongoDB URI from connection parameters.
+    
+    Args:
+        host: MongoDB host
+        port: MongoDB port (ignored for SRV connections)
+        username: MongoDB username (optional)
+        password: MongoDB password (optional)
+        auth_db: Authentication database (default: admin)
+        use_srv: Whether to use SRV format for Atlas connections
+        use_ssl: Whether to enable SSL
+        
+    Returns:
+        MongoDB URI string
+    """
+    if not host:
+        return None
+        
+    # Determine protocol and port string based on SRV status
+    if use_srv:
+        protocol = "mongodb+srv://"
+        port_str = ""  # SRV connections don't use port
+    else:
+        protocol = "mongodb://"
+        port_str = f":{port}" if port else ":27017"
+    
+    # Add authentication if provided
+    if username and password:
+        auth_part = f"{username}:{password}@"
+        uri = f"{protocol}{auth_part}{host}{port_str}/"
+        
+        # Add query parameters if needed
+        params = []
+        if auth_db:
+            params.append(f"authSource={auth_db}")
+        if use_ssl:
+            params.append("ssl=true")
+            
+        if params:
+            uri += "?" + "&".join(params)
+    else:
+        # No authentication
+        uri = f"{protocol}{host}{port_str}/"
+        
+        # Add query parameters if needed
+        params = []
+        if use_ssl:
+            params.append("ssl=true")
+            
+        if params:
+            uri += "?" + "&".join(params)
+            
+    return uri
+
+
+def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip_existing=True, max_workers=None, log_frequency=1000, skip_indexes=False):
+    """
+    Migrate a collection from source to destination.
+    
+    Args:
+        source_db: Source MongoDB database
+        dest_db: Destination MongoDB database
+        collection_name: Name of the collection to migrate
+        batch_size: Number of documents to process in each batch
+        skip_existing: Whether to skip migration if the collection already exists
+        max_workers: Maximum number of worker threads for document processing
+        log_frequency: How often to log progress (in number of documents)
+        skip_indexes: Whether to skip index creation
+        
+    Returns:
+        Dictionary with migration statistics
+    """
+    start_time = time.time()
+    thread_id = threading.get_ident()
+    logger.info(f"[Thread-{thread_id}] Starting migration of collection: {collection_name}")
+    
+    result = {
+        "collection": collection_name,
+        "status": "pending",
+        "start_time": datetime.now().isoformat(),
+        "documents_migrated": 0,
+        "indexes_created": 0,
+        "indexes_failed": 0,
+        "failed_indexes": []
+    }
+    
+    try:
+        # Check if collection exists in source
+        if collection_name not in source_db.list_collection_names():
+            logger.warning(f"[Thread-{thread_id}] Collection {collection_name} does not exist in source database")
+            result["status"] = "error"
+            result["error"] = "Collection does not exist in source database"
+            result["end_time"] = datetime.now().isoformat()
+            result["duration_seconds"] = time.time() - start_time
+            return result
+        
+        # Check if collection exists in destination
+        if collection_name in dest_db.list_collection_names():
+            if skip_existing:
+                logger.info(f"[Thread-{thread_id}] Collection {collection_name} already exists in destination database, skipping")
+                result["status"] = "skipped"
+                result["reason"] = "Collection already exists in destination"
+                result["end_time"] = datetime.now().isoformat()
+                result["duration_seconds"] = time.time() - start_time
+                return result
+            else:
+                logger.info(f"[Thread-{thread_id}] Collection {collection_name} already exists in destination database, dropping")
+                dest_db[collection_name].drop()
+        
+        source_collection = source_db[collection_name]
+        dest_collection = dest_db[collection_name]
+        
+        # Get total document count for progress reporting
+        total_docs = source_collection.count_documents({})
+        logger.info(f"[Thread-{thread_id}] Collection {collection_name} has {total_docs} documents to migrate")
+        
+        if total_docs == 0:
+            logger.info(f"[Thread-{thread_id}] Collection {collection_name} is empty, creating empty collection")
+            result["status"] = "completed"
+            result["documents_migrated"] = 0
+            result["end_time"] = datetime.now().isoformat()
+            result["duration_seconds"] = time.time() - start_time
+            return result
+        
+        # Copy documents in batches using insert_many for better performance
+        docs_migrated = 0
+        batch_start_time = time.time()
+        batch = []
+        last_log_count = 0
+        
+        for doc in source_collection.find({}):
+            batch.append(doc)
+            
+            if len(batch) >= batch_size:
+                try:
+                    dest_collection.insert_many(batch, ordered=False)
+                    docs_migrated += len(batch)
+                    
+                    # Log progress at specified frequency
+                    if docs_migrated - last_log_count >= log_frequency:
+                        batch_duration = time.time() - batch_start_time
+                        docs_per_second = (docs_migrated - last_log_count) / batch_duration if batch_duration > 0 else 0
+                        progress = (docs_migrated / total_docs) * 100 if total_docs > 0 else 0
+                        logger.info(f"[Thread-{thread_id}] Collection {collection_name}: Migrated {docs_migrated}/{total_docs} documents ({progress:.2f}%) - {docs_per_second:.2f} docs/sec")
+                        last_log_count = docs_migrated
+                        batch_start_time = time.time()
+                    
+                    batch = []
+                except BulkWriteError as bwe:
+                    # Handle partial batch failures
+                    if 'writeErrors' in bwe.details:
+                        successful = len(batch) - len(bwe.details['writeErrors'])
+                        docs_migrated += successful
+                        logger.warning(f"[Thread-{thread_id}] Collection {collection_name}: Batch partially failed, {successful}/{len(batch)} documents inserted")
+                    batch = []
+                    batch_start_time = time.time()
+        
+        # Insert any remaining documents
+        if batch:
+            try:
+                dest_collection.insert_many(batch, ordered=False)
+                docs_migrated += len(batch)
+            except BulkWriteError as bwe:
+                if 'writeErrors' in bwe.details:
+                    successful = len(batch) - len(bwe.details['writeErrors'])
+                    docs_migrated += successful
+                    logger.warning(f"[Thread-{thread_id}] Collection {collection_name}: Final batch partially failed, {successful}/{len(batch)} documents inserted")
+        
+        if not skip_indexes:
+            # Copy indexes
+            index_start_time = time.time()
+            logger.info(f"[Thread-{thread_id}] Starting index creation for collection: {collection_name}")
+            indexes = list(source_collection.list_indexes())
+            for index in indexes:
+                # Skip _id_ index as it's created automatically
+                if index["name"] != "_id_":
+                    try:
+                        # Get the key/direction pairs from the index specification
+                        key_dict = index["key"]
+                        
+                        # Create a properly formatted list of (field, direction) tuples
+                        # This is what PyMongo expects for create_index()
+                        key_pairs = []
+                        for field_name, direction in key_dict.items():
+                            # Ensure direction is a valid MongoDB index specifier
+                            if isinstance(direction, (int, float)):
+                                # Convert to proper integer (-1 or 1)
+                                direction = 1 if direction > 0 else -1
+                            elif isinstance(direction, str) and direction.lower() in ['2d', '2dsphere', 'text', 'hashed']:
+                                # Valid string specifiers, keep as is
+                                pass
+                            else:
+                                # For any other types, default to ascending
+                                logger.warning(f"[Thread-{thread_id}] Invalid index direction '{direction}' for field '{field_name}' in collection {collection_name}, defaulting to ascending (1)")
+                                direction = 1
+                            
+                            key_pairs.append((field_name, direction))
+                        
+                        # Filter out options that don't apply or might cause issues
+                        valid_options = ["unique", "sparse", "background", "expireAfterSeconds", 
+                                        "partialFilterExpression", "collation", "weights"]
+                        
+                        # Extract valid options only
+                        options = {}
+                        for k, v in index.items():
+                            if k in valid_options:
+                                options[k] = v
+                        
+                        # Add the name option
+                        if "name" in index:
+                            options["name"] = index["name"]
+                        
+                        # Log detailed debug information
+                        logger.info(f"[Thread-{thread_id}] Creating index {index.get('name', 'unnamed')} with keys {key_pairs} on collection {collection_name}")
+                        
+                        # Create the index with properly formatted key pairs and options
+                        dest_collection.create_index(key_pairs, **options)
+                        result["indexes_created"] += 1
+                        
+                    except Exception as e:
+                        result["indexes_failed"] += 1
+                        result["failed_indexes"].append({
+                            "name": index.get("name", "unknown"),
+                            "error": str(e),
+                            "key_spec": str(index.get("key", {}))
+                        })
+                        logger.warning(f"[Thread-{thread_id}] Failed to create index {index.get('name', 'unknown')} on collection {collection_name}: {str(e)}")
+                        # Also log the actual keys structure for debugging
+                        logger.warning(f"[Thread-{thread_id}] Index key specification: {index.get('key', {})}")
+                        # Continue with other indexes instead of failing the entire collection migration
+        
+        index_duration = time.time() - index_start_time
+        if result["indexes_failed"] > 0:
+            logger.warning(f"[Thread-{thread_id}] Finished creating {result['indexes_created']} indexes for collection {collection_name} with {result['indexes_failed']} failed indexes in {index_duration:.2f} seconds")
+        else:
+            logger.info(f"[Thread-{thread_id}] Finished creating {result['indexes_created']} indexes for collection {collection_name} in {index_duration:.2f} seconds")
+        
+        # Update result
+        result["status"] = "completed"
+        result["documents_migrated"] = docs_migrated
+        result["end_time"] = datetime.now().isoformat()
+        result["duration_seconds"] = time.time() - start_time
+        
+        logger.info(f"[Thread-{thread_id}] Successfully migrated collection {collection_name}: {docs_migrated} documents in {result['duration_seconds']:.2f} seconds")
+        
+        return result
+    
+    except Exception as e:
+        error_msg = f"[Thread-{thread_id}] Error migrating collection {collection_name}: {str(e)}"
+        logger.error(error_msg)
+        result["status"] = "error"
+        result["error"] = str(e)
+        result["end_time"] = datetime.now().isoformat()
+        result["duration_seconds"] = time.time() - start_time
+        return result
+
+
+def get_no_phi_collections():
+    """
+    Get list of collections that don't contain PHI data from a text file.
+    Each line in the file is treated as a collection name.
+    Lines starting with # are treated as comments and ignored.
+    
+    Returns:
+        List of collection names
+    """
+    try:
+        collections = []
+        with open(NO_PHI_COLLECTIONS_PATH, 'r') as f:
+            for line in f:
+                # Strip whitespace and skip empty lines or comments
+                collection_name = line.strip()
+                if collection_name and not collection_name.startswith('#'):
+                    collections.append(collection_name)
+        
+        logger.info(f"Loaded {len(collections)} no-PHI collections from text file")
+        return collections
+    
+    except Exception as e:
+        logger.error(f"Error loading no-PHI collections list: {str(e)}")
+        sys.exit(1)
+
+
+def save_migration_log(results, args):
+    """
+    Save migration results to log file.
+    
+    Args:
+        results: List of migration result dictionaries
+        args: Command line arguments
+    """
+    # Calculate summary statistics
+    completed = len([r for r in results if r["status"] == "completed"])
+    skipped = len([r for r in results if r["status"] == "skipped"])
+    failed = len([r for r in results if r["status"] == "error"])
+    total_docs = sum(r.get("documents_migrated", 0) for r in results)
+    
+    # Calculate index statistics
+    total_indexes_created = sum(r.get("indexes_created", 0) for r in results)
+    total_indexes_failed = sum(r.get("indexes_failed", 0) for r in results)
+    collections_with_index_errors = [r["collection"] for r in results if r.get("indexes_failed", 0) > 0]
+    
+    log_data = {
+        "timestamp": datetime.now().isoformat(),
+        "migration_type": "no-phi",
+        "collections_migrated": completed,
+        "collections_skipped": skipped,
+        "collections_failed": failed,
+        "total_documents_migrated": total_docs,
+        "total_indexes_created": total_indexes_created,
+        "total_indexes_failed": total_indexes_failed,
+        "collections_with_index_errors": collections_with_index_errors,
+        "details": results
+    }
+    
+    # Add source information to log
+    if args.use_all_no_phi:
+        log_data["collections_source"] = str(NO_PHI_COLLECTIONS_PATH)
+    elif args.collections_file:
+        log_data["collections_source"] = args.collections_file
+    elif args.collections:
+        log_data["collections_source"] = "command_line"
+    
+    try:
+        with open(MIGRATION_LOG_PATH, 'w') as f:
+            json.dump(log_data, f, indent=4)
+        
+        logger.info(f"Migration log saved to {MIGRATION_LOG_PATH}")
+    
+    except Exception as e:
+        logger.error(f"Error saving migration log: {str(e)}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Migrate non-PHI MongoDB collections")
+    parser.add_argument('--config', default='config/config_rules/config.json', help='Path to configuration file (optional, overrides env vars if URI is set)')
+    parser.add_argument('--env', default='.env.prod', help='Path to environment file')
+    parser.add_argument('--collections', help='Comma-separated list of collections to migrate')
+    parser.add_argument('--collections-file', help='Path to a file containing collections to migrate')
+    parser.add_argument('--use-all-no-phi', action='store_true', help='Use all collections from no-phi_collections.txt')
+    parser.add_argument('--batch-size', type=int, default=100, help='Batch size for document migration')
+    parser.add_argument('--drop-existing', action='store_true', help='Drop existing collections in destination database instead of skipping them')
+    parser.add_argument('--max-workers', type=int, help='Maximum number of worker threads for parallel processing (default: from env or 4)')
+    parser.add_argument('--log-frequency', type=int, default=5000, help='How often to log progress (in number of documents)')
+    parser.add_argument('--console-output', action='store_true', help='Also output logs to console (default: log to file only)')
+    parser.add_argument('--skip-indexes', action='store_true', help='Skip index creation (useful if indexes cause errors)')
+    args = parser.parse_args()
+
+    # Add console handler if requested
+    if args.console_output:
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
+        logger.addHandler(console_handler)
+
+    # Load environment variables
+    if os.path.exists(args.env):
+        load_dotenv(args.env, override=True)
+        logger.info(f"Loading environment from {args.env}")
+    else:
+        logger.warning(f"Environment file {args.env} not found. Relying on existing environment variables.")
+
+    # Load configuration (mainly for potential non-connection settings)
+    config = {}
+    if os.path.exists(args.config):
+        try:
+            with open(args.config, 'r') as f:
+                config = json.load(f)
+            logger.info(f"Loading configuration from {args.config}")
+        except Exception as e:
+            logger.error(f"Error loading configuration file {args.config}: {e}")
+            # Decide if this is critical - for now, we proceed assuming env vars are primary for connection
+    else:
+        logger.info(f"Configuration file {args.config} not found. Using environment variables for connection details.")
+
+    # Determine which collections to migrate
+    collections_to_migrate = []
+    
+    if args.use_all_no_phi:
+        # Use all collections from no-phi_collections.txt
+        collections_to_migrate = get_no_phi_collections()
+        logger.info(f"Using all {len(collections_to_migrate)} collections from {NO_PHI_COLLECTIONS_PATH}")
+    elif args.collections_file:
+        # Load collections from specified file
+        try:
+            # Check if file is JSON or text
+            if args.collections_file.endswith('.json'):
+                with open(args.collections_file, 'r') as f:
+                    collections_to_migrate = json.load(f)
+                if not isinstance(collections_to_migrate, list):
+                    logger.error(f"Collections file {args.collections_file} must contain a JSON array")
+                    sys.exit(1)
+            else:
+                # Assume text file with one collection per line
+                collections_to_migrate = []
+                with open(args.collections_file, 'r') as f:
+                    for line in f:
+                        collection_name = line.strip()
+                        if collection_name and not collection_name.startswith('#'):
+                            collections_to_migrate.append(collection_name)
+            
+            logger.info(f"Loaded {len(collections_to_migrate)} collections from file: {args.collections_file}")
+        except Exception as e:
+            logger.error(f"Error loading collections from {args.collections_file}: {str(e)}")
+            sys.exit(1)
+    elif args.collections:
+        # Use collections specified in command line
+        collections_to_migrate = [c.strip() for c in args.collections.split(',') if c.strip()]
+        logger.info(f"Using {len(collections_to_migrate)} collections specified via command line: {args.collections}")
+    else:
+        logger.error("No collections specified. Use --collections, --collections-file, or --use-all-no-phi")
+        sys.exit(1)
+
+    logger.info(f"Target collections for non-PHI migration: {', '.join(collections_to_migrate)}")
+
+    source_client = None
+    dest_client = None
+    success_count = 0
+    failed_collections = []
+
+    try:
+        # Get MongoDB clients using updated function
+        source_client, dest_client = get_mongo_clients(config) # Pass config, though env vars take precedence now
+
+        # Get source and destination DB names from environment variables
+        source_db_name = os.environ.get("MONGO_SOURCE_DB")
+        dest_db_name = os.environ.get("MONGO_DEST_DB")
+
+        if not source_db_name:
+            logger.error("MONGO_SOURCE_DB environment variable not set.")
+            sys.exit(1)
+        if not dest_db_name:
+            logger.error("MONGO_DEST_DB environment variable not set.")
+            sys.exit(1)
+            
+        logger.info(f"Using source database: {source_db_name}")
+        logger.info(f"Using destination database: {dest_db_name}")
+
+        source_db = source_client[source_db_name]
+        dest_db = dest_client[dest_db_name]
+        
+        # Determine max workers
+        max_workers = args.max_workers
+        if max_workers is None:
+            max_workers = int(os.environ.get("PROCESSING_MAX_WORKERS", 4))
+        logger.info(f"Using maximum of {max_workers} worker threads for parallel processing")
+
+        # Migrate collections in parallel
+        migration_results = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # Submit all collection migration tasks
+            future_to_collection = {
+                executor.submit(
+                    migrate_collection,
+                    source_db,
+                    dest_db,
+                    collection_name,
+                    batch_size=args.batch_size,
+                    skip_existing=not args.drop_existing,
+                    log_frequency=args.log_frequency,
+                    skip_indexes=args.skip_indexes
+                ): collection_name for collection_name in collections_to_migrate
+            }
+            
+            # Process results as they complete
+            for future in concurrent.futures.as_completed(future_to_collection):
+                collection_name = future_to_collection[future]
+                try:
+                    result = future.result()
+                    migration_results.append(result)
+                    logger.info(f"Completed migration of collection: {collection_name}")
+                except Exception as e:
+                    logger.error(f"Exception during migration of collection {collection_name}: {str(e)}")
+                    migration_results.append({
+                        "collection": collection_name,
+                        "status": "error",
+                        "error": str(e),
+                        "start_time": datetime.now().isoformat(),
+                        "end_time": datetime.now().isoformat(),
+                        "documents_migrated": 0
+                    })
+            
+            # Ensure all threads are done before proceeding
+            logger.info("All collection migrations completed or failed. Finalizing...")
+        
+        # Save migration log
+        save_migration_log(migration_results, args)
+
+        # Print summary
+        completed = len([r for r in migration_results if r["status"] == "completed"])
+        skipped = len([r for r in migration_results if r["status"] == "skipped"])
+        failed = len([r for r in migration_results if r["status"] == "error"])
+        total_docs = sum(r.get("documents_migrated", 0) for r in migration_results)
+        
+        # Calculate index statistics
+        total_indexes_created = sum(r.get("indexes_created", 0) for r in migration_results)
+        total_indexes_failed = sum(r.get("indexes_failed", 0) for r in migration_results)
+        collections_with_index_errors = [r["collection"] for r in migration_results if r.get("indexes_failed", 0) > 0]
+        
+        logger.info(f"\nMigration Summary:")
+        logger.info(f"Collections successfully migrated: {completed}")
+        logger.info(f"Collections skipped: {skipped}")
+        logger.info(f"Collections failed: {failed}")
+        logger.info(f"Total documents migrated: {total_docs}")
+        logger.info(f"Total indexes created: {total_indexes_created}")
+        logger.info(f"Total indexes failed: {total_indexes_failed}")
+        
+        if collections_with_index_errors:
+            logger.warning(f"Collections with index errors ({len(collections_with_index_errors)}):")
+            for coll in collections_with_index_errors:
+                logger.warning(f"  - {coll}")
+        
+        logger.info(f"Migration log saved to {MIGRATION_LOG_PATH}")
+
+    except Exception as e:
+        logger.error(f"An unexpected error occurred during migration: {str(e)}")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

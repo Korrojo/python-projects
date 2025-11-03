@@ -1,0 +1,18 @@
+{
+    "rules": [
+      {"field": "PatientFirstName", "rule": "random_uppercase", "params": null},
+      {"field": "PatientLastName", "rule": "random_uppercase", "params": null},
+      {"field": "PatientMiddleName", "rule": "random_uppercase", "params": null},
+      {"field": "UserName", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "HPINote", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "Reason", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "OtherReason", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "Goals", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "FinalNotes", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "Comments", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "VisitAddress", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "Notes", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "PhoneNumber", "rule": "random_10_digit_number", "params": null},
+      {"field": "Path", "rule": "replace_path", "params": "//vm_fs01/Projects/EMRQAReports/sampledoc.pdf"}
+    ]
+  }

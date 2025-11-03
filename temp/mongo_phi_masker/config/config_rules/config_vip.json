@@ -1,0 +1,48 @@
+{
+    "mongodb": {
+        "source": {
+            "uri": "${MONGO_SOURCE_URI}",
+            "database": "${MONGO_SOURCE_DB}",
+            "collection": "${MONGO_SOURCE_COLL}"
+        },
+        "destination": {
+            "uri": "${MONGO_DEST_URI}",
+            "database": "${MONGO_DEST_DB}",
+            "collection": "${MONGO_DEST_COLL}"
+        }
+    },
+    "processing": {
+        "masking_mode": "separate",
+        "batch_size": {
+            "initial": 50,
+            "min": 10,
+            "max": 200
+        }
+    },
+    "masking": {
+        "rules_path": "config/masking_rules/rules.json",
+        "default_rules": "config/masking_rules/default.json"
+    },
+    "validation": {
+        "enabled": true,
+        "max_retries": 3
+    },
+    "metrics": {
+        "enabled": true,
+        "interval": 10
+    },
+    "connection": {
+        "timeout_ms": 30000,
+        "retry_writes": true,
+        "retry_reads": true,
+        "max_pool_size": 100,
+        "min_pool_size": 10
+    },
+    "phi_collections": [
+        "ExternalReferral",
+        "MedicalRecordRequests",
+        "PatientCarePlan",
+        "StaffAvailability",
+        "StaffAvailabilityHistory"
+    ]
+}

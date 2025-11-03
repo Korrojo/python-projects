@@ -1,0 +1,236 @@
+
+here is the system stat while the mongodum script running 
+
+Device name	vm-01-c-prod
+Processor	AMD EPYC 7763 64-Core Processor                   2.44 GHz
+Installed RAM	64.0 GB
+Device ID	8A5101F6-84A3-4729-820A-3F8003AADA8D
+Product ID	00454-60000-00001-AA965
+System type	64-bit operating system, x64-based processor
+Pen and touch	No pen or touch input is available for this display
+
+Network utilization
+
+Image	PID	Address	Send (B/sec)	Receive (B/sec)	Total (B/sec)
+mongodump.exe	12600	10.4.3.5	374	46,431,963	46,432,337
+svchost.exe (termsvcs)	1512	vm000003.internal.cloudapp.net	10,540	366	10,906
+WindowsAzureGuestAgent.exe	3944	168.63.129.16	771	1,492	2,263
+System	4	57.150.129.134	1,065	415	1,479
+Code.exe	13476	13.69.109.131	149	206	355
+MsSense.exe	4000	20.15.141.128	193	149	342
+NoSQLBooster for MongoDB.exe	4084	20.98.166.110	12	267	280
+NoSQLBooster for MongoDB.exe	4084	20.83.25.199	12	262	274
+NoSQLBooster for MongoDB.exe	4084	20.40.248.190	12	236	248
+NoSQLBooster for MongoDB.exe	4084	20.118.241.131	12	231	244
+NoSQLBooster for MongoDB.exe	4084	20.83.63.3	12	231	244
+NoSQLBooster for MongoDB.exe	4084	20.106.17.151	12	229	241
+NoSQLBooster for MongoDB.exe	4084	172.202.121.22	12	224	237
+NoSQLBooster for MongoDB.exe	4084	20.118.217.129	12	224	237
+NoSQLBooster for MongoDB.exe	4084	20.83.63.103	12	224	237
+Code.exe	13476	20.42.65.91	91	126	217
+HealthService.exe	3920	20.44.12.215	19	5	23
+svchost.exe (NetworkService -p)	2252	vm-01-c-prod.mwzyuu3i2cbehdibilqc0g3oda.gx.internal.cloudapp.net	0	22	22
+svchost.exe (NetworkService -p)	2252	168.63.129.16	7	0	7
+WaAppAgent.exe	3956	168.63.129.16	0	3	3
+svchost.exe (LocalService)	3840	vm-01-c-prod.mwzyuu3i2cbehdibilqc0g3oda.gx.internal.cloudapp.net	0	1	1
+svchost.exe (LocalService)	3840	168.61.215.74	1	0	1
+
+
+
+cpu
+
+Image	PID	Description	Status	Threads	CPU	Average CPU
+mongodump.exe	12600	mongodump.exe	Running	21	6	5.27
+System Interrupts	-	Deferred Procedure Calls and Interrupt Service Routines	Running	-	1	0.58
+System	4	NT Kernel & System	Running	375	1	0.43
+Code.exe	12256	Visual Studio Code	Running	28	0	0.34
+Code.exe	13476	Visual Studio Code	Running	22	0	0.16
+SenseNdr.exe	5636	Windows Defender Advanced Threat Protection - Sense NDR module	Running	5	0	0.15
+perfmon.exe	7980	Resource and Performance Monitor	Running	17	0	0.14
+Taskmgr.exe	13812	Task Manager	Running	14	0	0.12
+Code.exe	4856	Visual Studio Code	Running	28	0	0.06
+Code.exe	16064	Visual Studio Code	Running	19	0	0.05
+NoSQLBooster for MongoDB.exe	5180	NoSQLBooster for MongoDB	Running	21	0	0.04
+MsMpEng.exe	4020		Running	62	0	0.02
+svchost.exe (termsvcs)	1512	Host Process for Windows Services	Running	80	0	0.02
+python.exe	15240	Python	Running	2	0	0.02
+dwm.exe	9716	Desktop Window Manager	Running	31	0	0.01
+Code.exe	11924	Visual Studio Code	Running	57	0	0.01
+NoSQLBooster for MongoDB.exe	4084	NoSQLBooster for MongoDB	Running	13	0	0.01
+svchost.exe (LocalServiceNoNetwork -p)	5796	Host Process for Windows Services	Running	23	0	0.01
+rdpclip.exe	15080	RDP Clipboard Monitor	Running	9	0	0.00
+MsSense.exe	4000		Running	43	0	0.00
+Code.exe	14052	Visual Studio Code	Running	20	0	0.00
+NoSQLBooster for MongoDB.exe	4468	NoSQLBooster for MongoDB	Running	25	0	0.00
+svchost.exe (NetworkService -p)	2252	Host Process for Windows Services	Running	10	0	0.00
+Code.exe	4944	Visual Studio Code	Running	27	0	0.00
+bash.exe	15224	bash.exe	Running	4	0	0.00
+Code.exe	3024	Visual Studio Code	Running	16	0	0.00
+explorer.exe	7448	Windows Explorer	Running	38	0	0.00
+WindowsAzureGuestAgent.exe	3944	WindowsAzureGuestAgent	Running	27	0	0.00
+Code.exe	8660	Visual Studio Code	Running	12	0	0.00
+conhost.exe	14604	Console Window Host	Running	5	0	0.00
+conhost.exe	16120	Console Window Host	Running	5	0	0.00
+Code.exe	4780	Visual Studio Code	Running	19	0	0.00
+Code.exe	16072	Visual Studio Code	Running	20	0	0.00
+svchost.exe (LocalServiceNetworkRestricted -p)	1980	Host Process for Windows Services	Running	5	0	0.00
+conhost.exe	9372	Console Window Host	Running	5	0	0.00
+powershell.exe	10628	Windows PowerShell	Running	10	0	0.00
+csrss.exe	968		Running	12	0	0.00
+Code.exe	4520	Visual Studio Code	Running	25	0	0.00
+Code.exe	4572	Visual Studio Code	Running	20	0	0.00
+bash.exe	9532	bash.exe	Running	4	0	0.00
+bash.exe	14324	bash.exe	Running	4	0	0.00
+bash.exe	14564	bash.exe	Running	4	0	0.00
+MMAExtensionHeartbeatService.exe	6744	MMAExtensionHeartbeatService	Running	7	0	0.00
+svchost.exe (RPCSS -p)	1372	Host Process for Windows Services	Running	8	0	0.00
+cscript.exe	17104	Microsoft ® Console Based Script Host	Terminated	5	0	0.00
+conhost.exe	2708	Console Window Host	Terminated	5	0	0.00
+Code.exe	13228	Visual Studio Code	Running	19	0	0.00
+Code.exe	14516	Visual Studio Code	Running	20	0	0.00
+services.exe	1116		Running	5	0	0.00
+svchost.exe (ICService -p)	1724	Host Process for Windows Services	Running	6	0	0.00
+svchost.exe (LocalService -p)	1948	Host Process for Windows Services	Running	2	0	0.00
+lsass.exe	1148		Running	6	0	0.00
+SearchApp.exe	9164	Search application	Suspended	35	0	0.00
+WaAppAgent.exe	3956	Microsoft AzureÂ®	Running	34	0	0.00
+Code.exe	7752	Visual Studio Code	Running	29	0	0.00
+dwm.exe	2040	Desktop Window Manager	Running	23	0	0.00
+MonitoringHost.exe	4336	System Center Management Service Host Process	Running	14	0	0.00
+powershell.exe	6244	Windows PowerShell	Running	15	0	0.00
+Code.exe	11908	Visual Studio Code	Running	15	0	0.00
+ShellExperienceHost.exe	9408	Windows Shell Experience Host	Suspended	14	0	0.00
+svchost.exe (LocalServiceNoNetworkFirewall -p)	2932	Host Process for Windows Services	Running	14	0	0.00
+TextInputHost.exe	15900	TextInputHost.exe	Running	10	0	0.00
+HealthService.exe	3920	Microsoft Monitoring Agent Service	Running	13	0	0.00
+mmc.exe	8668	Microsoft Management Console	Running	12	0	0.00
+ctfmon.exe	9844	CTF Loader	Running	11	0	0.00
+LogonUI.exe	2032	Windows Logon User Interface Host	Running	12	0	0.00
+taskhostw.exe	3008	Host Process for Windows Tasks	Running	11	0	0.00
+SenseTVM.exe	6148	Windows Defender Advanced Threat Protection Sense TVM module	Running	12	0	0.00
+Code.exe	13156	Visual Studio Code	Running	12	0	0.00
+Code.exe	17344	Visual Studio Code	Running	12	0	0.00
+csrss.exe	6524		Running	11	0	0.00
+svchost.exe (DcomLaunch -p)	1260	Host Process for Windows Services	Running	10	0	0.00
+svchost.exe (netsvcs)	3052	Host Process for Windows Services	Running	11	0	0.00
+SystemSettings.exe	17116	Settings	Running	8	0	0.00
+MpDefenderCoreService.exe	5332		Running	10	0	0.00
+svchost.exe (utcsvc -p)	3732	Host Process for Windows Services	Running	9	0	0.00
+svchost.exe (netsvcs -p)	3812	Host Process for Windows Services	Running	10	0	0.00
+csrss.exe	900		Running	10	0	0.00
+sihost.exe	10916	Shell Infrastructure Host	Running	7	0	0.00
+snowagent.exe	4060	Snow Inventory Agent for Windows	Running	10	0	0.00
+gc_service.exe	1820	gc_service.exe	Running	9	0	0.00
+msdtc.exe	3704	Microsoft Distributed Transaction Coordinator Service	Running	9	0	0.00
+WUDFHost.exe	17252	Windows Driver Foundation - User-mode Driver Framework Host Process	Running	8	0	0.00
+svchost.exe (LocalServiceNetworkRestricted -p)	1648	Host Process for Windows Services	Running	8	0	0.00
+svchost.exe (netsvcs -p)	2356	Host Process for Windows Services	Running	6	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	1580	Host Process for Windows Services	Running	8	0	0.00
+StartMenuExperienceHost.exe	9324	StartMenuExperienceHost.exe	Running	6	0	0.00
+Code.exe	16964	Visual Studio Code	Running	8	0	0.00
+Code.exe	13544	Visual Studio Code	Running	8	0	0.00
+svchost.exe (ClipboardSvcGroup -p)	4352	Host Process for Windows Services	Running	5	0	0.00
+Code.exe	9064	Visual Studio Code	Running	8	0	0.00
+Code.exe	13972	Visual Studio Code	Running	8	0	0.00
+NoSQLBooster for MongoDB.exe	5996	NoSQLBooster for MongoDB	Running	8	0	0.00
+spoolsv.exe	3600	Spooler SubSystem App	Running	7	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	6500	Host Process for Windows Services	Running	8	0	0.00
+Code.exe	12368	Visual Studio Code	Running	7	0	0.00
+NoSQLBooster for MongoDB.exe	8948	NoSQLBooster for MongoDB	Running	7	0	0.00
+svchost.exe (netsvcs -p)	1812	Host Process for Windows Services	Running	6	0	0.00
+RuntimeBroker.exe	14140	Runtime Broker	Running	4	0	0.00
+dllhost.exe	10468	COM Surrogate	Running	5	0	0.00
+conhost.exe	16980	Console Window Host	Running	5	0	0.00
+svchost.exe (DcomLaunch -p)	1428	Host Process for Windows Services	Running	5	0	0.00
+svchost.exe (netsvcs -p)	3820	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (NetworkService -p)	3744	Host Process for Windows Services	Running	5	0	0.00
+fontdrvhost.exe	2008	Usermode Font Driver Host	Running	5	0	0.00
+fontdrvhost.exe	1288	Usermode Font Driver Host	Running	5	0	0.00
+fontdrvhost.exe	1296	Usermode Font Driver Host	Running	5	0	0.00
+svchost.exe (netsvcs -p)	1208	Host Process for Windows Services	Running	5	0	0.00
+svchost.exe (LocalService -p)	2832	Host Process for Windows Services	Running	5	0	0.00
+svchost.exe (netsvcs -p)	3064	Host Process for Windows Services	Running	5	0	0.00
+svchost.exe (NetSvcs -p)	3772	Host Process for Windows Services	Running	5	0	0.00
+svchost.exe (NetworkService -p)	3832	Host Process for Windows Services	Running	5	0	0.00
+svchost.exe (LocalService)	3840	Host Process for Windows Services	Running	5	0	0.00
+svchost.exe (LocalService -p)	11232	Host Process for Windows Services	Running	3	0	0.00
+taskhostw.exe	13196	Host Process for Windows Tasks	Running	4	0	0.00
+conhost.exe	13252	Console Window Host	Running	5	0	0.00
+SecurityHealthService.exe	10924		Running	5	0	0.00
+svchost.exe (NetworkService -p)	2100	Host Process for Windows Services	Running	4	0	0.00
+Registry	244		Running	4	0	0.00
+svchost.exe (LocalService -p)	1876	Host Process for Windows Services	Running	4	0	0.00
+svchost.exe (netsvcs)	2456	Host Process for Windows Services	Running	4	0	0.00
+svchost.exe (LocalService -p)	2616	Host Process for Windows Services	Running	4	0	0.00
+svchost.exe (netsvcs -p)	2164	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (NetSvcs -p)	2716	Host Process for Windows Services	Running	4	0	0.00
+svchost.exe (smbsvcs)	4368	Host Process for Windows Services	Running	5	0	0.00
+dllhost.exe	6124	COM Surrogate	Running	4	0	0.00
+svchost.exe (LocalService -p)	4120	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	4008	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	5840	Host Process for Windows Services	Running	4	0	0.00
+svchost.exe (UnistackSvcGroup)	11308	Host Process for Windows Services	Running	3	0	0.00
+Greenshot.exe	13200	Greenshot	Running	4	0	0.00
+conhost.exe	14460	Console Window Host	Running	4	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	1744	Host Process for Windows Services	Running	3	0	0.00
+winlogon.exe	1044	Windows Logon Application	Running	3	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	1752	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (LocalServiceNetworkRestricted -p)	1824	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (LocalServiceNetworkRestricted -p)	2500	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (LocalServiceNetworkRestricted -p)	2724	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (NetworkService -p)	2856	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (LocalServiceNetworkRestricted -p)	2920	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (appmodel -p)	3796	Host Process for Windows Services	Running	1	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	3804	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (NetworkServiceNetworkRestricted -p)	5248	Host Process for Windows Services	Running	3	0	0.00
+NisSrv.exe	6536		Running	3	0	0.00
+WmiPrvSE.exe	1640	WMI Provider Host	Running	3	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	5128	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (netsvcs -p)	6192		Running	3	0	0.00
+winlogon.exe	11188	Windows Logon Application	Running	3	0	0.00
+svchost.exe (UnistackSvcGroup)	12472	Host Process for Windows Services	Running	2	0	0.00
+mongodump.exe	8328	ShimGen generated shim - Chocolatey Shim	Running	3	0	0.00
+ApplicationFrameHost.exe	2632	Application Frame Host	Running	2	0	0.00
+svchost.exe (netsvcs -p)	1760	Host Process for Windows Services	Running	3	0	0.00
+smss.exe	828		Running	2	0	0.00
+svchost.exe (netsvcs -p)	1392	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (netsvcs -p)	1476	Host Process for Windows Services	Running	3	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	2156	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (netsvcs -p)	2216	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (netsvcs -p)	2752	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (LocalServiceNoNetwork -p)	3724	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (netsvcs -p)	3764	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	3780	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (LocalServiceNoNetwork -p)	6808	Host Process for Windows Services	Running	1	0	0.00
+SenseCE.exe	5692	Windows Defender Advanced Threat Protection Sense CE module	Running	2	0	0.00
+SenseCE.exe	6460	Windows Defender Advanced Threat Protection Sense CE module	Running	2	0	0.00
+svchost.exe (netsvcs -p)	9236	Host Process for Windows Services	Running	2	0	0.00
+svchost.exe (netsvcs -p)	10700	Host Process for Windows Services	Running	2	0	0.00
+WaSecAgentProv.exe	16340	refs/heads/master security-dsms-client (70078aa3) Microsoft® Azure SecAgent	Running	2	0	0.00
+conhost.exe	16940	Console Window Host	Running	2	0	0.00
+RuntimeBroker.exe	10128	Runtime Broker	Running	1	0	0.00
+conhost.exe	8228	Console Window Host	Running	2	0	0.00
+python.exe	14044	Python	Running	2	0	0.00
+conhost.exe	11804	Console Window Host	Running	2	0	0.00
+RuntimeBroker.exe	9268	Runtime Broker	Running	2	0	0.00
+conhost.exe	14264	Console Window Host	Running	2	0	0.00
+conhost.exe	5156	Console Window Host	Running	2	0	0.00
+wininit.exe	888		Running	1	0	0.00
+LsaIso.exe	1140	Credential Guard & VBS Key Isolation	Running	1	0	0.00
+svchost.exe (LocalSystemNetworkRestricted -p)	1608	Host Process for Windows Services	Running	1	0	0.00
+svchost.exe (LocalServiceNetworkRestricted -p)	1656	Host Process for Windows Services	Running	1	0	0.00
+svchost.exe (NetSvcs)	3496	Host Process for Windows Services	Running	1	0	0.00
+AggregatorHost.exe	4744	AggregatorHost.exe	Running	1	0	0.00
+svchost.exe (LocalService -p)	6584	Host Process for Windows Services	Running	1	0	0.00
+svchost.exe (appmodel -p)	6564	Host Process for Windows Services	Running	1	0	0.00
+svchost.exe (LocalService -p)	11888	Host Process for Windows Services	Running	1	0	0.00
+pet.exe	15060	pet.exe	Running	1	0	0.00
+bash.exe	16844	Git for Windows	Running	1	0	0.00
+bash.exe	9172	Git for Windows	Running	1	0	0.00
+pet.exe	13400	pet.exe	Running	1	0	0.00
+bash.exe	6184	Git for Windows	Running	1	0	0.00
+bash.exe	4956	Git for Windows	Running	1	0	0.00
+Secure System	168		Suspended	-	0	0.00
+
+
+
