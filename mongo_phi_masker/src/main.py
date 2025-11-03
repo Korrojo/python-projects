@@ -145,35 +145,35 @@ def display_info(config: Any) -> None:
     if mongo_config:
         src_config = mongo_config.get("source", {})
         if src_config:
-            # Extract hostname from URI without showing credentials
-            src_uri = src_config.get("uri", "")
-            if src_uri:
-                parts = src_uri.split("@")
-                if len(parts) > 1:
-                    host_info = parts[1]
-                else:
-                    host_info = parts[0]
-                logging.info(
-                    f"Source MongoDB: {host_info}, "
-                    f"DB={src_config.get('database', 'Not specified')}, "
-                    f"Collection={src_config.get('collection', 'Not specified')}"
-                )
+            src_host = src_config.get("host")
+            src_database = src_config.get("database", "Not specified")
+            src_collection = src_config.get("collection", "Not specified")
+            # If host is not set, try to safely extract it from URI
+            if not src_host:
+                src_uri = src_config.get("uri", "")
+                if src_uri:
+                    src_host = get_mongodb_host(src_uri)
+            logging.info(
+                f"Source MongoDB: {src_host or 'Not specified'}, "
+                f"DB={src_database}, "
+                f"Collection={src_collection}"
+            )
 
         dest_config = mongo_config.get("destination", {})
         if dest_config:
-            # Extract hostname from URI without showing credentials
-            dest_uri = dest_config.get("uri", "")
-            if dest_uri:
-                parts = dest_uri.split("@")
-                if len(parts) > 1:
-                    host_info = parts[1]
-                else:
-                    host_info = parts[0]
-                logging.info(
-                    f"Destination MongoDB: {host_info}, "
-                    f"DB={dest_config.get('database', 'Not specified')}, "
-                    f"Collection={dest_config.get('collection', 'Not specified')}"
-                )
+            dest_host = dest_config.get("host")
+            dest_database = dest_config.get("database", "Not specified")
+            dest_collection = dest_config.get("collection", "Not specified")
+            # If host is not set, try to safely extract it from URI
+            if not dest_host:
+                dest_uri = dest_config.get("uri", "")
+                if dest_uri:
+                    dest_host = get_mongodb_host(dest_uri)
+            logging.info(
+                f"Destination MongoDB: {dest_host or 'Not specified'}, "
+                f"DB={dest_database}, "
+                f"Collection={dest_collection}"
+            )
 
 
 def verify_only(config: dict[str, Any], log_level: str) -> dict[str, Any]:
