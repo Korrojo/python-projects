@@ -5,14 +5,14 @@ This module provides connection management for MongoDB databases.
 """
 
 import logging
-import sys
-from typing import Dict, Any, List, Optional, Union, Generator, Tuple
+from typing import Any
+
 from pymongo import MongoClient
-from pymongo.database import Database
 from pymongo.collection import Collection
 from pymongo.cursor import Cursor
-from pymongo.errors import PyMongoError, ConnectionFailure, OperationFailure
-from pymongo.operations import InsertOne, UpdateOne, ReplaceOne
+from pymongo.database import Database
+from pymongo.errors import ConnectionFailure, PyMongoError
+from pymongo.operations import InsertOne, ReplaceOne
 
 
 # Define a simple retry decorator instead of importing it
@@ -26,7 +26,7 @@ def retry(max_attempts=3, delay=2, backoff_factor=2.0, exceptions=(ConnectionFai
             while attempt < max_attempts:
                 try:
                     return func(*args, **kwargs)
-                except exceptions as e:
+                except exceptions:
                     attempt += 1
                     if attempt >= max_attempts:
                         raise
@@ -123,9 +123,7 @@ class MongoConnector:
                 self.db = self.client[self.database_name]
 
                 if self.auth_database:
-                    self.db.authenticate(
-                        mechanism="SCRAM-SHA-1", source=self.auth_database
-                    )
+                    self.db.authenticate(mechanism="SCRAM-SHA-1", source=self.auth_database)
 
                 if self.collection_name:
                     self.coll = self.client[self.database_name][self.collection_name]
@@ -169,7 +167,7 @@ class MongoConnector:
         if not self.is_connected():
             self.connect()
 
-    def get_database(self, database_name: str = None) -> Optional[Database]:
+    def get_database(self, database_name: str = None) -> Database | None:
         """Get a MongoDB database.
 
         Args:
@@ -191,9 +189,7 @@ class MongoConnector:
 
         return self.client[db_name]
 
-    def get_collection(
-        self, collection_name: str = None, database_name: str = None
-    ) -> Optional[Collection]:
+    def get_collection(self, collection_name: str = None, database_name: str = None) -> Collection | None:
         """Get a MongoDB collection.
 
         Args:
@@ -219,9 +215,7 @@ class MongoConnector:
 
         return db[coll_name]
 
-    def collection_exists(
-        self, collection_name: str = None, database_name: str = None
-    ) -> bool:
+    def collection_exists(self, collection_name: str = None, database_name: str = None) -> bool:
         """Check if a collection exists.
 
         Args:
@@ -252,7 +246,7 @@ class MongoConnector:
         except:
             return False
 
-    def list_collections(self, database_name: str = None) -> List[str]:
+    def list_collections(self, database_name: str = None) -> list[str]:
         """List collections in a database.
 
         Args:
@@ -267,9 +261,9 @@ class MongoConnector:
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def find(
         self,
-        query: Dict[str, Any] = None,
-        projection: Dict[str, Any] = None,
-        sort: List[Tuple[str, int]] = None,
+        query: dict[str, Any] = None,
+        projection: dict[str, Any] = None,
+        sort: list[tuple[str, int]] = None,
         limit: int = 0,
         skip: int = 0,
         batch_size: int = None,
@@ -314,7 +308,7 @@ class MongoConnector:
 
     def count_documents(
         self,
-        query: Dict[str, Any] = None,
+        query: dict[str, Any] = None,
         collection_name: str = None,
         database_name: str = None,
     ) -> int:
@@ -338,7 +332,7 @@ class MongoConnector:
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def insert_document(
         self,
-        document: Dict[str, Any],
+        document: dict[str, Any],
         collection_name: str = None,
         database_name: str = None,
     ) -> Any:
@@ -366,8 +360,8 @@ class MongoConnector:
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def update_document(
         self,
-        query: Dict[str, Any],
-        update: Dict[str, Any],
+        query: dict[str, Any],
+        update: dict[str, Any],
         upsert: bool = False,
         collection_name: str = None,
         database_name: str = None,
@@ -398,8 +392,8 @@ class MongoConnector:
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def replace_one(
         self,
-        query: Dict[str, Any],
-        document: Dict[str, Any],
+        query: dict[str, Any],
+        document: dict[str, Any],
         upsert: bool = False,
         collection_name: str = None,
         database_name: str = None,
@@ -427,7 +421,7 @@ class MongoConnector:
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def bulk_insert(
         self,
-        documents: List[Dict[str, Any]],
+        documents: list[dict[str, Any]],
         collection_name: str = None,
         database_name: str = None,
         ordered: bool = True,
@@ -457,7 +451,7 @@ class MongoConnector:
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def bulk_update(
         self,
-        documents: List[Dict[str, Any]],
+        documents: list[dict[str, Any]],
         collection_name: str = None,
         database_name: str = None,
         ordered: bool = True,
@@ -488,11 +482,7 @@ class MongoConnector:
                     operations.append(InsertOne(doc))
                 else:
                     # If _id exists, use it as filter and update with upsert
-                    operations.append(
-                        ReplaceOne(
-                            filter={"_id": doc["_id"]}, replacement=doc, upsert=True
-                        )
-                    )
+                    operations.append(ReplaceOne(filter={"_id": doc["_id"]}, replacement=doc, upsert=True))
 
             # Execute bulk write operation
             result = collection.bulk_write(operations, ordered=ordered)
@@ -506,11 +496,11 @@ class MongoConnector:
 
     def find_one(
         self,
-        query: Dict[str, Any] = None,
-        projection: Dict[str, Any] = None,
+        query: dict[str, Any] = None,
+        projection: dict[str, Any] = None,
         collection_name: str = None,
         database_name: str = None,
-    ) -> Optional[Dict[str, Any]]:
+    ) -> dict[str, Any] | None:
         """Find a single document in a collection.
 
         Args:
@@ -548,6 +538,6 @@ class MongoConnector:
         """Update a document in the collection."""
         if not self.collection:
             raise Exception("Not connected to MongoDB")
-        
+
         result = self.collection.update_one(query, update)
         return result

@@ -7,7 +7,7 @@ properly masked in MongoDB documents.
 """
 
 import logging
-from typing import Dict, Any, List, Optional, Set
+from typing import Any
 
 from src.core.connector import MongoConnector
 
@@ -32,8 +32,8 @@ class MaskingVerifier:
         self,
         source_connector: MongoConnector,
         dest_connector: MongoConnector,
-        phi_fields: Optional[List[str]] = None,
-        non_phi_fields: Optional[List[str]] = None,
+        phi_fields: list[str] | None = None,
+        non_phi_fields: list[str] | None = None,
     ):
         """Initialize the masking verifier.
 
@@ -89,13 +89,9 @@ class MaskingVerifier:
             "HealthPlanName",
         ]
 
-        logger.debug(
-            f"MaskingVerifier initialized with {len(self.phi_fields)} PHI fields"
-        )
+        logger.debug(f"MaskingVerifier initialized with {len(self.phi_fields)} PHI fields")
 
-    def verify_masking(
-        self, sample_size: int = 5, log_level: str = "INFO"
-    ) -> Dict[str, Any]:
+    def verify_masking(self, sample_size: int = 5, log_level: str = "INFO") -> dict[str, Any]:
         """Verify that PHI data has been properly masked.
 
         Args:
@@ -127,17 +123,15 @@ class MaskingVerifier:
         actual_sample_size = min(sample_size, source_count)
 
         # Get a sample of source documents
-        source_docs = list(
-            self.source_connector.find_documents(limit=actual_sample_size)
-        )
+        source_docs = list(self.source_connector.find_documents(limit=actual_sample_size))
 
         # Track verification results
         phi_fields_masked = True
         non_phi_fields_preserved = True
 
         # Track which fields were successfully masked and which weren't
-        masked_fields: Set[str] = set()
-        unmasked_fields: Set[str] = set()
+        masked_fields: set[str] = set()
+        unmasked_fields: set[str] = set()
 
         # Verify each document
         for source_doc in source_docs:
@@ -159,18 +153,14 @@ class MaskingVerifier:
                     source_value = source_doc.get(field)
                     masked_value = masked_doc.get(field)
 
-                    logger.debug(
-                        f"Checking PHI field {field}: Source={source_value}, Masked={masked_value}"
-                    )
+                    logger.debug(f"Checking PHI field {field}: Source={source_value}, Masked={masked_value}")
 
                     # Skip null values
                     if source_value is None:
                         continue
 
                     # Check if field was masked
-                    field_masked = self._verify_field_masked(
-                        field, source_value, masked_value
-                    )
+                    field_masked = self._verify_field_masked(field, source_value, masked_value)
 
                     if field_masked:
                         masked_fields.add(field)
@@ -184,9 +174,7 @@ class MaskingVerifier:
                     source_value = source_doc.get(field)
                     masked_value = masked_doc.get(field)
 
-                    logger.debug(
-                        f"Checking non-PHI field {field}: Source={source_value}, Masked={masked_value}"
-                    )
+                    logger.debug(f"Checking non-PHI field {field}: Source={source_value}, Masked={masked_value}")
 
                     # Skip null values
                     if source_value is None:
@@ -194,9 +182,7 @@ class MaskingVerifier:
 
                     # Check if values match
                     if self._compare_values(source_value, masked_value) is False:
-                        logger.warning(
-                            f"Non-PHI field {field} was not preserved: {source_value} != {masked_value}"
-                        )
+                        logger.warning(f"Non-PHI field {field} was not preserved: {source_value} != {masked_value}")
                         non_phi_fields_preserved = False
 
         # Prepare verification results
@@ -211,12 +197,8 @@ class MaskingVerifier:
         }
 
         # Log summary
-        logger.info(
-            f"Successfully masked fields: {', '.join(masked_fields) if masked_fields else 'None'}"
-        )
-        logger.info(
-            f"Fields not properly masked: {', '.join(unmasked_fields) if unmasked_fields else 'None'}"
-        )
+        logger.info(f"Successfully masked fields: {', '.join(masked_fields) if masked_fields else 'None'}")
+        logger.info(f"Fields not properly masked: {', '.join(unmasked_fields) if unmasked_fields else 'None'}")
 
         logger.info(
             f"Verification results: count_match={count_match}, "
@@ -226,9 +208,7 @@ class MaskingVerifier:
 
         return results
 
-    def _verify_field_masked(
-        self, field_name: str, source_value: Any, masked_value: Any
-    ) -> bool:
+    def _verify_field_masked(self, field_name: str, source_value: Any, masked_value: Any) -> bool:
         """Verify that a field was properly masked.
 
         Args:
@@ -246,30 +226,22 @@ class MaskingVerifier:
                 return True
 
             # Check each item in the array
-            for i, (src_item, masked_item) in enumerate(
-                zip(source_value, masked_value)
-            ):
+            for i, (src_item, masked_item) in enumerate(zip(source_value, masked_value, strict=False)):
                 if src_item is None or masked_item is None:
                     continue
 
                 # Handle nested lists
                 if isinstance(src_item, list) and isinstance(masked_item, list):
-                    for j, (src_subitem, masked_subitem) in enumerate(
-                        zip(src_item, masked_item)
-                    ):
+                    for j, (src_subitem, masked_subitem) in enumerate(zip(src_item, masked_item, strict=False)):
                         if src_subitem is None or masked_subitem is None:
                             continue
 
                         if self._compare_values(src_subitem, masked_subitem):
-                            logger.warning(
-                                f"PHI field {field_name}[{i}][{j}] was not masked: {src_subitem}"
-                            )
+                            logger.warning(f"PHI field {field_name}[{i}][{j}] was not masked: {src_subitem}")
                             return False
                 # Regular array items
                 elif self._compare_values(src_item, masked_item):
-                    logger.warning(
-                        f"PHI field {field_name}[{i}] was not masked: {src_item}"
-                    )
+                    logger.warning(f"PHI field {field_name}[{i}] was not masked: {src_item}")
                     return False
 
             return True
@@ -296,12 +268,8 @@ class MaskingVerifier:
             return value1 is value2
 
         # Handle empty strings
-        if (isinstance(value1, str) and not value1.strip()) or (
-            isinstance(value2, str) and not value2.strip()
-        ):
-            return (isinstance(value1, str) and not value1.strip()) == (
-                isinstance(value2, str) and not value2.strip()
-            )
+        if (isinstance(value1, str) and not value1.strip()) or (isinstance(value2, str) and not value2.strip()):
+            return (isinstance(value1, str) and not value1.strip()) == (isinstance(value2, str) and not value2.strip())
 
         # Handle different types
         if type(value1) != type(value2):

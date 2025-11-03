@@ -7,14 +7,14 @@ This module provides checkpoint management capabilities:
 - Recovery from interruptions
 """
 
-import os
 import json
 import logging
+import os
 import threading
 import time
-from typing import Dict, Any, Optional, List, Union
 from datetime import datetime
-from pathlib import Path
+from typing import Any
+
 from bson import ObjectId
 
 
@@ -29,7 +29,7 @@ class MongoJSONEncoder(json.JSONEncoder):
 class CheckpointManager:
     """Manages checkpoints for resumable operations."""
 
-    def __init__(self, config: Dict[str, Any], component: str = "masking"):
+    def __init__(self, config: dict[str, Any], component: str = "masking"):
         """Initialize the checkpoint manager.
 
         Args:
@@ -44,9 +44,7 @@ class CheckpointManager:
         component_config = config.get(component, {})
 
         # Checkpoint file path
-        self.checkpoint_file = component_config.get(
-            "file", f"checkpoints/{component}/checkpoint.json"
-        )
+        self.checkpoint_file = component_config.get("file", f"checkpoints/{component}/checkpoint.json")
 
         # Create directory if it doesn't exist
         checkpoint_dir = os.path.dirname(self.checkpoint_file)
@@ -57,7 +55,7 @@ class CheckpointManager:
         self.save_interval = component_config.get("save_interval", 300)  # seconds
 
         # State variables
-        self.state: Dict[str, Any] = {}
+        self.state: dict[str, Any] = {}
         self.dirty = False
         self.last_save_time = time.time()
 
@@ -68,7 +66,7 @@ class CheckpointManager:
         # Load existing checkpoint if available
         self.load()
 
-    def load(self) -> Dict[str, Any]:
+    def load(self) -> dict[str, Any]:
         """Load checkpoint state from file.
 
         Returns:
@@ -79,14 +77,12 @@ class CheckpointManager:
             return {}
 
         try:
-            with open(self.checkpoint_file, "r") as f:
+            with open(self.checkpoint_file) as f:
                 self.state = json.load(f)
                 self.logger.info(f"Loaded checkpoint from {self.checkpoint_file}")
                 return self.state
         except Exception as e:
-            self.logger.error(
-                f"Error loading checkpoint from {self.checkpoint_file}: {str(e)}"
-            )
+            self.logger.error(f"Error loading checkpoint from {self.checkpoint_file}: {str(e)}")
             return {}
 
     def save(self) -> bool:
@@ -111,12 +107,10 @@ class CheckpointManager:
             self.logger.debug(f"Saved checkpoint to {self.checkpoint_file}")
             return True
         except Exception as e:
-            self.logger.error(
-                f"Error saving checkpoint to {self.checkpoint_file}: {str(e)}"
-            )
+            self.logger.error(f"Error saving checkpoint to {self.checkpoint_file}: {str(e)}")
             return False
 
-    def update(self, updates: Dict[str, Any], force_save: bool = False) -> None:
+    def update(self, updates: dict[str, Any], force_save: bool = False) -> None:
         """Update checkpoint state.
 
         Args:
@@ -151,7 +145,7 @@ class CheckpointManager:
                 self.save()
             self.autosave_thread = None
 
-    def get_last_processed_id(self) -> Optional[str]:
+    def get_last_processed_id(self) -> str | None:
         """Get the ID of the last processed document.
 
         Returns:
@@ -167,7 +161,7 @@ class CheckpointManager:
         """
         return self.state.get("docs_processed", 0)
 
-    def get_state(self) -> Dict[str, Any]:
+    def get_state(self) -> dict[str, Any]:
         """Get the current checkpoint state.
 
         Returns:
@@ -212,9 +206,7 @@ class CheckpointManager:
 
             with open(checkpoint_file, "w") as f:
                 # Use the custom encoder for JSON serialization
-                json.dump(
-                    self.checkpoints.get(collection_name, {}), f, cls=MongoJSONEncoder
-                )
+                json.dump(self.checkpoints.get(collection_name, {}), f, cls=MongoJSONEncoder)
 
             self.logger.debug(f"Saved checkpoint to {checkpoint_file}")
         except Exception as e:
@@ -229,15 +221,13 @@ class CheckpointManager:
         Returns:
             Path to the checkpoint file for the specified collection
         """
-        return os.path.join(
-            os.path.dirname(self.checkpoint_file), f"{collection_name}.json"
-        )
+        return os.path.join(os.path.dirname(self.checkpoint_file), f"{collection_name}.json")
 
 
 class IncrementalSyncCheckpoint:
     """Specialized checkpoint manager for incremental synchronization."""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         """Initialize the incremental sync checkpoint.
 
         Args:
@@ -247,9 +237,7 @@ class IncrementalSyncCheckpoint:
         self.config = config
 
         # Checkpoint file path
-        self.checkpoint_file = config.get(
-            "checkpoint_file", "checkpoints/incremental/state.json"
-        )
+        self.checkpoint_file = config.get("checkpoint_file", "checkpoints/incremental/state.json")
 
         # Create directory if it doesn't exist
         checkpoint_dir = os.path.dirname(self.checkpoint_file)
@@ -257,35 +245,29 @@ class IncrementalSyncCheckpoint:
 
         # Field tracking
         field_tracking = config.get("field_tracking", {})
-        self.last_modified_field = field_tracking.get(
-            "last_modified_field", "lastModified"
-        )
+        self.last_modified_field = field_tracking.get("last_modified_field", "lastModified")
         self.track_field_updates = field_tracking.get("track_field_updates", True)
 
         # State variables
-        self.state: Dict[str, Any] = {"collections": {}}
+        self.state: dict[str, Any] = {"collections": {}}
 
         # Load existing checkpoint if available
         self.load()
 
-    def load(self) -> Dict[str, Any]:
+    def load(self) -> dict[str, Any]:
         """Load incremental sync state from file.
 
         Returns:
             The loaded incremental sync state
         """
         if not os.path.exists(self.checkpoint_file):
-            self.logger.info(
-                f"No incremental sync checkpoint file found at {self.checkpoint_file}"
-            )
+            self.logger.info(f"No incremental sync checkpoint file found at {self.checkpoint_file}")
             return self.state
 
         try:
-            with open(self.checkpoint_file, "r") as f:
+            with open(self.checkpoint_file) as f:
                 self.state = json.load(f)
-                self.logger.info(
-                    f"Loaded incremental sync checkpoint from {self.checkpoint_file}"
-                )
+                self.logger.info(f"Loaded incremental sync checkpoint from {self.checkpoint_file}")
                 return self.state
         except Exception as e:
             self.logger.error(f"Error loading incremental sync checkpoint: {str(e)}")
@@ -305,15 +287,13 @@ class IncrementalSyncCheckpoint:
             with open(self.checkpoint_file, "w") as f:
                 json.dump(self.state, f, cls=MongoJSONEncoder)
 
-            self.logger.debug(
-                f"Saved incremental sync checkpoint to {self.checkpoint_file}"
-            )
+            self.logger.debug(f"Saved incremental sync checkpoint to {self.checkpoint_file}")
             return True
         except Exception as e:
             self.logger.error(f"Error saving incremental sync checkpoint: {str(e)}")
             return False
 
-    def get_last_sync_time(self, collection: str) -> Optional[str]:
+    def get_last_sync_time(self, collection: str) -> str | None:
         """Get the last sync time for a collection.
 
         Args:
@@ -322,13 +302,9 @@ class IncrementalSyncCheckpoint:
         Returns:
             The last sync time as ISO-8601 string or None
         """
-        return (
-            self.state.get("collections", {}).get(collection, {}).get("last_sync_time")
-        )
+        return self.state.get("collections", {}).get(collection, {}).get("last_sync_time")
 
-    def update_last_sync_time(
-        self, collection: str, sync_time: Optional[str] = None
-    ) -> None:
+    def update_last_sync_time(self, collection: str, sync_time: str | None = None) -> None:
         """Update the last sync time for a collection.
 
         Args:
@@ -347,7 +323,7 @@ class IncrementalSyncCheckpoint:
         self.state["collections"][collection]["last_sync_time"] = sync_time
         self.save()
 
-    def get_sync_query(self, collection: str) -> Dict[str, Any]:
+    def get_sync_query(self, collection: str) -> dict[str, Any]:
         """Get a query for incremental sync based on last sync time.
 
         Args:
@@ -368,7 +344,7 @@ class IncrementalSyncCheckpoint:
         # Query for documents modified since last sync
         return {self.last_modified_field: {"$gt": last_sync_datetime}}
 
-    def get_tracked_fields(self, collection: str) -> List[str]:
+    def get_tracked_fields(self, collection: str) -> list[str]:
         """Get list of fields to track for a collection.
 
         Args:
@@ -377,13 +353,9 @@ class IncrementalSyncCheckpoint:
         Returns:
             List of field names to track
         """
-        return (
-            self.state.get("collections", {})
-            .get(collection, {})
-            .get("tracked_fields", [])
-        )
+        return self.state.get("collections", {}).get(collection, {}).get("tracked_fields", [])
 
-    def update_tracked_fields(self, collection: str, fields: List[str]) -> None:
+    def update_tracked_fields(self, collection: str, fields: list[str]) -> None:
         """Update the list of tracked fields for a collection.
 
         Args:

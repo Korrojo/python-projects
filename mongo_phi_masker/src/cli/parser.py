@@ -7,20 +7,17 @@ providing a flexible CLI interface for various masking operations.
 """
 
 import argparse
-import logging
 import os
-from typing import Dict, Any, Optional
+from typing import Any
 
 
-def get_cli_config() -> Dict[str, Any]:
+def get_cli_config() -> dict[str, Any]:
     """Parse command-line arguments and return configuration.
 
     Returns:
         Dictionary containing CLI configuration
     """
-    parser = argparse.ArgumentParser(
-        description="MongoDB PHI Masking Tool - Mask PHI data in MongoDB collections"
-    )
+    parser = argparse.ArgumentParser(description="MongoDB PHI Masking Tool - Mask PHI data in MongoDB collections")
 
     # Configuration files
     parser.add_argument(
@@ -99,15 +96,11 @@ def get_cli_config() -> Dict[str, Any]:
 
     # Query options
     query_group = parser.add_argument_group("Query Options")
-    query_group.add_argument(
-        "-q", "--query", dest="query", help="JSON query filter for document selection"
-    )
+    query_group.add_argument("-q", "--query", dest="query", help="JSON query filter for document selection")
 
     # Output options
     output_group = parser.add_argument_group("Output Options")
-    output_group.add_argument(
-        "-o", "--output", dest="output_file", help="Path to save results JSON file"
-    )
+    output_group.add_argument("-o", "--output", dest="output_file", help="Path to save results JSON file")
 
     output_group.add_argument(
         "-l",
@@ -117,36 +110,34 @@ def get_cli_config() -> Dict[str, Any]:
         default=os.environ.get("MONGO_PHI_LOG_LEVEL", "INFO"),
         help="Set logging level (default: INFO)",
     )
-    
+
     # Logging options
     log_group = parser.add_argument_group("Logging Options")
     log_group.add_argument(
-        "--log-file", 
-        dest="log_file",
-        help="Path to custom log file (default: logs/{environment}/masking_{date}.log)"
+        "--log-file", dest="log_file", help="Path to custom log file (default: logs/{environment}/masking_{date}.log)"
     )
-    
+
     log_group.add_argument(
         "--log-max-bytes",
         dest="log_max_bytes",
         type=int,
         default=int(os.environ.get("MONGO_PHI_LOG_MAX_BYTES", 10 * 1024 * 1024)),
-        help="Maximum log file size in bytes before rotation (default: 10MB)"
+        help="Maximum log file size in bytes before rotation (default: 10MB)",
     )
-    
+
     log_group.add_argument(
         "--log-backup-count",
         dest="log_backup_count",
         type=int,
         default=int(os.environ.get("MONGO_PHI_LOG_BACKUP_COUNT", 5)),
-        help="Number of backup log files to keep (default: 5)"
+        help="Number of backup log files to keep (default: 5)",
     )
-    
+
     log_group.add_argument(
         "--log-timed-rotation",
         dest="log_timed_rotation",
         action="store_true",
-        help="Use time-based log rotation (midnight) instead of size-based"
+        help="Use time-based log rotation (midnight) instead of size-based",
     )
 
     # Performance options
@@ -206,15 +197,13 @@ def get_cli_config() -> Dict[str, Any]:
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments and return Namespace object.
     This is maintained for backward compatibility with tests.
-    
+
     Returns:
         Namespace containing parsed arguments
     """
     # Create parser with the same arguments as get_cli_config but return the Namespace directly
-    parser = argparse.ArgumentParser(
-        description="MongoDB PHI Masking Tool - Mask PHI data in MongoDB collections"
-    )
-    
+    parser = argparse.ArgumentParser(description="MongoDB PHI Masking Tool - Mask PHI data in MongoDB collections")
+
     # Configuration files
     parser.add_argument(
         "-c",
@@ -231,47 +220,41 @@ def parse_arguments() -> argparse.Namespace:
         default=os.environ.get("MONGO_PHI_ENV", ".env"),
         help="Path to environment variables file (default: .env)",
     )
-    
+
     # Add simplified arguments for backward compatibility
     parser.add_argument(
         "--validate",
         action="store_true",
         help="Validate configuration and exit without processing",
     )
-    
+
     parser.add_argument(
         "--dry-run",
         dest="dry_run",
         action="store_true",
         help="Count documents but don't perform masking",
     )
-    
+
     parser.add_argument(
         "--incremental",
         action="store_true",
         help="Process only documents not previously masked",
     )
-    
+
     parser.add_argument(
         "--info",
         action="store_true",
         help="Display configuration information and exit",
     )
-    
+
     parser.add_argument(
         "--in-situ",
         action="store_true",
         help="Perform in-situ masking (modify documents in-place instead of creating new ones)",
     )
-    
-    parser.add_argument(
-        "-q", "--query", 
-        help="JSON query filter for document selection"
-    )
-    
-    parser.add_argument(
-        "-o", "--output", 
-        help="Path to save results JSON file"
-    )
-    
+
+    parser.add_argument("-q", "--query", help="JSON query filter for document selection")
+
+    parser.add_argument("-o", "--output", help="Path to save results JSON file")
+
     return parser.parse_args()

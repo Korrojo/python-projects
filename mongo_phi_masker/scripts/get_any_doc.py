@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-import sys
-from pymongo import MongoClient
 import json
+import sys
+
+from pymongo import MongoClient
 
 print("--- Get Any Document Script Started ---")
 
@@ -37,9 +38,9 @@ try:
                 found_patient_name = True
                 patient_name = appointment["PatientName"]
                 # Redact PHI/PII data in output
-                print(f"VERIFICATION_RESULT::SUCCESS - Found PatientName: [REDACTED]")
+                print("VERIFICATION_RESULT::SUCCESS - Found PatientName: [REDACTED]")
                 sys.exit(0)
-    
+
     if not found_patient_name:
         print("VERIFICATION_RESULT::NOTE - The retrieved document did not contain a PatientName field.")
 

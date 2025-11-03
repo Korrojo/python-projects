@@ -4,26 +4,25 @@ Orchestrator module for PHI masking pipeline.
 This module provides high-level coordination of the masking workflow.
 """
 
-import os
 import logging
+import os
 import time
-from typing import Dict, Any, List, Optional, Union, Tuple
-from datetime import datetime
+from typing import Any
 
-from .processor import DataProcessor
+from src.core.connector import MongoConnector
+from src.core.masker import BatchMasker, MaskingProcessor
+from src.core.processor import DataProcessor
+from src.models.checkpoint import CheckpointManager
+from src.models.masking_rule import RulesetLoader
+
 from ..utils.config_loader import ConfigLoader
-from ..utils.logger import LoggerFactory
 from ..utils.email_alerter import EmailAlerter
 from ..utils.error_handler import (
     ErrorHandler,
     MaskerError,
     setup_global_exception_handler,
 )
-from src.core.masker import MaskingProcessor, BatchMasker
-from src.core.processor import DataProcessor
-from src.models.masking_rule import MaskingRule, RulesetLoader
-from src.models.checkpoint import CheckpointManager
-from src.core.connector import MongoConnector
+from .processor import DataProcessor
 
 
 class MaskingOrchestrator:
@@ -78,10 +77,10 @@ class MaskingOrchestrator:
 
     def run_masking(
         self,
-        query: Dict[str, Any] = None,
+        query: dict[str, Any] = None,
         incremental: bool = False,
         dry_run: bool = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Execute the masking process.
 
@@ -97,9 +96,7 @@ class MaskingOrchestrator:
         self.logger.info("Validating configuration before execution")
         is_valid, validation_errors = self.validate_config()
         if not is_valid:
-            error_details = "\n".join(
-                [f"- {error['message']}" for error in validation_errors]
-            )
+            "\n".join([f"- {error['message']}" for error in validation_errors])
             raise MaskerError(
                 code="CONFIG_VALIDATION_ERROR",
                 message=f"Configuration validation failed: {len(validation_errors)} errors found",
@@ -113,10 +110,8 @@ class MaskingOrchestrator:
             dry_run = dry_run_env in ("true", "1", "yes", "y")
 
         # Log execution parameters
-        self.logger.info(f"Starting masking process with parameters:")
-        self.logger.info(
-            f"  - Query: {query if query else 'None (processing all documents)'}"
-        )
+        self.logger.info("Starting masking process with parameters:")
+        self.logger.info(f"  - Query: {query if query else 'None (processing all documents)'}")
         self.logger.info(f"  - Incremental: {incremental}")
         self.logger.info(f"  - Dry run: {dry_run}")
 
@@ -129,9 +124,7 @@ class MaskingOrchestrator:
             self.processor.start_resources()
 
             # Process collections
-            stats = self.processor.process_collections(
-                query=query, incremental=incremental, dry_run=dry_run
-            )
+            stats = self.processor.process_collections(query=query, incremental=incremental, dry_run=dry_run)
 
             # Record end time and calculate elapsed time
             end_time = time.time()
@@ -158,9 +151,7 @@ class MaskingOrchestrator:
             self.logger.error(f"Error during masking process: {str(e)}")
 
             # Send error alert
-            self.email_alerter.send_error_alert(
-                str(e), context={"elapsed_time": elapsed_time}
-            )
+            self.email_alerter.send_error_alert(str(e), context={"elapsed_time": elapsed_time})
 
             # Re-raise exception
             raise
@@ -169,7 +160,7 @@ class MaskingOrchestrator:
             # Always stop resources
             self.processor.stop_resources()
 
-    def validate_config(self) -> Tuple[bool, List[Dict[str, Any]]]:
+    def validate_config(self) -> tuple[bool, list[dict[str, Any]]]:
         """
         Validate the configuration.
 
@@ -308,13 +299,9 @@ class MaskingOrchestrator:
 
         # Log validation results
         if validation_errors:
-            self.logger.error(
-                f"Configuration validation failed with {len(validation_errors)} errors"
-            )
+            self.logger.error(f"Configuration validation failed with {len(validation_errors)} errors")
             for error in validation_errors:
-                self.logger.error(
-                    f"- {error['component']}.{error['field']}: {error['message']}"
-                )
+                self.logger.error(f"- {error['component']}.{error['field']}: {error['message']}")
         else:
             self.logger.info("Configuration validation successful")
 
@@ -338,7 +325,7 @@ class MaskingOrchestrator:
         """
         version_file = "VERSION"
         if os.path.exists(version_file):
-            with open(version_file, "r") as f:
+            with open(version_file) as f:
                 return f.read().strip()
         return "unknown"
 
@@ -395,9 +382,7 @@ class MaskingOrchestrator:
         self.batch_size = self.config.get("batch_size", 100)
 
         # Create masking processor
-        self.masking_processor = MaskingProcessor(
-            rules=self.masking_rules, batch_size=self.batch_size
-        )
+        self.masking_processor = MaskingProcessor(rules=self.masking_rules, batch_size=self.batch_size)
 
         # Create batch masker
         self.batch_masker = BatchMasker(
@@ -419,13 +404,9 @@ class MaskingOrchestrator:
         else:
             self.checkpoint_manager = None
 
-        self.logger.info(
-            f"MaskingOrchestrator initialized with {len(self.masking_rules)} masking rules"
-        )
+        self.logger.info(f"MaskingOrchestrator initialized with {len(self.masking_rules)} masking rules")
         self.logger.info(f"Batch size: {self.batch_size}")
-        self.logger.info(
-            f"Checkpointing: {'enabled' if enable_checkpointing else 'disabled'}"
-        )
+        self.logger.info(f"Checkpointing: {'enabled' if enable_checkpointing else 'disabled'}")
 
         # Connect to databases
         self.source_connector.connect()
@@ -451,7 +432,7 @@ class MaskingOrchestrator:
         else:
             self.logger.info("Checkpointing is disabled, nothing to reset")
 
-    def count_documents(self, query: Optional[Dict[str, Any]] = None) -> int:
+    def count_documents(self, query: dict[str, Any] | None = None) -> int:
         """Count documents in the source collection.
 
         Args:
@@ -470,9 +451,7 @@ class MaskingOrchestrator:
 
         return count
 
-    def process_documents(
-        self, query: Optional[Dict[str, Any]] = None, incremental: bool = False
-    ) -> Dict[str, Any]:
+    def process_documents(self, query: dict[str, Any] | None = None, incremental: bool = False) -> dict[str, Any]:
         """Process documents from the source collection.
 
         Args:
@@ -513,9 +492,7 @@ class MaskingOrchestrator:
                 last_id = checkpoint.get("last_id")
 
                 if last_id:
-                    self.logger.info(
-                        f"Resuming from checkpoint with last_id: {last_id}"
-                    )
+                    self.logger.info(f"Resuming from checkpoint with last_id: {last_id}")
 
                     # Modify query to start after last_id
                     if query is None:
@@ -562,9 +539,7 @@ class MaskingOrchestrator:
             stats["documents_processed"] = processed_count
             stats["documents_with_errors"] = error_count
 
-            self.logger.info(
-                f"Processing completed. Processed {processed_count} documents with {error_count} errors."
-            )
+            self.logger.info(f"Processing completed. Processed {processed_count} documents with {error_count} errors.")
 
             return stats
         finally:
@@ -581,9 +556,7 @@ class MaskingOrchestrator:
             # Stop resources
             self.stop()
 
-    def process_test_documents(
-        self, docs: List[Dict[str, Any]]
-    ) -> List[Dict[str, Any]]:
+    def process_test_documents(self, docs: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Process a list of test documents without storing them.
 
         Args:
@@ -601,73 +574,69 @@ class MaskingOrchestrator:
 
         return masked_docs
 
-    def mask_document(self, doc: Dict[str, Any]) -> Dict[str, Any]:
+    def mask_document(self, doc: dict[str, Any]) -> dict[str, Any]:
         """Mask a single document."""
         ruleset = self.processor.get_ruleset()
         return self.processor.mask_document(doc, ruleset)
-        
+
     def run_in_situ_masking(
         self,
-        query: Dict[str, Any] = None,
+        query: dict[str, Any] = None,
         batch_size: int = 100,
         dry_run: bool = False,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Execute in-situ masking process (modify documents in place).
-        
+
         Args:
             query: Optional MongoDB query to filter documents
             batch_size: Number of documents to process in each batch
             dry_run: Whether to perform a dry run (no modifications)
-            
+
         Returns:
             Dictionary containing processing statistics and results
         """
         self.logger.info("Starting in-situ masking process")
-        
+
         # Record start time
         start_time = time.time()
-        
+
         try:
             # Use the processor for in-situ masking
-            if not hasattr(self, 'processor'):
+            if not hasattr(self, "processor"):
                 # Initialize the processor if it doesn't exist
                 self.processor = DataProcessor(config=self.config, logger=self.logger)
-            
+
             # Call the processor's in-situ method
-            stats = self.processor.process_in_situ(
-                query=query,
-                batch_size=batch_size,
-                dry_run=dry_run
-            )
-            
+            stats = self.processor.process_in_situ(query=query, batch_size=batch_size, dry_run=dry_run)
+
             # Record end time and calculate elapsed time
             end_time = time.time()
             elapsed_time = end_time - start_time
             stats["elapsed_time"] = elapsed_time
-            
+
             # Log completion
             self.logger.info(f"In-situ masking completed in {elapsed_time:.2f} seconds")
-            self.logger.info(f"Processed {stats.get('documents_processed', 0)} documents, updated {stats.get('documents_updated', 0)}")
-            
+            self.logger.info(
+                f"Processed {stats.get('documents_processed', 0)} documents, updated {stats.get('documents_updated', 0)}"
+            )
+
             # Send email notification
             self.email_alerter.send_completion_alert(stats, elapsed_time)
-            
+
             return stats
-            
+
         except Exception as e:
             # Record end time and calculate elapsed time
             end_time = time.time()
             elapsed_time = end_time - start_time
-            
+
             # Log error
             self.logger.error(f"Error during in-situ masking: {str(e)}")
-            
+
             # Send error alert
-            self.email_alerter.send_error_alert(
-                str(e), context={"elapsed_time": elapsed_time}
-            )
-            
+            self.email_alerter.send_error_alert(str(e), context={"elapsed_time": elapsed_time})
+
             # Re-raise exception
             raise
 
@@ -708,18 +677,16 @@ class MaskingOrchestrator:
             import sys
 
             if "unittest" not in sys.modules:
-                raise ValueError(
-                    "Missing required MongoDB configuration key: destination"
-                )
+                raise ValueError("Missing required MongoDB configuration key: destination")
 
 
 def run_masking_process(
     config_path: str = "config/config_rules/config.json",
     env_file: str = ".env",
-    query: Dict[str, Any] = None,
+    query: dict[str, Any] = None,
     incremental: bool = False,
     dry_run: bool = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Run the masking process with the specified parameters.
 

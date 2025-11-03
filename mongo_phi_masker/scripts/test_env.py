@@ -1,5 +1,6 @@
 import os
 import sys
+
 from dotenv import load_dotenv
 
 # Print Python version and path
@@ -7,7 +8,7 @@ print(f"Python version: {sys.version}")
 print(f"Python executable: {sys.executable}")
 
 # Construct the absolute path to the .env.prod file
-env_path = os.path.join(os.path.dirname(__file__), '..', '.env.prod')
+env_path = os.path.join(os.path.dirname(__file__), "..", ".env.prod")
 print(f"Loading environment from: {os.path.abspath(env_path)}")
 
 # Check if file exists
@@ -23,14 +24,14 @@ load_dotenv(dotenv_path=env_path)
 # Print all environment variables
 print("\nEnvironment Variables:")
 for key, value in os.environ.items():
-    if key.startswith('MONGO_'):
+    if key.startswith("MONGO_"):
         # Mask sensitive information
-        masked_value = value[:5] + '...' if len(value) > 5 else value
+        masked_value = value[:5] + "..." if len(value) > 5 else value
         print(f"{key}: {masked_value}")
 
 # Specifically check for MongoDB connection variables
-mongo_uri = os.getenv('MONGO_SOURCE_URI')
-mongo_db = os.getenv('MONGO_SOURCE_DB')
+mongo_uri = os.getenv("MONGO_SOURCE_URI")
+mongo_db = os.getenv("MONGO_SOURCE_DB")
 
 print(f"\nMONGO_SOURCE_URI exists: {mongo_uri is not None}")
 print(f"MONGO_SOURCE_DB exists: {mongo_db is not None}")

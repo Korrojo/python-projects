@@ -11,7 +11,7 @@ import json
 import logging
 import os
 import sys
-from typing import Dict, Any, List, Optional
+from typing import Any
 
 from src.core.orchestrator import MaskingOrchestrator
 from src.utils.config_loader import ConfigLoader
@@ -33,15 +33,9 @@ def parse_test_args() -> argparse.Namespace:
         default="config/config_rules/masking_config.json",
         help="Path to configuration file",
     )
-    parser.add_argument(
-        "--env", default=".env.test", help="Path to environment file"
-    )
-    parser.add_argument(
-        "--input", help="Path to input JSON file containing test documents"
-    )
-    parser.add_argument(
-        "--output", help="Path to output JSON file for masked documents"
-    )
+    parser.add_argument("--env", default=".env.test", help="Path to environment file")
+    parser.add_argument("--input", help="Path to input JSON file containing test documents")
+    parser.add_argument("--output", help="Path to output JSON file for masked documents")
     parser.add_argument(
         "--source",
         action="store_true",
@@ -59,33 +53,24 @@ def parse_test_args() -> argparse.Namespace:
         default="INFO",
         help="Set the logging level",
     )
+    parser.add_argument("--log-file", type=str, help="Custom log file path")
     parser.add_argument(
-        "--log-file", 
-        type=str, 
-        help="Custom log file path"
-    )
-    parser.add_argument(
-        "--log-max-bytes", 
-        type=int, 
+        "--log-max-bytes",
+        type=int,
         default=10 * 1024 * 1024,
-        help="Maximum log file size before rotation (default: 10MB)"
+        help="Maximum log file size before rotation (default: 10MB)",
     )
     parser.add_argument(
-        "--log-backup-count", 
-        type=int, 
-        default=5,
-        help="Number of backup log files to keep (default: 5)"
+        "--log-backup-count", type=int, default=5, help="Number of backup log files to keep (default: 5)"
     )
     parser.add_argument(
-        "--log-timed-rotation", 
-        action="store_true",
-        help="Use time-based rotation instead of size-based"
+        "--log-timed-rotation", action="store_true", help="Use time-based rotation instead of size-based"
     )
 
     return parser.parse_args()
 
 
-def load_test_documents(input_file: str) -> List[Dict[str, Any]]:
+def load_test_documents(input_file: str) -> list[dict[str, Any]]:
     """Load test documents from a file.
 
     Args:
@@ -99,7 +84,7 @@ def load_test_documents(input_file: str) -> List[Dict[str, Any]]:
         sys.exit(1)
 
     try:
-        with open(input_file, "r") as f:
+        with open(input_file) as f:
             # Check if file is a JSON array or a JSONL file
             content = f.read().strip()
             if content.startswith("[") and content.endswith("]"):
@@ -117,7 +102,7 @@ def load_test_documents(input_file: str) -> List[Dict[str, Any]]:
         sys.exit(1)
 
 
-def save_masked_documents(docs: List[Dict[str, Any]], output_file: str) -> None:
+def save_masked_documents(docs: list[dict[str, Any]], output_file: str) -> None:
     """Save masked documents to a file.
 
     Args:
@@ -134,10 +119,10 @@ def save_masked_documents(docs: List[Dict[str, Any]], output_file: str) -> None:
 
 
 def compare_documents(
-    original_docs: List[Dict[str, Any]],
-    masked_docs: List[Dict[str, Any]],
-    fields: Optional[List[str]] = None,
-) -> Dict[str, Any]:
+    original_docs: list[dict[str, Any]],
+    masked_docs: list[dict[str, Any]],
+    fields: list[str] | None = None,
+) -> dict[str, Any]:
     """Compare original and masked documents to verify masking.
 
     Args:
@@ -149,9 +134,7 @@ def compare_documents(
         Comparison results
     """
     if len(original_docs) != len(masked_docs):
-        logger.warning(
-            f"Document count mismatch: {len(original_docs)} original vs {len(masked_docs)} masked"
-        )
+        logger.warning(f"Document count mismatch: {len(original_docs)} original vs {len(masked_docs)} masked")
 
     # Fields to verify
     phi_fields = fields or [
@@ -198,16 +181,12 @@ def compare_documents(
     }
 
     # Compare documents
-    for i, (original, masked) in enumerate(
-        zip(original_docs, masked_docs[: len(original_docs)])
-    ):
+    for i, (original, masked) in enumerate(zip(original_docs, masked_docs[: len(original_docs)], strict=False)):
         logger.debug(f"Comparing document {i+1}/{results['total_documents']}")
 
         # Verify _id is preserved
         if "_id" in original and "_id" in masked and original["_id"] != masked["_id"]:
-            logger.warning(
-                f"Document {i+1}: _id mismatch: {original['_id']} vs {masked['_id']}"
-            )
+            logger.warning(f"Document {i+1}: _id mismatch: {original['_id']} vs {masked['_id']}")
 
         # Verify PHI fields are masked
         for field in phi_fields:
@@ -215,12 +194,8 @@ def compare_documents(
                 # Field is in original document
                 if field not in masked:
                     # Field is missing in masked document
-                    logger.warning(
-                        f"Document {i+1}: Field {field} is missing in masked document"
-                    )
-                    results["field_mismatch"][field] = (
-                        results["field_mismatch"].get(field, 0) + 1
-                    )
+                    logger.warning(f"Document {i+1}: Field {field} is missing in masked document")
+                    results["field_mismatch"][field] = results["field_mismatch"].get(field, 0) + 1
                     continue
 
                 # Check if field was masked
@@ -231,52 +206,32 @@ def compare_documents(
                     # Skip null values
                     continue
 
-                if (
-                    original_value == masked_value
-                    and original_value is not None
-                    and str(original_value).strip()
-                ):
+                if original_value == masked_value and original_value is not None and str(original_value).strip():
                     # Field wasn't masked
-                    logger.warning(
-                        f"Document {i+1}: Field {field} was not masked: {original_value}"
-                    )
-                    results["unmasked_fields"][field] = (
-                        results["unmasked_fields"].get(field, 0) + 1
-                    )
+                    logger.warning(f"Document {i+1}: Field {field} was not masked: {original_value}")
+                    results["unmasked_fields"][field] = results["unmasked_fields"].get(field, 0) + 1
                 else:
                     # Field was masked
-                    logger.debug(
-                        f"Document {i+1}: Field {field} was masked: {original_value} -> {masked_value}"
-                    )
-                    results["masked_fields"][field] = (
-                        results["masked_fields"].get(field, 0) + 1
-                    )
+                    logger.debug(f"Document {i+1}: Field {field} was masked: {original_value} -> {masked_value}")
+                    results["masked_fields"][field] = results["masked_fields"].get(field, 0) + 1
 
     # Calculate overall results
-    total_fields_checked = sum(results["masked_fields"].values()) + sum(
-        results["unmasked_fields"].values()
-    )
+    total_fields_checked = sum(results["masked_fields"].values()) + sum(results["unmasked_fields"].values())
     if total_fields_checked > 0:
-        results["masking_success_rate"] = (
-            sum(results["masked_fields"].values()) / total_fields_checked
-        )
+        results["masking_success_rate"] = sum(results["masked_fields"].values()) / total_fields_checked
     else:
         results["masking_success_rate"] = 0
 
     # Log summary
-    logger.info(f"Masking verification results:")
+    logger.info("Masking verification results:")
     logger.info(f"  Documents compared: {results['total_documents']}")
     logger.info(f"  Fields masked successfully: {len(results['masked_fields'])}")
     logger.info(f"  Fields not masked: {len(results['unmasked_fields'])}")
     logger.info(f"  Fields with mismatch: {len(results['field_mismatch'])}")
-    logger.info(
-        f"  Overall masking success rate: {results['masking_success_rate']*100:.1f}%"
-    )
+    logger.info(f"  Overall masking success rate: {results['masking_success_rate']*100:.1f}%")
 
     if results["unmasked_fields"]:
-        logger.warning(
-            f"Unmasked fields: {', '.join(results['unmasked_fields'].keys())}"
-        )
+        logger.warning(f"Unmasked fields: {', '.join(results['unmasked_fields'].keys())}")
 
     return results
 
@@ -296,7 +251,7 @@ def test_masking(args: argparse.Namespace) -> int:
         log_file=args.log_file,
         max_bytes=args.log_max_bytes,
         backup_count=args.log_backup_count,
-        use_timed_rotating=args.log_timed_rotation
+        use_timed_rotating=args.log_timed_rotation,
     )
     logger.info("Starting MongoDB PHI Masking Testing Tool")
 
@@ -311,7 +266,7 @@ def test_masking(args: argparse.Namespace) -> int:
         # Load test documents
         if args.source:
             # Load from source collection
-            logger.info(f"Loading test documents from source collection...")
+            logger.info("Loading test documents from source collection...")
             orchestrator.start()
             docs = list(orchestrator.source_connector.find_documents(limit=args.limit))
             logger.info(f"Loaded {len(docs)} test documents from source collection")

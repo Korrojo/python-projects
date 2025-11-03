@@ -13,9 +13,7 @@ complete masking coverage across the database.
 COLLECTION_RULE_MAPPING = {
     # Category 1: Encounter (most complex, deeply nested)
     "encounter": {
-        "collections": [
-            "Container"
-        ],
+        "collections": ["Container"],
         "phi_fields": [
             # All encounter-related PHI fields, verified complete
             "PatientFirstName",
@@ -30,24 +28,18 @@ COLLECTION_RULE_MAPPING = {
             "PhoneNumber",
             "Path",
             "Reason",
-            "HPINote"
+            "HPINote",
         ],
         "masking_strategies": {
             "name_fields": ["PatientFirstName", "PatientLastName", "PatientMiddleName"],
-            "text_fields": ["FinalNotes", "OtherReason", "Goals", "Notes", "Comments", 
-                          "Path", "Reason", "HPINote"],
+            "text_fields": ["FinalNotes", "OtherReason", "Goals", "Notes", "Comments", "Path", "Reason", "HPINote"],
             "address_fields": ["VisitAddress"],
-            "phone_fields": ["PhoneNumber"]
-        }
+            "phone_fields": ["PhoneNumber"],
+        },
     },
     # Category 2: Patient Identity (many PHI fields, moderate nesting)
     "patient_identity": {
-        "collections": [
-            "Patients",
-            "PatientPanel", 
-            "PatientHistory",
-            "PatientNotesHistory"
-        ],
+        "collections": ["Patients", "PatientPanel", "PatientHistory", "PatientNotesHistory"],
         "phi_fields": [
             "PatientName",
             "FirstName",
@@ -56,7 +48,7 @@ COLLECTION_RULE_MAPPING = {
             "FirstNameLower",
             "LastNameLower",
             "MiddleNameLower",
-            "Dob", 
+            "Dob",
             "Gender",
             "Email",
             "Comments",
@@ -75,34 +67,47 @@ COLLECTION_RULE_MAPPING = {
             "Street1",
             "Street2",
             "City",
-            "StateCode", 
+            "StateCode",
             "StateName",
             "Fax",
             "MRRFax",
             "MRRFaxNumber",
-            "PcpSecondaryFaxNumber", 
+            "PcpSecondaryFaxNumber",
             "FaxNumber2",
-            "EmployerStreet"
+            "EmployerStreet",
         ],
         "masking_strategies": {
-            "name_fields": ["PatientName", "FirstName", "LastName", "MiddleName", 
-                          "FirstNameLower", "LastNameLower", "MiddleNameLower",
-                          "PrimaryMemberName", "UserName"],
+            "name_fields": [
+                "PatientName",
+                "FirstName",
+                "LastName",
+                "MiddleName",
+                "FirstNameLower",
+                "LastNameLower",
+                "MiddleNameLower",
+                "PrimaryMemberName",
+                "UserName",
+            ],
             "date_fields": ["Dob", "PrimaryMemberDOB"],
             "text_fields": ["Comments", "Notes", "FinalNotes", "Reason", "OtherReason"],
-            "address_fields": ["VisitAddress", "Zip5", "Street1", "Street2", "City", 
-                             "StateCode", "StateName", "EmployerStreet"],
+            "address_fields": [
+                "VisitAddress",
+                "Zip5",
+                "Street1",
+                "Street2",
+                "City",
+                "StateCode",
+                "StateName",
+                "EmployerStreet",
+            ],
             "phone_fields": ["PhoneNumber", "HomePhoneNumber", "WorkPhoneNumber"],
             "email_fields": ["Email"],
-            "fax_fields": ["Fax", "MRRFax", "MRRFaxNumber", "PcpSecondaryFaxNumber", "FaxNumber2"]
-        }
+            "fax_fields": ["Fax", "MRRFax", "MRRFaxNumber", "PcpSecondaryFaxNumber", "FaxNumber2"],
+        },
     },
     # Category 3: Moved/Reset Patient Collections (many PHI fields, flat)
     "moved_reset_patients": {
-        "collections": [
-            "PatientsMovedToLocalOutreach",
-            "Patients_Dat_Audio_Location_Reset"
-        ],
+        "collections": ["PatientsMovedToLocalOutreach", "Patients_Dat_Audio_Location_Reset"],
         "phi_fields": [
             # Complete field list verified against CSV
             "PatientName",
@@ -132,19 +137,26 @@ COLLECTION_RULE_MAPPING = {
             "EmployerStreet",
             "Reason",
             "MRRFax",
-            "MRRFaxNumber"
+            "MRRFaxNumber",
         ],
         "masking_strategies": {
-            "name_fields": ["PatientName", "FirstName", "LastName", "MiddleName", 
-                          "PrimaryMemberName"],
+            "name_fields": ["PatientName", "FirstName", "LastName", "MiddleName", "PrimaryMemberName"],
             "date_fields": ["Dob", "PrimaryMemberDOB"],
             "text_fields": ["FinalNotes", "OtherReason", "Notes", "Comments", "Reason", "Gender"],
-            "address_fields": ["Street1", "Street2", "City", "StateCode", "StateName", 
-                             "Zip5", "EmployerStreet", "VisitAddress"],
+            "address_fields": [
+                "Street1",
+                "Street2",
+                "City",
+                "StateCode",
+                "StateName",
+                "Zip5",
+                "EmployerStreet",
+                "VisitAddress",
+            ],
             "phone_fields": ["PhoneNumber", "HomePhoneNumber", "WorkPhoneNumber"],
             "email_fields": ["Email"],
-            "fax_fields": ["Fax", "MRRFax", "MRRFaxNumber"]
-        }
+            "fax_fields": ["Fax", "MRRFax", "MRRFaxNumber"],
+        },
     },
     # Category 4: Fax-related Collections (many fax fields, moderate PHI diversity)
     "fax": {
@@ -154,7 +166,7 @@ COLLECTION_RULE_MAPPING = {
             "MedicalRecordRequests",
             "PatientReportFaxQueue",
             "PatientReportFaxQueueHistory",
-            "FaxTransactions"
+            "FaxTransactions",
         ],
         "phi_fields": [
             # Complete list of all fax fields, verified complete
@@ -174,19 +186,29 @@ COLLECTION_RULE_MAPPING = {
             "Email",
             "City",
             "Dob",
-            "Notes"
+            "Notes",
         ],
         # Special rule for fax masking as per requirements
         "masking_strategies": {
-            "fax_fields": ["FaxNumber", "Fax", "Fax2", "MRRFax", "FaxNumber2", 
-                         "MRRFaxNumber", "PrimaryFaxNumber", "SecondaryFaxNumber", 
-                         "PCPFaxNumber", "PCPMRRFaxNumber", "PcpSecondaryFaxNumber"],
+            "fax_fields": [
+                "FaxNumber",
+                "Fax",
+                "Fax2",
+                "MRRFax",
+                "FaxNumber2",
+                "MRRFaxNumber",
+                "PrimaryFaxNumber",
+                "SecondaryFaxNumber",
+                "PCPFaxNumber",
+                "PCPMRRFaxNumber",
+                "PcpSecondaryFaxNumber",
+            ],
             "name_fields": ["PatientName"],
             "email_fields": ["Email"],
             "address_fields": ["City"],
             "date_fields": ["Dob"],
-            "text_fields": ["Notes"]
-        }
+            "text_fields": ["Notes"],
+        },
     },
     # Category 5: Appointment and Visit Collections (moderate PHI fields)
     "appointment_visit": {
@@ -197,7 +219,7 @@ COLLECTION_RULE_MAPPING = {
             "CompletedExceptionAppointments",
             "InvalidApptData",
             "StaffAvailability",
-            "StaffAvailabilityHistory"
+            "StaffAvailabilityHistory",
         ],
         "phi_fields": [
             # Complete validated list of all appointment/visit related PHI fields
@@ -211,14 +233,13 @@ COLLECTION_RULE_MAPPING = {
             "City",
             "HomeText",
             "FirstName",
-            "LastName"
+            "LastName",
         ],
         "masking_strategies": {
             "name_fields": ["PatientName", "FirstName", "LastName"],
-            "text_fields": ["VisitNotes", "VisitStatusNote", "Comments", "ReasonDetails", 
-                          "Reason", "HomeText"],
-            "address_fields": ["VisitAddress", "City"]
-        }
+            "text_fields": ["VisitNotes", "VisitStatusNote", "Comments", "ReasonDetails", "Reason", "HomeText"],
+            "address_fields": ["VisitAddress", "City"],
+        },
     },
     # Category 6: Care Plan Collections (few PHI fields, flat)
     "care_plan": {
@@ -226,7 +247,7 @@ COLLECTION_RULE_MAPPING = {
             "PatientCarePlan",
             "PatientCarePlanHistory",
             "PatientCarePan_StartDate",
-            "PatientCarePlanResetStartDate"
+            "PatientCarePlanResetStartDate",
         ],
         "phi_fields": [
             # All care plan related PHI fields, verified complete
@@ -234,29 +255,27 @@ COLLECTION_RULE_MAPPING = {
             "PatientLastName",
             "PatientMiddleName",
             "Goals",
-            "SnapShot"
+            "SnapShot",
         ],
         "masking_strategies": {
             "name_fields": ["PatientFirstName", "PatientLastName", "PatientMiddleName"],
-            "text_fields": ["Goals", "SnapShot"]
-        }
+            "text_fields": ["Goals", "SnapShot"],
+        },
     },
     # Category 7: Insurance History (very few PHI fields, flat)
     "insurance": {
-        "collections": [
-            "PatientInsuranceHistory"
-        ],
+        "collections": ["PatientInsuranceHistory"],
         "phi_fields": [
             # Verified complete fields
             "PhoneNumber",
             "EmployerStreet",
-            "Reason"
+            "Reason",
         ],
         "masking_strategies": {
             "phone_fields": ["PhoneNumber"],
             "address_fields": ["EmployerStreet"],
-            "text_fields": ["Reason"]
-        }
+            "text_fields": ["Reason"],
+        },
     },
     # Category 8: Simple Patient Reference Collections (least complex)
     "simple_patient_reference": {
@@ -275,19 +294,11 @@ COLLECTION_RULE_MAPPING = {
             "Messages",
             "PatientChartReview",
             "ReEngagingClosedPatientsProcessEntries",
-            "Tasks"
+            "Tasks",
         ],
-        "phi_fields": [
-            "PatientName",
-            "Notes",
-            "Comments",
-            "Reason"
-        ],
-        "masking_strategies": {
-            "name_fields": ["PatientName"],
-            "text_fields": ["Notes", "Comments", "Reason"]
-        }
-    }
+        "phi_fields": ["PatientName", "Notes", "Comments", "Reason"],
+        "masking_strategies": {"name_fields": ["PatientName"], "text_fields": ["Notes", "Comments", "Reason"]},
+    },
 }
 
 # Comprehensive path mapping for all collections with complex nested structures
@@ -307,9 +318,8 @@ PATH_MAPPING = {
         "PhoneNumber": "Encounter.PhoneCall.Activities.PhoneNumber",
         "Path": "Encounter.Document.Documents.Path",
         "Reason": "Encounter.Reason",
-        "HPINote": "Encounter.HPI.HPINote"
+        "HPINote": "Encounter.HPI.HPINote",
     },
-    
     # Patients collection has multiple levels of nesting
     "Patients": {
         "PatientName": "PatientCallLog.PatientName",
@@ -344,9 +354,8 @@ PATH_MAPPING = {
         "WorkPhoneNumber": "Contacts.WorkPhoneNumber",
         "Reason": "OutreachActivitiesList.Reason",
         "FaxNumber2": "Specialists.FaxNumber2",
-        "EmployerStreet": "Insurance.EmployerStreet"
+        "EmployerStreet": "Insurance.EmployerStreet",
     },
-    
     # Patient History collection
     "PatientHistory": {
         "PatientName": "PatientCallLog.PatientName",
@@ -355,50 +364,44 @@ PATH_MAPPING = {
         "OtherReason": "PatientDat.OtherReason",
         "Notes": "PatientCallLog.Notes",
         "Comments": "PatientProblemList.EncounterProblemList.Comments",
-        "PhoneNumber": "PatientCallLog.PhoneNumber"
+        "PhoneNumber": "PatientCallLog.PhoneNumber",
     },
-    
     # Appointment collections with nested structures
     "StaffAvailability": {
         "PatientName": "Slots.Appointments.PatientName",
         "City": "Slots.Appointments.City",
         "VisitNotes": "Slots.Appointments.VisitNotes",
         "VisitAddress": "Slots.Appointments.VisitAddress",
-        "Comments": "Slots.Appointments.Comments"
+        "Comments": "Slots.Appointments.Comments",
     },
-    
     "StaffAvailabilityHistory": {
         "PatientName": "Slots.Appointments.PatientName",
         "City": "Slots.Appointments.City",
         "VisitNotes": "Slots.Appointments.VisitNotes",
         "VisitAddress": "Slots.Appointments.VisitAddress",
-        "Comments": "Slots.Appointments.Comments"
+        "Comments": "Slots.Appointments.Comments",
     },
-    
     "CancelAppointmentHistory": {
         "PatientName": "Slots.Appointments.PatientName",
         "City": "Slots.Appointments.City",
         "VisitNotes": "Slots.Appointments.VisitNotes",
         "VisitAddress": "Slots.Appointments.VisitAddress",
-        "Comments": "Slots.Appointments.Comments"
+        "Comments": "Slots.Appointments.Comments",
     },
-    
     "CompletedExceptionAppointments": {
         "PatientName": "Slots.Appointments.PatientName",
         "City": "Slots.Appointments.City",
         "VisitNotes": "Slots.Appointments.VisitNotes",
         "VisitAddress": "Slots.Appointments.VisitAddress",
-        "Comments": "Slots.Appointments.Comments"
+        "Comments": "Slots.Appointments.Comments",
     },
-    
     "InvalidApptData": {
         "PatientName": "Slots.Appointments.PatientName",
         "City": "Slots.Appointments.City",
         "VisitNotes": "Slots.Appointments.VisitNotes",
         "VisitAddress": "Slots.Appointments.VisitAddress",
-        "Comments": "Slots.Appointments.Comments"
+        "Comments": "Slots.Appointments.Comments",
     },
-    
     # Medical Record Requests collection
     "MedicalRecordRequests": {
         "PatientName": "PatientName",
@@ -407,70 +410,41 @@ PATH_MAPPING = {
         "MRRFaxNumber": "MRRFaxNumber",
         "Dob": "Dob",
         "Notes": "RequestDetails.Notes",
-        "SecondaryFaxNumber": "SecondaryFaxNumber"
+        "SecondaryFaxNumber": "SecondaryFaxNumber",
     },
-    
     # PCP collections
     "PCP": {
         "PCPFaxNumber": "Address.PCPFaxNumber",
         "PCPMRRFaxNumber": "Address.PCPMRRFaxNumber",
-        "PcpSecondaryFaxNumber": "Address.PcpSecondaryFaxNumber"
+        "PcpSecondaryFaxNumber": "Address.PcpSecondaryFaxNumber",
     },
-    
     "PCPHistory": {
         "PCPFaxNumber": "Address.PCPFaxNumber",
         "PCPMRRFaxNumber": "Address.PCPMRRFaxNumber",
-        "PcpSecondaryFaxNumber": "Address.PcpSecondaryFaxNumber"
+        "PcpSecondaryFaxNumber": "Address.PcpSecondaryFaxNumber",
     },
-    
     # Care Plan collections
     "PatientCarePlan_StartDate": {
         "PatientLastName": "doc1.PatientLastName",
         "SnapShot": "doc1.SnapShot",
         "Goals": "doc1.Goals",
         "PatientMiddleName": "doc1.PatientMiddleName",
-        "PatientFirstName": "doc1.PatientFirstName"
+        "PatientFirstName": "doc1.PatientFirstName",
     },
-    
     "PatientCarePlanResetStartDate": {
         "PatientLastName": "CarePlanObj.PatientLastName",
         "SnapShot": "CarePlanObj.SnapShot",
         "Goals": "CarePlanObj.Goals",
         "PatientMiddleName": "CarePlanObj.PatientMiddleName",
-        "PatientFirstName": "CarePlanObj.PatientFirstName"
+        "PatientFirstName": "CarePlanObj.PatientFirstName",
     },
-    
     # External Referral collections
-    "ExternalReferral": {
-        "PatientName": "PatientName",
-        "Notes": "StatusUpdates.Notes"
-    },
-    
-    "ExternalReferralDeletedDraft": {
-        "PatientName": "PatientName",
-        "Notes": "StatusUpdates.Notes"
-    },
-    
-    "ExternalReferralDeliveryMethod": {
-        "PatientName": "PatientName",
-        "Notes": "StatusUpdates.Notes"
-    },
-    
-    "ExternalReferralDeliveryMethodValue": {
-        "PatientName": "PatientName",
-        "Notes": "StatusUpdates.Notes"
-    },
-    
-    "ExternalReferralQueue": {
-        "PatientName": "PatientName",
-        "Notes": "StatusUpdates.Notes"
-    },
-    
-    "ExternalReferralSentTo": {
-        "PatientName": "PatientName",
-        "Notes": "StatusUpdates.Notes"
-    },
-    
+    "ExternalReferral": {"PatientName": "PatientName", "Notes": "StatusUpdates.Notes"},
+    "ExternalReferralDeletedDraft": {"PatientName": "PatientName", "Notes": "StatusUpdates.Notes"},
+    "ExternalReferralDeliveryMethod": {"PatientName": "PatientName", "Notes": "StatusUpdates.Notes"},
+    "ExternalReferralDeliveryMethodValue": {"PatientName": "PatientName", "Notes": "StatusUpdates.Notes"},
+    "ExternalReferralQueue": {"PatientName": "PatientName", "Notes": "StatusUpdates.Notes"},
+    "ExternalReferralSentTo": {"PatientName": "PatientName", "Notes": "StatusUpdates.Notes"},
     # Collections with moved patients
     "PatientsMovedToLocalOutreach": {
         "PatientName": "PatientCallLog.PatientName",
@@ -492,9 +466,8 @@ PATH_MAPPING = {
         "Gender": "Gender",
         "PhoneNumber": "Phones.PhoneNumber",
         "EmployerStreet": "Insurance.EmployerStreet",
-        "Reason": "Reason"
+        "Reason": "Reason",
     },
-    
     "Patients_Dat_Audio_Location_Reset": {
         "PatientName": "PatientCallLog.PatientName",
         "FinalNotes": "PatientProblemList.EncounterProblemList.FinalNotes",
@@ -523,35 +496,23 @@ PATH_MAPPING = {
         "EmployerStreet": "Insurance.EmployerStreet",
         "Reason": "OutreachActivitiesList.Reason",
         "MRRFax": "Specialists.MRRFax",
-        "MRRFaxNumber": "Specialists.MRRFaxNumber"
+        "MRRFaxNumber": "Specialists.MRRFaxNumber",
     },
-    
     # Add path mappings for simple collections
-    "Tasks": {
-        "PatientName": "PatientName",
-        "Notes": "Notes"
-    },
-    
-    "DeletedPatientChart": {
-        "PatientName": "PatientName",
-        "Comments": "Comments",
-        "Reason": "DeleteReasons.Reason"
-    },
-    
-    "PatientChartReview": {
-        "PatientName": "PatientName",
-        "Comments": "Comments"
-    }
+    "Tasks": {"PatientName": "PatientName", "Notes": "Notes"},
+    "DeletedPatientChart": {"PatientName": "PatientName", "Comments": "Comments", "Reason": "DeleteReasons.Reason"},
+    "PatientChartReview": {"PatientName": "PatientName", "Comments": "Comments"},
 }
+
 
 # Helper function to get rule group for a collection
 def get_rule_group(collection_name):
     """
     Returns the rule group a collection belongs to.
-    
+
     Args:
         collection_name (str): Name of the MongoDB collection
-        
+
     Returns:
         str: Name of the rule group
     """
@@ -565,10 +526,10 @@ def get_rule_group(collection_name):
 def get_phi_fields(collection_name):
     """
     Returns the list of PHI fields for a collection.
-    
+
     Args:
         collection_name (str): Name of the MongoDB collection
-        
+
     Returns:
         list: List of PHI field names
     """
@@ -582,11 +543,11 @@ def get_phi_fields(collection_name):
 def get_field_path(collection_name, field_name):
     """
     Returns the full path for a field in a collection.
-    
+
     Args:
         collection_name (str): Name of the MongoDB collection
         field_name (str): Name of the field
-        
+
     Returns:
         str: Full path to the field
     """
@@ -599,17 +560,25 @@ def get_field_path(collection_name, field_name):
 def is_fax_field(field_name):
     """
     Determines if a field is a fax field that requires special masking.
-    
+
     Args:
         field_name (str): The field name to check
-        
+
     Returns:
         bool: True if it's a fax field, False otherwise
     """
     fax_fields = [
-        "FaxNumber", "Fax", "Fax2", "MRRFax", "FaxNumber2", "MRRFaxNumber",
-        "PrimaryFaxNumber", "SecondaryFaxNumber", "PCPFaxNumber", 
-        "PCPMRRFaxNumber", "PcpSecondaryFaxNumber"
+        "FaxNumber",
+        "Fax",
+        "Fax2",
+        "MRRFax",
+        "FaxNumber2",
+        "MRRFaxNumber",
+        "PrimaryFaxNumber",
+        "SecondaryFaxNumber",
+        "PCPFaxNumber",
+        "PCPMRRFaxNumber",
+        "PcpSecondaryFaxNumber",
     ]
     return field_name in fax_fields
 
@@ -618,25 +587,25 @@ def is_fax_field(field_name):
 def get_masking_value(collection_name, field_name):
     """
     Returns the appropriate masking value for a field based on its type.
-    
+
     Args:
         collection_name (str): Name of the MongoDB collection
         field_name (str): Name of the field
-        
+
     Returns:
         object: The value to use for masking this field
     """
     # Special case: If this is a fax field, use the special masking requirement
     if is_fax_field(field_name):
         return "1111111111111"
-        
+
     rule_group = get_rule_group(collection_name)
     if not rule_group:
         return "REDACTED"  # Default fallback
-    
+
     # Determine field type and return appropriate masking value
     masking_strategies = COLLECTION_RULE_MAPPING[rule_group].get("masking_strategies", {})
-    
+
     # Check for field in each strategy type
     for strategy_type, fields in masking_strategies.items():
         if isinstance(fields, list) and field_name in fields:
@@ -654,7 +623,7 @@ def get_masking_value(collection_name, field_name):
                 return "redacted@example.com"
             elif strategy_type == "fax_fields":
                 return "1111111111111"
-    
+
     # Default fallback masking value
     return "REDACTED"
 
@@ -663,7 +632,7 @@ def validate_phi_field_coverage():
     """
     Validates that all PHI fields in all collections are covered by the mapping.
     This can be run to verify configuration completeness.
-    
+
     Returns:
         bool: True if coverage is complete, False if any fields are missing
     """

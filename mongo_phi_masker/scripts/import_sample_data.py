@@ -3,11 +3,11 @@
 Script to import representative sample data into the development database.
 """
 
-import os
-import sys
-import json
 import argparse
 import logging
+import os
+import sys
+
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -139,9 +139,7 @@ def generate_sample_data(count=10):
         doc["LastNameLower"] = doc["LastName"].lower()
 
         # Vary address
-        doc["Address"][0][
-            "Street1"
-        ] = f"{1000 + i} {first_names[i % len(first_names)]} ST"
+        doc["Address"][0]["Street1"] = f"{1000 + i} {first_names[i % len(first_names)]} ST"
         doc["Address"][0]["City"] = cities[i % len(cities)]
         doc["Address"][0]["StateCode"] = states[i % len(states)]
         doc["Address"][0]["Zip5"] = f"{77000 + i}"
@@ -154,19 +152,13 @@ def generate_sample_data(count=10):
         doc["Email"] = f"{doc['FirstNameLower']}.{doc['LastNameLower']}@example.com"
 
         # Update in nested objects too
-        doc["Insurance"][0][
-            "PrimaryMemberName"
-        ] = f"{doc['FirstName']} {doc['MiddleName']} {doc['LastName']}"
+        doc["Insurance"][0]["PrimaryMemberName"] = f"{doc['FirstName']} {doc['MiddleName']} {doc['LastName']}"
         doc["Insurance"][0]["PrimaryMemberDOB"] = doc["Dob"]
-        doc["PatientCallLog"][0][
-            "PatientName"
-        ] = f"{doc['FirstName']} {doc['LastName']}"
+        doc["PatientCallLog"][0]["PatientName"] = f"{doc['FirstName']} {doc['LastName']}"
         doc["PatientCallLog"][0][
             "VisitAddress"
         ] = f"Home ({doc['Address'][0]['Street1']}, {doc['Address'][0]['City']}, {doc['Address'][0]['StateCode']}, {doc['Address'][0]['Zip5']})"
-        doc["DocuSign"][0][
-            "UserName"
-        ] = f"{doc['FirstName']} {doc['MiddleName']} {doc['LastName']}"
+        doc["DocuSign"][0]["UserName"] = f"{doc['FirstName']} {doc['MiddleName']} {doc['LastName']}"
 
         samples.append(doc)
 
@@ -177,12 +169,8 @@ def main():
     # Parse arguments
     parser = argparse.ArgumentParser(description="Import sample data to MongoDB")
     parser.add_argument("--env", default=".env.dev", help="Path to environment file")
-    parser.add_argument(
-        "--count", type=int, default=10, help="Number of sample documents"
-    )
-    parser.add_argument(
-        "--drop", action="store_true", help="Drop existing collection before import"
-    )
+    parser.add_argument("--count", type=int, default=10, help="Number of sample documents")
+    parser.add_argument("--drop", action="store_true", help="Drop existing collection before import")
 
     args = parser.parse_args()
 
@@ -217,15 +205,11 @@ def main():
 
     # Insert sample data
     if collection.count_documents({}) == 0:
-        logger.info(
-            f"Inserting {len(sample_data)} documents into {db_name}.{coll_name}"
-        )
+        logger.info(f"Inserting {len(sample_data)} documents into {db_name}.{coll_name}")
         collection.insert_many(sample_data)
         logger.info("Sample data imported successfully")
     else:
-        logger.info(
-            f"Collection {db_name}.{coll_name} already contains data. Use --drop to replace."
-        )
+        logger.info(f"Collection {db_name}.{coll_name} already contains data. Use --drop to replace.")
 
     # Verify import
     count = collection.count_documents({})

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+
 from pymongo import MongoClient
 
 print("--- List Indexes Script Started ---")
@@ -17,12 +18,12 @@ try:
     print("Fetching index information...")
     index_info = collection.index_information()
     print("SUCCESS: Retrieved index information.")
-    
+
     print("\n--- Existing Indexes ---")
     for index_name, index_details in index_info.items():
         print(f"- {index_name}: {index_details}")
     print("------------------------")
-    
+
     client.close()
 
 except Exception as e:

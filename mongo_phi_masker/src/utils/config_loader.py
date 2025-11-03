@@ -10,16 +10,15 @@ import json
 import logging
 import os
 import re
-import yaml
-from typing import Dict, Any, Optional
 import sys
+from typing import Any
+
+import yaml
 
 try:
     from dotenv import load_dotenv
 except ImportError:
-    print(
-        "python-dotenv package is required. Install it with 'pip install python-dotenv'"
-    )
+    print("python-dotenv package is required. Install it with 'pip install python-dotenv'")
     sys.exit(1)
 
 # Setup logger
@@ -38,7 +37,7 @@ class ConfigLoader:
         config: Loaded configuration dictionary
     """
 
-    def __init__(self, config_path: str, env_file: Optional[str] = None):
+    def __init__(self, config_path: str, env_file: str | None = None):
         """Initialize the configuration loader.
 
         Args:
@@ -56,13 +55,11 @@ class ConfigLoader:
 
             # Extract environment name from file name
             # Assuming file name format like .env.dev, .env.prod, etc.
-            env_name = (
-                os.path.splitext(os.path.basename(env_file))[0].split(".")[-1].upper()
-            )
+            env_name = os.path.splitext(os.path.basename(env_file))[0].split(".")[-1].upper()
             logger.info(f"Detected environment: {env_name}")
             os.environ["ENVIRONMENT"] = env_name
 
-    def load_config(self) -> Dict[str, Any]:
+    def load_config(self) -> dict[str, Any]:
         """Load configuration from file and resolve environment variables.
 
         Returns:
@@ -77,23 +74,19 @@ class ConfigLoader:
 
         # Load configuration from file
         try:
-            with open(self.config_path, "r") as f:
-                if self.config_path.endswith(".yaml") or self.config_path.endswith(
-                    ".yml"
-                ):
+            with open(self.config_path) as f:
+                if self.config_path.endswith(".yaml") or self.config_path.endswith(".yml"):
                     config = yaml.safe_load(f)
                 elif self.config_path.endswith(".json"):
                     config = json.load(f)
                 else:
-                    raise ValueError(
-                        f"Unsupported configuration file format: {self.config_path}"
-                    )
+                    raise ValueError(f"Unsupported configuration file format: {self.config_path}")
         except Exception as e:
             raise ValueError(f"Error loading configuration file: {str(e)}")
 
         # Resolve environment variables in configuration
         config = self._resolve_env_variables(config)
-        
+
         # Build MongoDB URIs from environment variables if not explicitly set
         config = self._build_mongodb_config(config)
 
@@ -109,13 +102,13 @@ class ConfigLoader:
 
         self.config = config
         return config
-        
-    def _build_mongodb_config(self, config: Dict[str, Any]) -> Dict[str, Any]:
+
+    def _build_mongodb_config(self, config: dict[str, Any]) -> dict[str, Any]:
         """Build MongoDB configuration from environment variables if not already set.
-        
+
         Args:
             config: Configuration dictionary
-            
+
         Returns:
             Updated configuration dictionary with MongoDB URIs
         """
@@ -126,11 +119,11 @@ class ConfigLoader:
             config["mongodb"]["source"] = {}
         if "destination" not in config["mongodb"]:
             config["mongodb"]["destination"] = {}
-            
+
         # Check if MongoDB URIs are already set in config
         source_uri_set = "uri" in config["mongodb"]["source"]
         dest_uri_set = "uri" in config["mongodb"]["destination"]
-        
+
         # Only build URI from components if not already set in config
         if not source_uri_set:
             # Build source URI from components
@@ -143,7 +136,7 @@ class ConfigLoader:
                 source_auth_db = os.environ.get("MONGO_SOURCE_AUTH_DB", "admin")
                 source_use_srv = str(os.environ.get("MONGO_SOURCE_USE_SRV", "false")).lower() == "true"
                 source_use_ssl = str(os.environ.get("MONGO_SOURCE_USE_SSL", "false")).lower() == "true"
-                
+
                 if source_host:  # Only build URI if host is specified
                     source_uri = generate_mongodb_uri(
                         host=source_host,
@@ -152,26 +145,26 @@ class ConfigLoader:
                         password=source_password,
                         auth_source=source_auth_db,
                         srv=source_use_srv,
-                        ssl=source_use_ssl
+                        ssl=source_use_ssl,
                     )
-                    logger.info(f"Generated source MongoDB URI from environment variables")
-                    
+                    logger.info("Generated source MongoDB URI from environment variables")
+
                     # Set URI in config
                     config["mongodb"]["source"]["uri"] = source_uri
             else:
                 # Use URI directly from environment
                 config["mongodb"]["source"]["uri"] = source_uri
-                logger.info(f"Using source MongoDB URI from environment")
-            
+                logger.info("Using source MongoDB URI from environment")
+
             # Set database and collection if provided in environment
             source_db = os.environ.get("MONGO_SOURCE_DB")
             if source_db and "database" not in config["mongodb"]["source"]:
                 config["mongodb"]["source"]["database"] = source_db
-                
+
             source_coll = os.environ.get("MONGO_SOURCE_COLL")
             if source_coll and "collection" not in config["mongodb"]["source"]:
                 config["mongodb"]["source"]["collection"] = source_coll
-        
+
         # Do the same for destination
         if not dest_uri_set:
             # Build destination URI from components
@@ -184,7 +177,7 @@ class ConfigLoader:
                 dest_auth_db = os.environ.get("MONGO_DEST_AUTH_DB", "admin")
                 dest_use_srv = str(os.environ.get("MONGO_DEST_USE_SRV", "false")).lower() == "true"
                 dest_use_ssl = str(os.environ.get("MONGO_DEST_USE_SSL", "false")).lower() == "true"
-                
+
                 if dest_host:  # Only build URI if host is specified
                     dest_uri = generate_mongodb_uri(
                         host=dest_host,
@@ -193,29 +186,29 @@ class ConfigLoader:
                         password=dest_password,
                         auth_source=dest_auth_db,
                         srv=dest_use_srv,
-                        ssl=dest_use_ssl
+                        ssl=dest_use_ssl,
                     )
-                    logger.info(f"Generated destination MongoDB URI from environment variables")
-                    
+                    logger.info("Generated destination MongoDB URI from environment variables")
+
                     # Set URI in config
                     config["mongodb"]["destination"]["uri"] = dest_uri
             else:
                 # Use URI directly from environment
                 config["mongodb"]["destination"]["uri"] = dest_uri
-                logger.info(f"Using destination MongoDB URI from environment")
-            
+                logger.info("Using destination MongoDB URI from environment")
+
             # Set database and collection if provided in environment
             dest_db = os.environ.get("MONGO_DEST_DB")
             if dest_db and "database" not in config["mongodb"]["destination"]:
                 config["mongodb"]["destination"]["database"] = dest_db
-                
+
             dest_coll = os.environ.get("MONGO_DEST_COLL")
             if dest_coll and "collection" not in config["mongodb"]["destination"]:
                 config["mongodb"]["destination"]["collection"] = dest_coll
-                
+
         return config
 
-    def _resolve_env_variables(self, config: Dict[str, Any]) -> Dict[str, Any]:
+    def _resolve_env_variables(self, config: dict[str, Any]) -> dict[str, Any]:
         """Resolve environment variables in configuration.
 
         Args:
@@ -243,7 +236,7 @@ class ConfigLoader:
         config_str = re.sub(pattern, replace_env_var, config_str)
         return json.loads(config_str)
 
-    def _set_defaults(self, config: Dict[str, Any]) -> Dict[str, Any]:
+    def _set_defaults(self, config: dict[str, Any]) -> dict[str, Any]:
         """Set default values for missing configuration options.
 
         Args:
@@ -266,7 +259,7 @@ class ConfigLoader:
 
         return config
 
-    def _validate_config(self, config: Dict[str, Any]) -> None:
+    def _validate_config(self, config: dict[str, Any]) -> None:
         """Validate the configuration.
 
         Args:

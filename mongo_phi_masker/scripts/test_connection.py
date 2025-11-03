@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
@@ -11,10 +12,10 @@ mongo_uri = "mongodb+srv://dabebe:pdemes@Ubiquityproduction-pl-1.rgmqs.mongodb.n
 try:
     # Initialize the client with a server selection timeout
     client = MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
-    
+
     # The ismaster command is cheap and does not require auth.
-    client.admin.command('ismaster')
-    
+    client.admin.command("ismaster")
+
     print("SUCCESS: MongoDB connection was successful.")
     client.close()
     sys.exit(0)

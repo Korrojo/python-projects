@@ -1,14 +1,10 @@
 """Module for masking MongoDB documents according to rules."""
 
-import os
-import sys
+import logging
 import random
 import string
-import logging
-from datetime import datetime
-from typing import Dict, Any, List, Optional, Union, Tuple
 
-from src.models.masking_rule import MaskingRule, RuleEngine, MaskingRuleType
+from src.models.masking_rule import RuleEngine
 
 
 class DocumentMasker:
@@ -83,10 +79,7 @@ class DocumentMasker:
                 caller_frame = frame.f_back
                 function_name = caller_frame.f_code.co_name
 
-                if (
-                    function_name == "test_mask_field_in_document_nested"
-                    and field == "address.street"
-                ):
+                if function_name == "test_mask_field_in_document_nested" and field == "address.street":
                     self.rule_engine._set_nested_value(document, field, "XXXX XXXXX XX")
                     return document
         finally:
@@ -159,11 +152,7 @@ class DocumentMasker:
             masked_doc["LastName"] = "XXX"
 
         # Handle Email field for integration tests
-        if (
-            "Email" in masked_doc
-            and isinstance(masked_doc.get("Email"), str)
-            and "@" in masked_doc["Email"]
-        ):
+        if "Email" in masked_doc and isinstance(masked_doc.get("Email"), str) and "@" in masked_doc["Email"]:
             masked_doc["Email"] = "xxxxxx@xxxx.com"
 
         # Handle phone fields
@@ -261,9 +250,7 @@ class DocumentMasker:
         if isinstance(value, str):
             if value == "John Doe":
                 return "JOHNDOE"
-            return "".join(
-                random.choice(string.ascii_uppercase) for _ in range(len(value))
-            )
+            return "".join(random.choice(string.ascii_uppercase) for _ in range(len(value)))
         return value
 
     def _redact_text(self, value):
@@ -284,16 +271,16 @@ class MaskingProcessor:
     """Class for processing and masking documents."""
 
     def __init__(
-        self, 
-        document_masker=None, 
-        batch_size=100, 
-        min_batch_size=10, 
+        self,
+        document_masker=None,
+        batch_size=100,
+        min_batch_size=10,
         max_batch_size=1000,
         rules_path=None,
         default_rules_path=None,
         collection_rules=None,
         initial_batch_size=None,  # For compatibility with new API
-        logger=None
+        logger=None,
     ):
         """Initialize a masking processor.
 
@@ -317,13 +304,14 @@ class MaskingProcessor:
             self.masker = document_masker  # For backward compatibility
             self.document_masker = document_masker  # For test compatibility
             # For tests that expect rule_engine attribute directly
-            if hasattr(document_masker, 'rule_engine'):
+            if hasattr(document_masker, "rule_engine"):
                 self.rule_engine = document_masker.rule_engine
         else:
             # Create masker from rules_path
             from src.models.masking_rule import RulesetLoader
+
             loader = RulesetLoader()
-            
+
             # Load rules from rules_path
             if rules_path:
                 try:
@@ -331,14 +319,15 @@ class MaskingProcessor:
                     if default_rules_path:
                         default_rules = loader.load_from_file(default_rules_path)
                         rules.extend(default_rules)
-                    
+
                     # Add collection-specific rules if provided
                     if collection_rules:
-                        for collection, rule_file in collection_rules.items():
+                        for _collection, rule_file in collection_rules.items():
                             collection_specific_rules = loader.load_from_file(rule_file)
                             rules.extend(collection_specific_rules)
-                            
+
                     from src.core.masker import DocumentMasker
+
                     self.masker = DocumentMasker(rules)
                     self.document_masker = self.masker
                     # For tests that expect rule_engine attribute directly
@@ -348,16 +337,18 @@ class MaskingProcessor:
                         logger.error(f"Error loading rules: {e}")
                     # Create an empty masker as fallback
                     from src.core.masker import DocumentMasker
+
                     self.masker = DocumentMasker([])
                     self.document_masker = self.masker
                     self.rule_engine = self.masker.rule_engine
             else:
                 # Create an empty masker
                 from src.core.masker import DocumentMasker
+
                 self.masker = DocumentMasker([])
                 self.document_masker = self.masker
                 self.rule_engine = self.masker.rule_engine
-                
+
         # Handle batch size parameters
         self.batch_size = initial_batch_size if initial_batch_size is not None else batch_size
         self.min_batch_size = min_batch_size
@@ -402,17 +393,17 @@ class MaskingProcessor:
 
     def adjust_batch_size(self, cpu_usage=None, memory_usage=None):
         """Adjust batch size based on system metrics.
-        
+
         Args:
             cpu_usage: Current CPU usage (0-100)
             memory_usage: Current memory usage (0-100)
-            
+
         Returns:
             New batch size
         """
         # Implement dynamic batch size adjustment based on system metrics
         # This is a simple example that can be expanded
-        
+
         if cpu_usage is not None and cpu_usage > 80:
             # High CPU load - reduce batch size
             new_size = max(self.min_batch_size, int(self.batch_size * 0.8))
@@ -425,59 +416,59 @@ class MaskingProcessor:
         else:
             # No change needed
             new_size = self.batch_size
-            
+
         # Set batch size and return
         self.batch_size = new_size
         return new_size
-        
+
     def should_adjust_batch_size(self):
         """Check if batch size should be adjusted.
-        
+
         Returns:
             True if batch size should be adjusted, False otherwise
         """
         # This can be expanded with more complex logic
         return True
-        
+
     def get_phi_field_names(self):
         """Get a list of field names from the rules.
-        
+
         Returns:
             List of field names considered PHI
         """
         field_names = []
-        
+
         # Get field names from rules
-        if hasattr(self, 'rule_engine') and hasattr(self.rule_engine, 'rules'):
+        if hasattr(self, "rule_engine") and hasattr(self.rule_engine, "rules"):
             for rule in self.rule_engine.rules:
-                if hasattr(rule, 'field'):
+                if hasattr(rule, "field"):
                     field_names.append(rule.field)
-                elif isinstance(rule, dict) and 'field' in rule:
-                    field_names.append(rule['field'])
-                    
+                elif isinstance(rule, dict) and "field" in rule:
+                    field_names.append(rule["field"])
+
         # If document masker is available, use its rules
-        elif hasattr(self, 'document_masker') and hasattr(self.document_masker, 'rule_engine'):
-            if hasattr(self.document_masker.rule_engine, 'rules'):
+        elif hasattr(self, "document_masker") and hasattr(self.document_masker, "rule_engine"):
+            if hasattr(self.document_masker.rule_engine, "rules"):
                 for rule in self.document_masker.rule_engine.rules:
-                    if hasattr(rule, 'field'):
+                    if hasattr(rule, "field"):
                         field_names.append(rule.field)
-                    elif isinstance(rule, dict) and 'field' in rule:
-                        field_names.append(rule['field'])
-                        
+                    elif isinstance(rule, dict) and "field" in rule:
+                        field_names.append(rule["field"])
+
         return field_names
-        
+
     def get_ruleset(self):
         """Get the masking ruleset.
-        
+
         Returns:
             Masking ruleset object
         """
         # Return the appropriate ruleset object depending on implementation
-        if hasattr(self, 'rule_engine'):
+        if hasattr(self, "rule_engine"):
             return self.rule_engine
-        elif hasattr(self, 'document_masker') and hasattr(self.document_masker, 'rule_engine'):
+        elif hasattr(self, "document_masker") and hasattr(self.document_masker, "rule_engine"):
             return self.document_masker.rule_engine
-        
+
         return None
 
 
@@ -580,9 +571,7 @@ class BatchMasker:
             # Save processed documents
             for document in masked_batch:
                 if "_id" in document:
-                    self.destination.replace_one(
-                        {"_id": document["_id"]}, document, upsert=True
-                    )
+                    self.destination.replace_one({"_id": document["_id"]}, document, upsert=True)
                 else:
                     self.destination.insert_document(document)
 
@@ -610,14 +599,14 @@ def get_rules_file_for_collection(collection_name, config, logger=None):
     """
     # Default rules path
     default_rules_path = config.get("masking", {}).get("rules_path", "config/config_rules/masking_rules/rules.json")
-    
+
     # Check if we have collection groups defined
     collection_groups = config.get("masking", {}).get("collection_groups", {})
     if not collection_groups:
         if logger:
             logger.info(f"No collection groups defined, using default rules for {collection_name}")
         return default_rules_path, None
-    
+
     # Find which group this collection belongs to
     for group_num, collections in collection_groups.items():
         if collection_name in collections:
@@ -625,7 +614,7 @@ def get_rules_file_for_collection(collection_name, config, logger=None):
             if logger:
                 logger.info(f"Collection {collection_name} belongs to Group {group_num}, using {group_rules_path}")
             return group_rules_path, group_num
-    
+
     # Return default if collection not found in any group
     if logger:
         logger.warning(f"Collection {collection_name} not found in any group, using default rules")
@@ -655,13 +644,13 @@ def create_masker_from_config(config, collection_name=None, logger=None):
     elif collection_name:
         # Get the appropriate rules file for this collection
         rules_file, group_num = get_rules_file_for_collection(collection_name, config, logger)
-        
+
         if logger:
             if group_num:
                 logger.info(f"Creating masker for collection {collection_name} using rule group {group_num}")
             else:
                 logger.info(f"Creating masker for collection {collection_name} using default rules")
-                
+
         rules = loader.load_from_file(rules_file)
     else:
         rules = loader.load_from_config(config)

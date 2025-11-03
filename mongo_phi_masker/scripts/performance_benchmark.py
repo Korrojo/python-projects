@@ -12,11 +12,12 @@ import argparse
 import json
 import logging
 import os
-import time
 import sys
-from typing import Dict, Any, List, Optional, Tuple, Callable
+import time
+from collections.abc import Callable
+from typing import Any
+
 import matplotlib.pyplot as plt
-import numpy as np
 
 # Add project root to Python path
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -24,10 +25,10 @@ project_root = os.path.dirname(script_dir)
 sys.path.insert(0, project_root)
 
 # Now import project modules
-from src.core.orchestrator import MaskingOrchestrator
 from src.core.connector import MongoConnector
+
 # Dask support removed - using standard processor only
-from src.utils.config_loader import ConfigLoader, generate_mongodb_uri
+from src.utils.config_loader import ConfigLoader
 from src.utils.logger import setup_logging
 from src.utils.performance_monitor import PerformanceMonitor
 
@@ -36,8 +37,8 @@ logger = logging.getLogger(__name__)
 
 
 def validate_mongodb_connection(
-    uri: str, database: str, collection: str, query: Optional[Dict[str, Any]] = None
-) -> Tuple[bool, int]:
+    uri: str, database: str, collection: str, query: dict[str, Any] | None = None
+) -> tuple[bool, int]:
     """Validate MongoDB connection and return document count.
 
     Args:
@@ -67,7 +68,7 @@ def validate_mongodb_connection(
             logger.error("No documents found in collection")
             return False, 0
 
-        logger.info(f"Successfully connected to MongoDB and validated data access")
+        logger.info("Successfully connected to MongoDB and validated data access")
         logger.info(f"Sample document _id: {sample_doc.get('_id', 'unknown')}")
 
         return True, doc_count
@@ -85,9 +86,9 @@ def process_documents_in_batches(
     processor_func: Callable,
     batch_size: int,
     limit: int = 0,
-    query: Optional[Dict[str, Any]] = None,
+    query: dict[str, Any] | None = None,
     skip: int = 0,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Process documents in batches without loading everything into memory.
 
     Args:
@@ -130,9 +131,7 @@ def process_documents_in_batches(
 
             # Fetch batch
             batch_start = time.time()
-            cursor = connector.find_documents(
-                query=query, limit=current_batch_size, skip=current_skip
-            )
+            cursor = connector.find_documents(query=query, limit=current_batch_size, skip=current_skip)
 
             # Convert to list for processing (only this batch is in memory)
             batch = list(cursor)
@@ -143,7 +142,7 @@ def process_documents_in_batches(
 
             # Process batch
             try:
-                batch_result = processor_func(batch)
+                processor_func(batch)
                 stats["processed_count"] += len(batch)
                 stats["batches_processed"] += 1
 
@@ -167,16 +166,8 @@ def process_documents_in_batches(
             current_skip += len(batch)
 
         stats["total_time"] = time.time() - stats["start_time"]
-        stats["avg_batch_time"] = (
-            sum(stats["batch_times"]) / len(stats["batch_times"])
-            if stats["batch_times"]
-            else 0
-        )
-        stats["throughput"] = (
-            stats["processed_count"] / stats["total_time"]
-            if stats["total_time"] > 0
-            else 0
-        )
+        stats["avg_batch_time"] = sum(stats["batch_times"]) / len(stats["batch_times"]) if stats["batch_times"] else 0
+        stats["throughput"] = stats["processed_count"] / stats["total_time"] if stats["total_time"] > 0 else 0
 
         return stats
 
@@ -185,18 +176,18 @@ def process_documents_in_batches(
 
 
 def run_performance_test(
-    config: Dict[str, Any],
+    config: dict[str, Any],
     source_uri: str,
     source_db: str,
     source_collection: str,
     total_docs: int,
-    batch_sizes: List[int] = [100, 500, 1000, 5000],
-    worker_counts: List[int] = [1, 2, 4, 8],
-    connection_pool_sizes: List[int] = [50, 100, 200],
+    batch_sizes: list[int] = None,
+    worker_counts: list[int] = None,
+    connection_pool_sizes: list[int] = None,
     test_duration_per_config: int = 60,  # seconds
-    query: Optional[Dict[str, Any]] = None,
+    query: dict[str, Any] | None = None,
     output_path: str = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Run performance tests with various configurations.
 
     Args:
@@ -215,6 +206,12 @@ def run_performance_test(
     Returns:
         Performance test results
     """
+    if connection_pool_sizes is None:
+        connection_pool_sizes = [50, 100, 200]
+    if worker_counts is None:
+        worker_counts = [1, 2, 4, 8]
+    if batch_sizes is None:
+        batch_sizes = [100, 500, 1000, 5000]
     results = {
         "test_date": time.strftime("%Y-%m-%d %H:%M:%S"),
         "document_count": total_docs,
@@ -259,9 +256,7 @@ def run_performance_test(
                 if "mongodb" in test_config:
                     for db_config in ["source", "destination"]:
                         if db_config in test_config["mongodb"]:
-                            test_config["mongodb"][db_config][
-                                "max_pool_size"
-                            ] = pool_size
+                            test_config["mongodb"][db_config]["max_pool_size"] = pool_size
 
                 # Start monitoring
                 perf_monitor.start_monitoring()
@@ -269,20 +264,18 @@ def run_performance_test(
                 try:
                     # Calculate documents to process in test duration
                     # Use a smaller sample for testing each configuration
-                    test_docs = min(
-                        total_docs, batch_size * 20
-                    )  # Process at least 20 batches
+                    test_docs = min(total_docs, batch_size * 20)  # Process at least 20 batches
 
                     # Process documents using standard batch processing
                     stats = process_documents_in_batches(
-                            uri=source_uri,
-                            database=source_db,
-                            collection=source_collection,
-                            processor_func=process_batch,
-                            batch_size=batch_size,
-                            limit=test_docs,
-                            query=query,
-                        )
+                        uri=source_uri,
+                        database=source_db,
+                        collection=source_collection,
+                        processor_func=process_batch,
+                        batch_size=batch_size,
+                        limit=test_docs,
+                        query=query,
+                    )
 
                 except Exception as e:
                     logger.error(f"Error during test: {str(e)}")
@@ -306,9 +299,7 @@ def run_performance_test(
                 }
 
                 results["configurations"].append(config_result)
-                logger.info(
-                    f"Results: {stats['throughput']:.2f} docs/sec, {stats['total_time']:.2f} seconds"
-                )
+                logger.info(f"Results: {stats['throughput']:.2f} docs/sec, {stats['total_time']:.2f} seconds")
 
     # Save results if output path provided
     if output_path:
@@ -319,7 +310,7 @@ def run_performance_test(
     return results
 
 
-def visualize_results(results: Dict[str, Any], output_dir: str = "results/performance"):
+def visualize_results(results: dict[str, Any], output_dir: str = "results/performance"):
     """Generate visualizations of performance test results.
 
     Args:
@@ -336,9 +327,9 @@ def visualize_results(results: Dict[str, Any], output_dir: str = "results/perfor
         logger.warning("No performance results to visualize")
         return
 
-    batch_sizes = sorted(list(set(c["batch_size"] for c in configs)))
-    worker_counts = sorted(list(set(c["worker_count"] for c in configs)))
-    pool_sizes = sorted(list(set(c["connection_pool_size"] for c in configs)))
+    batch_sizes = sorted({c["batch_size"] for c in configs})
+    worker_counts = sorted({c["worker_count"] for c in configs})
+    pool_sizes = sorted({c["connection_pool_size"] for c in configs})
 
     # Generate throughput vs batch size plot
     plt.figure(figsize=(12, 8))
@@ -364,9 +355,7 @@ def visualize_results(results: Dict[str, Any], output_dir: str = "results/perfor
         y_values = []
         for batch_size in sorted(batch_throughputs.keys()):
             x_values.append(batch_size)
-            y_values.append(
-                sum(batch_throughputs[batch_size]) / len(batch_throughputs[batch_size])
-            )
+            y_values.append(sum(batch_throughputs[batch_size]) / len(batch_throughputs[batch_size]))
 
         plt.plot(x_values, y_values, marker="o", label=f"{worker} workers")
 
@@ -394,19 +383,14 @@ def visualize_results(results: Dict[str, Any], output_dir: str = "results/perfor
             worker_count = config["worker_count"]
             if worker_count not in worker_throughputs:
                 worker_throughputs[worker_count] = []
-            worker_throughputs[worker_count].append(
-                config["throughput_docs_per_second"]
-            )
+            worker_throughputs[worker_count].append(config["throughput_docs_per_second"])
 
         # Calculate average throughput for each worker count
         x_values = []
         y_values = []
         for worker_count in sorted(worker_throughputs.keys()):
             x_values.append(worker_count)
-            y_values.append(
-                sum(worker_throughputs[worker_count])
-                / len(worker_throughputs[worker_count])
-            )
+            y_values.append(sum(worker_throughputs[worker_count]) / len(worker_throughputs[worker_count]))
 
         plt.plot(x_values, y_values, marker="o", label=f"Batch {batch}")
 
@@ -432,19 +416,14 @@ def visualize_results(results: Dict[str, Any], output_dir: str = "results/perfor
                 batch_size = config["batch_size"]
                 if batch_size not in batch_throughputs:
                     batch_throughputs[batch_size] = []
-                batch_throughputs[batch_size].append(
-                    config["throughput_docs_per_second"]
-                )
+                batch_throughputs[batch_size].append(config["throughput_docs_per_second"])
 
             # Calculate average throughput for each batch size
             x_values = []
             y_values = []
             for batch_size in sorted(batch_throughputs.keys()):
                 x_values.append(batch_size)
-                y_values.append(
-                    sum(batch_throughputs[batch_size])
-                    / len(batch_throughputs[batch_size])
-                )
+                y_values.append(sum(batch_throughputs[batch_size]) / len(batch_throughputs[batch_size]))
 
             plt.plot(x_values, y_values, marker="o", label=f"Pool {pool}")
 
@@ -475,7 +454,7 @@ def visualize_results(results: Dict[str, Any], output_dir: str = "results/perfor
         f"Optimal: Batch={optimal_config['batch_size']}, Workers={optimal_config['worker_count']}, Pool={optimal_config['connection_pool_size']}",
         xy=(2, optimal_config["throughput_docs_per_second"]),
         xytext=(1.5, optimal_config["throughput_docs_per_second"] * 1.1),
-        arrowprops=dict(facecolor="black", shrink=0.05),
+        arrowprops={"facecolor": "black", "shrink": 0.05},
     )
 
     plt.savefig(os.path.join(output_dir, "optimal_config.png"))
@@ -484,20 +463,12 @@ def visualize_results(results: Dict[str, Any], output_dir: str = "results/perfor
 def main():
     """Main entry point."""
     # Parse arguments
-    parser = argparse.ArgumentParser(
-        description="MongoDB PHI Masker Performance Testing"
-    )
-    parser.add_argument(
-        "--config", default="config/config_rules/config.json", help="Path to configuration file"
-    )
+    parser = argparse.ArgumentParser(description="MongoDB PHI Masker Performance Testing")
+    parser.add_argument("--config", default="config/config_rules/config.json", help="Path to configuration file")
     parser.add_argument("--env", default=".env.test", help="Path to environment file")
     parser.add_argument("--source-uri", help="MongoDB source URI (overrides config)")
-    parser.add_argument(
-        "--source-db", help="Source database name (defaults to env value)"
-    )
-    parser.add_argument(
-        "--source-collection", help="Source collection name (defaults to env value)"
-    )
+    parser.add_argument("--source-db", help="Source database name (defaults to env value)")
+    parser.add_argument("--source-collection", help="Source collection name (defaults to env value)")
     parser.add_argument(
         "--limit",
         type=int,
@@ -531,27 +502,18 @@ def main():
         default="INFO",
         help="Set the logging level",
     )
+    parser.add_argument("--log-file", type=str, help="Custom log file path")
     parser.add_argument(
-        "--log-file", 
-        type=str, 
-        help="Custom log file path"
-    )
-    parser.add_argument(
-        "--log-max-bytes", 
-        type=int, 
+        "--log-max-bytes",
+        type=int,
         default=10 * 1024 * 1024,
-        help="Maximum log file size before rotation (default: 10MB)"
+        help="Maximum log file size before rotation (default: 10MB)",
     )
     parser.add_argument(
-        "--log-backup-count", 
-        type=int, 
-        default=5,
-        help="Number of backup log files to keep (default: 5)"
+        "--log-backup-count", type=int, default=5, help="Number of backup log files to keep (default: 5)"
     )
     parser.add_argument(
-        "--log-timed-rotation", 
-        action="store_true",
-        help="Use time-based rotation instead of size-based"
+        "--log-timed-rotation", action="store_true", help="Use time-based rotation instead of size-based"
     )
 
     args = parser.parse_args()
@@ -562,7 +524,7 @@ def main():
         log_file=args.log_file,
         max_bytes=args.log_max_bytes,
         backup_count=args.log_backup_count,
-        use_timed_rotating=args.log_timed_rotation
+        use_timed_rotating=args.log_timed_rotation,
     )
     logger.info("Starting MongoDB PHI Masker Performance Testing")
 
@@ -574,6 +536,7 @@ def main():
 
         # Get environment variables directly
         import os
+
         from dotenv import load_dotenv
 
         # Load environment variables from the specified file
@@ -584,12 +547,8 @@ def main():
         load_dotenv(args.env, override=True)
 
         # Get database info from environment or args
-        source_db = args.source_db or os.environ.get(
-            "MONGO_SOURCE_DB", "UbiquityPreProd"
-        )
-        source_collection = args.source_collection or os.environ.get(
-            "MONGO_SOURCE_COLL", "Patients"
-        )
+        source_db = args.source_db or os.environ.get("MONGO_SOURCE_DB", "UbiquityPreProd")
+        source_collection = args.source_collection or os.environ.get("MONGO_SOURCE_COLL", "Patients")
 
         # Get MongoDB URI from args or build it directly
         source_uri = args.source_uri
@@ -608,21 +567,13 @@ def main():
             protocol = "mongodb+srv://" if use_srv else "mongodb://"
             credentials = f"{username}:{password}@" if username and password else ""
             ssl_str = "?ssl=true" if use_ssl else ""
-            auth_str = (
-                f"&authSource={auth_db}"
-                if auth_db and use_ssl
-                else f"?authSource={auth_db}" if auth_db else ""
-            )
+            auth_str = f"&authSource={auth_db}" if auth_db and use_ssl else f"?authSource={auth_db}" if auth_db else ""
 
             source_uri = f"{protocol}{credentials}{host}/{ssl_str}{auth_str}"
-            logger.info(
-                f"Built source URI: {protocol}***:***@{host}/{ssl_str}{auth_str}"
-            )
+            logger.info(f"Built source URI: {protocol}***:***@{host}/{ssl_str}{auth_str}")
 
         if not source_uri:
-            logger.error(
-                "Source URI not provided and could not be built from environment variables"
-            )
+            logger.error("Source URI not provided and could not be built from environment variables")
             return 1
 
         # Validate MongoDB connection and get document count
@@ -640,14 +591,10 @@ def main():
         # Determine document limit for testing
         doc_limit = args.limit if args.limit > 0 else doc_count
         if doc_limit > doc_count:
-            logger.warning(
-                f"Requested limit {doc_limit} exceeds available documents {doc_count}"
-            )
+            logger.warning(f"Requested limit {doc_limit} exceeds available documents {doc_count}")
             doc_limit = doc_count
 
-        logger.info(
-            f"Will test with up to {doc_limit} documents (total available: {doc_count})"
-        )
+        logger.info(f"Will test with up to {doc_limit} documents (total available: {doc_count})")
 
         # Parse batch sizes and worker counts
         batch_sizes = [int(x.strip()) for x in args.batch_sizes.split(",")]
@@ -673,21 +620,13 @@ def main():
 
         # Print optimal configuration
         if results["configurations"]:
-            optimal_config = max(
-                results["configurations"], key=lambda x: x["throughput_docs_per_second"]
-            )
+            optimal_config = max(results["configurations"], key=lambda x: x["throughput_docs_per_second"])
             logger.info("\n=== OPTIMAL CONFIGURATION ===")
             logger.info(f"Batch Size: {optimal_config['batch_size']}")
             logger.info(f"Worker Count: {optimal_config['worker_count']}")
-            logger.info(
-                f"Connection Pool Size: {optimal_config['connection_pool_size']}"
-            )
-            logger.info(
-                f"Throughput: {optimal_config['throughput_docs_per_second']:.2f} docs/second"
-            )
-            logger.info(
-                f"Processing Time: {optimal_config['elapsed_time_seconds']:.2f} seconds"
-            )
+            logger.info(f"Connection Pool Size: {optimal_config['connection_pool_size']}")
+            logger.info(f"Throughput: {optimal_config['throughput_docs_per_second']:.2f} docs/second")
+            logger.info(f"Processing Time: {optimal_config['elapsed_time_seconds']:.2f} seconds")
             logger.info("============================")
 
         logger.info("Performance testing completed successfully")

@@ -3,7 +3,7 @@
 import json
 import os
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Any
 
 
 class CheckpointManager:
@@ -30,9 +30,7 @@ class CheckpointManager:
         """
         return self.processed_count % self.checkpoint_interval == 0
 
-    def update_checkpoint(
-        self, doc_id: Any, timestamp: Optional[datetime] = None
-    ) -> None:
+    def update_checkpoint(self, doc_id: Any, timestamp: datetime | None = None) -> None:
         """Update the checkpoint with the latest document ID and timestamp.
 
         Args:
@@ -50,9 +48,7 @@ class CheckpointManager:
 
         checkpoint_data = {
             "last_id": str(self.last_id),
-            "last_timestamp": (
-                self.last_timestamp.isoformat() if self.last_timestamp else None
-            ),
+            "last_timestamp": (self.last_timestamp.isoformat() if self.last_timestamp else None),
             "processed_count": self.processed_count,
             "saved_at": datetime.now().isoformat(),
         }
@@ -65,7 +61,7 @@ class CheckpointManager:
         with open(self.checkpoint_file, "w") as f:
             json.dump(checkpoint_data, f, indent=2)
 
-    def load_checkpoint(self) -> Dict[str, Any]:
+    def load_checkpoint(self) -> dict[str, Any]:
         """Load the checkpoint from a file.
 
         Returns:
@@ -75,7 +71,7 @@ class CheckpointManager:
             return {}
 
         try:
-            with open(self.checkpoint_file, "r") as f:
+            with open(self.checkpoint_file) as f:
                 checkpoint_data = json.load(f)
                 self.last_id = checkpoint_data.get("last_id")
 
@@ -86,7 +82,7 @@ class CheckpointManager:
 
                 self.processed_count = checkpoint_data.get("processed_count", 0)
                 return checkpoint_data
-        except Exception as e:
+        except Exception:
             # Return empty checkpoint if file is corrupted
             return {}
 

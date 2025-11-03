@@ -3,23 +3,24 @@
 Bridge script for MongoDB PHI Masker with improved field matching.
 """
 
-import sys
-import os
 import argparse
+import copy
+import gc  # Import garbage collector for explicit memory management
 import json
 import logging
-import copy
-import random
-import string
-from datetime import datetime, timedelta
-from dotenv import load_dotenv
-import re
-import pymongo
 import logging.handlers
-from bson import ObjectId, json_util  # Add json_util for BSON serialization
-from pathlib import Path
-import gc  # Import garbage collector for explicit memory management
+import os
+import random
+import re
+import string
+import sys
 import time
+from datetime import datetime, timedelta
+from pathlib import Path
+
+import pymongo
+from bson import ObjectId  # Add json_util for BSON serialization
+from dotenv import load_dotenv
 
 # Try to import psutil for memory monitoring, but don't fail if not available
 try:
@@ -39,7 +40,7 @@ class ObjectIdEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, ObjectId):
             return str(obj)
-        return super(ObjectIdEncoder, self).default(obj)
+        return super().default(obj)
 
 
 def redact_uri(uri):
@@ -134,34 +135,32 @@ def setup_logging(
     # Override settings from environment variables if present
     max_bytes = int(os.environ.get("LOG_MAX_BYTES", max_bytes))
     backup_count = int(os.environ.get("LOG_BACKUP_COUNT", backup_count))
-    use_timed_rotating = (
-        os.environ.get("LOG_TIMED_ROTATION", str(use_timed_rotating)).lower() == "true"
-    )
+    use_timed_rotating = os.environ.get("LOG_TIMED_ROTATION", str(use_timed_rotating)).lower() == "true"
 
     if log_file is None:
         # Check if we're running as part of a multi-collection run
         run_log_dir = os.environ.get("PHI_RUN_LOG_DIR")
-        
+
         if run_log_dir:
             # Use the run-specific log directory
             log_dir = run_log_dir
         else:
             # Use the default base log directory
             log_dir = "C:/Users/demesew/logs/mask/PHI"
-        
+
         # Create logs directory if it doesn't exist
         os.makedirs(log_dir, exist_ok=True)
 
         # Generate timestamped log filename with your naming convention
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
+
         # Check if this is single collection processing
         collection_name = None
         for i, arg in enumerate(sys.argv):
             if arg == "--collection" and i + 1 < len(sys.argv):
                 collection_name = sys.argv[i + 1]
                 break
-        
+
         if collection_name:
             # Single collection processing
             log_file = f"{log_dir}/mask_{collection_name}_{timestamp}.log"
@@ -170,9 +169,7 @@ def setup_logging(
             log_file = f"{log_dir}/mask_parallel_{timestamp}.log"
 
     # Set up logging format and level
-    formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
     # File handler with appropriate rotation
     if use_timed_rotating:
@@ -180,9 +177,7 @@ def setup_logging(
             log_file, when="midnight", interval=1, backupCount=backup_count
         )
     else:
-        file_handler = logging.handlers.RotatingFileHandler(
-            log_file, maxBytes=max_bytes, backupCount=backup_count
-        )
+        file_handler = logging.handlers.RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
     file_handler.setFormatter(formatter)
 
     # Console handler
@@ -207,11 +202,7 @@ def setup_logging(
 
     # Log initialization message
     logger = logging.getLogger(__name__)
-    rotation_msg = (
-        "time-based"
-        if use_timed_rotating
-        else f"size-based ({max_bytes/1024/1024:.1f}MB max)"
-    )
+    rotation_msg = "time-based" if use_timed_rotating else f"size-based ({max_bytes/1024/1024:.1f}MB max)"
     logger.info(
         f"Logging initialized with level={logging.getLevelName(log_level)}, file={log_file}, rotation={rotation_msg}"
     )
@@ -304,25 +295,16 @@ def validate_masked_document(original_doc, masked_doc, logger):
     # Special check for Gender - should always be "Female" regardless of original value
     if "Gender" in masked_fields:
         if masked_fields["Gender"] == "Female":
-            logger.info(f"✓ Gender masked to Female")
+            logger.info("✓ Gender masked to Female")
         else:
-            logger.warning(
-                f"❌ Gender was not correctly masked to Female: {masked_fields['Gender']}"
-            )
+            logger.warning(f"❌ Gender was not correctly masked to Female: {masked_fields['Gender']}")
 
     # Special check for Dob - ensure it's properly shifted by milliseconds
-    if (
-        "Dob" in original_fields
-        and "Dob" in masked_fields
-        and original_fields["Dob"]
-        and masked_fields["Dob"]
-    ):
+    if "Dob" in original_fields and "Dob" in masked_fields and original_fields["Dob"] and masked_fields["Dob"]:
         original_dob = original_fields["Dob"]
         masked_dob = masked_fields["Dob"]
         if original_dob == masked_dob:
-            logger.warning(
-                f"❌ Dob was not shifted with add_milliseconds: {original_dob}"
-            )
+            logger.warning(f"❌ Dob was not shifted with add_milliseconds: {original_dob}")
         else:
             logger.info(f"✓ Dob masked to {masked_dob}")
 
@@ -338,9 +320,7 @@ def validate_masked_document(original_doc, masked_doc, logger):
             if masked_fields[upper].lower() == masked_fields[lower]:
                 logger.info(f"✓ {lower} correctly matches lowercase of {upper}")
             else:
-                logger.warning(
-                    f"❌ {lower} mismatch: {masked_fields[lower]} != {masked_fields[upper].lower()}"
-                )
+                logger.warning(f"❌ {lower} mismatch: {masked_fields[lower]} != {masked_fields[upper].lower()}")
 
 
 def should_validate_collection(collection_name):
@@ -354,19 +334,11 @@ def main():
     parser = argparse.ArgumentParser(description="MongoDB PHI Masker")
     parser.add_argument("--config", required=True, help="Path to configuration file")
     parser.add_argument("--env", required=True, help="Path to environment file")
-    parser.add_argument(
-        "--collection", help="Specific collection to process (optional)"
-    )
-    parser.add_argument(
-        "--limit", type=int, help="Maximum number of documents to process"
-    )
+    parser.add_argument("--collection", help="Specific collection to process (optional)")
+    parser.add_argument("--limit", type=int, help="Maximum number of documents to process")
     parser.add_argument("--query", help="MongoDB query to filter documents")
-    parser.add_argument(
-        "--reset-checkpoint", action="store_true", help="Reset checkpoint"
-    )
-    parser.add_argument(
-        "--verify-only", action="store_true", help="Only verify results"
-    )
+    parser.add_argument("--reset-checkpoint", action="store_true", help="Reset checkpoint")
+    parser.add_argument("--verify-only", action="store_true", help="Only verify results")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
 
     # Batch processing parameters
@@ -420,7 +392,7 @@ def main():
         return 1
 
     try:
-        with open(args.config, "r") as f:
+        with open(args.config) as f:
             config = json.load(f)
     except Exception as e:
         logger.error(f"Error loading configuration: {e}")
@@ -443,11 +415,7 @@ def main():
             return 1
 
     # Use environment variable or a very large number if not specified
-    limit = (
-        args.limit
-        if args.limit is not None
-        else int(os.getenv("PROCESSING_DOC_LIMIT", "9999999999"))
-    )
+    limit = args.limit if args.limit is not None else int(os.getenv("PROCESSING_DOC_LIMIT", "9999999999"))
 
     try:
         # Import necessary components
@@ -465,23 +433,17 @@ def main():
             # Process all PHI collections from config
             collections_to_process = config.get("phi_collections", [])
             if not collections_to_process:
-                logger.warning(
-                    "No PHI collections specified via --collection and none found in config.json."
-                )
+                logger.warning("No PHI collections specified via --collection and none found in config.json.")
                 sys.exit(0)
             logger.info(
                 f"Processing {len(collections_to_process)} PHI collections: {', '.join(collections_to_process)}"
             )
 
-
-
-
-
         # Process each collection
         for collection_name in collections_to_process:
-            logger.info(f"\n==================================")
+            logger.info("\n==================================")
             logger.info(f"Processing collection: {collection_name}")
-            logger.info(f"==================================\n")
+            logger.info("==================================\n")
 
             # Set the environment variable for current collection
             os.environ["MONGO_SOURCE_COLL"] = collection_name
@@ -495,17 +457,13 @@ def main():
             try:
                 # Set up MongoDB connections for this specific collection
                 source_db = os.getenv("MONGO_SOURCE_DB")
-                source_coll = (
-                    collection_name  # Use the current collection name directly
-                )
+                source_coll = collection_name  # Use the current collection name directly
 
                 dest_db = os.getenv("MONGO_DEST_DB")
                 dest_coll = collection_name  # Use the current collection name directly
 
                 # Build URIs for source and destination with db and collection info
-                source_uri = build_mongo_uri(
-                    "MONGO_SOURCE", logger, source_db, source_coll
-                )
+                source_uri = build_mongo_uri("MONGO_SOURCE", logger, source_db, source_coll)
                 dest_uri = build_mongo_uri("MONGO_DEST", logger, dest_db, dest_coll)
 
                 # Store in environment for rest of script
@@ -539,12 +497,8 @@ def main():
 
                 try:
                     # Attempt to use a direct PyMongo connection for efficiency
-                    logger.info(
-                        f"Attempting direct PyMongo connection for {source_db}.{source_coll}"
-                    )
-                    direct_client = pymongo.MongoClient(
-                        source_uri
-                    )  # direct_client is opened here
+                    logger.info(f"Attempting direct PyMongo connection for {source_db}.{source_coll}")
+                    direct_client = pymongo.MongoClient(source_uri)  # direct_client is opened here
                     direct_db = direct_client[source_db]
                     direct_coll = direct_db[source_coll]
 
@@ -564,9 +518,7 @@ def main():
 
                     if total_docs > 0:
                         db_cursor = direct_coll.find(mongo_query)
-                        logger.info(
-                            f"Established Direct PyMongo cursor for {total_docs} documents."
-                        )
+                        logger.info(f"Established Direct PyMongo cursor for {total_docs} documents.")
                         # Optional: Log a sample document ID to confirm cursor validity
                         # sample_doc_from_cursor = direct_coll.find_one(mongo_query)
                         # if sample_doc_from_cursor:
@@ -584,21 +536,13 @@ def main():
                     logger.error(
                         f"Error with direct PyMongo connection: {str(e)}. Attempting fallback to MongoConnector."
                     )
-                    if (
-                        direct_client
-                    ):  # Ensure client is closed if an error occurred after opening
+                    if direct_client:  # Ensure client is closed if an error occurred after opening
                         direct_client.close()
                         direct_client = None  # Mark as closed
 
                     # Fallback to MongoConnector
-                    if (
-                        source
-                        and hasattr(source, "is_connected")
-                        and source.is_connected()
-                    ):
-                        logger.info(
-                            f"Using MongoConnector for {source_db}.{source_coll}"
-                        )
+                    if source and hasattr(source, "is_connected") and source.is_connected():
+                        logger.info(f"Using MongoConnector for {source_db}.{source_coll}")
                         try:
                             # Attempt to count documents using the connector
                             if hasattr(source, "count_documents"):
@@ -619,9 +563,7 @@ def main():
                                 logger.warning(
                                     "MongoConnector does not have 'count_documents' method. Total count unknown before iteration."
                                 )
-                                total_docs = (
-                                    -1
-                                )  # Indicates count is unknown, loop will proceed differently or estimate
+                                total_docs = -1  # Indicates count is unknown, loop will proceed differently or estimate
 
                             if total_docs == 0:
                                 logger.info(
@@ -637,17 +579,11 @@ def main():
                                         f"Established MongoConnector cursor. Total docs (if known): {total_docs}"
                                     )
                                 else:
-                                    logger.error(
-                                        "Failed to establish cursor via MongoConnector."
-                                    )
+                                    logger.error("Failed to establish cursor via MongoConnector.")
                         except Exception as conn_e:
-                            logger.error(
-                                f"Error using MongoConnector for count/cursor: {str(conn_e)}"
-                            )
+                            logger.error(f"Error using MongoConnector for count/cursor: {str(conn_e)}")
                             db_cursor = None  # Ensure cursor is None on error
-                            total_docs = (
-                                0  # Assume no documents if connector fails badly
-                            )
+                            total_docs = 0  # Assume no documents if connector fails badly
                     else:
                         logger.error(
                             "MongoConnector not available or not connected for fallback. Cannot fetch documents."
@@ -656,9 +592,7 @@ def main():
                         total_docs = 0
 
                 # Log total document count
-                logger.info(
-                    f"Collection {collection_name}: Found {total_docs} documents to process"
-                )
+                logger.info(f"Collection {collection_name}: Found {total_docs} documents to process")
 
                 if total_docs == 0:
                     logger.warning(f"No documents found in {source_db}.{source_coll}")
@@ -667,9 +601,7 @@ def main():
                 # Initialize checkpoint file for this specific collection
                 checkpoint_dir = "checkpoints/masking"
                 os.makedirs(checkpoint_dir, exist_ok=True)
-                checkpoint_file = os.path.join(
-                    checkpoint_dir, f"{source_db}_{source_coll}_checkpoint.json"
-                )
+                checkpoint_file = os.path.join(checkpoint_dir, f"{source_db}_{source_coll}_checkpoint.json")
 
                 # Reset checkpoint if requested
                 if args.reset_checkpoint and os.path.exists(checkpoint_file):
@@ -680,26 +612,22 @@ def main():
                 last_id = None
                 if os.path.exists(checkpoint_file) and not args.reset_checkpoint:
                     try:
-                        with open(checkpoint_file, "r") as f:
+                        with open(checkpoint_file) as f:
                             checkpoint_data = json.load(f)
                             last_id_str = checkpoint_data.get("last_id")
                             if last_id_str:
                                 try:
                                     last_id = ObjectId(last_id_str)
-                                    logger.info(
-                                        f"Resuming from checkpoint with last_id: {last_id}"
-                                    )
+                                    logger.info(f"Resuming from checkpoint with last_id: {last_id}")
                                 except:
-                                    logger.warning(
-                                        f"Could not convert checkpoint ID to ObjectId: {last_id_str}"
-                                    )
+                                    logger.warning(f"Could not convert checkpoint ID to ObjectId: {last_id_str}")
                                     last_id = last_id_str
                     except Exception as e:
                         logger.warning(f"Error loading checkpoint: {e}")
 
                 # Load masking rules directly from rules.json
                 logger.info(f"Loading masking rules from {rules_path}")
-                with open(rules_path, "r") as f:
+                with open(rules_path) as f:
                     rules_data = json.load(f)
 
                 # Extract rules from the JSON
@@ -725,14 +653,10 @@ def main():
                     rule_type = rule["rule"]
                     params = rule["params"]
 
-
                     # Apply the appropriate rule
                     if rule_type == "random_uppercase":
                         if isinstance(value, str):
-                            return "".join(
-                                random.choice(string.ascii_uppercase)
-                                for _ in range(len(value))
-                            )
+                            return "".join(random.choice(string.ascii_uppercase) for _ in range(len(value)))
                         return value
 
                     elif rule_type == "random_uppercase_name":
@@ -742,11 +666,13 @@ def main():
                             random_parts = []
                             for part in name_parts:
                                 if part:
-                                    random_part = ''.join(random.choice(string.ascii_uppercase) for _ in range(len(part)))
+                                    random_part = "".join(
+                                        random.choice(string.ascii_uppercase) for _ in range(len(part))
+                                    )
                                     random_parts.append(random_part)
                                 else:
                                     random_parts.append("")
-                            return ' '.join(random_parts)
+                            return " ".join(random_parts)
                         return value
 
                     elif rule_type == "replace_string":
@@ -771,9 +697,7 @@ def main():
                                 # Handle ISO format date strings
                                 original_format = None
                                 if "T" in value:
-                                    dt = datetime.fromisoformat(
-                                        value.replace("Z", "+00:00")
-                                    )
+                                    dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
                                     original_format = "iso"
                                 else:
                                     # Try different date formats and remember which one worked
@@ -782,9 +706,7 @@ def main():
                                         original_format = "%Y-%m-%d"
                                     except ValueError:
                                         try:
-                                            dt = datetime.strptime(
-                                                value, "%Y-%m-%d %H:%M:%S"
-                                            )
+                                            dt = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
                                             original_format = "%Y-%m-%d %H:%M:%S"
                                         except ValueError:
                                             # Try one more format that might be used
@@ -800,7 +722,7 @@ def main():
                                     result = new_dt.isoformat()
                                 else:
                                     result = new_dt.strftime(original_format)
-                                
+
                                 logger.debug(
                                     f"Masked Dob from {value} to {result} by adding {days} days (preserved format: {original_format})"
                                 )
@@ -814,9 +736,7 @@ def main():
                                 days = int(params) // (1000 * 60 * 60 * 24)
                                 new_dt = value + timedelta(days=days)
                                 # Return datetime object to preserve original type
-                                logger.debug(
-                                    f"Masked Dob from {value} to {new_dt} by adding {days} days"
-                                )
+                                logger.debug(f"Masked Dob from {value} to {new_dt} by adding {days} days")
                                 return new_dt
                             except Exception as e:
                                 logger.debug(f"Date processing error: {e}")
@@ -854,35 +774,24 @@ def main():
                                 target = rule["params"]
 
                                 # Better handling for null uppercase fields
-                                if (
-                                    target in name_masks
-                                    and name_masks[target] is not None
-                                ):
+                                if target in name_masks and name_masks[target] is not None:
                                     # Normal case - uppercase field exists and is not null
                                     masked_doc[field] = name_masks[target].lower()
-                                    logger.debug(
-                                        f"Matched {field} to lowercase of {target}: {masked_doc[field]}"
-                                    )
+                                    logger.debug(f"Matched {field} to lowercase of {target}: {masked_doc[field]}")
                                 else:
                                     # Uppercase field is missing or null - apply fallback logic
 
                                     # Option 1: If the original lowercase exists, mask it directly
-                                    if (
-                                        masked_doc[field] is not None
-                                        and masked_doc[field]
-                                    ):
+                                    if masked_doc[field] is not None and masked_doc[field]:
                                         # Apply random masking directly to lowercase field
                                         import random
                                         import string
 
                                         random_chars = "".join(
-                                            random.choice(string.ascii_lowercase)
-                                            for _ in range(len(masked_doc[field]))
+                                            random.choice(string.ascii_lowercase) for _ in range(len(masked_doc[field]))
                                         )
                                         masked_doc[field] = random_chars
-                                        logger.debug(
-                                            f"Applied direct masking to {field}: {masked_doc[field]}"
-                                        )
+                                        logger.debug(f"Applied direct masking to {field}: {masked_doc[field]}")
 
                                     # Option 2: Leave lowercase as is if no better option
                                     # This is already covered by not changing the field
@@ -895,13 +804,13 @@ def main():
                             for key, value in list(obj.items()):
                                 # Build the current full path for this field
                                 current_path = f"{path}.{key}" if path else key
-                                
+
                                 # Special handling for Gender field - always ensure it's processed
                                 if key == "Gender" and "Gender" in field_rules:
                                     rule = field_rules["Gender"]
                                     obj[key] = apply_rule(value, rule)
                                     logger.debug(f"Masked Gender field: {obj[key]}")
-                                
+
                                 # Check if there's a rule for this exact field name
                                 elif key in field_rules:
                                     rule = field_rules[key]
@@ -916,7 +825,7 @@ def main():
                                     ]:
                                         obj[key] = apply_rule(value, rule)
                                         logger.debug(f"Masked by field name {current_path}: {obj[key]}")
-                                
+
                                 # Check if there's a rule for the full field path
                                 elif current_path in field_rules:
                                     rule = field_rules[current_path]
@@ -944,19 +853,15 @@ def main():
                 start_time = datetime.now()
 
                 # Use batch size from command line if provided, otherwise from environment variable
-                batch_size = (
-                    args.batch_size
-                    if args.batch_size
-                    else int(os.getenv("PROCESSING_BATCH_SIZE", "100"))
-                )
-                
+                batch_size = args.batch_size if args.batch_size else int(os.getenv("PROCESSING_BATCH_SIZE", "100"))
+
                 # Memory management settings
                 max_memory_mb = 4000  # Increased from 2000 - you have plenty of system memory
-                min_batch_size = 100   # Minimum batch size
+                min_batch_size = 100  # Minimum batch size
                 max_batch_size = batch_size  # Store original batch size as maximum
 
                 # Optimized sequential processing with memory management and connection pooling
-                from pymongo import WriteConcern, ReadPreference
+                from pymongo import WriteConcern
 
                 # Initialize performance metrics
                 metrics = {
@@ -989,9 +894,7 @@ def main():
                     collection = source.coll.with_options(write_concern=write_concern)
                 else:
                     # Access the actual collection object from the connector
-                    collection = destination.coll.with_options(
-                        write_concern=write_concern
-                    )
+                    collection = destination.coll.with_options(write_concern=write_concern)
 
                 logger.info(
                     f"Processing collection {collection_name} with optimized sequential processing (batch size: {batch_size})"
@@ -1003,9 +906,7 @@ def main():
 
                 # Configure cursor for optimal memory usage
                 if db_cursor:
-                    db_cursor.batch_size(
-                        batch_size
-                    )  # Optimize MongoDB wire protocol batch size
+                    db_cursor.batch_size(batch_size)  # Optimize MongoDB wire protocol batch size
                     for doc in db_cursor:
                         current_batch.append(doc)
 
@@ -1020,19 +921,15 @@ def main():
                                     gc.collect()
                                     gc.collect()
                                     time.sleep(0.5)
-                            
+
                             batch_counter += 1
                             batch_size_actual = len(current_batch)
-                            progress_log_total = (
-                                f"/{total_docs}" if total_docs != -1 else ""
-                            )
+                            progress_log_total = f"/{total_docs}" if total_docs != -1 else ""
 
                             # Log batch start with memory info if available
                             memory_info = ""
                             if memory_tracking:
-                                current_memory = process.memory_info().rss / (
-                                    1024 * 1024
-                                )  # MB
+                                current_memory = process.memory_info().rss / (1024 * 1024)  # MB
                                 memory_info = f" [Memory: {current_memory:.2f} MB]"
 
                             logger.info(
@@ -1051,9 +948,7 @@ def main():
                                         masked_doc = mask_document(single_doc)
                                         masked_docs.append(masked_doc)
                                     except Exception as e_doc:
-                                        logger.error(
-                                            f"Error masking document {single_doc.get('_id')}: {str(e_doc)}"
-                                        )
+                                        logger.error(f"Error masking document {single_doc.get('_id')}: {str(e_doc)}")
                                         doc_errors += 1
 
                                 # Optimized bulk update with retry logic
@@ -1070,9 +965,7 @@ def main():
                                                 for doc in masked_docs
                                             ]
                                             if bulk_ops:
-                                                collection.bulk_write(
-                                                    bulk_ops, ordered=False
-                                                )
+                                                collection.bulk_write(bulk_ops, ordered=False)
                                                 break
                                         except pymongo.errors.BulkWriteError as bwe:
                                             if attempt == retry_attempts - 1:
@@ -1080,14 +973,10 @@ def main():
                                                     f"Bulk write failed after {retry_attempts} attempts: {str(bwe)}"
                                                 )
                                             else:
-                                                logger.warning(
-                                                    f"Bulk write attempt {attempt + 1} failed, retrying..."
-                                                )
+                                                logger.warning(f"Bulk write attempt {attempt + 1} failed, retrying...")
                                                 time.sleep(0.5 * (attempt + 1))
                                         except Exception as e_bulk:
-                                            logger.error(
-                                                f"Error in bulk update: {str(e_bulk)}"
-                                            )
+                                            logger.error(f"Error in bulk update: {str(e_bulk)}")
                                             break
                                     write_time = time.time() - write_start
                                     metrics["write_times"].append(write_time)
@@ -1099,49 +988,47 @@ def main():
                                 batch_duration = time.time() - batch_start
                                 metrics["batch_times"].append(batch_duration)
                                 metrics["total_processing_time"] += batch_duration
-                                docs_per_second = (
-                                    batch_size_actual / batch_duration
-                                    if batch_duration > 0
-                                    else 0
-                                )
+                                docs_per_second = batch_size_actual / batch_duration if batch_duration > 0 else 0
 
                                 logger.info(
                                     f"Collection {collection_name}: Processed {processed_count}{progress_log_total} documents. Batch {batch_counter} took {batch_duration:.2f}s ({docs_per_second:.2f} docs/sec)."
                                 )
 
                             except Exception as e_batch:
-                                logger.error(
-                                    f"Error processing batch {batch_counter}: {str(e_batch)}"
-                                )
+                                logger.error(f"Error processing batch {batch_counter}: {str(e_batch)}")
                                 error_count += len(current_batch)
 
                             # Clear the batch for the next iteration
                             current_batch = []
                             masked_docs = []  # Explicitly clear masked documents
-                            
+
                             # Force garbage collection and memory cleanup
                             gc.collect()
                             gc.collect()  # Run twice for better cleanup
-                            
+
                             # Log memory after cleanup if tracking is available
                             if memory_tracking:
                                 post_cleanup_memory = process.memory_info().rss / (1024 * 1024)  # MB
                                 logger.info(f"Memory after cleanup: {post_cleanup_memory:.2f} MB")
-                                
+
                                 # Automatic batch size adjustment based on memory usage
                                 if post_cleanup_memory > max_memory_mb:
                                     # Memory too high - reduce batch size
                                     new_batch_size = max(min_batch_size, int(batch_size * 0.7))
                                     if new_batch_size != batch_size:
-                                        logger.warning(f"High memory usage ({post_cleanup_memory:.2f} MB) - reducing batch size from {batch_size} to {new_batch_size}")
+                                        logger.warning(
+                                            f"High memory usage ({post_cleanup_memory:.2f} MB) - reducing batch size from {batch_size} to {new_batch_size}"
+                                        )
                                         batch_size = new_batch_size
                                 elif post_cleanup_memory < max_memory_mb * 0.5 and batch_size < max_batch_size:
                                     # Memory usage low - can increase batch size
                                     new_batch_size = min(max_batch_size, int(batch_size * 1.2))
                                     if new_batch_size != batch_size:
-                                        logger.info(f"Low memory usage ({post_cleanup_memory:.2f} MB) - increasing batch size from {batch_size} to {new_batch_size}")
+                                        logger.info(
+                                            f"Low memory usage ({post_cleanup_memory:.2f} MB) - increasing batch size from {batch_size} to {new_batch_size}"
+                                        )
                                         batch_size = new_batch_size
-                            
+
                             time.sleep(0.2)  # Slightly longer pause for memory cleanup
 
                     # After the loop, process any remaining documents in the final batch
@@ -1162,9 +1049,7 @@ def main():
                                     masked_doc = mask_document(single_doc)
                                     masked_docs.append(masked_doc)
                                 except Exception as e_doc:
-                                    logger.error(
-                                        f"Error masking document {single_doc.get('_id')}: {str(e_doc)}"
-                                    )
+                                    logger.error(f"Error masking document {single_doc.get('_id')}: {str(e_doc)}")
                                     doc_errors += 1
 
                             if masked_docs:
@@ -1179,15 +1064,11 @@ def main():
                                             for doc in masked_docs
                                         ]
                                         if bulk_ops:
-                                            collection.bulk_write(
-                                                bulk_ops, ordered=False
-                                            )
+                                            collection.bulk_write(bulk_ops, ordered=False)
                                             break
                                     except Exception as e_bulk:
                                         if attempt == retry_attempts - 1:
-                                            logger.error(
-                                                f"Final batch bulk write failed: {str(e_bulk)}"
-                                            )
+                                            logger.error(f"Final batch bulk write failed: {str(e_bulk)}")
                                         else:
                                             logger.warning(
                                                 f"Final batch bulk write attempt {attempt + 1} failed, retrying..."
@@ -1202,9 +1083,7 @@ def main():
                             )
 
                         except Exception as e_final:
-                            logger.error(
-                                f"Error processing final batch: {str(e_final)}"
-                            )
+                            logger.error(f"Error processing final batch: {str(e_final)}")
                             error_count += len(current_batch)
 
                     else:
@@ -1213,9 +1092,7 @@ def main():
                         )
 
                     if direct_client:  # If direct_client was used for db_cursor
-                        logger.info(
-                            "Closing direct_client after sequential processing loop."
-                        )
+                        logger.info("Closing direct_client after sequential processing loop.")
                         direct_client.close()
                         direct_client = None
 
@@ -1227,9 +1104,7 @@ def main():
             finally:
                 # Ensure connections are closed for this collection
                 if direct_client:  # Final safeguard for direct_client
-                    logger.info(
-                        "Ensuring direct_client is closed in main collection finally block."
-                    )
+                    logger.info("Ensuring direct_client is closed in main collection finally block.")
                     direct_client.close()
                     direct_client = None
                 if source:

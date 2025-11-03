@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+
 from pymongo import MongoClient
 
 print("--- Verification script started ---")
@@ -29,12 +30,11 @@ try:
             if "PatientName" in appointment:
                 patient_name = appointment["PatientName"]
                 # Final definitive output (redact PHI/PII data)
-                print(f"VERIFICATION_RESULT::SUCCESS - PatientName is: [REDACTED]")
-                sys.exit(0) # Exit after finding the first one
+                print("VERIFICATION_RESULT::SUCCESS - PatientName is: [REDACTED]")
+                sys.exit(0)  # Exit after finding the first one
 
     print("VERIFICATION_RESULT::FAILED - Found a document, but no PatientName field inside Slots.Appointments.")
 
 except Exception as e:
     print(f"VERIFICATION_RESULT::ERROR - {e}")
     sys.exit(1)
-

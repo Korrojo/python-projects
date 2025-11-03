@@ -8,14 +8,14 @@ This module configures logging for the application with support for:
 - Colored console output
 """
 
-import os
+import datetime
 import logging
 import logging.handlers
-import datetime
-import multiprocessing_logging
-from pathlib import Path
-from typing import Dict, Any, Optional, List, Union
+import os
 import sys
+from typing import Any
+
+import multiprocessing_logging
 
 
 class ColoredFormatter(logging.Formatter):
@@ -40,8 +40,8 @@ class ColoredFormatter(logging.Formatter):
         fmt: str,
         datefmt: str = None,
         style: str = "%",
-        color_config: Dict[str, str] = None,
-        style_config: Dict[str, str] = None,
+        color_config: dict[str, str] = None,
+        style_config: dict[str, str] = None,
         separator: str = " | ",
     ):
         """Initialize the formatter with format and color configuration.
@@ -107,9 +107,7 @@ class ColoredFormatter(logging.Formatter):
 
         # Apply colors to level name
         if record.levelname in self.color_config:
-            record.levelname = self._colorize(
-                record.levelname, self.color_config[record.levelname]
-            )
+            record.levelname = self._colorize(record.levelname, self.color_config[record.levelname])
 
         # Format record
         result = super().format(record)
@@ -124,11 +122,11 @@ class ColoredFormatter(logging.Formatter):
 class LoggerFactory:
     """Factory class for creating and configuring loggers."""
 
-    _configured_loggers: Dict[str, logging.Logger] = {}
-    _config: Dict[str, Any] = {}
+    _configured_loggers: dict[str, logging.Logger] = {}
+    _config: dict[str, Any] = {}
 
     @classmethod
-    def configure(cls, config: Dict[str, Any]) -> None:
+    def configure(cls, config: dict[str, Any]) -> None:
         """Configure the logger factory with settings.
 
         Args:
@@ -153,29 +151,29 @@ class LoggerFactory:
             raise ValueError("Logger not configured. Call configure() first.")
 
         logger_key = f"{name}:{component}" if component else name
-        
+
         if logger_key in cls._configured_loggers:
             return cls._configured_loggers[logger_key]
-        
+
         logger = logging.getLogger(name)
-        
+
         # Clear existing handlers
         for handler in logger.handlers[:]:
             logger.removeHandler(handler)
-        
+
         # Set level
         logger.setLevel(logging.DEBUG)  # Let handlers control level
-        
+
         # Configure console handler
         cls._add_console_handler(logger)
-        
+
         # Add component-specific file handler if applicable
         if component and component in cls._config:
             cls._add_file_handler(logger, component)
         else:
             # Use base file handler
             cls._add_file_handler(logger, "base")
-        
+
         cls._configured_loggers[logger_key] = logger
         return logger
 
@@ -188,10 +186,10 @@ class LoggerFactory:
         """
         console_config = cls._config.get("base", {}).get("console", {})
         level = getattr(logging, console_config.get("level", "INFO"))
-        
+
         console_handler = logging.StreamHandler()
         console_handler.setLevel(level)
-        
+
         formatter = ColoredFormatter(
             fmt=console_config.get("format", "%(asctime)s [%(levelname)s] %(name)s - %(message)s"),
             datefmt=console_config.get("date_format", "%H:%M:%S"),
@@ -199,7 +197,7 @@ class LoggerFactory:
             style_config=console_config.get("styles"),
             separator=console_config.get("separator", " | "),
         )
-        
+
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
 
@@ -213,54 +211,52 @@ class LoggerFactory:
         """
         component_config = cls._config.get(component, {})
         base_config = cls._config.get("base", {})
-        
+
         # Get component-specific settings or fall back to base settings
-        level = getattr(
-            logging, component_config.get("level", base_config.get("level", "INFO"))
-        )
-        
+        level = getattr(logging, component_config.get("level", base_config.get("level", "INFO")))
+
         # Create log directory if it doesn't exist
         log_dir = component_config.get("directory", "logs")
         os.makedirs(log_dir, exist_ok=True)
-        
+
         # Generate filename with timestamp
         filename = component_config.get("filename", f"{component}_%Y%m%d_%H%M%S.log")
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = datetime.datetime.now().strftime(filename)
         log_path = os.path.join(log_dir, filename)
-        
+
         # Create a rotating file handler
         max_bytes = component_config.get("max_bytes", base_config.get("max_bytes", 10485760))
         backup_count = component_config.get("backup_count", base_config.get("backup_count", 3))
-        
+
         file_handler = logging.handlers.RotatingFileHandler(
             log_path,
             maxBytes=max_bytes,
             backupCount=backup_count,
             encoding=base_config.get("encoding", "utf-8"),
         )
-        
+
         file_handler.setLevel(level)
-        
+
         formatter = logging.Formatter(
-            fmt=component_config.get(
-                "format", "[%(asctime)s] %(levelname)-8s %(name)s - %(message)s"
-            ),
+            fmt=component_config.get("format", "[%(asctime)s] %(levelname)-8s %(name)s - %(message)s"),
             datefmt=base_config.get("date_format", "%Y-%m-%d %H:%M:%S"),
         )
-        
+
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
 
-def setup_logging(log_level: str = "INFO", 
-                 environment: Optional[str] = None,
-                 log_file: Optional[str] = None,
-                 max_bytes: int = 10*1024*1024,  # 10MB by default
-                 backup_count: int = 5,  # Keep 5 backup files by default
-                 use_timed_rotating: bool = False) -> str:
+def setup_logging(
+    log_level: str = "INFO",
+    environment: str | None = None,
+    log_file: str | None = None,
+    max_bytes: int = 10 * 1024 * 1024,  # 10MB by default
+    backup_count: int = 5,  # Keep 5 backup files by default
+    use_timed_rotating: bool = False,
+) -> str:
     """Set up logging configuration with enhanced rotation capabilities.
-    
+
     Args:
         log_level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
         environment: Environment name (e.g., DEV, TEST, PROD)
@@ -268,16 +264,19 @@ def setup_logging(log_level: str = "INFO",
         max_bytes: Maximum size in bytes before rotating the log file
         backup_count: Number of backup files to keep
         use_timed_rotating: Use time-based rotation instead of size-based
-        
+
     Returns:
         Path to log file
     """
     # Override settings from environment variables if available
     max_bytes = int(os.environ.get("MONGO_PHI_LOG_MAX_BYTES", max_bytes))
     backup_count = int(os.environ.get("MONGO_PHI_LOG_BACKUP_COUNT", backup_count))
-    use_timed_rotating = os.environ.get("MONGO_PHI_LOG_TIMED_ROTATION", 
-                                       str(use_timed_rotating)).lower() in ('true', '1', 'yes')
-    
+    use_timed_rotating = os.environ.get("MONGO_PHI_LOG_TIMED_ROTATION", str(use_timed_rotating)).lower() in (
+        "true",
+        "1",
+        "yes",
+    )
+
     # Get numeric log level
     numeric_level = getattr(logging, log_level.upper(), None)
     if not isinstance(numeric_level, int):
@@ -286,66 +285,60 @@ def setup_logging(log_level: str = "INFO",
 
     # Get environment name
     env_name = environment.lower() if environment else "default"
-    
+
     # Create log directory
     log_dir = f"logs/{env_name}"
     os.makedirs(log_dir, exist_ok=True)
-    
+
     # If log_file is not specified, create a date-based log filename
     if not log_file:
-        today = datetime.datetime.now().strftime('%Y%m%d')
+        today = datetime.datetime.now().strftime("%Y%m%d")
         log_file = f"{log_dir}/masking_{today}.log"
     elif not os.path.isabs(log_file):
         # If a relative path is provided, make it relative to the environment log directory
         log_file = os.path.join(log_dir, log_file)
-    
+
     # Configure root logger
     root_logger = logging.getLogger()
     root_logger.setLevel(numeric_level)
-    
+
     # Remove existing handlers to avoid duplicates
     for handler in root_logger.handlers[:]:
         root_logger.removeHandler(handler)
-    
+
     # Create formatter
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
     # Console handler
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
     console_handler.setLevel(numeric_level)
     root_logger.addHandler(console_handler)
-    
+
     # File handler with rotation
     if use_timed_rotating:
         # Time-based rotation (midnight)
         file_handler = logging.handlers.TimedRotatingFileHandler(
-            log_file,
-            when='midnight',
-            interval=1,          # Rotate daily
-            backupCount=backup_count
+            log_file, when="midnight", interval=1, backupCount=backup_count  # Rotate daily
         )
         rotation_type = "time-based (daily)"
     else:
         # Size-based rotation
-        file_handler = logging.handlers.RotatingFileHandler(
-            log_file,
-            maxBytes=max_bytes,
-            backupCount=backup_count
-        )
+        file_handler = logging.handlers.RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
         rotation_type = f"size-based ({max_bytes/1024/1024:.1f}MB)"
-    
+
     file_handler.setFormatter(formatter)
     file_handler.setLevel(numeric_level)
     root_logger.addHandler(file_handler)
-    
+
     # Support logging in multi-process environments
     try:
         import multiprocessing_logging
+
         multiprocessing_logging.install_mp_handler()
     except (ImportError, Exception) as e:
         logging.warning(f"Multiprocessing logging support not available: {str(e)}")
-    
+
     # Create symlink to latest log file for convenience
     if sys.platform != "win32":
         latest_link = f"{log_dir}/masking_latest.log"
@@ -354,19 +347,21 @@ def setup_logging(log_level: str = "INFO",
                 os.remove(latest_link)
             except Exception as e:
                 logging.warning(f"Could not remove old symlink: {str(e)}")
-        
+
         try:
             # Create relative symlink (relative to the log directory)
             log_file_name = os.path.basename(log_file)
             os.symlink(log_file_name, latest_link)
         except Exception as e:
             logging.warning(f"Could not create symlink to latest log: {str(e)}")
-    
+
     # Cleanup old log files (keep last 30 days)
     try:
-        log_files = [f for f in os.listdir(log_dir) 
-                    if f.startswith("masking_") and f.endswith(".log") 
-                    and f != "masking_latest.log"]
+        log_files = [
+            f
+            for f in os.listdir(log_dir)
+            if f.startswith("masking_") and f.endswith(".log") and f != "masking_latest.log"
+        ]
         if len(log_files) > 30:
             log_files.sort()
             for old_file in log_files[:-30]:
@@ -375,8 +370,8 @@ def setup_logging(log_level: str = "INFO",
                 logging.debug(f"Removed old log file: {file_path}")
     except Exception as e:
         logging.warning(f"Error during log cleanup: {str(e)}")
-    
+
     logging.info(f"Logging initialized at level {log_level}")
     logging.info(f"Log file: {log_file} with {rotation_type} rotation (keeping {backup_count} backups)")
-    
-    return log_file 
+
+    return log_file

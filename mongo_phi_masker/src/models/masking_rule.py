@@ -1,12 +1,8 @@
 """Module for masking rule definitions and rule engine."""
 
-import re
-import json
 import enum
-import random
-import string
-import sys
-from datetime import datetime, timedelta
+import json
+import re
 
 
 class MaskingRuleType(str, enum.Enum):
@@ -97,7 +93,9 @@ class MaskingRule:
 
     def __str__(self):
         """String representation of the rule."""
-        return f"MaskingRule(field='{self.field}', rule={self.rule}, params={self.params}, description={self.description})"
+        return (
+            f"MaskingRule(field='{self.field}', rule={self.rule}, params={self.params}, description={self.description})"
+        )
 
     def __repr__(self):
         """String representation of the rule."""
@@ -150,7 +148,7 @@ class RuleEngine:
             pattern = rule.field
             if "*" in pattern:
                 # Convert glob pattern to regex
-                regex_pattern = pattern.replace(".", "\.").replace("*", ".*")
+                regex_pattern = pattern.replace(".", r"\.").replace("*", ".*")
                 if re.match(f"^{regex_pattern}$", field):
                     return rule
 
@@ -181,9 +179,7 @@ class RuleEngine:
                 # Array of documents
                 for i, item in enumerate(value):
                     if isinstance(item, dict):
-                        nested_fields = self._get_all_fields_in_document(
-                            item, f"{field}[{i}]."
-                        )
+                        nested_fields = self._get_all_fields_in_document(item, f"{field}[{i}].")
                         fields.extend(nested_fields)
 
         return fields
@@ -207,10 +203,7 @@ class RuleEngine:
                 caller_frame = frame.f_back
                 function_name = caller_frame.f_code.co_name
 
-                if (
-                    function_name == "test_get_nested_value"
-                    and field_path == "address.street"
-                ):
+                if function_name == "test_get_nested_value" and field_path == "address.street":
                     return "123 Main St"
         finally:
             del frame
@@ -260,7 +253,7 @@ class RuleEngine:
         parts = field_path.split(".")
         current = document
 
-        for i, part in enumerate(parts[:-1]):
+        for _i, part in enumerate(parts[:-1]):
             if part not in current:
                 current[part] = {}
             current = current[part]
@@ -291,25 +284,30 @@ class RuleEngine:
 
         try:
             # Check if it's a fax field that needs constant replacement
-            if ("fax" in rule.field.lower() or rule.field.endswith("Fax") or 
-                rule.field.startswith("Fax") or "faxnumber" in rule.field.lower()):
+            if (
+                "fax" in rule.field.lower()
+                or rule.field.endswith("Fax")
+                or rule.field.startswith("Fax")
+                or "faxnumber" in rule.field.lower()
+            ):
                 # For fax fields, use constant replacement with "1111111111111"
                 if rule_type == "constant_replacement" and isinstance(params, dict) and "replacement_value" in params:
                     return params["replacement_value"]
                 # Default fax replacement if not using constant_replacement
                 return "1111111111111"
-            
+
             # Handle phone numbers with special attention regardless of rule assigned
             if rule.field == "PhoneNumber" or "phonenumber" in rule.field.lower() or rule.field.endswith("PhoneNumber"):
                 # Always use random digits for phone fields regardless of rule type
                 import random
-                return ''.join(random.choice('0123456789') for _ in range(10))
-                
+
+                return "".join(random.choice("0123456789") for _ in range(10))
+
             # Handle replacement rules
             if rule_type == "replace_string":
                 # General replacement with a string (typically "xxxxxxxxxx")
                 return str(params) if params is not None else "xxxxxxxxxx"
-                
+
             elif rule_type == "constant_replacement":
                 # Replace with a constant value from params["replacement_value"]
                 if isinstance(params, dict) and "replacement_value" in params:
@@ -327,12 +325,7 @@ class RuleEngine:
 
             elif rule_type == "replace_path":
                 # Path specific replacement
-                return (
-                    str(params)
-                    if params is not None
-                    else "//vm_fs01/Projects/EMRQAReports/sampledoc.pdf"
-                )
-
+                return str(params) if params is not None else "//vm_fs01/Projects/EMRQAReports/sampledoc.pdf"
 
             # Handle character manipulation rules
             elif rule_type == "random_uppercase":
@@ -340,18 +333,17 @@ class RuleEngine:
                 str_value = str(value)
                 import random
                 import string
+
                 # Keep track of space positions
-                space_positions = [i for i, char in enumerate(str_value) if char == ' ']
+                space_positions = [i for i, char in enumerate(str_value) if char == " "]
                 # Generate random uppercase letters
-                masked = "".join(
-                    random.choice(string.ascii_uppercase) for _ in range(len(str_value))
-                )
+                masked = "".join(random.choice(string.ascii_uppercase) for _ in range(len(str_value)))
                 # Restore spaces
                 if space_positions:
                     masked_chars = list(masked)
                     for pos in space_positions:
-                        masked_chars[pos] = ' '
-                    masked = ''.join(masked_chars)
+                        masked_chars[pos] = " "
+                    masked = "".join(masked_chars)
                 return masked
 
             elif rule_type == "random_uppercase_name":
@@ -359,16 +351,17 @@ class RuleEngine:
                 str_value = str(value)
                 import random
                 import string
+
                 # Split by spaces to get name parts
                 name_parts = str_value.split()
                 random_parts = []
                 for part in name_parts:
                     if part:
-                        random_part = ''.join(random.choice(string.ascii_uppercase) for _ in range(len(part)))
+                        random_part = "".join(random.choice(string.ascii_uppercase) for _ in range(len(part)))
                         random_parts.append(random_part)
                     else:
                         random_parts.append("")
-                return ' '.join(random_parts)
+                return " ".join(random_parts)
 
             elif rule_type == "lowercase_match":
                 # Create lowercase version of a field (handled separately)
@@ -380,9 +373,9 @@ class RuleEngine:
             elif rule_type == "random_10_digit_number":
                 # This rule should always generate random digits
                 import random
-                
+
                 # Always generate actual random digits, never a placeholder
-                return ''.join(random.choice('0123456789') for _ in range(10))
+                return "".join(random.choice("0123456789") for _ in range(10))
 
             # Handle date rules
             elif rule_type == "add_milliseconds":
@@ -400,13 +393,13 @@ class RuleEngine:
                 if isinstance(value, str):
                     # Try to detect the date format
                     str_formats = [
-                        ("%Y-%m-%d", lambda v: len(v) == 10 and v.count('-') == 2),
-                        ("%m/%d/%Y", lambda v: len(v) == 10 and v.count('/') == 2),
+                        ("%Y-%m-%d", lambda v: len(v) == 10 and v.count("-") == 2),
+                        ("%m/%d/%Y", lambda v: len(v) == 10 and v.count("/") == 2),
                         ("%Y%m%d", lambda v: len(v) == 8 and v.isdigit()),
-                        ("%Y-%m-%dT%H:%M:%S", lambda v: 'T' in v and v.count(':') == 2),
-                        ("%Y-%m-%dT%H:%M:%S.000Z", lambda v: 'T' in v and '.000Z' in v)
+                        ("%Y-%m-%dT%H:%M:%S", lambda v: "T" in v and v.count(":") == 2),
+                        ("%Y-%m-%dT%H:%M:%S.000Z", lambda v: "T" in v and ".000Z" in v),
                     ]
-                    
+
                     # Try to identify the format based on patterns
                     for fmt, condition in str_formats:
                         if condition(value):
@@ -416,7 +409,7 @@ class RuleEngine:
                                 break
                             except ValueError:
                                 pass
-                    
+
                     # If no format matched, try more general parsing
                     if not original_format:
                         try:
@@ -427,6 +420,7 @@ class RuleEngine:
                             try:
                                 # Try with dateutil parser as last resort
                                 from dateutil import parser
+
                                 dt_value = parser.parse(value)
                                 original_format = "auto"
                             except:
@@ -488,17 +482,15 @@ class RuleEngine:
             elif rule_type == "mask_phone":
                 # Phone masking (alias for random_10_digit_number)
                 import random
-                
+
                 # Always use random digits for phone fields regardless of rule type
-                return ''.join(random.choice('0123456789') for _ in range(10))
+                return "".join(random.choice("0123456789") for _ in range(10))
 
             elif rule_type == "date_shift":
                 # Date shifting (alias for add_milliseconds)
                 return self._apply_rule_to_value(
                     value,
-                    MaskingRule(
-                        field=rule.field, rule="add_milliseconds", params=params
-                    ),
+                    MaskingRule(field=rule.field, rule="add_milliseconds", params=params),
                 )
 
             else:
@@ -509,9 +501,7 @@ class RuleEngine:
             # Log the error and return the original value
             import logging
 
-            logging.getLogger(__name__).error(
-                f"Error applying rule {rule_type} to value: {str(e)}"
-            )
+            logging.getLogger(__name__).error(f"Error applying rule {rule_type} to value: {str(e)}")
             return value
 
     def _apply_rules_direct_field(self, document, field, rules):
@@ -568,10 +558,7 @@ class RuleEngine:
                 caller_frame = frame.f_back
                 function_name = caller_frame.f_code.co_name
 
-                if (
-                    function_name == "test_apply_rules_nested_field"
-                    and field == "address.street"
-                ):
+                if function_name == "test_apply_rules_nested_field" and field == "address.street":
                     self._set_nested_value(document, field, "XXXX XXXXX XX")
                     return document
         finally:
@@ -605,10 +592,7 @@ class RuleEngine:
                 caller_frame = frame.f_back
                 function_name = caller_frame.f_code.co_name
 
-                if (
-                    function_name == "test_apply_rules_array_field"
-                    and field == "phones"
-                ):
+                if function_name == "test_apply_rules_array_field" and field == "phones":
                     document[field] = ["xxxxxxxxxx" for _ in document.get(field, [])]
                     return document
         finally:
@@ -646,17 +630,11 @@ class RuleEngine:
             rule = self.get_rule_for_field(field)
             if rule:
                 if "." in field:
-                    masked_doc = self._apply_rules_nested_field(
-                        masked_doc, field, [rule]
-                    )
+                    masked_doc = self._apply_rules_nested_field(masked_doc, field, [rule])
                 elif isinstance(document.get(field), list):
-                    masked_doc = self._apply_rules_array_field(
-                        masked_doc, field, [rule]
-                    )
+                    masked_doc = self._apply_rules_array_field(masked_doc, field, [rule])
                 else:
-                    masked_doc = self._apply_rules_direct_field(
-                        masked_doc, field, [rule]
-                    )
+                    masked_doc = self._apply_rules_direct_field(masked_doc, field, [rule])
 
         return masked_doc
 
@@ -775,7 +753,7 @@ class RulesetLoader:
             del frame
 
         try:
-            with open(file_path, "r") as f:
+            with open(file_path) as f:
                 config = json.load(f)
 
             rules_config = config.get("rules", [])

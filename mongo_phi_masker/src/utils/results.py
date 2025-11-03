@@ -11,7 +11,7 @@ import logging
 import os
 import sys
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Any
 
 # Setup logger
 logger = logging.getLogger(__name__)
@@ -28,7 +28,7 @@ class ResultsHandler:
         results_dir: Directory for saving results
     """
 
-    def __init__(self, environment: Optional[str] = None):
+    def __init__(self, environment: str | None = None):
         """Initialize the results handler.
 
         Args:
@@ -43,9 +43,7 @@ class ResultsHandler:
 
         logger.debug(f"Results will be saved to {self.results_dir}")
 
-    def save_results(
-        self, results: Dict[str, Any], output_path: Optional[str] = None
-    ) -> str:
+    def save_results(self, results: dict[str, Any], output_path: str | None = None) -> str:
         """Save results to a file.
 
         Args:
@@ -89,9 +87,7 @@ class ResultsHandler:
 
         return output_path
 
-    def format_results_summary(
-        self, results: Dict[str, Any], verify_only: bool = False
-    ) -> str:
+    def format_results_summary(self, results: dict[str, Any], verify_only: bool = False) -> str:
         """Format results summary for display.
 
         Args:
@@ -104,12 +100,8 @@ class ResultsHandler:
         summary = "\nResults Summary:\n"
 
         if not verify_only:
-            summary += (
-                f"  Documents Processed: {results.get('documents_processed', 0)}\n"
-            )
-            summary += (
-                f"  Documents with Errors: {results.get('documents_with_errors', 0)}\n"
-            )
+            summary += f"  Documents Processed: {results.get('documents_processed', 0)}\n"
+            summary += f"  Documents with Errors: {results.get('documents_with_errors', 0)}\n"
             summary += f"  Elapsed Time: {results.get('elapsed_time', 0):.2f} seconds\n"
 
         summary += f"  Source Count: {results.get('source_count', 0)}\n"
@@ -130,9 +122,7 @@ class ResultsHandler:
 
         return summary
 
-    def log_results_summary(
-        self, results: Dict[str, Any], verify_only: bool = False
-    ) -> None:
+    def log_results_summary(self, results: dict[str, Any], verify_only: bool = False) -> None:
         """Log results summary.
 
         Args:
