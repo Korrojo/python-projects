@@ -329,6 +329,54 @@ def should_validate_collection(collection_name):
     return True
 
 
+def run_masking(
+    config_path: str,
+    env_path: str,
+    collection: str | None = None,
+    in_situ: bool = False,
+    reset_checkpoint: bool = False,
+    log_file: str | None = None,
+) -> int:
+    """
+    Programmatic entry point for PHI masking.
+
+    Args:
+        config_path: Path to configuration JSON file
+        env_path: Path to environment file (.env)
+        collection: Optional specific collection to process
+        in_situ: Enable in-situ masking (irreversible)
+        reset_checkpoint: Reset checkpoint and start fresh
+        log_file: Optional custom log file path
+
+    Returns:
+        Exit code (0 for success, 1 for error)
+    """
+    # Build sys.argv for main() function
+    original_argv = sys.argv.copy()
+
+    try:
+        sys.argv = ["masking.py", "--config", config_path, "--env", env_path]
+
+        if collection:
+            sys.argv.extend(["--collection", collection])
+
+        if in_situ:
+            sys.argv.append("--in-situ")
+
+        if reset_checkpoint:
+            sys.argv.append("--reset-checkpoint")
+
+        if log_file:
+            sys.argv.extend(["--log-file", log_file])
+
+        # Call the main function
+        return main()
+
+    finally:
+        # Restore original sys.argv
+        sys.argv = original_argv
+
+
 def main():
     # Parse arguments
     parser = argparse.ArgumentParser(description="MongoDB PHI Masker")
