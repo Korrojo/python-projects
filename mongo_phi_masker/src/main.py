@@ -152,7 +152,8 @@ def display_info(config: Any) -> None:
             if not src_host:
                 src_uri = src_config.get("uri", "")
                 if src_uri:
-                    src_host = get_mongodb_host(src_uri)
+                    # TODO: Extract host from URI for logging (fix in PR #4)
+                    src_host = "[from URI]"
             logging.info(
                 f"Source MongoDB: {src_host or 'Not specified'}, " f"DB={src_database}, " f"Collection={src_collection}"
             )
@@ -166,7 +167,8 @@ def display_info(config: Any) -> None:
             if not dest_host:
                 dest_uri = dest_config.get("uri", "")
                 if dest_uri:
-                    dest_host = get_mongodb_host(dest_uri)
+                    # TODO: Extract host from URI for logging (fix in PR #4)
+                    dest_host = "[from URI]"
             logging.info(
                 f"Destination MongoDB: {dest_host or 'Not specified'}, "
                 f"DB={dest_database}, "
