@@ -28,8 +28,8 @@ try:
         for appointment in slot.get("Appointments", []):
             if "PatientName" in appointment:
                 patient_name = appointment["PatientName"]
-                # Final definitive output
-                print(f"VERIFICATION_RESULT::SUCCESS - PatientName is: {patient_name}")
+                # Final definitive output (redact PHI/PII data)
+                print(f"VERIFICATION_RESULT::SUCCESS - PatientName is: [REDACTED]")
                 sys.exit(0) # Exit after finding the first one
 
     print("VERIFICATION_RESULT::FAILED - Found a document, but no PatientName field inside Slots.Appointments.")

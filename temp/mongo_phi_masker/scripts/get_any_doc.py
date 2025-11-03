@@ -36,7 +36,8 @@ try:
             if "PatientName" in appointment:
                 found_patient_name = True
                 patient_name = appointment["PatientName"]
-                print(f"VERIFICATION_RESULT::SUCCESS - Found PatientName: {patient_name}")
+                # Redact PHI/PII data in output
+                print(f"VERIFICATION_RESULT::SUCCESS - Found PatientName: [REDACTED]")
                 sys.exit(0)
     
     if not found_patient_name:

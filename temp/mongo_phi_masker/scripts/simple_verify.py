@@ -76,7 +76,7 @@ def main():
     
     # Count documents with unmasked PatientName
     unmasked_count = collection.count_documents({
-        "Slots.Appointments.PatientName": {"$exists": True, "$ne": None, "$ne": "[MASKED NAME]"}
+        "Slots.Appointments.PatientName": {"$exists": True, "$nin": [None, "[MASKED NAME]"]}
     })
     print(f"Documents with unmasked PatientName: {unmasked_count}")
     

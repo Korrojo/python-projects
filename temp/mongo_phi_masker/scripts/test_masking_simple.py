@@ -178,12 +178,12 @@ def main():
         # Extract PHI fields after masking
         phi_after = extract_phi_fields(masked_doc)
         
-        # Print comparison
+        # Print comparison (redact PHI/PII values)
         print(f"\n{'='*80}\nSample {i+1}:")
         print("\nBefore masking:")
         for field, value in phi_before.items():
-            print(f"  {field}: {value}")
-        
+            print(f"  {field}: [REDACTED]")
+
         print("\nAfter masking:")
         for field, value in phi_after.items():
             print(f"  {field}: {value}")

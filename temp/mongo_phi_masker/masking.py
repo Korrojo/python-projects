@@ -1259,8 +1259,6 @@ if __name__ == "__main__":
         import traceback
 
         traceback.print_exc()
-        sys.exit(1)  # Connection error
-    except Exception as e:
-        # Catch any other unexpected exceptions
+        # Log the exception with full details
         logging.getLogger(__name__).exception(f"Unhandled Exception: {e}")
-        sys.exit(4)  # Unhandled exception
+        sys.exit(1)  # Connection error

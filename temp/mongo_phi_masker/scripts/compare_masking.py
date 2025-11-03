@@ -109,8 +109,10 @@ def compare_collections():
     ssl_part = "&ssl=true" if use_ssl else ""
     
     uri = f"{protocol}://{auth_part}{host}{auth_db_part}{ssl_part}"
-    
-    print(f"Constructed MongoDB URI: {protocol}://{auth_part}[HOST]{auth_db_part}{ssl_part}")
+
+    # Redact credentials in log output
+    redacted_auth = "***:***@" if username and password else ""
+    print(f"Constructed MongoDB URI: {protocol}://{redacted_auth}[HOST]{auth_db_part}{ssl_part}")
     print(f"Using database: {db_name}")
     
     # Connect to MongoDB

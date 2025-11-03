@@ -46,9 +46,10 @@ def main():
     
     # Print results
     print(f"\nFound {len(patient_names_found)} PatientName fields in document")
-    
+
+    # Redact PatientName for security (PHI/PII)
     for i, name in enumerate(patient_names_found):
-        print(f"PatientName {i+1}: {name}")
+        print(f"PatientName {i+1}: [REDACTED]")
     
     # Check if PatientName is masked
     masked_count = patient_names_found.count("[MASKED NAME]") if patient_names_found else 0
