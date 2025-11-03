@@ -22,8 +22,3 @@ fonttools==4.56.0                   # Font handling (for matplotlib)
 kiwisolver==1.4.8                   # Constraint solver (for matplotlib layout)
 pillow==11.1.0                      # Image processing (for matplotlib)
 pyparsing==3.2.1                    # Parsing library (for matplotlib)
-
-# ============================================================================
-# Geographic Visualization
-# ============================================================================
-xyzservices==2025.1.0               # XYZ tile service providers

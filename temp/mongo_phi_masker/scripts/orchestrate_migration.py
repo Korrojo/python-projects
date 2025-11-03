@@ -222,11 +222,7 @@ def migrate_phi_collection_batch(batch, config_path, env_path, use_in_situ=True,
     failed_list = []
 
     masking_script_path = PROJECT_ROOT / "masking.py"
-    
-    # Include Dask parameters for parallel processing
-    worker_count = 16  # Set to optimal value based on system resources
-    threads_per_worker = 2  # Set to optimal value based on collection characteristics
-    
+
     # Use the provided run log directory or create a new one
     if run_log_dir is None:
         base_log_dir = Path("C:/Users/demesew/logs/mask/PHI")
@@ -250,16 +246,13 @@ def migrate_phi_collection_batch(batch, config_path, env_path, use_in_situ=True,
         
         logger.info(f"Processing PHI collection: {collection_name} ({masking_mode} mode)")
         
-        # Use python3 explicitly with Dask parameters and optional in-situ masking
+        # Use python3 explicitly with optional in-situ masking
         command = [
             "python3",
             str(masking_script_path),
             "--collection", collection_name,
             "--config", config_path,
-            "--env", env_path,
-            "--use-dask",
-            "--worker-count", str(worker_count),
-            "--threads-per-worker", str(threads_per_worker)
+            "--env", env_path
         ]
         
         # Add in-situ flag if enabled
@@ -274,8 +267,7 @@ def migrate_phi_collection_batch(batch, config_path, env_path, use_in_situ=True,
             # Run the command and append output to the daily log file
             with open(daily_log_file, 'a') as log_file:
                 # Set environment variable for the run log directory
-                env = dict(os.environ, 
-                          DASK_CONFIG="./dask_masker_config.yaml",
+                env = dict(os.environ,
                           PHI_RUN_LOG_DIR=str(run_log_dir))
                 
                 process = subprocess.Popen(

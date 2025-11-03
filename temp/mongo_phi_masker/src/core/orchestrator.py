@@ -19,7 +19,6 @@ from ..utils.error_handler import (
     MaskerError,
     setup_global_exception_handler,
 )
-from src.core.dask_processor import DaskProcessor
 from src.core.masker import MaskingProcessor, BatchMasker
 from src.core.processor import DataProcessor
 from src.models.masking_rule import MaskingRule, RulesetLoader
@@ -74,19 +73,8 @@ class MaskingOrchestrator:
 
     def initialize_processors(self):
         """Initialize data processors based on configuration."""
-        # Determine if we should use Dask based on config
-        use_dask = self.config.get("processing", {}).get("use_dask", True)
-
-        if use_dask:
-            self.logger.info(
-                "Initializing Dask processor for high-throughput processing"
-            )
-            self.processor = DaskProcessor(config=self.config, logger=self.logger)
-            # Start Dask client
-            self.processor.start_client()
-        else:
-            self.logger.info("Using standard processor")
-            self.processor = DataProcessor(config=self.config, logger=self.logger)
+        self.logger.info("Initializing standard data processor")
+        self.processor = DataProcessor(config=self.config, logger=self.logger)
 
     def run_masking(
         self,
@@ -377,10 +365,6 @@ class MaskingOrchestrator:
                 # Stop monitoring and log summary
                 self.performance_monitor.stop_monitoring()
                 self.performance_monitor.log_summary()
-
-                # Clean up resources
-                if isinstance(self.processor, DaskProcessor):
-                    self.processor.stop_client()
 
     def start(self) -> None:
         """Start the orchestrator resources."""

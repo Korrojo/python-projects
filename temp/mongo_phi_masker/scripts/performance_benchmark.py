@@ -26,7 +26,7 @@ sys.path.insert(0, project_root)
 # Now import project modules
 from src.core.orchestrator import MaskingOrchestrator
 from src.core.connector import MongoConnector
-from src.core.dask_processor import DaskProcessor
+# Dask support removed - using standard processor only
 from src.utils.config_loader import ConfigLoader, generate_mongodb_uri
 from src.utils.logger import setup_logging
 from src.utils.performance_monitor import PerformanceMonitor
@@ -193,7 +193,6 @@ def run_performance_test(
     batch_sizes: List[int] = [100, 500, 1000, 5000],
     worker_counts: List[int] = [1, 2, 4, 8],
     connection_pool_sizes: List[int] = [50, 100, 200],
-    use_dask: bool = False,
     test_duration_per_config: int = 60,  # seconds
     query: Optional[Dict[str, Any]] = None,
     output_path: str = None,
@@ -209,7 +208,6 @@ def run_performance_test(
         batch_sizes: Batch sizes to test
         worker_counts: Worker counts to test
         connection_pool_sizes: MongoDB connection pool sizes to test
-        use_dask: Whether to use Dask for processing
         test_duration_per_config: Time to test each configuration in seconds
         query: Optional query filter
         output_path: Optional path to save results
@@ -249,7 +247,7 @@ def run_performance_test(
                     continue
 
                 logger.info(
-                    f"Testing configuration: batch_size={batch_size}, workers={worker_count}, pool_size={pool_size}, dask={use_dask}"
+                    f"Testing configuration: batch_size={batch_size}, workers={worker_count}, pool_size={pool_size}"
                 )
 
                 # Update config with test parameters
@@ -275,20 +273,8 @@ def run_performance_test(
                         total_docs, batch_size * 20
                     )  # Process at least 20 batches
 
-                    # Process documents
-                    if use_dask:
-                        # Use Dask for processing (would need implementation)
-                        # This is a placeholder
-                        processor = DaskProcessor(
-                            test_config, logger=logger, n_workers=worker_count
-                        )
-                        processor.start_client()
-                        # Dask implementation here
-                        stats = {"processed_count": 0, "total_time": 0, "throughput": 0}
-                        processor.stop_client()
-                    else:
-                        # Use standard batch processing
-                        stats = process_documents_in_batches(
+                    # Process documents using standard batch processing
+                    stats = process_documents_in_batches(
                             uri=source_uri,
                             database=source_db,
                             collection=source_collection,
@@ -312,7 +298,6 @@ def run_performance_test(
                     "batch_size": batch_size,
                     "worker_count": worker_count,
                     "connection_pool_size": pool_size,
-                    "use_dask": use_dask,
                     "processed_count": stats["processed_count"],
                     "elapsed_time_seconds": stats["total_time"],
                     "throughput_docs_per_second": stats["throughput"],
@@ -536,9 +521,6 @@ def main():
     )
     parser.add_argument("--query", help="Optional MongoDB query filter in JSON format")
     parser.add_argument(
-        "--use-dask", action="store_true", help="Use Dask for parallel processing"
-    )
-    parser.add_argument(
         "--output",
         default="results/performance/benchmark_results.json",
         help="Path to output file for test results",
@@ -682,7 +664,6 @@ def main():
             batch_sizes=batch_sizes,
             worker_counts=worker_counts,
             connection_pool_sizes=pool_sizes,
-            use_dask=args.use_dask,
             query=args.query,
             output_path=args.output,
         )

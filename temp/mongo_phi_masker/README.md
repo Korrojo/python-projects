@@ -45,8 +45,7 @@ A comprehensive data pipeline for extracting data from MongoDB, masking Protecte
 - **Complex Document Support**: Handle nested documents, arrays, and complex MongoDB structures
 - **Incremental Processing**: Support for incremental data processing with checkpointing
 - **Multi-environment Support**: Configuration for development, testing, and production environments
-- **Performance Optimized**: Batch processing and multi-worker support for high-volume data
-- **Dask Integration**: Parallel processing with configurable worker settings for handling large datasets
+- **Performance Optimized**: Batch processing with configurable settings for high-volume data
 
 ## Latest Updates
 
@@ -79,7 +78,6 @@ The application follows a modular architecture with the following components:
 - **Error Handler**: Handles and reports errors
 - **Email Alerter**: Sends email notifications
 - **Metrics Collector**: Collects and reports metrics
-- **Dask Processor**: Handles parallel processing of documents for improved performance
 - **Compatibility Layer**: Provides backward compatibility for evolving APIs
 
 ## Installation
@@ -88,7 +86,6 @@ The application follows a modular architecture with the following components:
 
 - Python 3.10+
 - MongoDB 4.4+
-- Dask (for parallel processing)
 - Docker (optional)
 - Kubernetes (optional)
 
@@ -151,9 +148,6 @@ Options:
 - `--debug`: Enable debug logging
 - `--in-situ`: Enable in-situ masking (mask documents directly in source collection)
 - `--collection`: Process a specific collection (overrides collections in config)
-- `--worker-count`: Number of Dask workers for parallel processing
-- `--threads-per-worker`: Number of threads per Dask worker
-- `--use-dask`: Enable Dask for parallel processing
 - `--log-file`: Custom log file path
 - `--log-level`: Set logging level (DEBUG, INFO, WARNING, ERROR)
 - `--log-max-bytes`: Maximum log file size before rotation (default: 10MB)
@@ -201,45 +195,8 @@ See [test_env/TEST_ENVIRONMENT_SETUP.md](test_env/TEST_ENVIRONMENT_SETUP.md) for
 
 For optimal performance with large datasets, configure:
 
-1. **Batch Size**: Set in `.env.prod` file with `PROCESSING_BATCH_SIZE` (recommended: 3000-5000)
-2. **Worker Count**: Use `--worker-count` parameter (recommended: 16-24 for large systems)
-3. **Threads Per Worker**: Use `--threads-per-worker` parameter (recommended: 1 for most workloads)
-4. **Dask Configuration**: Create a Dask config file for advanced settings
-
-#### Dask Configuration
-
-Create a `dask_masker_config.yaml` file for performance tuning:
-
-```yaml
-distributed:
-  # Increase timeouts
-  nanny:
-    unresponsive-timeout: 15  # 15 seconds before warning about unresponsive event loop
-  
-  # Silence specific loggers that generate event loop warnings
-  logging:
-    distributed.nanny: ERROR
-    distributed.core: ERROR
-    distributed.scheduler: INFO
-    distributed.worker: INFO
-  
-  # Reduce diagnostic overhead
-  diagnostics:
-    resource-monitor: false
-  
-  # Performance settings for large collections
-  comm:
-    compression: auto
-    retry:
-      count: 5
-  
-  # Worker settings
-  worker:
-    memory:
-      target: 0.85  # Use up to 85% of memory before spilling to disk
-      spill: 0.90   # Spill to disk at 90%
-      pause: 0.95   # Pause worker at 95%
-```
+1. **Batch Size**: Set in `.env.prod` file with `PROCESSING_BATCH_SIZE` (recommended: 1000-5000)
+2. **Connection Pool Size**: Adjust MongoDB connection pool settings in config file
 
 ### Windows PowerShell Wrapper Script
 
@@ -299,14 +256,14 @@ Remove-Job -Id <JobId>
 
 ### Examples
 
-1. Process a collection with optimal performance (production):
+1. Process a collection in production:
    ```bash
-   export DASK_CONFIG=./dask_masker_config.yaml && nohup python masking.py --config config/config.json --env .env.prod --use-dask --worker-count 16 --threads-per-worker 1 > logs/prod/Patients_$(date +%Y%m%d_%H%M%S).log 2>&1 &
+   nohup python masking.py --config config/config.json --env .env.prod > logs/prod/Patients_$(date +%Y%m%d_%H%M%S).log 2>&1 &
    ```
 
-2. Process multiple collections in-situ with Dask:
+2. Process multiple collections in-situ:
    ```bash
-   nohup source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --in-situ --use-dask --worker-count 16 --reset-checkpoint >logs/prod/nohup.out 2>&1 &
+   nohup python masking.py --config config/config.json --env .env.prod --in-situ --reset-checkpoint >logs/prod/nohup.out 2>&1 &
    ```
 
 3. Process with a specific limit:
@@ -404,7 +361,6 @@ MongoPHIMasker/
 ├── src/                    # Source code
 │   ├── core/               # Core modules
 │   │   ├── connector.py    # MongoDB connection handling
-│   │   ├── dask_processor.py # Parallel processing with Dask
 │   │   ├── orchestrator.py # Orchestration logic
 │   │   ├── processor.py    # Document processing
 │   │   ├── validator.py    # Validation logic
@@ -494,18 +450,16 @@ Start-Job -ScriptBlock {
 }
 
 # masking in-motion with single collection (--collection) - Linux/Bash
-nohup python masking.py --config config/config.json --env .env.test --worker-count 8 --collection AD_Patients_10k >logs/preprod/nohup.log 2>&1 &
+nohup python masking.py --config config/config.json --env .env.test --collection AD_Patients_10k >logs/preprod/nohup.log 2>&1 &
 
-# in-situ masking using dask with single collection (--collection)
-nohup python masking.py --config config/config.json --env .env.prod --in-situ --use-dask --worker-count 8 --collection StaffAvailability >logs/prod/nohup.log 2>&1 &
+# in-situ masking with single collection (--collection)
+nohup python masking.py --config config/config.json --env .env.prod --in-situ --collection StaffAvailability >logs/prod/nohup.log 2>&1 &
 
-# in-situ masking using dask with multiple collections from config.json
-nohup python masking.py --config config/config.json --env .env.prod --in-situ --use-dask --worker-count 8 >logs/prod/nohup.log 2>&1 &
+# in-situ masking with multiple collections from config.json
+nohup python masking.py --config config/config.json --env .env.prod --in-situ >logs/prod/nohup.log 2>&1 &
 
 # fresh in-situ masking with multiple collections from config.json (--reset-checkpoint)
-nohup python masking.py --config config/config.json --env .env.prod --in-situ --use-dask --worker-count 8 --reset-checkpoint >logs/prod/nohup.log 2>&1 &
-
-export DASK_CONFIG=./dask_masker_config.yaml && nohup python masking.py --config config/config.json --env .env.prod --in-situ --use-dask --worker-count 8 --reset-checkpoint >logs/prod/nohup.log 2>&1 &
+nohup python masking.py --config config/config.json --env .env.prod --in-situ --reset-checkpoint >logs/prod/nohup.log 2>&1 &
 
 # check running process with (Linux/Bash)
 ps -aux | grep masking.py | grep -v grep
