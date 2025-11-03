@@ -1,8 +1,8 @@
 # Python Projects Repository
 
-> **Monorepo containing 12 Python projects with shared configuration, centralized data/logs, and unified tooling.**
+> **Monorepo containing 13 Python projects with shared configuration, centralized data/logs, and unified tooling.**
 
-**Latest:** 🆕 JavaScript to Python migration complete (12 JS projects → 4 Python tools) - Nov 2025
+**Latest:** 🆕 mongo_phi_masker integrated - Production-grade HIPAA-compliant PHI/PII masking tool - Nov 2025
 
 ______________________________________________________________________
 

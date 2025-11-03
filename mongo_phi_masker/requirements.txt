@@ -1,4 +1,5 @@
 # Production dependencies for MongoDB PHI Masker
+# NOTE: Install common_config separately: pip install -e ../common_config
 
 # MongoDB driver and DNS support
 pymongo==4.6.3

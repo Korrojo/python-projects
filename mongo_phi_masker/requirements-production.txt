@@ -9,6 +9,12 @@ dnspython==2.6.1                    # MongoDB SRV connection support (CVE-2023-2
 python-dotenv==1.0.0                # Environment variable management
 
 # ============================================================================
+# Shared Configuration & Utilities
+# ============================================================================
+# NOTE: Install in development with: pip install -e ../common_config
+# common-config                     # Shared MongoDB, logging, security utils
+
+# ============================================================================
 # System Monitoring & Performance
 # ============================================================================
 psutil==5.9.6                       # System and process monitoring
