@@ -36,10 +36,12 @@ htmlcov/
 *.log
 logs/
 
-# Environment files (keep .env.example)
+# Environment files (keep .env.example and .env.*.example)
 .env
 .env.local
 .env.*.local
+!.env.example
+!.env.*.example
 
 # MongoDB PHI Masker specific
 masking_verification_results.log
