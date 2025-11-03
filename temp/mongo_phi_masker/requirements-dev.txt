@@ -1,0 +1,57 @@
+# MongoDB PHI Masker - Development Requirements
+# Additional dependencies for development, testing, and code quality
+
+# Include all production requirements
+-r requirements-production.txt
+
+# ============================================================================
+# Testing Framework
+# ============================================================================
+pytest==7.4.2                       # Testing framework
+pytest-cov==4.1.0                   # Code coverage plugin for pytest
+pytest-mock==3.11.1                 # Mocking plugin for pytest
+coverage==7.6.12                    # Code coverage measurement
+pymongo-inmemory==0.2.11            # In-memory MongoDB for testing
+
+# ============================================================================
+# Code Formatting
+# ============================================================================
+black==23.9.1                       # Opinionated code formatter
+isort==5.12.0                       # Import statement sorter
+pathspec==0.12.1                    # Path pattern matching (for black)
+platformdirs==4.3.6                 # Platform-specific directories (for black)
+click==8.1.8                        # CLI framework (for black)
+mypy-extensions==1.0.0              # Type extensions (for black)
+tomli==2.2.1                        # TOML parser (for black on Python < 3.11)
+
+# ============================================================================
+# Linting & Static Analysis
+# ============================================================================
+flake8==6.1.0                       # Style guide enforcement
+pylint==3.3.5                       # Static code analysis
+astroid==3.3.9                      # AST library used by pylint
+dill==0.3.9                         # Extended pickling (for pylint)
+mccabe==0.7.0                       # Complexity checker (for flake8)
+pycodestyle==2.11.1                 # PEP 8 style checker (for flake8)
+pyflakes==3.1.0                     # Static checker (for flake8)
+tomlkit==0.13.2                     # TOML toolkit (for pylint)
+
+# ============================================================================
+# Type Checking
+# ============================================================================
+mypy==1.5.1                         # Static type checker
+types-python-dateutil==2.9.0.20241206  # Type stubs for python-dateutil
+typing_extensions==4.12.2           # Backported typing features
+
+# ============================================================================
+# Dependency Analysis
+# ============================================================================
+pydeps==3.0.1                       # Python dependency visualization
+stdlib-list==0.11.1                 # List of Python standard libraries
+
+# ============================================================================
+# Utilities for Testing
+# ============================================================================
+iniconfig==2.0.0                    # INI parser (for pytest)
+pluggy==1.5.0                       # Plugin system (for pytest)
+exceptiongroup==1.2.2               # Exception groups backport (for pytest)

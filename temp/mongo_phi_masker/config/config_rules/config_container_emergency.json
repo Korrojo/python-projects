@@ -1,0 +1,111 @@
+{
+    "mongodb": {
+        "source": {
+            "uri": "${MONGO_SOURCE_URI}",
+            "database": "${MONGO_SOURCE_DB}",
+            "collection": "${MONGO_SOURCE_COLL}"
+        },
+        "destination": {
+            "uri": "${MONGO_DEST_URI}",
+            "database": "${MONGO_DEST_DB}",
+            "collection": "${MONGO_DEST_COLL}"
+        }
+    },
+    "processing": {
+        "masking_mode": "in-situ",
+        "adaptive_batching": {
+            "enabled": true,
+            "simple_document_batch": 10000,
+            "complex_document_batch": 1000,
+            "performance_threshold_ms": 15000,
+            "memory_threshold_mb": 2048,
+            "variance_trigger_percent": 300,
+            "auto_adjust_trigger": 3
+        },
+        "batch_size": {
+            "initial": 2000,
+            "min": 500,
+            "max": 10000,
+            "auto_adjust": true,
+            "adjustment_factor": 0.8,
+            "performance_window": 5
+        },
+        "memory": {
+            "max_batch_memory_mb": 2048,
+            "aggressive_cleanup": true,
+            "cleanup_interval": 1,
+            "memory_monitor": true,
+            "gc_threshold": 1536,
+            "emergency_cleanup": true
+        },
+        "workers": {
+            "max_workers": 8,
+            "threads_per_worker": 2,
+            "worker_memory_mb": 512,
+            "worker_timeout_ms": 30000,
+            "restart_on_memory_spike": true
+        },
+        "checkpoints": {
+            "enabled": true,
+            "interval": 1000,
+            "backup_state": true,
+            "recovery_enabled": true
+        }
+    },
+    "masking": {
+        "rules_path": "config/masking_rules/rules_container.json",
+        "default_rules": "config/masking_rules/default.json",
+        "field_cache": {
+            "enabled": true,
+            "max_size": 10000,
+            "ttl_seconds": 3600
+        }
+    },
+    "phi_collections": [
+        "Container"
+    ],
+    "validation": {
+        "enabled": true,
+        "max_retries": 3,
+        "sample_validation": true,
+        "validation_ratio": 0.01
+    },
+    "metrics": {
+        "enabled": true,
+        "interval": 2,
+        "performance_tracking": true,
+        "memory_tracking": true,
+        "detailed_logging": true,
+        "export_metrics": true,
+        "metrics_file": "logs/container_emergency_metrics.json"
+    },
+    "connection": {
+        "timeout_ms": 30000,
+        "retry_writes": true,
+        "retry_reads": true,
+        "max_pool_size": 150,
+        "min_pool_size": 30,
+        "worker_connections": 4,
+        "connection_check_interval": 300
+    },
+    "emergency": {
+        "memory_circuit_breaker": {
+            "enabled": true,
+            "memory_limit_mb": 3072,
+            "recovery_time_seconds": 60
+        },
+        "performance_circuit_breaker": {
+            "enabled": true,
+            "min_docs_per_second": 150,
+            "failure_window": 5,
+            "recovery_time_seconds": 120
+        },
+        "auto_scaling": {
+            "enabled": true,
+            "scale_down_threshold": 0.3,
+            "scale_up_threshold": 0.8,
+            "max_scale_factor": 2.0,
+            "min_scale_factor": 0.5
+        }
+    }
+}

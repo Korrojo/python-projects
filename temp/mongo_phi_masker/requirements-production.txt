@@ -1,0 +1,33 @@
+# MongoDB PHI Masker - Production Requirements
+# Core dependencies needed to run the application in production
+
+# ============================================================================
+# Core MongoDB & Data Processing
+# ============================================================================
+pymongo==4.6.3                      # MongoDB driver (CVE-2024-5629 fix)
+dnspython==2.6.1                    # MongoDB SRV connection support (CVE-2023-29483 fix)
+python-dotenv==1.0.0                # Environment variable management
+
+# ============================================================================
+# System Monitoring & Performance
+# ============================================================================
+psutil==5.9.6                       # System and process monitoring
+multiprocessing-logging==0.3.4      # Multi-process safe logging
+
+# ============================================================================
+# Logging & Output
+# ============================================================================
+colorama==0.4.6                     # Colored terminal output (cross-platform)
+
+# ============================================================================
+# Date/Time Utilities
+# ============================================================================
+python-dateutil==2.9.0.post0        # Date parsing and manipulation
+pytz==2023.3                        # Timezone definitions
+tzdata==2025.1                      # IANA timezone database
+
+# ============================================================================
+# Configuration & Structured Logging
+# ============================================================================
+PyYAML==6.0.1                       # YAML configuration file parsing
+python-json-logger==3.3.0           # JSON logging formatter

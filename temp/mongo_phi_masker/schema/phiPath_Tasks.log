@@ -1,0 +1,7 @@
+2025-03-30 18:21:11,625 - Starting field check in collection: Tasks
+2025-03-30 18:21:34,651 - Collection contains 4295922 documents. Sampling 1000.
+2025-03-30 18:21:34,734 - 3/51 fields found.
+2025-03-30 18:21:34,735 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:21:34,735 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:21:34,735 - Found field 'Notes' at path: Notes
+2025-03-30 18:21:34,740 - Field check completed for 'Tasks'.----------------------------

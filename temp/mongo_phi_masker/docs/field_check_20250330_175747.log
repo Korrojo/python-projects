@@ -1,0 +1,2211 @@
+2025-03-30 17:57:47,666 - Script execution started at 2025-03-30 17:57:47
+
+2025-03-30 17:57:47,794 - Starting field check in collection: AcpCleanupProcessLog
+2025-03-30 17:57:47,802 - Collection contains 0 documents. Sampling 0.
+2025-03-30 17:57:47,802 - Collection is empty.
+2025-03-30 17:57:47,802 - Field check completed for 'AcpCleanupProcessLog'.----------------------------
+
+2025-03-30 17:57:47,802 - Starting field check in collection: AddAndDeleteCodesProcessLog
+2025-03-30 17:57:47,811 - Collection contains 4 documents. Sampling 4.
+2025-03-30 17:57:47,870 - 0/51 fields found.
+2025-03-30 17:57:47,872 - Field check completed for 'AddAndDeleteCodesProcessLog'.----------------------------
+
+2025-03-30 17:57:47,872 - Starting field check in collection: AdminChartClosureErrorLogs
+2025-03-30 17:57:47,875 - Collection contains 8 documents. Sampling 8.
+2025-03-30 17:57:47,876 - 1/51 fields found.
+2025-03-30 17:57:47,876 - Found field 'Reason' at path: Reason
+2025-03-30 17:57:47,876 - Field check completed for 'AdminChartClosureErrorLogs'.----------------------------
+
+2025-03-30 17:57:47,876 - Starting field check in collection: AdminChartClosures
+2025-03-30 17:57:47,878 - Collection contains 159 documents. Sampling 159.
+2025-03-30 17:57:47,880 - 0/51 fields found.
+2025-03-30 17:57:47,880 - Field check completed for 'AdminChartClosures'.----------------------------
+
+2025-03-30 17:57:47,880 - Starting field check in collection: allergies_allergyName
+2025-03-30 17:57:47,882 - Collection contains 50 documents. Sampling 50.
+2025-03-30 17:57:47,883 - 0/51 fields found.
+2025-03-30 17:57:47,883 - Field check completed for 'allergies_allergyName'.----------------------------
+
+2025-03-30 17:57:47,883 - Starting field check in collection: allIndexes
+2025-03-30 17:57:47,885 - Collection contains 63 documents. Sampling 63.
+2025-03-30 17:57:47,886 - 7/51 fields found.
+2025-03-30 17:57:47,886 - Found field 'LastNameLower' at path: key.LastNameLower
+2025-03-30 17:57:47,886 - Found field 'MiddleName' at path: key.MiddleName
+2025-03-30 17:57:47,886 - Found field 'FirstNameLower' at path: key.FirstNameLower
+2025-03-30 17:57:47,886 - Found field 'FirstName' at path: key.FirstName
+2025-03-30 17:57:47,886 - Found field 'LastName' at path: key.LastName
+2025-03-30 17:57:47,886 - Found field 'Dob' at path: key.Dob
+2025-03-30 17:57:47,886 - Found field 'PhoneNumber' at path: key.PhoneNumber
+2025-03-30 17:57:47,886 - Field check completed for 'allIndexes'.----------------------------
+
+2025-03-30 17:57:47,886 - Starting field check in collection: AppointmentCancellationData
+2025-03-30 17:57:47,889 - Collection contains 199 documents. Sampling 199.
+2025-03-30 17:57:47,891 - 0/51 fields found.
+2025-03-30 17:57:47,891 - Field check completed for 'AppointmentCancellationData'.----------------------------
+
+2025-03-30 17:57:47,891 - Starting field check in collection: AppointmentPushNotificationProcessEntry
+2025-03-30 17:57:48,136 - Collection contains 528454 documents. Sampling 1000.
+2025-03-30 17:57:48,167 - 1/51 fields found.
+2025-03-30 17:57:48,167 - Found field 'UserName' at path: UserName
+2025-03-30 17:57:48,167 - Field check completed for 'AppointmentPushNotificationProcessEntry'.----------------------------
+
+2025-03-30 17:57:48,167 - Starting field check in collection: AppointmentReminderProcessLog
+2025-03-30 17:57:48,438 - Collection contains 548112 documents. Sampling 1000.
+2025-03-30 17:57:48,463 - 0/51 fields found.
+2025-03-30 17:57:48,464 - Field check completed for 'AppointmentReminderProcessLog'.----------------------------
+
+2025-03-30 17:57:48,464 - Starting field check in collection: AppointmentReminders
+2025-03-30 17:57:48,979 - Collection contains 630043 documents. Sampling 1000.
+2025-03-30 17:57:49,008 - 0/51 fields found.
+2025-03-30 17:57:49,008 - Field check completed for 'AppointmentReminders'.----------------------------
+
+2025-03-30 17:57:49,008 - Starting field check in collection: Appointments
+2025-03-30 17:57:49,512 - Collection contains 421649 documents. Sampling 1000.
+2025-03-30 17:57:49,541 - 11/51 fields found.
+2025-03-30 17:57:49,541 - Found field 'HomeText' at path: HomeText
+2025-03-30 17:57:49,541 - Found field 'PatientName' at path: PatientName
+2025-03-30 17:57:49,541 - Found field 'VisitStatusNote' at path: VisitStatusNote
+2025-03-30 17:57:49,541 - Found field 'FirstName' at path: FirstName
+2025-03-30 17:57:49,541 - Found field 'LastName' at path: LastName
+2025-03-30 17:57:49,541 - Found field 'VisitNotes' at path: VisitNotes
+2025-03-30 17:57:49,541 - Found field 'UserName' at path: UserName
+2025-03-30 17:57:49,541 - Found field 'VisitAddress' at path: VisitAddress
+2025-03-30 17:57:49,541 - Found field 'ReasonDetails' at path: ReasonDetails
+2025-03-30 17:57:49,541 - Found field 'Comments' at path: Comments
+2025-03-30 17:57:49,541 - Found field 'Reason' at path: Reason
+2025-03-30 17:57:49,542 - Field check completed for 'Appointments'.----------------------------
+
+2025-03-30 17:57:49,542 - Starting field check in collection: AppReviewerMapping
+2025-03-30 17:57:49,545 - Collection contains 122 documents. Sampling 122.
+2025-03-30 17:57:49,553 - 0/51 fields found.
+2025-03-30 17:57:49,553 - Field check completed for 'AppReviewerMapping'.----------------------------
+
+2025-03-30 17:57:49,553 - Starting field check in collection: AppReviewerMappingHistory
+2025-03-30 17:57:49,586 - Collection contains 12822 documents. Sampling 1000.
+2025-03-30 17:57:49,708 - 0/51 fields found.
+2025-03-30 17:57:49,715 - Field check completed for 'AppReviewerMappingHistory'.----------------------------
+
+2025-03-30 17:57:49,715 - Starting field check in collection: AssessmentConfiguration
+2025-03-30 17:57:49,720 - Collection contains 40 documents. Sampling 40.
+2025-03-30 17:57:49,806 - 1/51 fields found.
+2025-03-30 17:57:49,806 - Found field 'Notes' at path: Notes
+2025-03-30 17:57:49,811 - Field check completed for 'AssessmentConfiguration'.----------------------------
+
+2025-03-30 17:57:49,811 - Starting field check in collection: AssignedIDTLiaisonHistory
+2025-03-30 17:57:49,814 - Collection contains 781 documents. Sampling 781.
+2025-03-30 17:57:49,823 - 0/51 fields found.
+2025-03-30 17:57:49,824 - Field check completed for 'AssignedIDTLiaisonHistory'.----------------------------
+
+2025-03-30 17:57:49,824 - Starting field check in collection: AutoCancelMrrProcessEntries
+2025-03-30 17:57:49,844 - Collection contains 30082 documents. Sampling 1000.
+2025-03-30 17:57:49,859 - 1/51 fields found.
+2025-03-30 17:57:49,859 - Found field 'Reason' at path: Reason
+2025-03-30 17:57:49,859 - Field check completed for 'AutoCancelMrrProcessEntries'.----------------------------
+
+2025-03-30 17:57:49,859 - Starting field check in collection: AutoMedicalRecordRequestEntries
+2025-03-30 17:57:49,932 - Collection contains 153581 documents. Sampling 1000.
+2025-03-30 17:57:49,956 - 2/51 fields found.
+2025-03-30 17:57:49,956 - Found field 'PatientName' at path: PatientName
+2025-03-30 17:57:49,956 - Found field 'Reason' at path: Reason
+2025-03-30 17:57:49,957 - Field check completed for 'AutoMedicalRecordRequestEntries'.----------------------------
+
+2025-03-30 17:57:49,957 - Starting field check in collection: BrandMaster
+2025-03-30 17:57:49,960 - Collection contains 522 documents. Sampling 522.
+2025-03-30 17:57:49,972 - 0/51 fields found.
+2025-03-30 17:57:49,973 - Field check completed for 'BrandMaster'.----------------------------
+
+2025-03-30 17:57:49,973 - Starting field check in collection: CancelAppointmentHistory
+2025-03-30 17:57:49,979 - Collection contains 277 documents. Sampling 277.
+2025-03-30 17:57:50,063 - 5/51 fields found.
+2025-03-30 17:57:50,063 - Found field 'PatientName' at path: Slots.Appointments.PatientName
+2025-03-30 17:57:50,063 - Found field 'City' at path: Slots.Appointments.City
+2025-03-30 17:57:50,063 - Found field 'VisitNotes' at path: Slots.Appointments.VisitNotes
+2025-03-30 17:57:50,063 - Found field 'VisitAddress' at path: Slots.Appointments.VisitAddress
+2025-03-30 17:57:50,063 - Found field 'Comments' at path: Slots.Appointments.Comments
+2025-03-30 17:57:50,068 - Field check completed for 'CancelAppointmentHistory'.----------------------------
+
+2025-03-30 17:57:50,068 - Starting field check in collection: CarePlanAcuityMismatchPatients
+2025-03-30 17:57:50,072 - Collection contains 2185 documents. Sampling 1000.
+2025-03-30 17:57:50,080 - 0/51 fields found.
+2025-03-30 17:57:50,080 - Field check completed for 'CarePlanAcuityMismatchPatients'.----------------------------
+
+2025-03-30 17:57:50,080 - Starting field check in collection: cdc_c2p
+2025-03-30 17:57:52,570 - Collection contains 2497330 documents. Sampling 1000.
+2025-03-30 17:57:52,929 - 5/51 fields found.
+2025-03-30 17:57:52,929 - Found field 'PatientName' at path: op.replaceOne.replacement.Slots.Appointments.PatientName
+2025-03-30 17:57:52,930 - Found field 'City' at path: op.replaceOne.replacement.Slots.Appointments.City
+2025-03-30 17:57:52,930 - Found field 'VisitNotes' at path: op.replaceOne.replacement.Slots.Appointments.VisitNotes
+2025-03-30 17:57:52,930 - Found field 'VisitAddress' at path: op.replaceOne.replacement.Slots.Appointments.VisitAddress
+2025-03-30 17:57:52,930 - Found field 'Comments' at path: op.replaceOne.replacement.Slots.Appointments.Comments
+2025-03-30 17:57:52,952 - Field check completed for 'cdc_c2p'.----------------------------
+
+2025-03-30 17:57:52,952 - Starting field check in collection: CDSUVConfig
+2025-03-30 17:57:52,957 - Collection contains 31 documents. Sampling 31.
+2025-03-30 17:57:52,979 - 0/51 fields found.
+2025-03-30 17:57:52,980 - Field check completed for 'CDSUVConfig'.----------------------------
+
+2025-03-30 17:57:52,981 - Starting field check in collection: CDSUVConfigInprogress
+2025-03-30 17:57:52,984 - Collection contains 11 documents. Sampling 11.
+2025-03-30 17:57:52,992 - 0/51 fields found.
+2025-03-30 17:57:52,992 - Field check completed for 'CDSUVConfigInprogress'.----------------------------
+
+2025-03-30 17:57:52,992 - Starting field check in collection: ChartTransferJob
+2025-03-30 17:57:53,000 - Collection contains 10720 documents. Sampling 1000.
+2025-03-30 17:57:53,021 - 0/51 fields found.
+2025-03-30 17:57:53,021 - Field check completed for 'ChartTransferJob'.----------------------------
+
+2025-03-30 17:57:53,021 - Starting field check in collection: ChartTransferOutputLog
+2025-03-30 17:57:53,032 - Collection contains 10893 documents. Sampling 1000.
+2025-03-30 17:57:53,062 - 0/51 fields found.
+2025-03-30 17:57:53,063 - Field check completed for 'ChartTransferOutputLog'.----------------------------
+
+2025-03-30 17:57:53,063 - Starting field check in collection: ClinicalDocuments
+2025-03-30 17:57:53,067 - Collection contains 207 documents. Sampling 207.
+2025-03-30 17:57:53,071 - 0/51 fields found.
+2025-03-30 17:57:53,071 - Field check completed for 'ClinicalDocuments'.----------------------------
+
+2025-03-30 17:57:53,071 - Starting field check in collection: ClosedPatientSubscribedUsersDetails
+2025-03-30 17:57:53,073 - Collection contains 0 documents. Sampling 0.
+2025-03-30 17:57:53,074 - Collection is empty.
+2025-03-30 17:57:53,074 - Field check completed for 'ClosedPatientSubscribedUsersDetails'.----------------------------
+
+2025-03-30 17:57:53,074 - Starting field check in collection: ClosedSubscribedUsersFinalizedDetails
+2025-03-30 17:57:53,084 - Collection contains 19291 documents. Sampling 1000.
+2025-03-30 17:57:53,110 - 0/51 fields found.
+2025-03-30 17:57:53,110 - Field check completed for 'ClosedSubscribedUsersFinalizedDetails'.----------------------------
+
+2025-03-30 17:57:53,110 - Starting field check in collection: CoderReassignmentHistory
+2025-03-30 17:57:53,136 - Collection contains 40774 documents. Sampling 1000.
+2025-03-30 17:57:53,155 - 0/51 fields found.
+2025-03-30 17:57:53,155 - Field check completed for 'CoderReassignmentHistory'.----------------------------
+
+2025-03-30 17:57:53,155 - Starting field check in collection: CodersAssignment
+2025-03-30 17:57:53,160 - Collection contains 4264 documents. Sampling 1000.
+2025-03-30 17:57:53,175 - 0/51 fields found.
+2025-03-30 17:57:53,176 - Field check completed for 'CodersAssignment'.----------------------------
+
+2025-03-30 17:57:53,176 - Starting field check in collection: CodesMaster
+2025-03-30 17:57:53,178 - Collection contains 148 documents. Sampling 148.
+2025-03-30 17:57:53,181 - 0/51 fields found.
+2025-03-30 17:57:53,181 - Field check completed for 'CodesMaster'.----------------------------
+
+2025-03-30 17:57:53,181 - Starting field check in collection: CodingDeleteDiagnosisCodeItem
+2025-03-30 17:57:53,185 - Collection contains 3372 documents. Sampling 1000.
+2025-03-30 17:57:53,194 - 0/51 fields found.
+2025-03-30 17:57:53,194 - Field check completed for 'CodingDeleteDiagnosisCodeItem'.----------------------------
+
+2025-03-30 17:57:53,194 - Starting field check in collection: CodingDeleteDiagnosisCodeJob
+2025-03-30 17:57:53,197 - Collection contains 36 documents. Sampling 36.
+2025-03-30 17:57:53,198 - 0/51 fields found.
+2025-03-30 17:57:53,198 - Field check completed for 'CodingDeleteDiagnosisCodeJob'.----------------------------
+
+2025-03-30 17:57:53,198 - Starting field check in collection: CommonMasterTypes
+2025-03-30 17:57:53,200 - Collection contains 1301 documents. Sampling 1000.
+2025-03-30 17:57:53,205 - 0/51 fields found.
+2025-03-30 17:57:53,205 - Field check completed for 'CommonMasterTypes'.----------------------------
+
+2025-03-30 17:57:53,205 - Starting field check in collection: CommonMasterValue
+2025-03-30 17:57:53,210 - Collection contains 6027 documents. Sampling 1000.
+2025-03-30 17:57:53,221 - 0/51 fields found.
+2025-03-30 17:57:53,222 - Field check completed for 'CommonMasterValue'.----------------------------
+
+2025-03-30 17:57:53,222 - Starting field check in collection: CompletedExceptionAppointments
+2025-03-30 17:57:53,231 - Collection contains 390 documents. Sampling 390.
+2025-03-30 17:57:53,442 - 5/51 fields found.
+2025-03-30 17:57:53,442 - Found field 'PatientName' at path: Slots.Appointments.PatientName
+2025-03-30 17:57:53,442 - Found field 'City' at path: Slots.Appointments.City
+2025-03-30 17:57:53,442 - Found field 'VisitNotes' at path: Slots.Appointments.VisitNotes
+2025-03-30 17:57:53,442 - Found field 'VisitAddress' at path: Slots.Appointments.VisitAddress
+2025-03-30 17:57:53,442 - Found field 'Comments' at path: Slots.Appointments.Comments
+2025-03-30 17:57:53,457 - Field check completed for 'CompletedExceptionAppointments'.----------------------------
+
+2025-03-30 17:57:53,457 - Starting field check in collection: Container
+2025-03-30 18:02:30,368 - Collection contains 31351210 documents. Sampling 1000.
+2025-03-30 18:02:30,839 - 14/51 fields found.
+2025-03-30 18:02:30,839 - Found field 'PatientLastName' at path: Encounter.PatientLastName
+2025-03-30 18:02:30,839 - Found field 'FinalNotes' at path: Encounter.AssessmentAndPlan.ProblemList.FinalNotes
+2025-03-30 18:02:30,839 - Found field 'UserName' at path: Encounter.UserName
+2025-03-30 18:02:30,839 - Found field 'VisitAddress' at path: Encounter.PhoneCall.Activities.VisitAddress
+2025-03-30 18:02:30,839 - Found field 'OtherReason' at path: Encounter.Dat.OtherReason
+2025-03-30 18:02:30,839 - Found field 'Goals' at path: Encounter.CareSnapshot.Goals
+2025-03-30 18:02:30,839 - Found field 'Notes' at path: Encounter.PhoneCall.Activities.Notes
+2025-03-30 18:02:30,839 - Found field 'Comments' at path: Encounter.AssessmentAndPlan.ProblemList.Comments
+2025-03-30 18:02:30,839 - Found field 'PhoneNumber' at path: Encounter.PhoneCall.Activities.PhoneNumber
+2025-03-30 18:02:30,839 - Found field 'Path' at path: Encounter.Document.Documents.Path
+2025-03-30 18:02:30,839 - Found field 'Reason' at path: Encounter.Reason
+2025-03-30 18:02:30,839 - Found field 'HPINote' at path: Encounter.HPI.HPINote
+2025-03-30 18:02:30,839 - Found field 'PatientMiddleName' at path: Encounter.PatientMiddleName
+2025-03-30 18:02:30,839 - Found field 'PatientFirstName' at path: Encounter.PatientFirstName
+2025-03-30 18:02:30,871 - Field check completed for 'Container'.----------------------------
+
+2025-03-30 18:02:30,871 - Starting field check in collection: ContainerCoderQueryMissing
+2025-03-30 18:02:30,875 - Collection contains 613 documents. Sampling 613.
+2025-03-30 18:02:30,881 - 1/51 fields found.
+2025-03-30 18:02:30,882 - Found field 'UserName' at path: UserName
+2025-03-30 18:02:30,882 - Field check completed for 'ContainerCoderQueryMissing'.----------------------------
+
+2025-03-30 18:02:30,882 - Starting field check in collection: ContainerDirectMessageCorruptedDocument
+2025-03-30 18:02:30,885 - Collection contains 974 documents. Sampling 974.
+2025-03-30 18:02:30,890 - 0/51 fields found.
+2025-03-30 18:02:30,890 - Field check completed for 'ContainerDirectMessageCorruptedDocument'.----------------------------
+
+2025-03-30 18:02:30,890 - Starting field check in collection: Conversation
+2025-03-30 18:02:30,893 - Collection contains 104 documents. Sampling 104.
+2025-03-30 18:02:30,895 - 0/51 fields found.
+2025-03-30 18:02:30,895 - Field check completed for 'Conversation'.----------------------------
+
+2025-03-30 18:02:30,895 - Starting field check in collection: CoSignAssignmentHistory
+2025-03-30 18:02:30,897 - Collection contains 79 documents. Sampling 79.
+2025-03-30 18:02:30,898 - 0/51 fields found.
+2025-03-30 18:02:30,899 - Field check completed for 'CoSignAssignmentHistory'.----------------------------
+
+2025-03-30 18:02:30,899 - Starting field check in collection: DAT_PACD
+2025-03-30 18:02:30,903 - Collection contains 6077 documents. Sampling 1000.
+2025-03-30 18:02:30,915 - 0/51 fields found.
+2025-03-30 18:02:30,915 - Field check completed for 'DAT_PACD'.----------------------------
+
+2025-03-30 18:02:30,915 - Starting field check in collection: DAT_PACD_Audio_Location_Reset
+2025-03-30 18:02:30,917 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:02:30,917 - Collection is empty.
+2025-03-30 18:02:30,917 - Field check completed for 'DAT_PACD_Audio_Location_Reset'.----------------------------
+
+2025-03-30 18:02:30,917 - Starting field check in collection: DataProcessessUpdatesLog
+2025-03-30 18:02:31,415 - Collection contains 1140501 documents. Sampling 1000.
+2025-03-30 18:02:31,454 - 1/51 fields found.
+2025-03-30 18:02:31,454 - Found field 'UserName' at path: UserName
+2025-03-30 18:02:31,455 - Field check completed for 'DataProcessessUpdatesLog'.----------------------------
+
+2025-03-30 18:02:31,455 - Starting field check in collection: DbPreference
+2025-03-30 18:02:31,457 - Collection contains 46 documents. Sampling 46.
+2025-03-30 18:02:31,458 - 0/51 fields found.
+2025-03-30 18:02:31,458 - Field check completed for 'DbPreference'.----------------------------
+
+2025-03-30 18:02:31,460 - Starting field check in collection: DeleteDiagnosisCodeItem
+2025-03-30 18:02:31,480 - Collection contains 33978 documents. Sampling 1000.
+2025-03-30 18:02:31,500 - 0/51 fields found.
+2025-03-30 18:02:31,500 - Field check completed for 'DeleteDiagnosisCodeItem'.----------------------------
+
+2025-03-30 18:02:31,500 - Starting field check in collection: DeleteDiagnosisCodeJob
+2025-03-30 18:02:31,503 - Collection contains 219 documents. Sampling 219.
+2025-03-30 18:02:31,505 - 0/51 fields found.
+2025-03-30 18:02:31,505 - Field check completed for 'DeleteDiagnosisCodeJob'.----------------------------
+
+2025-03-30 18:02:31,505 - Starting field check in collection: DeletedPatientChart
+2025-03-30 18:02:31,517 - Collection contains 8548 documents. Sampling 1000.
+2025-03-30 18:02:31,565 - 3/51 fields found.
+2025-03-30 18:02:31,565 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:31,565 - Found field 'Comments' at path: Comments
+2025-03-30 18:02:31,565 - Found field 'Reason' at path: DeleteReasons.Reason
+2025-03-30 18:02:31,567 - Field check completed for 'DeletedPatientChart'.----------------------------
+
+2025-03-30 18:02:31,567 - Starting field check in collection: DeletedPatientChartReviews
+2025-03-30 18:02:31,570 - Collection contains 65 documents. Sampling 65.
+2025-03-30 18:02:31,572 - 2/51 fields found.
+2025-03-30 18:02:31,572 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:31,572 - Found field 'Comments' at path: Comments
+2025-03-30 18:02:31,572 - Field check completed for 'DeletedPatientChartReviews'.----------------------------
+
+2025-03-30 18:02:31,572 - Starting field check in collection: DeleteSpecialist
+2025-03-30 18:02:31,574 - Collection contains 619 documents. Sampling 619.
+2025-03-30 18:02:31,578 - 3/51 fields found.
+2025-03-30 18:02:31,578 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:02:31,578 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:02:31,578 - Found field 'LastName' at path: LastName
+2025-03-30 18:02:31,578 - Field check completed for 'DeleteSpecialist'.----------------------------
+
+2025-03-30 18:02:31,578 - Starting field check in collection: DeviceDetailsHistory
+2025-03-30 18:02:31,581 - Collection contains 909 documents. Sampling 909.
+2025-03-30 18:02:31,590 - 0/51 fields found.
+2025-03-30 18:02:31,590 - Field check completed for 'DeviceDetailsHistory'.----------------------------
+
+2025-03-30 18:02:31,590 - Starting field check in collection: DiagnosisICDCodeMasterForReports
+2025-03-30 18:02:31,592 - Collection contains 9 documents. Sampling 9.
+2025-03-30 18:02:31,593 - 0/51 fields found.
+2025-03-30 18:02:31,593 - Field check completed for 'DiagnosisICDCodeMasterForReports'.----------------------------
+
+2025-03-30 18:02:31,593 - Starting field check in collection: DirectEmailProcessEntries
+2025-03-30 18:02:31,647 - Collection contains 122689 documents. Sampling 1000.
+2025-03-30 18:02:31,673 - 1/51 fields found.
+2025-03-30 18:02:31,673 - Found field 'UserName' at path: UserName
+2025-03-30 18:02:31,674 - Field check completed for 'DirectEmailProcessEntries'.----------------------------
+
+2025-03-30 18:02:31,674 - Starting field check in collection: DirectMessageErrorLog
+2025-03-30 18:02:33,077 - Collection contains 3216692 documents. Sampling 1000.
+2025-03-30 18:02:33,118 - 0/51 fields found.
+2025-03-30 18:02:33,119 - Field check completed for 'DirectMessageErrorLog'.----------------------------
+
+2025-03-30 18:02:33,119 - Starting field check in collection: DirectMessagesExport
+2025-03-30 18:02:33,121 - Collection contains 20 documents. Sampling 20.
+2025-03-30 18:02:33,122 - 0/51 fields found.
+2025-03-30 18:02:33,122 - Field check completed for 'DirectMessagesExport'.----------------------------
+
+2025-03-30 18:02:33,122 - Starting field check in collection: DirectMessagesLogs
+2025-03-30 18:02:33,900 - Collection contains 39955 documents. Sampling 1000.
+2025-03-30 18:02:34,380 - 0/51 fields found.
+2025-03-30 18:02:34,387 - Field check completed for 'DirectMessagesLogs'.----------------------------
+
+2025-03-30 18:02:34,387 - Starting field check in collection: DiscardedChartReview
+2025-03-30 18:02:35,765 - Collection contains 1850533 documents. Sampling 1000.
+2025-03-30 18:02:35,807 - 2/51 fields found.
+2025-03-30 18:02:35,807 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:35,807 - Found field 'Comments' at path: Comments
+2025-03-30 18:02:35,808 - Field check completed for 'DiscardedChartReview'.----------------------------
+
+2025-03-30 18:02:35,808 - Starting field check in collection: DNSIssuesICDMaster
+2025-03-30 18:02:35,812 - Collection contains 3007 documents. Sampling 1000.
+2025-03-30 18:02:35,822 - 0/51 fields found.
+2025-03-30 18:02:35,823 - Field check completed for 'DNSIssuesICDMaster'.----------------------------
+
+2025-03-30 18:02:35,823 - Starting field check in collection: DocuSignAPILogs
+2025-03-30 18:02:35,825 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:02:35,825 - Collection is empty.
+2025-03-30 18:02:35,825 - Field check completed for 'DocuSignAPILogs'.----------------------------
+
+2025-03-30 18:02:35,825 - Starting field check in collection: DocuSignDownloadProcessEntries
+2025-03-30 18:02:37,501 - Collection contains 3375157 documents. Sampling 1000.
+2025-03-30 18:02:37,533 - 0/51 fields found.
+2025-03-30 18:02:37,534 - Field check completed for 'DocuSignDownloadProcessEntries'.----------------------------
+
+2025-03-30 18:02:37,534 - Starting field check in collection: DocuSignDownloadProcessLog
+2025-03-30 18:02:37,537 - Collection contains 116 documents. Sampling 116.
+2025-03-30 18:02:37,539 - 0/51 fields found.
+2025-03-30 18:02:37,539 - Field check completed for 'DocuSignDownloadProcessLog'.----------------------------
+
+2025-03-30 18:02:37,539 - Starting field check in collection: DocuSignErrorLogs
+2025-03-30 18:02:37,541 - Collection contains 35 documents. Sampling 35.
+2025-03-30 18:02:37,542 - 0/51 fields found.
+2025-03-30 18:02:37,542 - Field check completed for 'DocuSignErrorLogs'.----------------------------
+
+2025-03-30 18:02:37,542 - Starting field check in collection: DocuSignFacilityZipCodesConfig
+2025-03-30 18:02:37,545 - Collection contains 2 documents. Sampling 2.
+2025-03-30 18:02:37,546 - 0/51 fields found.
+2025-03-30 18:02:37,546 - Field check completed for 'DocuSignFacilityZipCodesConfig'.----------------------------
+
+2025-03-30 18:02:37,546 - Starting field check in collection: DocuSignTypesConfig
+2025-03-30 18:02:37,549 - Collection contains 1269 documents. Sampling 1000.
+2025-03-30 18:02:37,561 - 0/51 fields found.
+2025-03-30 18:02:37,562 - Field check completed for 'DocuSignTypesConfig'.----------------------------
+
+2025-03-30 18:02:37,562 - Starting field check in collection: DocuSignVoidedHistory
+2025-03-30 18:02:37,582 - Collection contains 30550 documents. Sampling 1000.
+2025-03-30 18:02:37,602 - 0/51 fields found.
+2025-03-30 18:02:37,603 - Field check completed for 'DocuSignVoidedHistory'.----------------------------
+
+2025-03-30 18:02:37,603 - Starting field check in collection: DummyStaffAvailability
+2025-03-30 18:02:37,605 - Collection contains 7 documents. Sampling 7.
+2025-03-30 18:02:37,611 - 5/51 fields found.
+2025-03-30 18:02:37,611 - Found field 'PatientName' at path: StaffAvailability.Slots.Appointments.PatientName
+2025-03-30 18:02:37,611 - Found field 'City' at path: StaffAvailability.Slots.Appointments.City
+2025-03-30 18:02:37,611 - Found field 'VisitNotes' at path: StaffAvailability.Slots.Appointments.VisitNotes
+2025-03-30 18:02:37,611 - Found field 'VisitAddress' at path: StaffAvailability.Slots.Appointments.VisitAddress
+2025-03-30 18:02:37,611 - Found field 'Comments' at path: StaffAvailability.Slots.Appointments.Comments
+2025-03-30 18:02:37,611 - Field check completed for 'DummyStaffAvailability'.----------------------------
+
+2025-03-30 18:02:37,611 - Starting field check in collection: DuplicateStaffAvailability
+2025-03-30 18:02:37,614 - Collection contains 1 documents. Sampling 1.
+2025-03-30 18:02:37,615 - 5/51 fields found.
+2025-03-30 18:02:37,615 - Found field 'PatientName' at path: Slots.Appointments.PatientName
+2025-03-30 18:02:37,615 - Found field 'City' at path: Slots.Appointments.City
+2025-03-30 18:02:37,615 - Found field 'VisitNotes' at path: Slots.Appointments.VisitNotes
+2025-03-30 18:02:37,615 - Found field 'VisitAddress' at path: Slots.Appointments.VisitAddress
+2025-03-30 18:02:37,615 - Found field 'Comments' at path: Slots.Appointments.Comments
+2025-03-30 18:02:37,615 - Field check completed for 'DuplicateStaffAvailability'.----------------------------
+
+2025-03-30 18:02:37,615 - Starting field check in collection: eFaxProcessEntries
+2025-03-30 18:02:44,287 - Collection contains 14115569 documents. Sampling 1000.
+2025-03-30 18:02:44,348 - 0/51 fields found.
+2025-03-30 18:02:44,349 - Field check completed for 'eFaxProcessEntries'.----------------------------
+
+2025-03-30 18:02:44,349 - Starting field check in collection: EncounterConfiguration
+2025-03-30 18:02:44,354 - Collection contains 52 documents. Sampling 52.
+2025-03-30 18:02:44,466 - 0/51 fields found.
+2025-03-30 18:02:44,475 - Field check completed for 'EncounterConfiguration'.----------------------------
+
+2025-03-30 18:02:44,475 - Starting field check in collection: EncounterFormsCarePlanInterventionMapper
+2025-03-30 18:02:44,478 - Collection contains 1 documents. Sampling 1.
+2025-03-30 18:02:44,480 - 1/51 fields found.
+2025-03-30 18:02:44,480 - Found field 'Goals' at path: Questions.Answers.Issues.Goals
+2025-03-30 18:02:44,480 - Field check completed for 'EncounterFormsCarePlanInterventionMapper'.----------------------------
+
+2025-03-30 18:02:44,480 - Starting field check in collection: EncounterNoteCaseTypeMaster
+2025-03-30 18:02:44,482 - Collection contains 1 documents. Sampling 1.
+2025-03-30 18:02:44,483 - 0/51 fields found.
+2025-03-30 18:02:44,483 - Field check completed for 'EncounterNoteCaseTypeMaster'.----------------------------
+
+2025-03-30 18:02:44,483 - Starting field check in collection: EncounterNoteTypeMasterDataMapper
+2025-03-30 18:02:44,486 - Collection contains 39 documents. Sampling 39.
+2025-03-30 18:02:44,487 - 0/51 fields found.
+2025-03-30 18:02:44,487 - Field check completed for 'EncounterNoteTypeMasterDataMapper'.----------------------------
+
+2025-03-30 18:02:44,487 - Starting field check in collection: EncounterNoteTypes
+2025-03-30 18:02:44,490 - Collection contains 39 documents. Sampling 39.
+2025-03-30 18:02:44,491 - 0/51 fields found.
+2025-03-30 18:02:44,491 - Field check completed for 'EncounterNoteTypes'.----------------------------
+
+2025-03-30 18:02:44,491 - Starting field check in collection: EncounterStatusTracking
+2025-03-30 18:02:51,711 - Collection contains 5889182 documents. Sampling 1000.
+2025-03-30 18:02:55,115 - 0/51 fields found.
+2025-03-30 18:02:55,115 - Field check completed for 'EncounterStatusTracking'.----------------------------
+
+2025-03-30 18:02:55,115 - Starting field check in collection: EncounterStatusTrackingDataMigrationCleanup
+2025-03-30 18:02:55,118 - Collection 'EncounterStatusTrackingDataMigrationCleanup' not found in the database.
+2025-03-30 18:02:55,118 - Starting field check in collection: EpisodeOfCareHistory
+2025-03-30 18:02:55,124 - Collection contains 480 documents. Sampling 480.
+2025-03-30 18:02:55,217 - 0/51 fields found.
+2025-03-30 18:02:55,222 - Field check completed for 'EpisodeOfCareHistory'.----------------------------
+
+2025-03-30 18:02:55,222 - Starting field check in collection: ERXProcessEntries
+2025-03-30 18:02:56,016 - Collection contains 1569649 documents. Sampling 1000.
+2025-03-30 18:02:56,060 - 0/51 fields found.
+2025-03-30 18:02:56,060 - Field check completed for 'ERXProcessEntries'.----------------------------
+
+2025-03-30 18:02:56,060 - Starting field check in collection: ExternalReferral
+2025-03-30 18:02:56,422 - Collection contains 107845 documents. Sampling 1000.
+2025-03-30 18:02:56,495 - 3/51 fields found.
+2025-03-30 18:02:56,495 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:56,495 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:02:56,495 - Found field 'Notes' at path: StatusUpdates.Notes
+2025-03-30 18:02:56,498 - Field check completed for 'ExternalReferral'.----------------------------
+
+2025-03-30 18:02:56,499 - Starting field check in collection: ExternalReferralDeletedDraft
+2025-03-30 18:02:56,504 - Collection contains 1234 documents. Sampling 1000.
+2025-03-30 18:02:56,538 - 2/51 fields found.
+2025-03-30 18:02:56,538 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:56,538 - Found field 'Notes' at path: StatusUpdates.Notes
+2025-03-30 18:02:56,539 - Field check completed for 'ExternalReferralDeletedDraft'.----------------------------
+
+2025-03-30 18:02:56,539 - Starting field check in collection: ExternalReferralDeliveryMethod
+2025-03-30 18:02:56,544 - Collection contains 29 documents. Sampling 29.
+2025-03-30 18:02:56,547 - 3/51 fields found.
+2025-03-30 18:02:56,547 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:56,547 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:02:56,547 - Found field 'Notes' at path: StatusUpdates.Notes
+2025-03-30 18:02:56,547 - Field check completed for 'ExternalReferralDeliveryMethod'.----------------------------
+
+2025-03-30 18:02:56,547 - Starting field check in collection: ExternalReferralDeliveryMethodValue
+2025-03-30 18:02:56,550 - Collection contains 34 documents. Sampling 34.
+2025-03-30 18:02:56,553 - 3/51 fields found.
+2025-03-30 18:02:56,553 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:56,553 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:02:56,553 - Found field 'Notes' at path: StatusUpdates.Notes
+2025-03-30 18:02:56,554 - Field check completed for 'ExternalReferralDeliveryMethodValue'.----------------------------
+
+2025-03-30 18:02:56,554 - Starting field check in collection: ExternalReferralFax
+2025-03-30 18:02:56,557 - Collection contains 569 documents. Sampling 569.
+2025-03-30 18:02:56,564 - 1/51 fields found.
+2025-03-30 18:02:56,564 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:56,565 - Field check completed for 'ExternalReferralFax'.----------------------------
+
+2025-03-30 18:02:56,565 - Starting field check in collection: ExternalReferralQueue
+2025-03-30 18:02:56,567 - Collection contains 22 documents. Sampling 22.
+2025-03-30 18:02:56,570 - 3/51 fields found.
+2025-03-30 18:02:56,570 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:56,570 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:02:56,570 - Found field 'Notes' at path: StatusUpdates.Notes
+2025-03-30 18:02:56,570 - Field check completed for 'ExternalReferralQueue'.----------------------------
+
+2025-03-30 18:02:56,570 - Starting field check in collection: ExternalReferralSentTo
+2025-03-30 18:02:56,573 - Collection contains 30 documents. Sampling 30.
+2025-03-30 18:02:56,576 - 3/51 fields found.
+2025-03-30 18:02:56,576 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:02:56,576 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:02:56,576 - Found field 'Notes' at path: StatusUpdates.Notes
+2025-03-30 18:02:56,576 - Field check completed for 'ExternalReferralSentTo'.----------------------------
+
+2025-03-30 18:02:56,576 - Starting field check in collection: FacilityMaster
+2025-03-30 18:03:09,506 - Collection contains 44034 documents. Sampling 1000.
+2025-03-30 18:03:18,838 - 7/51 fields found.
+2025-03-30 18:03:18,838 - Found field 'Email' at path: Email
+2025-03-30 18:03:18,838 - Found field 'Fax' at path: Fax
+2025-03-30 18:03:18,838 - Found field 'City' at path: City
+2025-03-30 18:03:18,838 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:03:18,838 - Found field 'MRRFax' at path: MRRFax
+2025-03-30 18:03:18,838 - Found field 'PhoneNumber' at path: PhoneNumber
+2025-03-30 18:03:18,838 - Found field 'Fax2' at path: Fax2
+2025-03-30 18:03:19,719 - Field check completed for 'FacilityMaster'.----------------------------
+
+2025-03-30 18:03:19,719 - Starting field check in collection: FaxTransactions
+2025-03-30 18:03:19,969 - Collection contains 368987 documents. Sampling 1000.
+2025-03-30 18:03:20,004 - 2/51 fields found.
+2025-03-30 18:03:20,004 - Found field 'UserName' at path: UserName
+2025-03-30 18:03:20,004 - Found field 'FaxNumber' at path: FaxNumber
+2025-03-30 18:03:20,017 - Field check completed for 'FaxTransactions'.----------------------------
+
+2025-03-30 18:03:20,017 - Starting field check in collection: FeeSheetCodes
+2025-03-30 18:03:20,029 - Collection contains 7712 documents. Sampling 1000.
+2025-03-30 18:03:20,078 - 0/51 fields found.
+2025-03-30 18:03:20,081 - Field check completed for 'FeeSheetCodes'.----------------------------
+
+2025-03-30 18:03:20,081 - Starting field check in collection: FinalizedDocumentDeleteHistory
+2025-03-30 18:03:20,395 - Collection contains 558519 documents. Sampling 1000.
+2025-03-30 18:03:20,427 - 0/51 fields found.
+2025-03-30 18:03:20,427 - Field check completed for 'FinalizedDocumentDeleteHistory'.----------------------------
+
+2025-03-30 18:03:20,427 - Starting field check in collection: FlipMvToAvForAlertCarePatientsProcessEntries
+2025-03-30 18:03:20,431 - Collection contains 371 documents. Sampling 371.
+2025-03-30 18:03:20,433 - 0/51 fields found.
+2025-03-30 18:03:20,434 - Field check completed for 'FlipMvToAvForAlertCarePatientsProcessEntries'.----------------------------
+
+2025-03-30 18:03:20,434 - Starting field check in collection: FollowUpEpisodesHistory
+2025-03-30 18:03:20,475 - Collection contains 54467 documents. Sampling 1000.
+2025-03-30 18:03:20,496 - 0/51 fields found.
+2025-03-30 18:03:20,497 - Field check completed for 'FollowUpEpisodesHistory'.----------------------------
+
+2025-03-30 18:03:20,497 - Starting field check in collection: GenerateMileageLogRefId
+2025-03-30 18:03:20,500 - Collection contains 852 documents. Sampling 852.
+2025-03-30 18:03:20,504 - 1/51 fields found.
+2025-03-30 18:03:20,504 - Found field 'UserName' at path: UserName
+2025-03-30 18:03:20,504 - Field check completed for 'GenerateMileageLogRefId'.----------------------------
+
+2025-03-30 18:03:20,504 - Starting field check in collection: GenerateReportsProcessEntries
+2025-03-30 18:03:20,818 - Collection contains 704690 documents. Sampling 1000.
+2025-03-30 18:03:20,850 - 0/51 fields found.
+2025-03-30 18:03:20,850 - Field check completed for 'GenerateReportsProcessEntries'.----------------------------
+
+2025-03-30 18:03:20,850 - Starting field check in collection: GeoLocations
+2025-03-30 18:03:40,120 - Collection contains 33952900 documents. Sampling 1000.
+2025-03-30 18:03:40,167 - 1/51 fields found.
+2025-03-30 18:03:40,167 - Found field 'UserName' at path: UserName
+2025-03-30 18:03:40,167 - Field check completed for 'GeoLocations'.----------------------------
+
+2025-03-30 18:03:40,167 - Starting field check in collection: GroupMaster
+2025-03-30 18:03:40,179 - Collection contains 15479 documents. Sampling 1000.
+2025-03-30 18:03:40,203 - 0/51 fields found.
+2025-03-30 18:03:40,204 - Field check completed for 'GroupMaster'.----------------------------
+
+2025-03-30 18:03:40,204 - Starting field check in collection: HashPharsingMaster
+2025-03-30 18:03:40,207 - Collection contains 511 documents. Sampling 511.
+2025-03-30 18:03:40,217 - 0/51 fields found.
+2025-03-30 18:03:40,217 - Field check completed for 'HashPharsingMaster'.----------------------------
+
+2025-03-30 18:03:40,217 - Starting field check in collection: HashPharsingMasterHistory
+2025-03-30 18:03:40,585 - Collection contains 283811 documents. Sampling 1000.
+2025-03-30 18:03:40,614 - 0/51 fields found.
+2025-03-30 18:03:40,615 - Field check completed for 'HashPharsingMasterHistory'.----------------------------
+
+2025-03-30 18:03:40,615 - Starting field check in collection: HashPharsingMasterInProgress
+2025-03-30 18:03:40,619 - Collection contains 511 documents. Sampling 511.
+2025-03-30 18:03:40,628 - 0/51 fields found.
+2025-03-30 18:03:40,628 - Field check completed for 'HashPharsingMasterInProgress'.----------------------------
+
+2025-03-30 18:03:40,628 - Starting field check in collection: HCCCodeMappingMaster
+2025-03-30 18:03:40,637 - Collection contains 10075 documents. Sampling 1000.
+2025-03-30 18:03:40,659 - 0/51 fields found.
+2025-03-30 18:03:40,660 - Field check completed for 'HCCCodeMappingMaster'.----------------------------
+
+2025-03-30 18:03:40,660 - Starting field check in collection: HccIcdMapping
+2025-03-30 18:03:40,697 - Collection contains 57032 documents. Sampling 1000.
+2025-03-30 18:03:40,719 - 0/51 fields found.
+2025-03-30 18:03:40,719 - Field check completed for 'HccIcdMapping'.----------------------------
+
+2025-03-30 18:03:40,719 - Starting field check in collection: HealthPlanClientEmailDomainConfig
+2025-03-30 18:03:40,722 - Collection contains 60 documents. Sampling 60.
+2025-03-30 18:03:40,723 - 0/51 fields found.
+2025-03-30 18:03:40,723 - Field check completed for 'HealthPlanClientEmailDomainConfig'.----------------------------
+
+2025-03-30 18:03:40,723 - Starting field check in collection: HealthPlanMaster
+2025-03-30 18:03:40,727 - Collection contains 98 documents. Sampling 98.
+2025-03-30 18:03:40,737 - 2/51 fields found.
+2025-03-30 18:03:40,737 - Found field 'StateName' at path: HealthPlanCities.States.StateName
+2025-03-30 18:03:40,737 - Found field 'PhoneNumber' at path: HealthPlanBrands.PhoneNumbers.HealthPlanNumbers.PhoneNumber
+2025-03-30 18:03:40,738 - Field check completed for 'HealthPlanMaster'.----------------------------
+
+2025-03-30 18:03:40,738 - Starting field check in collection: HealthPlanPortalPDFGeneratedLog
+2025-03-30 18:03:40,756 - Collection contains 35181 documents. Sampling 1000.
+2025-03-30 18:03:40,780 - 0/51 fields found.
+2025-03-30 18:03:40,781 - Field check completed for 'HealthPlanPortalPDFGeneratedLog'.----------------------------
+
+2025-03-30 18:03:40,781 - Starting field check in collection: HealthPlanUserAuditLogs
+2025-03-30 18:03:41,789 - Collection contains 2290549 documents. Sampling 1000.
+2025-03-30 18:03:41,832 - 0/51 fields found.
+2025-03-30 18:03:41,832 - Field check completed for 'HealthPlanUserAuditLogs'.----------------------------
+
+2025-03-30 18:03:41,832 - Starting field check in collection: HealthPlanUsers
+2025-03-30 18:03:41,851 - Collection contains 6622 documents. Sampling 1000.
+2025-03-30 18:03:41,927 - 5/51 fields found.
+2025-03-30 18:03:41,927 - Found field 'Email' at path: Email
+2025-03-30 18:03:41,927 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:03:41,927 - Found field 'Fax' at path: Fax
+2025-03-30 18:03:41,927 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:03:41,927 - Found field 'LastName' at path: LastName
+2025-03-30 18:03:41,930 - Field check completed for 'HealthPlanUsers'.----------------------------
+
+2025-03-30 18:03:41,930 - Starting field check in collection: HeartbeatContainer
+2025-03-30 18:03:41,935 - Collection contains 4101 documents. Sampling 1000.
+2025-03-30 18:03:41,943 - 0/51 fields found.
+2025-03-30 18:03:41,943 - Field check completed for 'HeartbeatContainer'.----------------------------
+
+2025-03-30 18:03:41,943 - Starting field check in collection: HeartbeatFacilityMaster
+2025-03-30 18:03:41,946 - Collection contains 2680 documents. Sampling 1000.
+2025-03-30 18:03:41,952 - 0/51 fields found.
+2025-03-30 18:03:41,952 - Field check completed for 'HeartbeatFacilityMaster'.----------------------------
+
+2025-03-30 18:03:41,952 - Starting field check in collection: HeartbeatHighPriority
+2025-03-30 18:03:41,955 - Collection contains 4101 documents. Sampling 1000.
+2025-03-30 18:03:41,962 - 0/51 fields found.
+2025-03-30 18:03:41,962 - Field check completed for 'HeartbeatHighPriority'.----------------------------
+
+2025-03-30 18:03:41,962 - Starting field check in collection: HeartbeatLowPriority
+2025-03-30 18:03:42,091 - Collection contains 331658 documents. Sampling 1000.
+2025-03-30 18:03:42,127 - 0/51 fields found.
+2025-03-30 18:03:42,127 - Field check completed for 'HeartbeatLowPriority'.----------------------------
+
+2025-03-30 18:03:42,127 - Starting field check in collection: HeartbeatMediumPriority
+2025-03-30 18:03:42,132 - Collection contains 4101 documents. Sampling 1000.
+2025-03-30 18:03:42,139 - 0/51 fields found.
+2025-03-30 18:03:42,139 - Field check completed for 'HeartbeatMediumPriority'.----------------------------
+
+2025-03-30 18:03:42,139 - Starting field check in collection: HeartbeatPodUsers
+2025-03-30 18:03:42,142 - Collection contains 2680 documents. Sampling 1000.
+2025-03-30 18:03:42,148 - 0/51 fields found.
+2025-03-30 18:03:42,148 - Field check completed for 'HeartbeatPodUsers'.----------------------------
+
+2025-03-30 18:03:42,148 - Starting field check in collection: HeartbeatStaffAvailability
+2025-03-30 18:03:42,151 - Collection contains 1619 documents. Sampling 1000.
+2025-03-30 18:03:42,156 - 0/51 fields found.
+2025-03-30 18:03:42,156 - Field check completed for 'HeartbeatStaffAvailability'.----------------------------
+
+2025-03-30 18:03:42,156 - Starting field check in collection: HFANCQAAutoTaskAnnualProcessedEntries
+2025-03-30 18:03:42,166 - Collection contains 14268 documents. Sampling 1000.
+2025-03-30 18:03:42,191 - 1/51 fields found.
+2025-03-30 18:03:42,191 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:03:42,191 - Field check completed for 'HFANCQAAutoTaskAnnualProcessedEntries'.----------------------------
+
+2025-03-30 18:03:42,191 - Starting field check in collection: HFANCQAAutoTaskAnnualProcessLogs
+2025-03-30 18:03:42,193 - Collection contains 1 documents. Sampling 1.
+2025-03-30 18:03:42,194 - 0/51 fields found.
+2025-03-30 18:03:42,194 - Field check completed for 'HFANCQAAutoTaskAnnualProcessLogs'.----------------------------
+
+2025-03-30 18:03:42,194 - Starting field check in collection: HistoricalScreeningsLog
+2025-03-30 18:03:42,502 - Collection contains 412027 documents. Sampling 1000.
+2025-03-30 18:03:42,543 - 0/51 fields found.
+2025-03-30 18:03:42,545 - Field check completed for 'HistoricalScreeningsLog'.----------------------------
+
+2025-03-30 18:03:42,545 - Starting field check in collection: HolidayMaster
+2025-03-30 18:03:42,548 - Collection contains 65 documents. Sampling 65.
+2025-03-30 18:03:42,549 - 0/51 fields found.
+2025-03-30 18:03:42,549 - Field check completed for 'HolidayMaster'.----------------------------
+
+2025-03-30 18:03:42,549 - Starting field check in collection: HtmlInsecureTags
+2025-03-30 18:03:42,551 - Collection contains 75 documents. Sampling 75.
+2025-03-30 18:03:42,552 - 0/51 fields found.
+2025-03-30 18:03:42,552 - Field check completed for 'HtmlInsecureTags'.----------------------------
+
+2025-03-30 18:03:42,552 - Starting field check in collection: ICD10Master
+2025-03-30 18:03:42,618 - Collection contains 107891 documents. Sampling 1000.
+2025-03-30 18:03:42,784 - 0/51 fields found.
+2025-03-30 18:03:42,785 - Field check completed for 'ICD10Master'.----------------------------
+
+2025-03-30 18:03:42,785 - Starting field check in collection: InitialSyncUser
+2025-03-30 18:03:42,788 - Collection contains 793 documents. Sampling 793.
+2025-03-30 18:03:42,806 - 1/51 fields found.
+2025-03-30 18:03:42,806 - Found field 'UserName' at path: UserName
+2025-03-30 18:03:42,807 - Field check completed for 'InitialSyncUser'.----------------------------
+
+2025-03-30 18:03:42,807 - Starting field check in collection: InsuranceCompanies
+2025-03-30 18:03:42,809 - Collection contains 28 documents. Sampling 28.
+2025-03-30 18:03:42,810 - 0/51 fields found.
+2025-03-30 18:03:42,810 - Field check completed for 'InsuranceCompanies'.----------------------------
+
+2025-03-30 18:03:42,810 - Starting field check in collection: InsuranceCompanyDetails
+2025-03-30 18:03:42,812 - Collection contains 56 documents. Sampling 56.
+2025-03-30 18:03:42,814 - 4/51 fields found.
+2025-03-30 18:03:42,814 - Found field 'Street1' at path: InsuranceAddress.Street1
+2025-03-30 18:03:42,814 - Found field 'City' at path: InsuranceAddress.City
+2025-03-30 18:03:42,814 - Found field 'Street2' at path: InsuranceAddress.Street2
+2025-03-30 18:03:42,814 - Found field 'PhoneNumber' at path: PhoneNumber
+2025-03-30 18:03:42,814 - Field check completed for 'InsuranceCompanyDetails'.----------------------------
+
+2025-03-30 18:03:42,814 - Starting field check in collection: InsuranceCompanyDetailsHistory
+2025-03-30 18:03:42,817 - Collection contains 1073 documents. Sampling 1000.
+2025-03-30 18:03:42,833 - 4/51 fields found.
+2025-03-30 18:03:42,833 - Found field 'Street1' at path: InsuranceAddress.Street1
+2025-03-30 18:03:42,833 - Found field 'City' at path: InsuranceAddress.City
+2025-03-30 18:03:42,834 - Found field 'Street2' at path: InsuranceAddress.Street2
+2025-03-30 18:03:42,834 - Found field 'PhoneNumber' at path: PhoneNumber
+2025-03-30 18:03:42,834 - Field check completed for 'InsuranceCompanyDetailsHistory'.----------------------------
+
+2025-03-30 18:03:42,834 - Starting field check in collection: InsuranceCompanyDetailsInProgress
+2025-03-30 18:03:42,837 - Collection contains 56 documents. Sampling 56.
+2025-03-30 18:03:42,838 - 4/51 fields found.
+2025-03-30 18:03:42,839 - Found field 'Street1' at path: InsuranceAddress.Street1
+2025-03-30 18:03:42,839 - Found field 'City' at path: InsuranceAddress.City
+2025-03-30 18:03:42,839 - Found field 'Street2' at path: InsuranceAddress.Street2
+2025-03-30 18:03:42,839 - Found field 'PhoneNumber' at path: PhoneNumber
+2025-03-30 18:03:42,839 - Field check completed for 'InsuranceCompanyDetailsInProgress'.----------------------------
+
+2025-03-30 18:03:42,839 - Starting field check in collection: InsuranceCompanyMaster
+2025-03-30 18:03:42,842 - Collection contains 2952 documents. Sampling 1000.
+2025-03-30 18:03:42,854 - 0/51 fields found.
+2025-03-30 18:03:42,854 - Field check completed for 'InsuranceCompanyMaster'.----------------------------
+
+2025-03-30 18:03:42,855 - Starting field check in collection: InteroperabilityCodesMaster
+2025-03-30 18:03:42,857 - Collection contains 15 documents. Sampling 15.
+2025-03-30 18:03:42,872 - 0/51 fields found.
+2025-03-30 18:03:42,873 - Field check completed for 'InteroperabilityCodesMaster'.----------------------------
+
+2025-03-30 18:03:42,873 - Starting field check in collection: InvalidApptData
+2025-03-30 18:03:42,879 - Collection contains 268 documents. Sampling 268.
+2025-03-30 18:03:42,972 - 5/51 fields found.
+2025-03-30 18:03:42,972 - Found field 'PatientName' at path: Slots.Appointments.PatientName
+2025-03-30 18:03:42,972 - Found field 'City' at path: Slots.Appointments.City
+2025-03-30 18:03:42,972 - Found field 'VisitNotes' at path: Slots.Appointments.VisitNotes
+2025-03-30 18:03:42,972 - Found field 'VisitAddress' at path: Slots.Appointments.VisitAddress
+2025-03-30 18:03:42,972 - Found field 'Comments' at path: Slots.Appointments.Comments
+2025-03-30 18:03:42,977 - Field check completed for 'InvalidApptData'.----------------------------
+
+2025-03-30 18:03:42,977 - Starting field check in collection: IpaMaster
+2025-03-30 18:03:42,981 - Collection contains 1034 documents. Sampling 1000.
+2025-03-30 18:03:42,988 - 0/51 fields found.
+2025-03-30 18:03:42,988 - Field check completed for 'IpaMaster'.----------------------------
+
+2025-03-30 18:03:42,988 - Starting field check in collection: IsOptimizeCleanupHistory
+2025-03-30 18:03:42,994 - Collection contains 1121 documents. Sampling 1000.
+2025-03-30 18:03:43,087 - 5/51 fields found.
+2025-03-30 18:03:43,087 - Found field 'PatientName' at path: Slots.Appointments.PatientName
+2025-03-30 18:03:43,087 - Found field 'City' at path: Slots.Appointments.City
+2025-03-30 18:03:43,087 - Found field 'VisitNotes' at path: Slots.Appointments.VisitNotes
+2025-03-30 18:03:43,087 - Found field 'VisitAddress' at path: Slots.Appointments.VisitAddress
+2025-03-30 18:03:43,087 - Found field 'Comments' at path: Slots.Appointments.Comments
+2025-03-30 18:03:43,092 - Field check completed for 'IsOptimizeCleanupHistory'.----------------------------
+
+2025-03-30 18:03:43,092 - Starting field check in collection: JivePhoneCallRecords
+2025-03-30 18:04:00,884 - Collection contains 24554396 documents. Sampling 1000.
+2025-03-30 18:04:00,922 - 0/51 fields found.
+2025-03-30 18:04:00,923 - Field check completed for 'JivePhoneCallRecords'.----------------------------
+
+2025-03-30 18:04:00,923 - Starting field check in collection: JivePhoneCallRecordsLog
+2025-03-30 18:04:00,987 - Collection contains 148135 documents. Sampling 1000.
+2025-03-30 18:04:01,020 - 1/51 fields found.
+2025-03-30 18:04:01,020 - Found field 'UserName' at path: UserName
+2025-03-30 18:04:01,021 - Field check completed for 'JivePhoneCallRecordsLog'.----------------------------
+
+2025-03-30 18:04:01,021 - Starting field check in collection: JiveUserContacts
+2025-03-30 18:04:01,023 - Collection contains 318 documents. Sampling 318.
+2025-03-30 18:04:01,026 - 0/51 fields found.
+2025-03-30 18:04:01,026 - Field check completed for 'JiveUserContacts'.----------------------------
+
+2025-03-30 18:04:01,029 - Starting field check in collection: LandmarkFacilities
+2025-03-30 18:04:01,039 - Collection contains 91 documents. Sampling 91.
+2025-03-30 18:04:01,378 - 4/51 fields found.
+2025-03-30 18:04:01,378 - Found field 'Email' at path: Email
+2025-03-30 18:04:01,378 - Found field 'Fax' at path: Fax
+2025-03-30 18:04:01,379 - Found field 'City' at path: City
+2025-03-30 18:04:01,379 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:04:01,408 - Field check completed for 'LandmarkFacilities'.----------------------------
+
+2025-03-30 18:04:01,408 - Starting field check in collection: LockReleaseProcessEntries
+2025-03-30 18:04:02,959 - Collection contains 3735822 documents. Sampling 1000.
+2025-03-30 18:04:03,018 - 0/51 fields found.
+2025-03-30 18:04:03,018 - Field check completed for 'LockReleaseProcessEntries'.----------------------------
+
+2025-03-30 18:04:03,018 - Starting field check in collection: LockReleaseSubProcessesLogs
+2025-03-30 18:04:03,288 - Collection contains 568577 documents. Sampling 1000.
+2025-03-30 18:04:03,320 - 0/51 fields found.
+2025-03-30 18:04:03,320 - Field check completed for 'LockReleaseSubProcessesLogs'.----------------------------
+
+2025-03-30 18:04:03,320 - Starting field check in collection: LogMessages
+2025-03-30 18:04:03,467 - Collection contains 343186 documents. Sampling 1000.
+2025-03-30 18:04:03,506 - 0/51 fields found.
+2025-03-30 18:04:03,506 - Field check completed for 'LogMessages'.----------------------------
+
+2025-03-30 18:04:03,506 - Starting field check in collection: LogMobileApp
+2025-03-30 18:04:16,266 - Collection contains 12082983 documents. Sampling 1000.
+2025-03-30 18:04:16,305 - 1/51 fields found.
+2025-03-30 18:04:16,305 - Found field 'UserName' at path: UserName
+2025-03-30 18:04:16,305 - Field check completed for 'LogMobileApp'.----------------------------
+
+2025-03-30 18:04:16,305 - Starting field check in collection: MarketFaxMappingMaster
+2025-03-30 18:04:16,308 - Collection contains 234 documents. Sampling 234.
+2025-03-30 18:04:16,310 - 1/51 fields found.
+2025-03-30 18:04:16,310 - Found field 'FaxNumber' at path: FaxNumber
+2025-03-30 18:04:16,310 - Field check completed for 'MarketFaxMappingMaster'.----------------------------
+
+2025-03-30 18:04:16,310 - Starting field check in collection: MarketMaster
+2025-03-30 18:04:16,318 - Collection contains 119 documents. Sampling 119.
+2025-03-30 18:04:16,424 - 2/51 fields found.
+2025-03-30 18:04:16,425 - Found field 'UserName' at path: DirectEmailUsers.UserName
+2025-03-30 18:04:16,425 - Found field 'Notes' at path: Brands.HealthPlanInfo.Notes
+2025-03-30 18:04:16,435 - Field check completed for 'MarketMaster'.----------------------------
+
+2025-03-30 18:04:16,435 - Starting field check in collection: MarketMasterHistory
+2025-03-30 18:04:23,215 - Collection contains 161959 documents. Sampling 1000.
+2025-03-30 18:04:25,405 - 2/51 fields found.
+2025-03-30 18:04:25,405 - Found field 'UserName' at path: DirectEmailUsers.UserName
+2025-03-30 18:04:25,405 - Found field 'Notes' at path: Brands.HealthPlanInfo.Notes
+2025-03-30 18:04:25,577 - Field check completed for 'MarketMasterHistory'.----------------------------
+
+2025-03-30 18:04:25,577 - Starting field check in collection: MarketMasterInProgress
+2025-03-30 18:04:25,587 - Collection contains 119 documents. Sampling 119.
+2025-03-30 18:04:25,700 - 2/51 fields found.
+2025-03-30 18:04:25,700 - Found field 'UserName' at path: DirectEmailUsers.UserName
+2025-03-30 18:04:25,700 - Found field 'Notes' at path: Brands.HealthPlanInfo.Notes
+2025-03-30 18:04:25,712 - Field check completed for 'MarketMasterInProgress'.----------------------------
+
+2025-03-30 18:04:25,712 - Starting field check in collection: Master
+2025-03-30 18:04:25,721 - Collection contains 46 documents. Sampling 46.
+2025-03-30 18:04:25,825 - 1/51 fields found.
+2025-03-30 18:04:25,825 - Found field 'Goals' at path: CarePlanIssueMaster.Goals
+2025-03-30 18:04:25,833 - Field check completed for 'Master'.----------------------------
+
+2025-03-30 18:04:25,833 - Starting field check in collection: MasterSynchDetails
+2025-03-30 18:04:25,837 - Collection contains 11 documents. Sampling 11.
+2025-03-30 18:04:25,839 - 0/51 fields found.
+2025-03-30 18:04:25,839 - Field check completed for 'MasterSynchDetails'.----------------------------
+
+2025-03-30 18:04:25,839 - Starting field check in collection: MaxIvProcessErrors
+2025-03-30 18:04:25,842 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:04:25,842 - Collection is empty.
+2025-03-30 18:04:25,842 - Field check completed for 'MaxIvProcessErrors'.----------------------------
+
+2025-03-30 18:04:25,842 - Starting field check in collection: MDCoSignHistory
+2025-03-30 18:04:25,848 - Collection contains 6246 documents. Sampling 1000.
+2025-03-30 18:04:25,867 - 0/51 fields found.
+2025-03-30 18:04:25,868 - Field check completed for 'MDCoSignHistory'.----------------------------
+
+2025-03-30 18:04:25,868 - Starting field check in collection: MedicalProblemMaster
+2025-03-30 18:04:25,891 - Collection contains 32114 documents. Sampling 1000.
+2025-03-30 18:04:25,910 - 0/51 fields found.
+2025-03-30 18:04:25,911 - Field check completed for 'MedicalProblemMaster'.----------------------------
+
+2025-03-30 18:04:25,911 - Starting field check in collection: MedicalProblemMasterHistory
+2025-03-30 18:04:25,918 - Collection contains 6186 documents. Sampling 1000.
+2025-03-30 18:04:25,940 - 0/51 fields found.
+2025-03-30 18:04:25,941 - Field check completed for 'MedicalProblemMasterHistory'.----------------------------
+
+2025-03-30 18:04:25,941 - Starting field check in collection: MedicalProblemMasterInProgress
+2025-03-30 18:04:25,964 - Collection contains 32114 documents. Sampling 1000.
+2025-03-30 18:04:25,981 - 0/51 fields found.
+2025-03-30 18:04:25,982 - Field check completed for 'MedicalProblemMasterInProgress'.----------------------------
+
+2025-03-30 18:04:25,982 - Starting field check in collection: MedicalRecordRequests
+2025-03-30 18:04:29,305 - Collection contains 892375 documents. Sampling 1000.
+2025-03-30 18:04:29,395 - 8/51 fields found.
+2025-03-30 18:04:29,395 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:04:29,395 - Found field 'PrimaryFaxNumber' at path: PrimaryFaxNumber
+2025-03-30 18:04:29,395 - Found field 'City' at path: City
+2025-03-30 18:04:29,395 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:04:29,395 - Found field 'MRRFaxNumber' at path: MRRFaxNumber
+2025-03-30 18:04:29,395 - Found field 'Dob' at path: Dob
+2025-03-30 18:04:29,395 - Found field 'Notes' at path: RequestDetails.Notes
+2025-03-30 18:04:29,395 - Found field 'SecondaryFaxNumber' at path: SecondaryFaxNumber
+2025-03-30 18:04:29,399 - Field check completed for 'MedicalRecordRequests'.----------------------------
+
+2025-03-30 18:04:29,399 - Starting field check in collection: MedicationMaster
+2025-03-30 18:04:29,413 - Collection contains 119 documents. Sampling 119.
+2025-03-30 18:04:29,743 - 2/51 fields found.
+2025-03-30 18:04:29,744 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:04:29,744 - Found field 'Notes' at path: Notes
+2025-03-30 18:04:29,774 - Field check completed for 'MedicationMaster'.----------------------------
+
+2025-03-30 18:04:29,774 - Starting field check in collection: Messages
+2025-03-30 18:04:37,376 - Collection contains 3100588 documents. Sampling 1000.
+2025-03-30 18:04:37,431 - 2/51 fields found.
+2025-03-30 18:04:37,432 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:04:37,432 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:04:37,435 - Field check completed for 'Messages'.----------------------------
+
+2025-03-30 18:04:37,435 - Starting field check in collection: MicroOptimizationProcessEntries
+2025-03-30 18:04:37,441 - Collection contains 8767 documents. Sampling 1000.
+2025-03-30 18:04:37,458 - 0/51 fields found.
+2025-03-30 18:04:37,458 - Field check completed for 'MicroOptimizationProcessEntries'.----------------------------
+
+2025-03-30 18:04:37,458 - Starting field check in collection: MileageCorrections
+2025-03-30 18:04:37,486 - Collection contains 14973 documents. Sampling 1000.
+2025-03-30 18:04:37,540 - 1/51 fields found.
+2025-03-30 18:04:37,540 - Found field 'UserName' at path: UserName
+2025-03-30 18:04:37,542 - Field check completed for 'MileageCorrections'.----------------------------
+
+2025-03-30 18:04:37,542 - Starting field check in collection: MileageLog
+2025-03-30 18:04:38,050 - Collection contains 922243 documents. Sampling 1000.
+2025-03-30 18:04:38,076 - 1/51 fields found.
+2025-03-30 18:04:38,076 - Found field 'UserName' at path: UserName
+2025-03-30 18:04:38,077 - Field check completed for 'MileageLog'.----------------------------
+
+2025-03-30 18:04:38,077 - Starting field check in collection: MileageLogPushNotificationProcessEntries
+2025-03-30 18:04:38,122 - Collection contains 88199 documents. Sampling 1000.
+2025-03-30 18:04:38,142 - 1/51 fields found.
+2025-03-30 18:04:38,142 - Found field 'UserName' at path: UserName
+2025-03-30 18:04:38,143 - Field check completed for 'MileageLogPushNotificationProcessEntries'.----------------------------
+
+2025-03-30 18:04:38,143 - Starting field check in collection: MiscInsertedUpdated
+2025-03-30 18:04:38,146 - Collection contains 670 documents. Sampling 670.
+2025-03-30 18:04:38,149 - 0/51 fields found.
+2025-03-30 18:04:38,149 - Field check completed for 'MiscInsertedUpdated'.----------------------------
+
+2025-03-30 18:04:38,149 - Starting field check in collection: MiscUpdate
+2025-03-30 18:04:38,164 - Collection contains 35148 documents. Sampling 1000.
+2025-03-30 18:04:38,192 - 0/51 fields found.
+2025-03-30 18:04:38,192 - Field check completed for 'MiscUpdate'.----------------------------
+
+2025-03-30 18:04:38,192 - Starting field check in collection: MissingEncounterInUEOC
+2025-03-30 18:04:38,194 - Collection contains 38 documents. Sampling 38.
+2025-03-30 18:04:38,195 - 0/51 fields found.
+2025-03-30 18:04:38,195 - Field check completed for 'MissingEncounterInUEOC'.----------------------------
+
+2025-03-30 18:04:38,195 - Starting field check in collection: MissingEncounterInUEOC_CreateNewEOC
+2025-03-30 18:04:38,198 - Collection contains 1273 documents. Sampling 1000.
+2025-03-30 18:04:38,204 - 0/51 fields found.
+2025-03-30 18:04:38,205 - Field check completed for 'MissingEncounterInUEOC_CreateNewEOC'.----------------------------
+
+2025-03-30 18:04:38,205 - Starting field check in collection: MissingEncounterInUEOC_UpdateClosedEOC
+2025-03-30 18:04:38,208 - Collection contains 1681 documents. Sampling 1000.
+2025-03-30 18:04:38,214 - 0/51 fields found.
+2025-03-30 18:04:38,214 - Field check completed for 'MissingEncounterInUEOC_UpdateClosedEOC'.----------------------------
+
+2025-03-30 18:04:38,214 - Starting field check in collection: MissingIndexEncounterInUEOC
+2025-03-30 18:04:38,219 - Collection contains 4786 documents. Sampling 1000.
+2025-03-30 18:04:38,229 - 0/51 fields found.
+2025-03-30 18:04:38,229 - Field check completed for 'MissingIndexEncounterInUEOC'.----------------------------
+
+2025-03-30 18:04:38,229 - Starting field check in collection: MobileAppRegistrationHistory
+2025-03-30 18:04:38,244 - Collection contains 17284 documents. Sampling 1000.
+2025-03-30 18:04:38,277 - 1/51 fields found.
+2025-03-30 18:04:38,277 - Found field 'PhoneNumber' at path: PhoneNumber
+2025-03-30 18:04:38,277 - Field check completed for 'MobileAppRegistrationHistory'.----------------------------
+
+2025-03-30 18:04:38,277 - Starting field check in collection: MRRAddressCleanUp
+2025-03-30 18:04:38,279 - Collection 'MRRAddressCleanUp' not found in the database.
+2025-03-30 18:04:38,279 - Starting field check in collection: MrrAutoRequestIntermediateCollection
+2025-03-30 18:04:38,282 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:04:38,283 - Collection is empty.
+2025-03-30 18:04:38,283 - Field check completed for 'MrrAutoRequestIntermediateCollection'.----------------------------
+
+2025-03-30 18:04:38,283 - Starting field check in collection: MrrEfaxFollowupProcessEntries
+2025-03-30 18:04:38,370 - Collection contains 177744 documents. Sampling 1000.
+2025-03-30 18:04:38,395 - 1/51 fields found.
+2025-03-30 18:04:38,395 - Found field 'Reason' at path: Reason
+2025-03-30 18:04:38,396 - Field check completed for 'MrrEfaxFollowupProcessEntries'.----------------------------
+
+2025-03-30 18:04:38,396 - Starting field check in collection: MRRUndefinedCleanUp
+2025-03-30 18:04:38,399 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:04:38,399 - Collection is empty.
+2025-03-30 18:04:38,399 - Field check completed for 'MRRUndefinedCleanUp'.----------------------------
+
+2025-03-30 18:04:38,399 - Starting field check in collection: NextYear
+2025-03-30 18:04:38,402 - Collection contains 2 documents. Sampling 2.
+2025-03-30 18:04:38,403 - 0/51 fields found.
+2025-03-30 18:04:38,403 - Field check completed for 'NextYear'.----------------------------
+
+2025-03-30 18:04:38,403 - Starting field check in collection: NonEngagedPatientSubscribedUsersDetails
+2025-03-30 18:04:38,406 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:04:38,406 - Collection is empty.
+2025-03-30 18:04:38,406 - Field check completed for 'NonEngagedPatientSubscribedUsersDetails'.----------------------------
+
+2025-03-30 18:04:38,406 - Starting field check in collection: NonEngagedSubscribedUsersFinalizedDetails
+2025-03-30 18:04:38,408 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:04:38,409 - Collection is empty.
+2025-03-30 18:04:38,409 - Field check completed for 'NonEngagedSubscribedUsersFinalizedDetails'.----------------------------
+
+2025-03-30 18:04:38,410 - Starting field check in collection: OCMServiceLogs
+2025-03-30 18:04:38,489 - Collection contains 138049 documents. Sampling 1000.
+2025-03-30 18:04:38,506 - 0/51 fields found.
+2025-03-30 18:04:38,506 - Field check completed for 'OCMServiceLogs'.----------------------------
+
+2025-03-30 18:04:38,509 - Collection contains 2 documents. Sampling 2.
+2025-03-30 18:04:38,510 - 0/51 fields found.
+
+2025-03-30 18:04:38,510 - Starting field check in collection: OfflineAppointments
+2025-03-30 18:05:01,243 - Collection contains 5900645 documents. Sampling 1000.
+2025-03-30 18:05:01,299 - 5/51 fields found.
+2025-03-30 18:05:01,299 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:05:01,299 - Found field 'VisitNotes' at path: VisitNotes
+2025-03-30 18:05:01,299 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:05:01,299 - Found field 'VisitAddress' at path: VisitAddress
+2025-03-30 18:05:01,299 - Found field 'Comments' at path: Comments
+2025-03-30 18:05:01,301 - Field check completed for 'OfflineAppointments'.----------------------------
+
+2025-03-30 18:05:01,301 - Starting field check in collection: OfflineAppointmentsProcessedEntries
+2025-03-30 18:05:01,947 - Collection contains 809019 documents. Sampling 1000.
+2025-03-30 18:05:01,977 - 0/51 fields found.
+2025-03-30 18:05:01,978 - Field check completed for 'OfflineAppointmentsProcessedEntries'.----------------------------
+
+2025-03-30 18:05:01,978 - Starting field check in collection: OfflineAppointmentsProcessLogs
+2025-03-30 18:05:01,982 - Collection contains 529 documents. Sampling 529.
+2025-03-30 18:05:01,986 - 0/51 fields found.
+2025-03-30 18:05:01,986 - Field check completed for 'OfflineAppointmentsProcessLogs'.----------------------------
+
+2025-03-30 18:05:01,986 - Starting field check in collection: OfflineAppointmentsUserLogs
+2025-03-30 18:05:04,080 - Collection contains 4595791 documents. Sampling 1000.
+2025-03-30 18:05:04,153 - 1/51 fields found.
+2025-03-30 18:05:04,153 - Found field 'UserName' at path: UserName
+2025-03-30 18:05:04,153 - Field check completed for 'OfflineAppointmentsUserLogs'.----------------------------
+
+2025-03-30 18:05:04,153 - Starting field check in collection: OfflineDbIndexVersion
+2025-03-30 18:05:04,157 - Collection contains 23 documents. Sampling 23.
+2025-03-30 18:05:04,157 - 0/51 fields found.
+2025-03-30 18:05:04,157 - Field check completed for 'OfflineDbIndexVersion'.----------------------------
+
+2025-03-30 18:05:04,158 - Starting field check in collection: OfflineUserIndex
+2025-03-30 18:05:04,160 - Collection contains 5 documents. Sampling 5.
+2025-03-30 18:05:04,161 - 1/51 fields found.
+2025-03-30 18:05:04,161 - Found field 'UserName' at path: UserName
+2025-03-30 18:05:04,161 - Field check completed for 'OfflineUserIndex'.----------------------------
+
+2025-03-30 18:05:04,161 - Starting field check in collection: OfflineUserIndexDefinition
+2025-03-30 18:05:04,164 - Collection contains 9 documents. Sampling 9.
+2025-03-30 18:05:04,165 - 0/51 fields found.
+2025-03-30 18:05:04,165 - Field check completed for 'OfflineUserIndexDefinition'.----------------------------
+
+2025-03-30 18:05:04,166 - Starting field check in collection: OptimizationAfterOverrideSubProcessLogs
+2025-03-30 18:05:04,170 - Collection contains 3235 documents. Sampling 1000.
+2025-03-30 18:05:04,179 - 0/51 fields found.
+2025-03-30 18:05:04,180 - Field check completed for 'OptimizationAfterOverrideSubProcessLogs'.----------------------------
+
+2025-03-30 18:05:04,180 - Starting field check in collection: OptimizeAvailabilityAfterOverrideProcessEntries
+2025-03-30 18:05:04,183 - Collection contains 93 documents. Sampling 93.
+2025-03-30 18:05:04,184 - 0/51 fields found.
+2025-03-30 18:05:04,184 - Field check completed for 'OptimizeAvailabilityAfterOverrideProcessEntries'.----------------------------
+
+2025-03-30 18:05:04,184 - Starting field check in collection: PalliativePathwayAuditLog
+2025-03-30 18:05:04,187 - Collection contains 156 documents. Sampling 156.
+2025-03-30 18:05:04,189 - 1/51 fields found.
+2025-03-30 18:05:04,189 - Found field 'Notes' at path: Notes
+2025-03-30 18:05:04,190 - Field check completed for 'PalliativePathwayAuditLog'.----------------------------
+
+2025-03-30 18:05:04,190 - Starting field check in collection: PalliativePathwayProgramProcessEntries
+2025-03-30 18:05:04,229 - Collection contains 67876 documents. Sampling 1000.
+2025-03-30 18:05:04,252 - 0/51 fields found.
+2025-03-30 18:05:04,253 - Field check completed for 'PalliativePathwayProgramProcessEntries'.----------------------------
+
+2025-03-30 18:05:04,253 - Starting field check in collection: PasswordExpiryProcessEntries
+2025-03-30 18:05:04,289 - Collection contains 45587 documents. Sampling 1000.
+2025-03-30 18:05:04,305 - 1/51 fields found.
+2025-03-30 18:05:04,305 - Found field 'UserName' at path: UserName
+2025-03-30 18:05:04,306 - Field check completed for 'PasswordExpiryProcessEntries'.----------------------------
+
+2025-03-30 18:05:04,306 - Starting field check in collection: PatientAddressUpdateLog
+2025-03-30 18:05:04,460 - Collection contains 286770 documents. Sampling 1000.
+2025-03-30 18:05:04,484 - 0/51 fields found.
+2025-03-30 18:05:04,485 - Field check completed for 'PatientAddressUpdateLog'.----------------------------
+
+2025-03-30 18:05:04,485 - Starting field check in collection: PatientBeforeVoidedDousignCleanup
+2025-03-30 18:05:04,489 - Collection contains 276 documents. Sampling 276.
+2025-03-30 18:05:04,512 - 1/51 fields found.
+2025-03-30 18:05:04,512 - Found field 'UserName' at path: DocuSign.UserName
+2025-03-30 18:05:04,513 - Field check completed for 'PatientBeforeVoidedDousignCleanup'.----------------------------
+
+2025-03-30 18:05:04,514 - Starting field check in collection: PatientCarePan_StartDate
+2025-03-30 18:05:04,518 - Collection contains 173 documents. Sampling 173.
+2025-03-30 18:05:04,526 - 5/51 fields found.
+2025-03-30 18:05:04,526 - Found field 'PatientLastName' at path: doc1.PatientLastName
+2025-03-30 18:05:04,526 - Found field 'SnapShot' at path: doc1.SnapShot
+2025-03-30 18:05:04,526 - Found field 'Goals' at path: doc1.Goals
+2025-03-30 18:05:04,526 - Found field 'PatientMiddleName' at path: doc1.PatientMiddleName
+2025-03-30 18:05:04,526 - Found field 'PatientFirstName' at path: doc1.PatientFirstName
+2025-03-30 18:05:04,526 - Field check completed for 'PatientCarePan_StartDate'.----------------------------
+
+2025-03-30 18:05:04,526 - Starting field check in collection: PatientCarePlan
+2025-03-30 18:05:13,992 - Collection contains 1728523 documents. Sampling 1000.
+2025-03-30 18:05:14,160 - 6/51 fields found.
+2025-03-30 18:05:14,160 - Found field 'PatientLastName' at path: PatientLastName
+2025-03-30 18:05:14,160 - Found field 'SnapShot' at path: SnapShot
+2025-03-30 18:05:14,160 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:05:14,160 - Found field 'Goals' at path: Goals
+2025-03-30 18:05:14,160 - Found field 'PatientMiddleName' at path: PatientMiddleName
+2025-03-30 18:05:14,160 - Found field 'PatientFirstName' at path: PatientFirstName
+2025-03-30 18:05:14,173 - Field check completed for 'PatientCarePlan'.----------------------------
+
+2025-03-30 18:05:14,173 - Starting field check in collection: PatientCarePlanForIEHP
+2025-03-30 18:05:14,180 - Collection contains 1212 documents. Sampling 1000.
+2025-03-30 18:05:14,187 - 0/51 fields found.
+2025-03-30 18:05:14,187 - Field check completed for 'PatientCarePlanForIEHP'.----------------------------
+
+2025-03-30 18:05:14,187 - Starting field check in collection: PatientCarePlanHistory
+2025-03-30 18:07:04,893 - Collection contains 6572294 documents. Sampling 1000.
+2025-03-30 18:07:05,381 - 6/51 fields found.
+2025-03-30 18:07:05,381 - Found field 'PatientLastName' at path: PatientLastName
+2025-03-30 18:07:05,381 - Found field 'SnapShot' at path: SnapShot
+2025-03-30 18:07:05,381 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:07:05,381 - Found field 'Goals' at path: Goals
+2025-03-30 18:07:05,381 - Found field 'PatientMiddleName' at path: PatientMiddleName
+2025-03-30 18:07:05,381 - Found field 'PatientFirstName' at path: PatientFirstName
+2025-03-30 18:07:05,419 - Field check completed for 'PatientCarePlanHistory'.----------------------------
+
+2025-03-30 18:07:05,419 - Starting field check in collection: PatientCarePlanResetStartDate
+2025-03-30 18:07:05,423 - Collection contains 14 documents. Sampling 14.
+2025-03-30 18:07:05,426 - 5/51 fields found.
+2025-03-30 18:07:05,426 - Found field 'PatientLastName' at path: CarePlanObj.PatientLastName
+2025-03-30 18:07:05,427 - Found field 'SnapShot' at path: CarePlanObj.SnapShot
+2025-03-30 18:07:05,427 - Found field 'Goals' at path: CarePlanObj.Goals
+2025-03-30 18:07:05,427 - Found field 'PatientMiddleName' at path: CarePlanObj.PatientMiddleName
+2025-03-30 18:07:05,427 - Found field 'PatientFirstName' at path: CarePlanObj.PatientFirstName
+2025-03-30 18:07:05,427 - Field check completed for 'PatientCarePlanResetStartDate'.----------------------------
+
+2025-03-30 18:07:05,427 - Starting field check in collection: PatientCaseDataHistory
+2025-03-30 18:07:05,519 - Collection contains 132775 documents. Sampling 1000.
+2025-03-30 18:07:05,544 - 0/51 fields found.
+2025-03-30 18:07:05,544 - Field check completed for 'PatientCaseDataHistory'.----------------------------
+
+2025-03-30 18:07:05,544 - Starting field check in collection: PatientCaseDataOriginalData
+2025-03-30 18:07:05,647 - Collection contains 52775 documents. Sampling 1000.
+2025-03-30 18:07:05,687 - 0/51 fields found.
+2025-03-30 18:07:05,688 - Field check completed for 'PatientCaseDataOriginalData'.----------------------------
+
+2025-03-30 18:07:05,688 - Starting field check in collection: PatientCaseStartDateHistory
+2025-03-30 18:07:05,694 - Collection contains 208 documents. Sampling 208.
+2025-03-30 18:07:05,696 - 0/51 fields found.
+2025-03-30 18:07:05,696 - Field check completed for 'PatientCaseStartDateHistory'.----------------------------
+
+2025-03-30 18:07:05,696 - Starting field check in collection: PatientChartReview
+2025-03-30 18:07:05,924 - Collection contains 177069 documents. Sampling 1000.
+2025-03-30 18:07:05,955 - 2/51 fields found.
+2025-03-30 18:07:05,955 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:07:05,955 - Found field 'Comments' at path: Comments
+2025-03-30 18:07:05,956 - Field check completed for 'PatientChartReview'.----------------------------
+
+2025-03-30 18:07:05,956 - Starting field check in collection: PatientConsentHistory
+2025-03-30 18:07:06,280 - Collection contains 594749 documents. Sampling 1000.
+2025-03-30 18:07:06,312 - 0/51 fields found.
+2025-03-30 18:07:06,312 - Field check completed for 'PatientConsentHistory'.----------------------------
+
+2025-03-30 18:07:06,312 - Starting field check in collection: PatientDeleteLog
+2025-03-30 18:07:07,008 - Collection contains 1446600 documents. Sampling 1000.
+2025-03-30 18:07:07,044 - 1/51 fields found.
+2025-03-30 18:07:07,044 - Found field 'UserName' at path: UserName
+2025-03-30 18:07:07,044 - Field check completed for 'PatientDeleteLog'.----------------------------
+
+2025-03-30 18:07:07,044 - Starting field check in collection: PatientEOCTrackerCleanupProcess
+2025-03-30 18:07:07,049 - Collection contains 230 documents. Sampling 230.
+2025-03-30 18:07:07,054 - 0/51 fields found.
+2025-03-30 18:07:07,054 - Field check completed for 'PatientEOCTrackerCleanupProcess'.----------------------------
+
+2025-03-30 18:07:07,054 - Starting field check in collection: PatientFriendlyFrequencyAbbreviations
+2025-03-30 18:07:07,057 - Collection contains 28 documents. Sampling 28.
+2025-03-30 18:07:07,058 - 0/51 fields found.
+2025-03-30 18:07:07,058 - Field check completed for 'PatientFriendlyFrequencyAbbreviations'.----------------------------
+
+2025-03-30 18:07:07,058 - Starting field check in collection: PatientHistory
+2025-03-30 18:07:10,852 - Collection contains 61034 documents. Sampling 1000.
+2025-03-30 18:07:13,240 - 7/51 fields found.
+2025-03-30 18:07:13,240 - Found field 'PatientName' at path: PatientCallLog.PatientName
+2025-03-30 18:07:13,240 - Found field 'FinalNotes' at path: PatientProblemList.EncounterProblemList.FinalNotes
+2025-03-30 18:07:13,240 - Found field 'VisitAddress' at path: PatientCallLog.VisitAddress
+2025-03-30 18:07:13,240 - Found field 'OtherReason' at path: PatientDat.OtherReason
+2025-03-30 18:07:13,240 - Found field 'Notes' at path: PatientCallLog.Notes
+2025-03-30 18:07:13,240 - Found field 'Comments' at path: PatientProblemList.EncounterProblemList.Comments
+2025-03-30 18:07:13,240 - Found field 'PhoneNumber' at path: PatientCallLog.PhoneNumber
+2025-03-30 18:07:13,388 - Field check completed for 'PatientHistory'.----------------------------
+
+2025-03-30 18:07:13,388 - Starting field check in collection: PatientIDTCleanUp
+2025-03-30 18:07:13,391 - Collection 'PatientIDTCleanUp' not found in the database.
+
+2025-03-30 18:07:13,391 - Starting field check in collection: PatientInsuranceHistory
+2025-03-30 18:07:26,174 - Collection contains 14252795 documents. Sampling 1000.
+2025-03-30 18:07:26,217 - 3/51 fields found.
+2025-03-30 18:07:26,218 - Found field 'PhoneNumber' at path: PhoneNumber
+2025-03-30 18:07:26,218 - Found field 'EmployerStreet' at path: EmployerStreet
+2025-03-30 18:07:26,218 - Found field 'Reason' at path: Reason
+2025-03-30 18:07:26,218 - Field check completed for 'PatientInsuranceHistory'.----------------------------
+
+2025-03-30 18:07:26,218 - Starting field check in collection: PatientLabOrders
+2025-03-30 18:07:26,222 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:07:26,222 - Collection is empty.
+2025-03-30 18:07:26,222 - Field check completed for 'PatientLabOrders'.----------------------------
+
+2025-03-30 18:07:26,222 - Starting field check in collection: PatientLanguageUpdateLog
+2025-03-30 18:07:26,226 - Collection contains 2 documents. Sampling 2.
+2025-03-30 18:07:26,226 - 0/51 fields found.
+2025-03-30 18:07:26,226 - Field check completed for 'PatientLanguageUpdateLog'.----------------------------
+
+2025-03-30 18:07:26,227 - Starting field check in collection: PatientLock
+2025-03-30 18:07:26,230 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:07:26,231 - Collection is empty.
+2025-03-30 18:07:26,231 - Field check completed for 'PatientLock'.----------------------------
+
+2025-03-30 18:07:26,231 - Starting field check in collection: PatientMiscHistory
+2025-03-30 18:07:26,843 - Collection contains 1112236 documents. Sampling 1000.
+2025-03-30 18:07:26,876 - 0/51 fields found.
+2025-03-30 18:07:26,876 - Field check completed for 'PatientMiscHistory'.----------------------------
+
+2025-03-30 18:07:26,876 - Starting field check in collection: PatientMiscSyncExclusion
+2025-03-30 18:07:26,879 - Collection contains 3 documents. Sampling 3.
+2025-03-30 18:07:26,880 - 0/51 fields found.
+2025-03-30 18:07:26,880 - Field check completed for 'PatientMiscSyncExclusion'.----------------------------
+
+2025-03-30 18:07:26,880 - Starting field check in collection: PatientNotesHistory
+2025-03-30 18:07:26,900 - Collection contains 24064 documents. Sampling 1000.
+2025-03-30 18:07:26,917 - 2/51 fields found.
+2025-03-30 18:07:26,917 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:07:26,917 - Found field 'LastName' at path: LastName
+2025-03-30 18:07:26,917 - Field check completed for 'PatientNotesHistory'.----------------------------
+
+2025-03-30 18:07:26,917 - Starting field check in collection: PatientOtherDetails
+2025-03-30 18:07:38,336 - Collection contains 1657889 documents. Sampling 1000.
+2025-03-30 18:07:38,461 - 1/51 fields found.
+2025-03-30 18:07:38,462 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:07:38,469 - Field check completed for 'PatientOtherDetails'.----------------------------
+
+2025-03-30 18:07:38,469 - Starting field check in collection: PatientPanel
+2025-03-30 18:07:45,614 - Collection contains 2776024 documents. Sampling 1000.
+2025-03-30 18:07:45,652 - 4/51 fields found.
+2025-03-30 18:07:45,652 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:07:45,652 - Found field 'LastName' at path: LastName
+2025-03-30 18:07:45,652 - Found field 'UserName' at path: UserName
+2025-03-30 18:07:45,652 - Found field 'Dob' at path: Dob
+2025-03-30 18:07:45,653 - Field check completed for 'PatientPanel'.----------------------------
+
+2025-03-30 18:07:45,653 - Starting field check in collection: PatientPanelMaster
+2025-03-30 18:07:45,658 - Collection contains 3913 documents. Sampling 1000.
+2025-03-30 18:07:45,668 - 1/51 fields found.
+2025-03-30 18:07:45,668 - Found field 'UserName' at path: UserName
+2025-03-30 18:07:45,668 - Field check completed for 'PatientPanelMaster'.----------------------------
+
+2025-03-30 18:07:45,668 - Starting field check in collection: PatientPcpConfirmDirectEmailDetails
+2025-03-30 18:07:45,678 - Collection contains 5288 documents. Sampling 1000.
+2025-03-30 18:07:45,697 - 2/51 fields found.
+2025-03-30 18:07:45,697 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:07:45,697 - Found field 'LastName' at path: LastName
+2025-03-30 18:07:45,698 - Field check completed for 'PatientPcpConfirmDirectEmailDetails'.----------------------------
+
+2025-03-30 18:07:45,698 - Starting field check in collection: PatientPcpHistory
+2025-03-30 18:07:46,014 - Collection contains 570357 documents. Sampling 1000.
+2025-03-30 18:07:46,049 - 0/51 fields found.
+2025-03-30 18:07:46,050 - Field check completed for 'PatientPcpHistory'.----------------------------
+
+2025-03-30 18:07:46,050 - Starting field check in collection: PatientProblemListHCCBackUp
+2025-03-30 18:07:46,052 - Collection 'PatientProblemListHCCBackUp' not found in the database.
+2025-03-30 18:07:46,052 - Starting field check in collection: PatientProgramUpdateHistory
+2025-03-30 18:07:46,055 - Collection contains 343 documents. Sampling 343.
+2025-03-30 18:07:46,059 - 0/51 fields found.
+2025-03-30 18:07:46,059 - Field check completed for 'PatientProgramUpdateHistory'.----------------------------
+
+2025-03-30 18:07:46,059 - Starting field check in collection: PatientPropertiesConfig
+2025-03-30 18:07:46,076 - Collection contains 84 documents. Sampling 84.
+2025-03-30 18:07:46,617 - 0/51 fields found.
+2025-03-30 18:07:46,675 - Field check completed for 'PatientPropertiesConfig'.----------------------------
+
+2025-03-30 18:07:46,675 - Starting field check in collection: PatientQueueSubProcessLog
+2025-03-30 18:07:46,820 - Collection contains 270214 documents. Sampling 1000.
+2025-03-30 18:07:46,846 - 0/51 fields found.
+2025-03-30 18:07:46,847 - Field check completed for 'PatientQueueSubProcessLog'.----------------------------
+
+2025-03-30 18:07:46,847 - Starting field check in collection: PatientReportFaxQueue
+2025-03-30 18:07:56,631 - Collection contains 4889257 documents. Sampling 1000.
+2025-03-30 18:07:56,670 - 3/51 fields found.
+2025-03-30 18:07:56,670 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:07:56,670 - Found field 'Email' at path: Email
+2025-03-30 18:07:56,670 - Found field 'FaxNumber' at path: FaxNumber
+2025-03-30 18:07:56,671 - Field check completed for 'PatientReportFaxQueue'.----------------------------
+
+2025-03-30 18:07:56,671 - Starting field check in collection: PatientReportFaxQueueHistory
+2025-03-30 18:07:58,626 - Collection contains 3658489 documents. Sampling 1000.
+2025-03-30 18:07:58,660 - 2/51 fields found.
+2025-03-30 18:07:58,660 - Found field 'Email' at path: Email
+2025-03-30 18:07:58,661 - Found field 'FaxNumber' at path: FaxNumber
+2025-03-30 18:07:58,661 - Field check completed for 'PatientReportFaxQueueHistory'.----------------------------
+
+2025-03-30 18:07:58,661 - Starting field check in collection: PatientReportQueueProcessEntries
+2025-03-30 18:07:59,456 - Collection contains 1641667 documents. Sampling 1000.
+2025-03-30 18:07:59,486 - 0/51 fields found.
+2025-03-30 18:07:59,486 - Field check completed for 'PatientReportQueueProcessEntries'.----------------------------
+
+2025-03-30 18:07:59,486 - Starting field check in collection: PatientReportQueueProcessLog
+2025-03-30 18:07:59,489 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:07:59,490 - Collection is empty.
+2025-03-30 18:07:59,490 - Field check completed for 'PatientReportQueueProcessLog'.----------------------------
+
+2025-03-30 18:07:59,490 - Starting field check in collection: PatientRoiMrrDetails
+2025-03-30 18:07:59,530 - Collection contains 61445 documents. Sampling 1000.
+2025-03-30 18:07:59,548 - 1/51 fields found.
+2025-03-30 18:07:59,548 - Found field 'Reason' at path: Reason
+2025-03-30 18:07:59,549 - Field check completed for 'PatientRoiMrrDetails'.----------------------------
+
+2025-03-30 18:07:59,549 - Starting field check in collection: Patients
+2025-03-30 18:10:39,789 - Collection contains 1655604 documents. Sampling 1000.
+2025-03-30 18:10:41,039 - 34/51 fields found.
+2025-03-30 18:10:41,039 - Found field 'PatientName' at path: PatientCallLog.PatientName
+2025-03-30 18:10:41,039 - Found field 'FinalNotes' at path: PatientProblemList.EncounterProblemList.FinalNotes
+2025-03-30 18:10:41,039 - Found field 'LastNameLower' at path: LastNameLower
+2025-03-30 18:10:41,039 - Found field 'Email' at path: Email
+2025-03-30 18:10:41,039 - Found field 'Zip5' at path: Address.Zip5
+2025-03-30 18:10:41,039 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:10:41,039 - Found field 'FirstNameLower' at path: FirstNameLower
+2025-03-30 18:10:41,039 - Found field 'Fax' at path: Pcp.Fax
+2025-03-30 18:10:41,039 - Found field 'Street1' at path: Address.Street1
+2025-03-30 18:10:41,039 - Found field 'City' at path: Address.City
+2025-03-30 18:10:41,039 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:10:41,039 - Found field 'LastName' at path: LastName
+2025-03-30 18:10:41,039 - Found field 'PrimaryMemberName' at path: Insurance.PrimaryMemberName
+2025-03-30 18:10:41,039 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:10:41,039 - Found field 'VisitAddress' at path: PatientCallLog.VisitAddress
+2025-03-30 18:10:41,039 - Found field 'StateCode' at path: Address.StateCode
+2025-03-30 18:10:41,039 - Found field 'HomePhoneNumber' at path: Contacts.HomePhoneNumber
+2025-03-30 18:10:41,039 - Found field 'MRRFax' at path: Pcp.MRRFax
+2025-03-30 18:10:41,039 - Found field 'MRRFaxNumber' at path: Specialists.MRRFaxNumber
+2025-03-30 18:10:41,039 - Found field 'MiddleNameLower' at path: MiddleNameLower
+2025-03-30 18:10:41,039 - Found field 'OtherReason' at path: PatientDat.OtherReason
+2025-03-30 18:10:41,039 - Found field 'PrimaryMemberDOB' at path: Insurance.PrimaryMemberDOB
+2025-03-30 18:10:41,039 - Found field 'Street2' at path: Address.Street2
+2025-03-30 18:10:41,039 - Found field 'PcpSecondaryFaxNumber' at path: Pcp.PcpSecondaryFaxNumber
+2025-03-30 18:10:41,039 - Found field 'Dob' at path: Dob
+2025-03-30 18:10:41,039 - Found field 'Notes' at path: Phones.Notes
+2025-03-30 18:10:41,039 - Found field 'StateName' at path: Address.StateName
+2025-03-30 18:10:41,039 - Found field 'Comments' at path: PatientProblemList.EncounterProblemList.Comments
+2025-03-30 18:10:41,039 - Found field 'Gender' at path: Gender
+2025-03-30 18:10:41,039 - Found field 'PhoneNumber' at path: Phones.PhoneNumber
+2025-03-30 18:10:41,039 - Found field 'WorkPhoneNumber' at path: Contacts.WorkPhoneNumber
+2025-03-30 18:10:41,039 - Found field 'EmployerStreet' at path: Insurance.EmployerStreet
+2025-03-30 18:10:41,039 - Found field 'Reason' at path: OutreachActivitiesList.Reason
+2025-03-30 18:10:41,039 - Found field 'FaxNumber2' at path: Specialists.FaxNumber2
+2025-03-30 18:10:41,126 - Field check completed for 'Patients'.----------------------------
+
+2025-03-30 18:10:41,126 - Starting field check in collection: Patients_Dat_Audio_Location_Reset
+2025-03-30 18:10:41,562 - Collection contains 4839 documents. Sampling 1000.
+2025-03-30 18:10:51,716 - 28/51 fields found.
+2025-03-30 18:10:51,716 - Found field 'PatientName' at path: PatientCallLog.PatientName
+2025-03-30 18:10:51,716 - Found field 'FinalNotes' at path: PatientProblemList.EncounterProblemList.FinalNotes
+2025-03-30 18:10:51,716 - Found field 'Email' at path: Email
+2025-03-30 18:10:51,716 - Found field 'Zip5' at path: Address.Zip5
+2025-03-30 18:10:51,716 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:10:51,716 - Found field 'Fax' at path: Specialists.Fax
+2025-03-30 18:10:51,716 - Found field 'Street1' at path: Address.Street1
+2025-03-30 18:10:51,716 - Found field 'City' at path: Address.City
+2025-03-30 18:10:51,716 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:10:51,716 - Found field 'LastName' at path: LastName
+2025-03-30 18:10:51,716 - Found field 'PrimaryMemberName' at path: Insurance.PrimaryMemberName
+2025-03-30 18:10:51,716 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:10:51,716 - Found field 'VisitAddress' at path: PatientCallLog.VisitAddress
+2025-03-30 18:10:51,716 - Found field 'StateCode' at path: Address.StateCode
+2025-03-30 18:10:51,716 - Found field 'HomePhoneNumber' at path: Contacts.HomePhoneNumber
+2025-03-30 18:10:51,716 - Found field 'OtherReason' at path: PatientDat.OtherReason
+2025-03-30 18:10:51,716 - Found field 'PrimaryMemberDOB' at path: Insurance.PrimaryMemberDOB
+2025-03-30 18:10:51,716 - Found field 'Street2' at path: Address.Street2
+2025-03-30 18:10:51,716 - Found field 'Dob' at path: Dob
+2025-03-30 18:10:51,716 - Found field 'Notes' at path: Phones.Notes
+2025-03-30 18:10:51,716 - Found field 'StateName' at path: Address.StateName
+2025-03-30 18:10:51,716 - Found field 'Comments' at path: PatientProblemList.EncounterProblemList.Comments
+2025-03-30 18:10:51,716 - Found field 'Gender' at path: Gender
+2025-03-30 18:10:51,716 - Found field 'PhoneNumber' at path: Phones.PhoneNumber
+2025-03-30 18:10:51,716 - Found field 'WorkPhoneNumber' at path: Contacts.WorkPhoneNumber
+2025-03-30 18:10:51,716 - Found field 'EmployerStreet' at path: Insurance.EmployerStreet
+2025-03-30 18:10:51,716 - Found field 'Reason' at path: OutreachActivitiesList.Reason
+2025-03-30 18:10:51,716 - Found field 'FaxNumber2' at path: HomeHealthAndDMEDetails.FaxNumber2
+2025-03-30 18:10:51,909 - Field check completed for 'Patients_Dat_Audio_Location_Reset'.----------------------------
+
+2025-03-30 18:10:51,910 - Starting field check in collection: PatientsDeviceRegisteredOn
+2025-03-30 18:10:51,914 - Collection contains 1267 documents. Sampling 1000.
+2025-03-30 18:10:51,919 - 0/51 fields found.
+2025-03-30 18:10:51,919 - Field check completed for 'PatientsDeviceRegisteredOn'.----------------------------
+
+2025-03-30 18:10:51,919 - Starting field check in collection: PatientsMovedToLocalOutreach
+2025-03-30 18:10:51,923 - Collection contains 41 documents. Sampling 41.
+2025-03-30 18:10:51,938 - 20/51 fields found.
+2025-03-30 18:10:51,938 - Found field 'PatientName' at path: PatientCallLog.PatientName
+2025-03-30 18:10:51,938 - Found field 'Email' at path: Email
+2025-03-30 18:10:51,938 - Found field 'Zip5' at path: Address.Zip5
+2025-03-30 18:10:51,938 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:10:51,938 - Found field 'Fax' at path: Pcp.Fax
+2025-03-30 18:10:51,938 - Found field 'Street1' at path: Address.Street1
+2025-03-30 18:10:51,938 - Found field 'City' at path: Address.City
+2025-03-30 18:10:51,938 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:10:51,938 - Found field 'LastName' at path: LastName
+2025-03-30 18:10:51,938 - Found field 'VisitAddress' at path: PatientCallLog.VisitAddress
+2025-03-30 18:10:51,938 - Found field 'StateCode' at path: Address.StateCode
+2025-03-30 18:10:51,938 - Found field 'OtherReason' at path: PatientDat.OtherReason
+2025-03-30 18:10:51,938 - Found field 'Street2' at path: Address.Street2
+2025-03-30 18:10:51,938 - Found field 'Dob' at path: Dob
+2025-03-30 18:10:51,938 - Found field 'Notes' at path: Phones.Notes
+2025-03-30 18:10:51,938 - Found field 'StateName' at path: Address.StateName
+2025-03-30 18:10:51,939 - Found field 'Gender' at path: Gender
+2025-03-30 18:10:51,939 - Found field 'PhoneNumber' at path: Phones.PhoneNumber
+2025-03-30 18:10:51,939 - Found field 'EmployerStreet' at path: Insurance.EmployerStreet
+2025-03-30 18:10:51,939 - Found field 'Reason' at path: Reason
+2025-03-30 18:10:51,939 - Field check completed for 'PatientsMovedToLocalOutreach'.----------------------------
+
+2025-03-30 18:10:51,939 - Starting field check in collection: PatientStaffSpan
+2025-03-30 18:10:57,887 - Collection contains 6534039 documents. Sampling 1000.
+2025-03-30 18:10:57,924 - 0/51 fields found.
+2025-03-30 18:10:57,924 - Field check completed for 'PatientStaffSpan'.----------------------------
+
+2025-03-30 18:10:57,924 - Starting field check in collection: PatientSubscribedUsersDetails
+2025-03-30 18:10:57,927 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:10:57,927 - Collection is empty.
+2025-03-30 18:10:57,927 - Field check completed for 'PatientSubscribedUsersDetails'.----------------------------
+
+2025-03-30 18:10:57,927 - Starting field check in collection: PCP
+2025-03-30 18:10:59,697 - Collection contains 930590 documents. Sampling 1000.
+2025-03-30 18:10:59,743 - 7/51 fields found.
+2025-03-30 18:10:59,743 - Found field 'Email' at path: Email
+2025-03-30 18:10:59,743 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:10:59,743 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:10:59,743 - Found field 'LastName' at path: LastName
+2025-03-30 18:10:59,743 - Found field 'PCPFaxNumber' at path: Address.PCPFaxNumber
+2025-03-30 18:10:59,743 - Found field 'PCPMRRFaxNumber' at path: Address.PCPMRRFaxNumber
+2025-03-30 18:10:59,743 - Found field 'PcpSecondaryFaxNumber' at path: Address.PcpSecondaryFaxNumber
+2025-03-30 18:10:59,745 - Field check completed for 'PCP'.----------------------------
+
+2025-03-30 18:10:59,745 - Starting field check in collection: PCPHistory
+2025-03-30 18:11:00,890 - Collection contains 854497 documents. Sampling 1000.
+2025-03-30 18:11:00,970 - 7/51 fields found.
+2025-03-30 18:11:00,970 - Found field 'Email' at path: Email
+2025-03-30 18:11:00,970 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:11:00,970 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:11:00,970 - Found field 'LastName' at path: LastName
+2025-03-30 18:11:00,970 - Found field 'PCPFaxNumber' at path: Address.PCPFaxNumber
+2025-03-30 18:11:00,970 - Found field 'PCPMRRFaxNumber' at path: Address.PCPMRRFaxNumber
+2025-03-30 18:11:00,970 - Found field 'PcpSecondaryFaxNumber' at path: Address.PcpSecondaryFaxNumber
+2025-03-30 18:11:00,974 - Field check completed for 'PCPHistory'.----------------------------
+
+2025-03-30 18:11:00,974 - Starting field check in collection: PcpStats
+2025-03-30 18:11:01,470 - Collection contains 935956 documents. Sampling 1000.
+2025-03-30 18:11:01,507 - 0/51 fields found.
+2025-03-30 18:11:01,507 - Field check completed for 'PcpStats'.----------------------------
+
+2025-03-30 18:11:01,507 - Starting field check in collection: Permissions
+2025-03-30 18:11:01,513 - Collection contains 2989 documents. Sampling 1000.
+2025-03-30 18:11:01,521 - 0/51 fields found.
+2025-03-30 18:11:01,521 - Field check completed for 'Permissions'.----------------------------
+
+2025-03-30 18:11:01,521 - Starting field check in collection: PharmacyMaster
+2025-03-30 18:11:01,524 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:11:01,524 - Collection is empty.
+2025-03-30 18:11:01,524 - Field check completed for 'PharmacyMaster'.----------------------------
+
+2025-03-30 18:11:01,524 - Starting field check in collection: PodMaster
+2025-03-30 18:11:01,529 - Collection contains 929 documents. Sampling 929.
+2025-03-30 18:11:01,541 - 0/51 fields found.
+2025-03-30 18:11:01,542 - Field check completed for 'PodMaster'.----------------------------
+
+2025-03-30 18:11:01,542 - Starting field check in collection: PodMasterHistory
+2025-03-30 18:11:01,559 - Collection contains 10233 documents. Sampling 1000.
+2025-03-30 18:11:01,590 - 0/51 fields found.
+2025-03-30 18:11:01,591 - Field check completed for 'PodMasterHistory'.----------------------------
+
+2025-03-30 18:11:01,591 - Starting field check in collection: PODUsers
+2025-03-30 18:11:04,000 - Collection contains 11083 documents. Sampling 1000.
+2025-03-30 18:11:34,160 - 8/51 fields found.
+2025-03-30 18:11:34,160 - Found field 'Email' at path: Email
+2025-03-30 18:11:34,160 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:11:34,160 - Found field 'City' at path: City
+2025-03-30 18:11:34,160 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:11:34,160 - Found field 'LastName' at path: LastName
+2025-03-30 18:11:34,160 - Found field 'UserName' at path: UserName
+2025-03-30 18:11:34,160 - Found field 'Street2' at path: Street2
+2025-03-30 18:11:34,160 - Found field 'StateName' at path: StateSpecificDEA.StateName
+2025-03-30 18:11:34,715 - Field check completed for 'PODUsers'.----------------------------
+
+2025-03-30 18:11:34,715 - Starting field check in collection: PreferredProviderBulkUpdate
+2025-03-30 18:11:34,719 - Collection contains 6 documents. Sampling 6.
+2025-03-30 18:11:34,720 - 0/51 fields found.
+2025-03-30 18:11:34,720 - Field check completed for 'PreferredProviderBulkUpdate'.----------------------------
+
+2025-03-30 18:11:34,720 - Starting field check in collection: ProblemListHistory
+2025-03-30 18:11:34,722 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:11:34,722 - Collection is empty.
+2025-03-30 18:11:34,722 - Field check completed for 'ProblemListHistory'.----------------------------
+
+2025-03-30 18:11:34,722 - Starting field check in collection: ProcessLogs
+2025-03-30 18:11:35,516 - Collection contains 1341053 documents. Sampling 1000.
+2025-03-30 18:11:35,543 - 1/51 fields found.
+2025-03-30 18:11:35,543 - Found field 'Reason' at path: Reason
+2025-03-30 18:11:35,543 - Field check completed for 'ProcessLogs'.----------------------------
+
+2025-03-30 18:11:35,543 - Starting field check in collection: ProcessMaster
+2025-03-30 18:11:35,546 - Collection contains 21 documents. Sampling 21.
+2025-03-30 18:11:35,547 - 0/51 fields found.
+2025-03-30 18:11:35,548 - Field check completed for 'ProcessMaster'.----------------------------
+
+2025-03-30 18:11:35,548 - Starting field check in collection: ProgramMaster
+2025-03-30 18:11:35,550 - Collection contains 15 documents. Sampling 15.
+2025-03-30 18:11:35,551 - 0/51 fields found.
+2025-03-30 18:11:35,551 - Field check completed for 'ProgramMaster'.----------------------------
+
+2025-03-30 18:11:35,551 - Starting field check in collection: ProviderAddressUpdateProcessEntries
+2025-03-30 18:11:35,555 - Collection contains 372 documents. Sampling 372.
+2025-03-30 18:11:35,558 - 1/51 fields found.
+2025-03-30 18:11:35,558 - Found field 'UserName' at path: UserName
+2025-03-30 18:11:35,558 - Field check completed for 'ProviderAddressUpdateProcessEntries'.----------------------------
+
+2025-03-30 18:11:35,558 - Starting field check in collection: ProviderNCMAmbassadorCorrelation
+2025-03-30 18:11:35,568 - Collection contains 2899 documents. Sampling 1000.
+2025-03-30 18:11:35,592 - 0/51 fields found.
+2025-03-30 18:11:35,594 - Field check completed for 'ProviderNCMAmbassadorCorrelation'.----------------------------
+
+2025-03-30 18:11:35,594 - Starting field check in collection: ProviderNCMAmbassadorCorrelationHistory
+2025-03-30 18:11:35,614 - Collection contains 14176 documents. Sampling 1000.
+2025-03-30 18:11:35,662 - 0/51 fields found.
+2025-03-30 18:11:35,664 - Field check completed for 'ProviderNCMAmbassadorCorrelationHistory'.----------------------------
+
+2025-03-30 18:11:35,664 - Starting field check in collection: PushNotificationLog
+2025-03-30 18:11:35,855 - Collection contains 318626 documents. Sampling 1000.
+2025-03-30 18:11:35,882 - 1/51 fields found.
+2025-03-30 18:11:35,882 - Found field 'UserName' at path: UserName
+2025-03-30 18:11:35,882 - Field check completed for 'PushNotificationLog'.----------------------------
+
+2025-03-30 18:11:35,883 - Starting field check in collection: QualityMeasureConfiguration
+2025-03-30 18:11:35,886 - Collection contains 4 documents. Sampling 4.
+2025-03-30 18:11:35,886 - 0/51 fields found.
+2025-03-30 18:11:35,886 - Field check completed for 'QualityMeasureConfiguration'.----------------------------
+
+2025-03-30 18:11:35,886 - Starting field check in collection: Questionnaire
+2025-03-30 18:11:35,890 - Collection contains 256 documents. Sampling 256.
+2025-03-30 18:11:35,902 - 0/51 fields found.
+2025-03-30 18:11:35,903 - Field check completed for 'Questionnaire'.----------------------------
+
+2025-03-30 18:11:35,903 - Starting field check in collection: QueueExcludedForIVQueueProcessEntry
+2025-03-30 18:12:39,387 - Collection contains 134887283 documents. Sampling 1000.
+2025-03-30 18:12:39,509 - 0/51 fields found.
+2025-03-30 18:12:39,509 - Field check completed for 'QueueExcludedForIVQueueProcessEntry'.----------------------------
+
+2025-03-30 18:12:39,509 - Starting field check in collection: QueueExclusionSubProcessLog
+2025-03-30 18:12:39,536 - Collection contains 37731 documents. Sampling 1000.
+2025-03-30 18:12:39,559 - 0/51 fields found.
+2025-03-30 18:12:39,559 - Field check completed for 'QueueExclusionSubProcessLog'.----------------------------
+
+2025-03-30 18:12:39,559 - Starting field check in collection: QueueLog
+2025-03-30 18:12:39,562 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:12:39,562 - Collection is empty.
+2025-03-30 18:12:39,562 - Field check completed for 'QueueLog'.----------------------------
+
+2025-03-30 18:12:39,562 - Starting field check in collection: RampTargetProcessEntries
+2025-03-30 18:12:39,762 - Collection contains 365326 documents. Sampling 1000.
+2025-03-30 18:12:39,789 - 1/51 fields found.
+2025-03-30 18:12:39,790 - Found field 'UserName' at path: UserName
+2025-03-30 18:12:39,790 - Field check completed for 'RampTargetProcessEntries'.----------------------------
+
+2025-03-30 18:12:39,790 - Starting field check in collection: ReEngagingClosedPatientsProcessEntries
+2025-03-30 18:12:39,793 - Collection contains 74 documents. Sampling 74.
+2025-03-30 18:12:39,795 - 1/51 fields found.
+2025-03-30 18:12:39,795 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:12:39,795 - Field check completed for 'ReEngagingClosedPatientsProcessEntries'.----------------------------
+
+2025-03-30 18:12:39,795 - Starting field check in collection: ReferenceLog
+2025-03-30 18:12:48,049 - Collection contains 9776890 documents. Sampling 1000.
+2025-03-30 18:12:48,091 - 0/51 fields found.
+2025-03-30 18:12:48,091 - Field check completed for 'ReferenceLog'.----------------------------
+
+2025-03-30 18:12:48,091 - Starting field check in collection: ReviewAuditLog
+2025-03-30 18:12:48,552 - Collection contains 541082 documents. Sampling 1000.
+2025-03-30 18:12:48,575 - 2/51 fields found.
+2025-03-30 18:12:48,576 - Found field 'Comments' at path: Findings.Comments
+2025-03-30 18:12:48,576 - Found field 'Reason' at path: DeleteReasons.Reason
+2025-03-30 18:12:48,576 - Field check completed for 'ReviewAuditLog'.----------------------------
+
+2025-03-30 18:12:48,576 - Starting field check in collection: Roles
+2025-03-30 18:12:48,580 - Collection contains 56 documents. Sampling 56.
+2025-03-30 18:12:48,585 - 0/51 fields found.
+2025-03-30 18:12:48,585 - Field check completed for 'Roles'.----------------------------
+
+2025-03-30 18:12:48,585 - Starting field check in collection: SchedulinProviderProcessEntries
+2025-03-30 18:12:48,588 - Collection contains 117 documents. Sampling 117.
+2025-03-30 18:12:48,589 - 0/51 fields found.
+2025-03-30 18:12:48,589 - Field check completed for 'SchedulinProviderProcessEntries'.----------------------------
+
+2025-03-30 18:12:48,592 - Collection contains 2 documents. Sampling 2.
+2025-03-30 18:12:48,592 - 0/51 fields found.
+
+2025-03-30 18:12:48,592 - Starting field check in collection: ServerUpgradeStore
+2025-03-30 18:12:48,594 - Collection contains 194 documents. Sampling 194.
+2025-03-30 18:12:48,596 - 0/51 fields found.
+2025-03-30 18:12:48,597 - Field check completed for 'ServerUpgradeStore'.----------------------------
+
+2025-03-30 18:12:48,597 - Starting field check in collection: SOSResponseLog
+2025-03-30 18:12:48,599 - Collection contains 30 documents. Sampling 30.
+2025-03-30 18:12:48,599 - 1/51 fields found.
+2025-03-30 18:12:48,599 - Found field 'UserName' at path: UserName
+2025-03-30 18:12:48,599 - Field check completed for 'SOSResponseLog'.----------------------------
+
+2025-03-30 18:12:48,599 - Starting field check in collection: SpecialistMaster
+2025-03-30 18:12:48,830 - Collection contains 128909 documents. Sampling 1000.
+2025-03-30 18:12:48,863 - 9/51 fields found.
+2025-03-30 18:12:48,863 - Found field 'Email' at path: Email
+2025-03-30 18:12:48,863 - Found field 'Zip5' at path: Zip5
+2025-03-30 18:12:48,863 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:12:48,863 - Found field 'Fax' at path: Fax
+2025-03-30 18:12:48,863 - Found field 'City' at path: City
+2025-03-30 18:12:48,863 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:12:48,863 - Found field 'LastName' at path: LastName
+2025-03-30 18:12:48,863 - Found field 'MRRFaxNumber' at path: MRRFaxNumber
+2025-03-30 18:12:48,863 - Found field 'FaxNumber2' at path: FaxNumber2
+2025-03-30 18:12:48,864 - Field check completed for 'SpecialistMaster'.----------------------------
+
+2025-03-30 18:12:48,864 - Starting field check in collection: StaffAdminTime
+2025-03-30 18:12:49,918 - Collection contains 1066144 documents. Sampling 1000.
+2025-03-30 18:12:49,949 - 1/51 fields found.
+2025-03-30 18:12:49,949 - Found field 'Comments' at path: Comments
+2025-03-30 18:12:49,950 - Field check completed for 'StaffAdminTime'.----------------------------
+
+2025-03-30 18:12:49,950 - Starting field check in collection: StaffAvailability
+2025-03-30 18:13:34,169 - Collection contains 3759508 documents. Sampling 1000.
+2025-03-30 18:13:34,454 - 5/51 fields found.
+2025-03-30 18:13:34,455 - Found field 'PatientName' at path: Slots.Appointments.PatientName
+2025-03-30 18:13:34,455 - Found field 'City' at path: Slots.Appointments.City
+2025-03-30 18:13:34,455 - Found field 'VisitNotes' at path: Slots.Appointments.VisitNotes
+2025-03-30 18:13:34,455 - Found field 'VisitAddress' at path: Slots.Appointments.VisitAddress
+2025-03-30 18:13:34,455 - Found field 'Comments' at path: Slots.Appointments.Comments
+2025-03-30 18:13:34,473 - Field check completed for 'StaffAvailability'.----------------------------
+
+2025-03-30 18:13:34,473 - Starting field check in collection: StaffAvailabilityDeletedAdminHistory
+2025-03-30 18:13:49,119 - Collection contains 26624133 documents. Sampling 1000.
+2025-03-30 18:13:49,178 - 0/51 fields found.
+2025-03-30 18:13:49,178 - Field check completed for 'StaffAvailabilityDeletedAdminHistory'.----------------------------
+
+2025-03-30 18:13:49,178 - Starting field check in collection: StaffAvailabilityHistory
+2025-03-30 18:14:47,300 - Collection contains 6789951 documents. Sampling 1000.
+2025-03-30 18:14:47,639 - 5/51 fields found.
+2025-03-30 18:14:47,639 - Found field 'PatientName' at path: Slots.Appointments.PatientName
+2025-03-30 18:14:47,639 - Found field 'City' at path: Slots.Appointments.City
+2025-03-30 18:14:47,639 - Found field 'VisitNotes' at path: Slots.Appointments.VisitNotes
+2025-03-30 18:14:47,639 - Found field 'VisitAddress' at path: Slots.Appointments.VisitAddress
+2025-03-30 18:14:47,639 - Found field 'Comments' at path: Slots.Appointments.Comments
+2025-03-30 18:14:47,658 - Field check completed for 'StaffAvailabilityHistory'.----------------------------
+
+2025-03-30 18:14:47,658 - Starting field check in collection: StaffAvailabilityMicroProcessLog
+2025-03-30 18:14:47,663 - Collection contains 421 documents. Sampling 421.
+2025-03-30 18:14:47,678 - 1/51 fields found.
+2025-03-30 18:14:47,678 - Found field 'Reason' at path: Reason
+2025-03-30 18:14:47,679 - Field check completed for 'StaffAvailabilityMicroProcessLog'.----------------------------
+
+2025-03-30 18:14:47,679 - Starting field check in collection: StaffAvailabilityOverrideHistory
+2025-03-30 18:14:53,210 - Collection contains 1405447 documents. Sampling 1000.
+2025-03-30 18:14:53,411 - 5/51 fields found.
+2025-03-30 18:14:53,411 - Found field 'PatientName' at path: StaffAvailabilityCopy.Slots.Appointments.PatientName
+2025-03-30 18:14:53,411 - Found field 'City' at path: StaffAvailabilityCopy.Slots.Appointments.City
+2025-03-30 18:14:53,411 - Found field 'VisitNotes' at path: StaffAvailabilityCopy.Slots.Appointments.VisitNotes
+2025-03-30 18:14:53,411 - Found field 'VisitAddress' at path: StaffAvailabilityCopy.Slots.Appointments.VisitAddress
+2025-03-30 18:14:53,411 - Found field 'Comments' at path: StaffAvailabilityCopy.Slots.Appointments.Comments
+2025-03-30 18:14:53,420 - Field check completed for 'StaffAvailabilityOverrideHistory'.----------------------------
+
+2025-03-30 18:14:53,420 - Starting field check in collection: StaffAvailabilityProcessLog
+2025-03-30 18:14:53,424 - Collection contains 412 documents. Sampling 412.
+2025-03-30 18:14:53,428 - 1/51 fields found.
+2025-03-30 18:14:53,428 - Found field 'Reason' at path: Reason
+2025-03-30 18:14:53,428 - Field check completed for 'StaffAvailabilityProcessLog'.----------------------------
+
+2025-03-30 18:14:53,428 - Starting field check in collection: StaffAvailabilityProcessUserEntry
+2025-03-30 18:14:53,460 - Collection contains 64500 documents. Sampling 1000.
+2025-03-30 18:14:53,480 - 1/51 fields found.
+2025-03-30 18:14:53,481 - Found field 'Reason' at path: Reason
+2025-03-30 18:14:53,481 - Field check completed for 'StaffAvailabilityProcessUserEntry'.----------------------------
+
+2025-03-30 18:14:53,481 - Starting field check in collection: StaffAvailabilityProcessUserLog
+2025-03-30 18:14:55,042 - Collection contains 2957277 documents. Sampling 1000.
+2025-03-30 18:14:55,077 - 1/51 fields found.
+2025-03-30 18:14:55,077 - Found field 'UserName' at path: UserName
+2025-03-30 18:14:55,077 - Field check completed for 'StaffAvailabilityProcessUserLog'.----------------------------
+
+2025-03-30 18:14:55,077 - Starting field check in collection: StaffPodMaster
+2025-03-30 18:14:55,101 - Collection contains 8451 documents. Sampling 1000.
+2025-03-30 18:14:55,168 - 0/51 fields found.
+2025-03-30 18:14:55,172 - Field check completed for 'StaffPodMaster'.----------------------------
+
+2025-03-30 18:14:55,172 - Starting field check in collection: StaffPodMasterHistory
+2025-03-30 18:14:55,252 - Collection contains 38597 documents. Sampling 1000.
+2025-03-30 18:14:55,496 - 0/51 fields found.
+2025-03-30 18:14:55,509 - Field check completed for 'StaffPodMasterHistory'.----------------------------
+
+2025-03-30 18:14:55,510 - Starting field check in collection: StaffRampSchedule
+2025-03-30 18:14:55,798 - Collection contains 271045 documents. Sampling 1000.
+2025-03-30 18:14:55,820 - 0/51 fields found.
+2025-03-30 18:14:55,821 - Field check completed for 'StaffRampSchedule'.----------------------------
+
+2025-03-30 18:14:55,821 - Starting field check in collection: StaffRampScheduleHistory
+2025-03-30 18:14:57,900 - Collection contains 2509871 documents. Sampling 1000.
+2025-03-30 18:14:57,930 - 0/51 fields found.
+2025-03-30 18:14:57,930 - Field check completed for 'StaffRampScheduleHistory'.----------------------------
+
+2025-03-30 18:14:57,930 - Starting field check in collection: StaffTemplateConfig
+2025-03-30 18:14:57,960 - Collection contains 30275 documents. Sampling 1000.
+2025-03-30 18:14:57,978 - 0/51 fields found.
+2025-03-30 18:14:57,978 - Field check completed for 'StaffTemplateConfig'.----------------------------
+
+2025-03-30 18:14:57,978 - Starting field check in collection: SubMarketAccessCorrelation
+2025-03-30 18:14:57,982 - Collection contains 551 documents. Sampling 551.
+2025-03-30 18:14:57,988 - 0/51 fields found.
+2025-03-30 18:14:57,988 - Field check completed for 'SubMarketAccessCorrelation'.----------------------------
+
+2025-03-30 18:14:57,988 - Starting field check in collection: SubscribedInActiveUsersHistory
+2025-03-30 18:16:40,960 - Collection contains 216715098 documents. Sampling 1000.
+2025-03-30 18:16:41,188 - 1/51 fields found.
+2025-03-30 18:16:41,188 - Found field 'UserName' at path: UserName
+2025-03-30 18:16:41,188 - Field check completed for 'SubscribedInActiveUsersHistory'.----------------------------
+
+2025-03-30 18:16:41,188 - Starting field check in collection: SubscribedUsersFinalizedDetails
+2025-03-30 18:16:41,210 - Collection contains 37758 documents. Sampling 1000.
+2025-03-30 18:16:41,229 - 0/51 fields found.
+2025-03-30 18:16:41,230 - Field check completed for 'SubscribedUsersFinalizedDetails'.----------------------------
+
+2025-03-30 18:16:41,230 - Starting field check in collection: SurescriptsProviderDirectory
+2025-03-30 18:16:42,621 - Collection contains 1102300 documents. Sampling 1000.
+2025-03-30 18:16:42,656 - 6/51 fields found.
+2025-03-30 18:16:42,656 - Found field 'Email' at path: Email
+2025-03-30 18:16:42,656 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:16:42,656 - Found field 'Fax' at path: Fax
+2025-03-30 18:16:42,656 - Found field 'City' at path: City
+2025-03-30 18:16:42,656 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:16:42,656 - Found field 'LastName' at path: LastName
+2025-03-30 18:16:42,657 - Field check completed for 'SurescriptsProviderDirectory'.----------------------------
+
+2025-03-30 18:16:42,657 - Starting field check in collection: SyncAcknowlegment
+2025-03-30 18:21:11,544 - Collection contains 435703679 documents. Sampling 1000.
+2025-03-30 18:21:11,619 - 1/51 fields found.
+2025-03-30 18:21:11,619 - Found field 'Reason' at path: Reason
+2025-03-30 18:21:11,620 - Field check completed for 'SyncAcknowlegment'.----------------------------
+
+2025-03-30 18:21:11,620 - Starting field check in collection: TaskCleanupProcess
+2025-03-30 18:21:11,623 - Collection contains 165 documents. Sampling 165.
+2025-03-30 18:21:11,625 - 0/51 fields found.
+2025-03-30 18:21:11,625 - Field check completed for 'TaskCleanupProcess'.----------------------------
+
+2025-03-30 18:21:11,625 - Starting field check in collection: Tasks
+2025-03-30 18:21:34,651 - Collection contains 4295922 documents. Sampling 1000.
+2025-03-30 18:21:34,734 - 3/51 fields found.
+2025-03-30 18:21:34,735 - Found field 'PatientName' at path: PatientName
+2025-03-30 18:21:34,735 - Found field 'UserName' at path: SubscribedUserDetails.UserName
+2025-03-30 18:21:34,735 - Found field 'Notes' at path: Notes
+2025-03-30 18:21:34,740 - Field check completed for 'Tasks'.----------------------------
+
+2025-03-30 18:21:34,740 - Starting field check in collection: TelemedicineCallRequestResponseLog
+2025-03-30 18:21:34,769 - Collection contains 16663 documents. Sampling 1000.
+2025-03-30 18:21:34,833 - 1/51 fields found.
+2025-03-30 18:21:34,833 - Found field 'UserName' at path: CallResponses.UserName
+2025-03-30 18:21:34,835 - Field check completed for 'TelemedicineCallRequestResponseLog'.----------------------------
+
+2025-03-30 18:21:34,835 - Starting field check in collection: TelemedicineNotificationLog
+2025-03-30 18:21:34,852 - Collection contains 16518 documents. Sampling 1000.
+2025-03-30 18:21:34,908 - 0/51 fields found.
+2025-03-30 18:21:34,910 - Field check completed for 'TelemedicineNotificationLog'.----------------------------
+
+2025-03-30 18:21:34,910 - Starting field check in collection: TelemedicineVideoCall
+2025-03-30 18:21:34,927 - Collection contains 16663 documents. Sampling 1000.
+2025-03-30 18:21:34,958 - 1/51 fields found.
+2025-03-30 18:21:34,958 - Found field 'UserName' at path: UserName
+2025-03-30 18:21:34,959 - Field check completed for 'TelemedicineVideoCall'.----------------------------
+
+2025-03-30 18:21:34,959 - Starting field check in collection: TelemedicineVideoCallBadRequestLog
+2025-03-30 18:21:34,962 - Collection contains 5 documents. Sampling 5.
+2025-03-30 18:21:34,963 - 1/51 fields found.
+2025-03-30 18:21:34,963 - Found field 'UserName' at path: TelemedicineVideoCallObject.UserName
+2025-03-30 18:21:34,963 - Field check completed for 'TelemedicineVideoCallBadRequestLog'.----------------------------
+
+2025-03-30 18:21:34,963 - Starting field check in collection: TodayDate
+2025-03-30 18:21:34,966 - Collection contains 1 documents. Sampling 1.
+2025-03-30 18:21:34,966 - 0/51 fields found.
+2025-03-30 18:21:34,966 - Field check completed for 'TodayDate'.----------------------------
+
+2025-03-30 18:21:34,966 - Starting field check in collection: TwilioAppointmentReminderLog
+2025-03-30 18:21:35,042 - Collection contains 62947 documents. Sampling 1000.
+2025-03-30 18:21:35,069 - 0/51 fields found.
+2025-03-30 18:21:35,070 - Field check completed for 'TwilioAppointmentReminderLog'.----------------------------
+
+2025-03-30 18:21:35,070 - Starting field check in collection: TwilioReceivedMessageLog
+2025-03-30 18:21:35,097 - Collection contains 31650 documents. Sampling 1000.
+2025-03-30 18:21:35,118 - 0/51 fields found.
+2025-03-30 18:21:35,118 - Field check completed for 'TwilioReceivedMessageLog'.----------------------------
+
+2025-03-30 18:21:35,118 - Starting field check in collection: TwilioSMSLog
+2025-03-30 18:21:35,134 - Collection contains 13559 documents. Sampling 1000.
+2025-03-30 18:21:35,162 - 0/51 fields found.
+2025-03-30 18:21:35,162 - Field check completed for 'TwilioSMSLog'.----------------------------
+
+2025-03-30 18:21:35,162 - Starting field check in collection: UpdateReviewedScreeningProcessEntries
+2025-03-30 18:21:35,310 - Collection contains 305772 documents. Sampling 1000.
+2025-03-30 18:21:35,336 - 0/51 fields found.
+2025-03-30 18:21:35,336 - Field check completed for 'UpdateReviewedScreeningProcessEntries'.----------------------------
+
+2025-03-30 18:21:35,336 - Starting field check in collection: UserAuthorizationFailLog
+2025-03-30 18:21:35,339 - Collection contains 0 documents. Sampling 0.
+2025-03-30 18:21:35,339 - Collection is empty.
+2025-03-30 18:21:35,339 - Field check completed for 'UserAuthorizationFailLog'.----------------------------
+
+2025-03-30 18:21:35,339 - Starting field check in collection: UserDirectMessages
+2025-03-30 18:21:35,461 - Collection contains 34159 documents. Sampling 1000.
+2025-03-30 18:21:35,610 - 2/51 fields found.
+2025-03-30 18:21:35,610 - Found field 'UserName' at path: CCUserList.UserName
+2025-03-30 18:21:35,610 - Found field 'Path' at path: Path
+2025-03-30 18:21:35,622 - Field check completed for 'UserDirectMessages'.----------------------------
+
+2025-03-30 18:21:35,622 - Starting field check in collection: UserLog
+2025-03-30 18:22:24,787 - Collection contains 54107197 documents. Sampling 1000.
+2025-03-30 18:22:24,836 - 6/51 fields found.
+2025-03-30 18:22:24,836 - Found field 'FinalNotes' at path: ProblemsList.EncounterProblemList.FinalNotes
+2025-03-30 18:22:24,836 - Found field 'UserName' at path: UserName
+2025-03-30 18:22:24,836 - Found field 'FaxNumber' at path: FaxTransactions.FaxNumber
+2025-03-30 18:22:24,836 - Found field 'Notes' at path: Allergies.Notes
+2025-03-30 18:22:24,836 - Found field 'Comments' at path: ProblemsList.EncounterProblemList.Comments
+2025-03-30 18:22:24,836 - Found field 'PhoneNumber' at path: Demographics.Phones.PhoneNumber
+2025-03-30 18:22:24,837 - Field check completed for 'UserLog'.----------------------------
+
+2025-03-30 18:22:24,837 - Starting field check in collection: Users (this is a false positive. The 'Users' collection does contain Patient related PII fields.)
+2025-03-30 18:22:25,581 - Collection contains 11780 documents. Sampling 1000.
+2025-03-30 18:22:32,530 - 8/51 fields found.
+2025-03-30 18:22:32,530 - Found field 'Email' at path: Email
+2025-03-30 18:22:32,530 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:22:32,530 - Found field 'City' at path: City
+2025-03-30 18:22:32,530 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:22:32,530 - Found field 'LastName' at path: LastName
+2025-03-30 18:22:32,530 - Found field 'UserName' at path: UserName
+2025-03-30 18:22:32,530 - Found field 'Street2' at path: Street2
+2025-03-30 18:22:32,530 - Found field 'StateName' at path: StateSpecificDEA.StateName
+2025-03-30 18:22:32,683 - Field check completed for 'Users'.----------------------------
+
+2025-03-30 18:22:32,683 - Starting field check in collection: UserSession
+2025-03-30 18:22:34,685 - Collection contains 3545642 documents. Sampling 1000.
+2025-03-30 18:22:34,719 - 1/51 fields found.
+2025-03-30 18:22:34,719 - Found field 'UserName' at path: UserName
+2025-03-30 18:22:34,719 - Field check completed for 'UserSession'.----------------------------
+
+2025-03-30 18:22:34,719 - Starting field check in collection: UsersHistory
+2025-03-30 18:22:41,369 - Collection contains 110677 documents. Sampling 1000.
+2025-03-30 18:22:44,492 - 8/51 fields found.
+2025-03-30 18:22:44,492 - Found field 'Email' at path: Email
+2025-03-30 18:22:44,492 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:22:44,492 - Found field 'City' at path: City
+2025-03-30 18:22:44,492 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:22:44,492 - Found field 'LastName' at path: LastName
+2025-03-30 18:22:44,492 - Found field 'UserName' at path: UserName
+2025-03-30 18:22:44,492 - Found field 'Street2' at path: Street2
+2025-03-30 18:22:44,492 - Found field 'StateName' at path: Address.StateName
+2025-03-30 18:22:44,658 - Field check completed for 'UsersHistory'.----------------------------
+
+2025-03-30 18:22:44,658 - Starting field check in collection: UserSOS
+2025-03-30 18:22:44,664 - Collection contains 85 documents. Sampling 85.
+2025-03-30 18:22:44,665 - 1/51 fields found.
+2025-03-30 18:22:44,665 - Found field 'UserName' at path: UserName
+2025-03-30 18:22:44,665 - Field check completed for 'UserSOS'.----------------------------
+
+2025-03-30 18:22:44,665 - Starting field check in collection: UsersStateLicenseInvalidLogs
+2025-03-30 18:22:44,670 - Collection contains 5 documents. Sampling 5.
+2025-03-30 18:22:44,671 - 4/51 fields found.
+2025-03-30 18:22:44,671 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:22:44,671 - Found field 'LastName' at path: LastName
+2025-03-30 18:22:44,671 - Found field 'UserName' at path: UserName
+2025-03-30 18:22:44,671 - Found field 'StateName' at path: InvalidStateLicenses.StateName
+2025-03-30 18:22:44,671 - Field check completed for 'UsersStateLicenseInvalidLogs'.----------------------------
+
+2025-03-30 18:22:44,671 - Starting field check in collection: UsersUpdateScriptLog
+2025-03-30 18:22:44,674 - Collection contains 1 documents. Sampling 1.
+2025-03-30 18:22:44,674 - 0/51 fields found.
+2025-03-30 18:22:44,674 - Field check completed for 'UsersUpdateScriptLog'.----------------------------
+
+2025-03-30 18:22:44,674 - Starting field check in collection: WithingsPatientInformation
+2025-03-30 18:22:44,679 - Collection contains 67 documents. Sampling 67.
+2025-03-30 18:22:44,680 - 0/51 fields found.
+2025-03-30 18:22:44,680 - Field check completed for 'WithingsPatientInformation'.----------------------------
+
+2025-03-30 18:22:44,680 - Starting field check in collection: WithingsPatientSync
+2025-03-30 18:22:44,684 - Collection contains 6 documents. Sampling 6.
+2025-03-30 18:22:44,685 - 0/51 fields found.
+2025-03-30 18:22:44,685 - Field check completed for 'WithingsPatientSync'.----------------------------
+
+2025-03-30 18:22:44,685 - Starting field check in collection: ZipcodeMaster
+2025-03-30 18:22:44,969 - Collection contains 116 documents. Sampling 116.
+2025-03-30 18:22:46,237 - 0/51 fields found.
+2025-03-30 18:22:46,252 - Field check completed for 'ZipcodeMaster'.----------------------------
+
+2025-03-30 18:22:46,253 - Summary of PHI field checks:
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+2025-03-30 18:22:46,253 - Collections with no PHI fields Found
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+2025-03-30 18:22:46,253 - AcpCleanupProcessLog
+2025-03-30 18:22:46,253 - AddAndDeleteCodesProcessLog
+2025-03-30 18:22:46,253 - AdminChartClosures
+2025-03-30 18:22:46,253 - allergies_allergyName
+2025-03-30 18:22:46,253 - AppointmentCancellationData
+2025-03-30 18:22:46,253 - AppointmentReminderProcessLog
+2025-03-30 18:22:46,253 - AppointmentReminders
+2025-03-30 18:22:46,253 - AppReviewerMapping
+2025-03-30 18:22:46,253 - AppReviewerMappingHistory
+2025-03-30 18:22:46,253 - AssignedIDTLiaisonHistory
+2025-03-30 18:22:46,253 - BrandMaster
+2025-03-30 18:22:46,253 - CarePlanAcuityMismatchPatients
+2025-03-30 18:22:46,253 - CDSUVConfig
+2025-03-30 18:22:46,253 - CDSUVConfigInprogress
+2025-03-30 18:22:46,253 - ChartTransferJob
+2025-03-30 18:22:46,253 - ChartTransferOutputLog
+2025-03-30 18:22:46,253 - ClinicalDocuments
+2025-03-30 18:22:46,253 - ClosedPatientSubscribedUsersDetails
+2025-03-30 18:22:46,253 - ClosedSubscribedUsersFinalizedDetails
+2025-03-30 18:22:46,253 - CoderReassignmentHistory
+2025-03-30 18:22:46,253 - CodersAssignment
+2025-03-30 18:22:46,253 - CodesMaster
+2025-03-30 18:22:46,253 - CodingDeleteDiagnosisCodeItem
+2025-03-30 18:22:46,253 - CodingDeleteDiagnosisCodeJob
+2025-03-30 18:22:46,253 - CommonMasterTypes
+2025-03-30 18:22:46,253 - CommonMasterValue
+2025-03-30 18:22:46,253 - ContainerDirectMessageCorruptedDocument
+2025-03-30 18:22:46,253 - Conversation
+2025-03-30 18:22:46,253 - CoSignAssignmentHistory
+2025-03-30 18:22:46,253 - DAT_PACD
+2025-03-30 18:22:46,253 - DAT_PACD_Audio_Location_Reset
+2025-03-30 18:22:46,253 - DbPreference
+2025-03-30 18:22:46,253 - DeleteDiagnosisCodeItem
+2025-03-30 18:22:46,253 - DeleteDiagnosisCodeJob
+2025-03-30 18:22:46,253 - DeviceDetailsHistory
+2025-03-30 18:22:46,253 - DiagnosisICDCodeMasterForReports
+2025-03-30 18:22:46,253 - DirectMessageErrorLog
+2025-03-30 18:22:46,253 - DirectMessagesExport
+2025-03-30 18:22:46,253 - DirectMessagesLogs
+2025-03-30 18:22:46,253 - DNSIssuesICDMaster
+2025-03-30 18:22:46,253 - DocuSignAPILogs
+2025-03-30 18:22:46,253 - DocuSignDownloadProcessEntries
+2025-03-30 18:22:46,253 - DocuSignDownloadProcessLog
+2025-03-30 18:22:46,253 - DocuSignErrorLogs
+2025-03-30 18:22:46,253 - DocuSignFacilityZipCodesConfig
+2025-03-30 18:22:46,253 - DocuSignTypesConfig
+2025-03-30 18:22:46,253 - DocuSignVoidedHistory
+2025-03-30 18:22:46,253 - eFaxProcessEntries
+2025-03-30 18:22:46,253 - EncounterConfiguration
+2025-03-30 18:22:46,253 - EncounterNoteCaseTypeMaster
+2025-03-30 18:22:46,253 - EncounterNoteTypeMasterDataMapper
+2025-03-30 18:22:46,253 - EncounterNoteTypes
+2025-03-30 18:22:46,253 - EncounterStatusTracking
+2025-03-30 18:22:46,253 - EncounterStatusTrackingDataMigrationCleanup
+2025-03-30 18:22:46,253 - EpisodeOfCareHistory
+2025-03-30 18:22:46,253 - ERXProcessEntries
+2025-03-30 18:22:46,253 - FeeSheetCodes
+2025-03-30 18:22:46,253 - FinalizedDocumentDeleteHistory
+2025-03-30 18:22:46,253 - FlipMvToAvForAlertCarePatientsProcessEntries
+2025-03-30 18:22:46,253 - FollowUpEpisodesHistory
+2025-03-30 18:22:46,253 - GenerateReportsProcessEntries
+2025-03-30 18:22:46,253 - GroupMaster
+2025-03-30 18:22:46,253 - HashPharsingMaster
+2025-03-30 18:22:46,253 - HashPharsingMasterHistory
+2025-03-30 18:22:46,253 - HashPharsingMasterInProgress
+2025-03-30 18:22:46,253 - HCCCodeMappingMaster
+2025-03-30 18:22:46,253 - HccIcdMapping
+2025-03-30 18:22:46,253 - HealthPlanClientEmailDomainConfig
+2025-03-30 18:22:46,253 - HealthPlanPortalPDFGeneratedLog
+2025-03-30 18:22:46,253 - HealthPlanUserAuditLogs
+2025-03-30 18:22:46,253 - HeartbeatContainer
+2025-03-30 18:22:46,254 - HeartbeatFacilityMaster
+2025-03-30 18:22:46,254 - HeartbeatHighPriority
+2025-03-30 18:22:46,254 - HeartbeatLowPriority
+2025-03-30 18:22:46,254 - HeartbeatMediumPriority
+2025-03-30 18:22:46,254 - HeartbeatPodUsers
+2025-03-30 18:22:46,254 - HeartbeatStaffAvailability
+2025-03-30 18:22:46,254 - HFANCQAAutoTaskAnnualProcessLogs
+2025-03-30 18:22:46,254 - HistoricalScreeningsLog
+2025-03-30 18:22:46,254 - HolidayMaster
+2025-03-30 18:22:46,254 - HtmlInsecureTags
+2025-03-30 18:22:46,254 - ICD10Master
+2025-03-30 18:22:46,254 - InsuranceCompanies
+2025-03-30 18:22:46,254 - InsuranceCompanyMaster
+2025-03-30 18:22:46,254 - InteroperabilityCodesMaster
+2025-03-30 18:22:46,254 - IpaMaster
+2025-03-30 18:22:46,254 - JivePhoneCallRecords
+2025-03-30 18:22:46,254 - JiveUserContacts
+2025-03-30 18:22:46,254 - LockReleaseProcessEntries
+2025-03-30 18:22:46,254 - LockReleaseSubProcessesLogs
+2025-03-30 18:22:46,254 - LogMessages
+2025-03-30 18:22:46,254 - MasterSynchDetails
+2025-03-30 18:22:46,254 - MaxIvProcessErrors
+2025-03-30 18:22:46,254 - MDCoSignHistory
+2025-03-30 18:22:46,254 - MedicalProblemMaster
+2025-03-30 18:22:46,254 - MedicalProblemMasterHistory
+2025-03-30 18:22:46,254 - MedicalProblemMasterInProgress
+2025-03-30 18:22:46,254 - MicroOptimizationProcessEntries
+2025-03-30 18:22:46,254 - MiscInsertedUpdated
+2025-03-30 18:22:46,254 - MiscUpdate
+2025-03-30 18:22:46,254 - MissingEncounterInUEOC
+2025-03-30 18:22:46,254 - MissingEncounterInUEOC_CreateNewEOC
+2025-03-30 18:22:46,254 - MissingEncounterInUEOC_UpdateClosedEOC
+2025-03-30 18:22:46,254 - MissingIndexEncounterInUEOC
+2025-03-30 18:22:46,254 - MRRAddressCleanUp
+2025-03-30 18:22:46,254 - MrrAutoRequestIntermediateCollection
+2025-03-30 18:22:46,254 - MRRUndefinedCleanUp
+2025-03-30 18:22:46,254 - NextYear
+2025-03-30 18:22:46,254 - NonEngagedPatientSubscribedUsersDetails
+2025-03-30 18:22:46,254 - NonEngagedSubscribedUsersFinalizedDetails
+2025-03-30 18:22:46,254 - OCMServiceLogs
+2025-03-30 18:22:46,254 - OfflineAppointmentsProcessedEntries
+2025-03-30 18:22:46,254 - OfflineAppointmentsProcessLogs
+2025-03-30 18:22:46,254 - OfflineDbIndexVersion
+2025-03-30 18:22:46,254 - OfflineUserIndexDefinition
+2025-03-30 18:22:46,254 - OptimizationAfterOverrideSubProcessLogs
+2025-03-30 18:22:46,254 - OptimizeAvailabilityAfterOverrideProcessEntries
+2025-03-30 18:22:46,254 - PalliativePathwayProgramProcessEntries
+2025-03-30 18:22:46,254 - PatientAddressUpdateLog
+2025-03-30 18:22:46,254 - PatientCarePlanForIEHP
+2025-03-30 18:22:46,254 - PatientCaseDataHistory
+2025-03-30 18:22:46,254 - PatientCaseDataOriginalData
+2025-03-30 18:22:46,254 - PatientCaseStartDateHistory
+2025-03-30 18:22:46,254 - PatientConsentHistory
+2025-03-30 18:22:46,254 - PatientEOCTrackerCleanupProcess
+2025-03-30 18:22:46,254 - PatientFriendlyFrequencyAbbreviations
+2025-03-30 18:22:46,254 - PatientIDTCleanUp
+2025-03-30 18:22:46,254 - PatientLabOrders
+2025-03-30 18:22:46,254 - PatientLanguageUpdateLog
+2025-03-30 18:22:46,254 - PatientLock
+2025-03-30 18:22:46,254 - PatientMiscHistory
+2025-03-30 18:22:46,254 - PatientMiscSyncExclusion
+2025-03-30 18:22:46,254 - PatientPcpHistory
+2025-03-30 18:22:46,254 - PatientProblemListHCCBackUp
+2025-03-30 18:22:46,254 - PatientProgramUpdateHistory
+2025-03-30 18:22:46,254 - PatientPropertiesConfig
+2025-03-30 18:22:46,254 - PatientQueueSubProcessLog
+2025-03-30 18:22:46,254 - PatientReportQueueProcessEntries
+2025-03-30 18:22:46,254 - PatientReportQueueProcessLog
+2025-03-30 18:22:46,254 - PatientsDeviceRegisteredOn
+2025-03-30 18:22:46,254 - PatientStaffSpan
+2025-03-30 18:22:46,254 - PatientSubscribedUsersDetails
+2025-03-30 18:22:46,254 - PcpStats
+2025-03-30 18:22:46,254 - Permissions
+2025-03-30 18:22:46,254 - PharmacyMaster
+2025-03-30 18:22:46,254 - PodMaster
+2025-03-30 18:22:46,254 - PodMasterHistory
+2025-03-30 18:22:46,254 - PreferredProviderBulkUpdate
+2025-03-30 18:22:46,254 - ProblemListHistory
+2025-03-30 18:22:46,254 - ProcessMaster
+2025-03-30 18:22:46,254 - ProgramMaster
+2025-03-30 18:22:46,255 - ProviderNCMAmbassadorCorrelation
+2025-03-30 18:22:46,255 - ProviderNCMAmbassadorCorrelationHistory
+2025-03-30 18:22:46,255 - QualityMeasureConfiguration
+2025-03-30 18:22:46,255 - Questionnaire
+2025-03-30 18:22:46,255 - QueueExcludedForIVQueueProcessEntry
+2025-03-30 18:22:46,255 - QueueExclusionSubProcessLog
+2025-03-30 18:22:46,255 - QueueLog
+2025-03-30 18:22:46,255 - ReferenceLog
+2025-03-30 18:22:46,255 - Roles
+2025-03-30 18:22:46,255 - SchedulinProviderProcessEntries
+2025-03-30 18:22:46,255 - ServerUpgradeStore
+2025-03-30 18:22:46,255 - StaffAvailabilityDeletedAdminHistory
+2025-03-30 18:22:46,255 - StaffPodMaster
+2025-03-30 18:22:46,255 - StaffPodMasterHistory
+2025-03-30 18:22:46,255 - StaffRampSchedule
+2025-03-30 18:22:46,255 - StaffRampScheduleHistory
+2025-03-30 18:22:46,255 - StaffTemplateConfig
+2025-03-30 18:22:46,255 - SubMarketAccessCorrelation
+2025-03-30 18:22:46,255 - SubscribedUsersFinalizedDetails
+2025-03-30 18:22:46,255 - TaskCleanupProcess
+2025-03-30 18:22:46,255 - TelemedicineNotificationLog
+2025-03-30 18:22:46,255 - TodayDate
+2025-03-30 18:22:46,255 - TwilioAppointmentReminderLog
+2025-03-30 18:22:46,255 - TwilioReceivedMessageLog
+2025-03-30 18:22:46,255 - TwilioSMSLog
+2025-03-30 18:22:46,255 - UpdateReviewedScreeningProcessEntries
+2025-03-30 18:22:46,255 - UserAuthorizationFailLog
+2025-03-30 18:22:46,255 - UsersUpdateScriptLog
+2025-03-30 18:22:46,255 - WithingsPatientInformation
+2025-03-30 18:22:46,255 - WithingsPatientSync
+2025-03-30 18:22:46,255 - ZipcodeMaster
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+2025-03-30 18:22:46,255 - Collections with at least one PHI field found
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2025-03-30 18:22:46,255 - AdminChartClosureErrorLogs
+2025-03-30 18:22:46,255 - allIndexes
+2025-03-30 18:22:46,255 - AppointmentPushNotificationProcessEntry
+2025-03-30 18:22:46,255 - Appointments
+2025-03-30 18:22:46,255 - AssessmentConfiguration
+2025-03-30 18:22:46,255 - AutoCancelMrrProcessEntries
+2025-03-30 18:22:46,255 - AutoMedicalRecordRequestEntries
+2025-03-30 18:22:46,255 - CancelAppointmentHistory
+2025-03-30 18:22:46,255 - cdc_c2p
+2025-03-30 18:22:46,255 - CompletedExceptionAppointments
+2025-03-30 18:22:46,255 - Container
+2025-03-30 18:22:46,255 - ContainerCoderQueryMissing
+2025-03-30 18:22:46,255 - DataProcessessUpdatesLog
+2025-03-30 18:22:46,255 - DeletedPatientChart
+2025-03-30 18:22:46,255 - DeletedPatientChartReviews
+2025-03-30 18:22:46,255 - DeleteSpecialist
+2025-03-30 18:22:46,255 - DirectEmailProcessEntries
+2025-03-30 18:22:46,255 - DiscardedChartReview
+2025-03-30 18:22:46,255 - DummyStaffAvailability
+2025-03-30 18:22:46,255 - DuplicateStaffAvailability
+2025-03-30 18:22:46,255 - EncounterFormsCarePlanInterventionMapper
+2025-03-30 18:22:46,255 - ExternalReferral
+2025-03-30 18:22:46,255 - ExternalReferralDeletedDraft
+2025-03-30 18:22:46,255 - ExternalReferralDeliveryMethod
+2025-03-30 18:22:46,255 - ExternalReferralDeliveryMethodValue
+2025-03-30 18:22:46,255 - ExternalReferralFax
+2025-03-30 18:22:46,255 - ExternalReferralQueue
+2025-03-30 18:22:46,255 - ExternalReferralSentTo
+2025-03-30 18:22:46,255 - FacilityMaster
+2025-03-30 18:22:46,255 - FaxTransactions
+2025-03-30 18:22:46,255 - GenerateMileageLogRefId
+2025-03-30 18:22:46,255 - GeoLocations
+2025-03-30 18:22:46,255 - HealthPlanMaster
+2025-03-30 18:22:46,255 - HealthPlanUsers
+2025-03-30 18:22:46,255 - HFANCQAAutoTaskAnnualProcessedEntries
+2025-03-30 18:22:46,255 - InitialSyncUser
+2025-03-30 18:22:46,255 - InsuranceCompanyDetails
+2025-03-30 18:22:46,255 - InsuranceCompanyDetailsHistory
+2025-03-30 18:22:46,255 - InsuranceCompanyDetailsInProgress
+2025-03-30 18:22:46,255 - InvalidApptData
+2025-03-30 18:22:46,255 - IsOptimizeCleanupHistory
+2025-03-30 18:22:46,255 - JivePhoneCallRecordsLog
+2025-03-30 18:22:46,255 - LandmarkFacilities
+2025-03-30 18:22:46,255 - LogMobileApp
+2025-03-30 18:22:46,255 - MarketFaxMappingMaster
+2025-03-30 18:22:46,255 - MarketMaster
+2025-03-30 18:22:46,255 - MarketMasterHistory
+2025-03-30 18:22:46,255 - MarketMasterInProgress
+2025-03-30 18:22:46,255 - Master
+2025-03-30 18:22:46,255 - MedicalRecordRequests
+2025-03-30 18:22:46,255 - MedicationMaster
+2025-03-30 18:22:46,256 - Messages
+2025-03-30 18:22:46,256 - MileageCorrections
+2025-03-30 18:22:46,256 - MileageLog
+2025-03-30 18:22:46,256 - MileageLogPushNotificationProcessEntries
+2025-03-30 18:22:46,256 - MobileAppRegistrationHistory
+2025-03-30 18:22:46,256 - MrrEfaxFollowupProcessEntries
+2025-03-30 18:22:46,256 - OfflineAppointments
+2025-03-30 18:22:46,256 - OfflineAppointmentsUserLogs
+2025-03-30 18:22:46,256 - OfflineUserIndex
+2025-03-30 18:22:46,256 - PalliativePathwayAuditLog
+2025-03-30 18:22:46,256 - PasswordExpiryProcessEntries
+2025-03-30 18:22:46,256 - PatientBeforeVoidedDousignCleanup
+2025-03-30 18:22:46,256 - PatientCarePan_StartDate
+2025-03-30 18:22:46,256 - PatientCarePlan
+2025-03-30 18:22:46,256 - PatientCarePlanHistory
+2025-03-30 18:22:46,256 - PatientCarePlanResetStartDate
+2025-03-30 18:22:46,256 - PatientChartReview
+2025-03-30 18:22:46,256 - PatientDeleteLog
+2025-03-30 18:22:46,256 - PatientHistory
+2025-03-30 18:22:46,256 - PatientInsuranceHistory
+2025-03-30 18:22:46,256 - PatientNotesHistory
+2025-03-30 18:22:46,256 - PatientOtherDetails
+2025-03-30 18:22:46,256 - PatientPanel
+2025-03-30 18:22:46,256 - PatientPanelMaster
+2025-03-30 18:22:46,256 - PatientPcpConfirmDirectEmailDetails
+2025-03-30 18:22:46,256 - PatientReportFaxQueue
+2025-03-30 18:22:46,256 - PatientReportFaxQueueHistory
+2025-03-30 18:22:46,256 - PatientRoiMrrDetails
+2025-03-30 18:22:46,256 - Patients
+2025-03-30 18:22:46,256 - Patients_Dat_Audio_Location_Reset
+2025-03-30 18:22:46,256 - PatientsMovedToLocalOutreach
+2025-03-30 18:22:46,256 - PCP
+2025-03-30 18:22:46,256 - PCPHistory
+2025-03-30 18:22:46,256 - PODUsers
+2025-03-30 18:22:46,256 - ProcessLogs
+2025-03-30 18:22:46,256 - ProviderAddressUpdateProcessEntries
+2025-03-30 18:22:46,256 - PushNotificationLog
+2025-03-30 18:22:46,256 - RampTargetProcessEntries
+2025-03-30 18:22:46,256 - ReEngagingClosedPatientsProcessEntries
+2025-03-30 18:22:46,256 - ReviewAuditLog
+2025-03-30 18:22:46,256 - SOSResponseLog
+2025-03-30 18:22:46,256 - SpecialistMaster
+2025-03-30 18:22:46,256 - StaffAdminTime
+2025-03-30 18:22:46,256 - StaffAvailability
+2025-03-30 18:22:46,256 - StaffAvailabilityHistory
+2025-03-30 18:22:46,256 - StaffAvailabilityMicroProcessLog
+2025-03-30 18:22:46,256 - StaffAvailabilityOverrideHistory
+2025-03-30 18:22:46,256 - StaffAvailabilityProcessLog
+2025-03-30 18:22:46,256 - StaffAvailabilityProcessUserEntry
+2025-03-30 18:22:46,256 - StaffAvailabilityProcessUserLog
+2025-03-30 18:22:46,256 - SubscribedInActiveUsersHistory
+2025-03-30 18:22:46,256 - SurescriptsProviderDirectory
+2025-03-30 18:22:46,256 - SyncAcknowlegment
+2025-03-30 18:22:46,256 - Tasks
+2025-03-30 18:22:46,256 - TelemedicineCallRequestResponseLog
+2025-03-30 18:22:46,256 - TelemedicineVideoCall
+2025-03-30 18:22:46,256 - TelemedicineVideoCallBadRequestLog
+2025-03-30 18:22:46,256 - UserDirectMessages
+2025-03-30 18:22:46,256 - UserLog
+2025-03-30 18:22:46,256 - Users
+2025-03-30 18:22:46,256 - UserSession
+2025-03-30 18:22:46,256 - UsersHistory
+2025-03-30 18:22:46,256 - UserSOS
+2025-03-30 18:22:46,256 - UsersStateLicenseInvalidLogs
+2025-03-30 18:22:46,258 - Script execution finished at 2025-03-30 18:22:46
+2025-03-30 18:22:46,258 - Total execution time: 0:24:58

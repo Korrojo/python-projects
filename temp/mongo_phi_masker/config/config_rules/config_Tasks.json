@@ -1,0 +1,44 @@
+{
+    "mongodb": {
+        "source": {
+            "uri": "${MONGO_SOURCE_URI}",
+            "database": "${MONGO_SOURCE_DB}",
+            "collection": "${MONGO_SOURCE_COLL}"
+        },
+        "destination": {
+            "uri": "${MONGO_DEST_URI}",
+            "database": "${MONGO_DEST_DB}",
+            "collection": "${MONGO_DEST_COLL}"
+        }
+    },
+    "processing": {
+        "masking_mode": "in-situ",
+        "batch_size": {
+            "initial": 3500,
+            "min": 1000,
+            "max": 5000
+        }
+    },
+    "masking": {
+        "rules_path": "config/masking_rules/tasks_rules.json",
+        "default_rules": "config/masking_rules/default.json"
+    },
+    "phi_collections": [
+        "Tasks"
+    ],
+    "validation": {
+        "enabled": true,
+        "max_retries": 3
+    },
+    "metrics": {
+        "enabled": true,
+        "interval": 10
+    },
+    "connection": {
+        "timeout_ms": 30000,
+        "retry_writes": true,
+        "retry_reads": true,
+        "max_pool_size": 100,
+        "min_pool_size": 10
+    }
+}

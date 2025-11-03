@@ -1,0 +1,14 @@
+Feature,PRODBBKP Cluster,PREPROD Cluster,PHI Cluster,PROD Cluster
+Selected Tier,M50,M50,M60,M400
+RAM,32 GB,32 GB,64 GB,512 GB
+Storage,128 GB,128 GB,128 GB,4000 GB
+vCPU,4 vCPUs,8 vCPUs,16 vCPUs,64 vCPUs
+Price,from $1.88/hr,from $2.32/hr,from $4.44/hr,from $42.63/hr
+Storage Configuration,4096 GB,4096 GB,2048 GB,4000 GB
+IOPS,6400 IOPS,7500 IOPS,7500 IOPS,2900000 IOPS
+Throughput,96 MB/s,192 MB/s,250 MB/s,16000 MB/s
+Max Connections,16000,16000,32000,128000
+Network Performance,High,High,Extremely High,Extremely High
+Selected Class,Low-CPU,General,General,Local NVMe SSD
+Min Cluster Size,R50,M50,M60,N/A
+Max Cluster Size,R60,M200,M80,N/A
