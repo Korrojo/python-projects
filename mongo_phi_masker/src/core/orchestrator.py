@@ -382,7 +382,7 @@ class MaskingOrchestrator:
         self.batch_size = self.config.get("batch_size", 100)
 
         # Create masking processor
-        self.masking_processor = MaskingProcessor(masking_rules=self.masking_rules, batch_size=self.batch_size)
+        self.masking_processor = MaskingProcessor(collection_rules=self.masking_rules, batch_size=self.batch_size)
 
         # Create batch masker
         self.batch_masker = BatchMasker(
