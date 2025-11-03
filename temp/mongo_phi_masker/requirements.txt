@@ -1,8 +1,8 @@
 # Production dependencies for MongoDB PHI Masker
 
 # MongoDB driver and DNS support
-pymongo==4.5.0
-dnspython==2.4.2
+pymongo==4.6.3
+dnspython==2.6.1
 
 # Configuration and environment
 python-dotenv==1.0.0
