@@ -4,14 +4,23 @@ Simple script to verify masking results for StaffAvailability collection.
 """
 
 import json
+import os
 import sys
 
+from dotenv import load_dotenv
 from pymongo import MongoClient
+
+# Load environment variables
+load_dotenv()
 
 
 def main():
-    # MongoDB connection string
-    mongo_uri = "mongodb+srv://dabebe:pdemes@Ubiquityproduction-pl-1.rgmqs.mongodb.net/test?authSource=admin&ssl=true"
+    # MongoDB connection string from environment variable
+    mongo_uri = os.getenv("MONGO_VERIFY_URI")
+    if not mongo_uri:
+        print("Error: MONGO_VERIFY_URI environment variable not set", file=sys.stderr)
+        print("Please set MONGO_VERIFY_URI in your .env file", file=sys.stderr)
+        return 1
 
     # Connect to MongoDB
     print("Connecting to MongoDB...")
