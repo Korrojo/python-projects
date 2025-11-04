@@ -9,10 +9,8 @@ try:
     import pandas as pd  # type: ignore[import-untyped]
     import seaborn as sns  # type: ignore[import-untyped]
 except ImportError as e:
-    raise ImportError(
-        "Visualization dependencies not installed. "
-        "Install them with: pip install matplotlib numpy pandas seaborn"
-    ) from e
+    msg = "Visualization dependencies not installed. " "Install them with: pip install matplotlib numpy pandas seaborn"
+    raise ImportError(msg) from e
 
 
 def load_metrics_data(metrics_dir):
