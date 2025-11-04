@@ -5,7 +5,7 @@ Focuses on 34 PHI fields identified in the Patients collection.
 
 Usage:
     # Generate 100 patients to JSON
-    python scripts/generate_test_patients.py --count 100 --output test_patients.json
+    python scripts/generate_test_patients.py --count 100 --output test-data/test_patients.json
 
     # Generate and load into MongoDB
     python scripts/generate_test_patients.py --count 1000 \\
@@ -123,10 +123,10 @@ class PatientDataGenerator:
     def generate_patient(self) -> dict[str, Any]:
         """Generate a single patient document with all 34 PHI fields."""
 
-        # Generate consistent name data
-        first_name = self.fake.first_name().upper()
-        middle_name = self.fake.first_name().upper()
-        last_name = self.fake.last_name().upper()
+        # Generate consistent name data (normal capitalization for realistic data)
+        first_name = self.fake.first_name()
+        middle_name = self.fake.first_name()
+        last_name = self.fake.last_name()
 
         # Generate address data (keep StateCode consistent with StateName)
         state_abbr = self.fake.state_abbr()
@@ -175,7 +175,7 @@ class PatientDataGenerator:
             },
             # Insurance nested object (3 fields)
             "Insurance": {
-                "PrimaryMemberName": self.fake.name().upper(),
+                "PrimaryMemberName": self.fake.name(),
                 "PrimaryMemberDOB": self.fake.date_of_birth(minimum_age=18, maximum_age=90).isoformat(),
                 "EmployerStreet": self.fake.street_address(),
             },
@@ -278,7 +278,7 @@ def main():
         epilog="""
 Examples:
   # Generate 100 patients to JSON file
-  python scripts/generate_test_patients.py --count 100 --output test_patients.json
+  python scripts/generate_test_patients.py --count 100 --output test-data/test_patients.json
 
   # Generate and load into LOCAL MongoDB
   python scripts/generate_test_patients.py --count 1000 \\
@@ -300,8 +300,8 @@ Examples:
     parser.add_argument(
         "--output",
         type=str,
-        default="test_patients.json",
-        help="Output JSON file path (default: test_patients.json)",
+        default="test-data/test_patients.json",
+        help="Output JSON file path (default: test-data/test_patients.json)",
     )
     parser.add_argument(
         "--seed",
