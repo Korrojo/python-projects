@@ -534,10 +534,4 @@ class MongoConnector:
         sanitized = re.sub(r"([^/]+:[^/]+@)", "***:***@", uri)
         return sanitized
 
-    def update_document(self, query, update):
-        """Update a document in the collection."""
-        if not self.collection:
-            raise Exception("Not connected to MongoDB")
-
-        result = self.collection.update_one(query, update)
-        return result
+    # Note: update_document method is defined earlier in the class with full functionality

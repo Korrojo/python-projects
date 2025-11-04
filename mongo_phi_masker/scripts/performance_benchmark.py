@@ -17,7 +17,10 @@ import time
 from collections.abc import Callable
 from typing import Any
 
-import matplotlib.pyplot as plt
+try:
+    import matplotlib.pyplot as plt  # type: ignore[import-untyped]
+except ImportError:
+    plt = None  # type: ignore[assignment]
 
 # Add project root to Python path
 script_dir = os.path.dirname(os.path.abspath(__file__))

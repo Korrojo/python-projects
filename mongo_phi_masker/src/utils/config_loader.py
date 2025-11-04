@@ -310,6 +310,50 @@ class ConfigLoader:
             if key not in dest:
                 raise ValueError(f"Missing required MongoDB destination key: {key}")
 
+    # Dict-like methods for compatibility
+    def get(self, key: str, default: Any = None) -> Any:
+        """Get a configuration value by key.
+
+        Args:
+            key: Configuration key
+            default: Default value if key not found
+
+        Returns:
+            Configuration value or default
+        """
+        if self.config is None:
+            return default
+        return self.config.get(key, default)
+
+    def __getitem__(self, key: str) -> Any:
+        """Get a configuration value by key using dict syntax.
+
+        Args:
+            key: Configuration key
+
+        Returns:
+            Configuration value
+
+        Raises:
+            KeyError: If key not found
+        """
+        if self.config is None:
+            raise KeyError(f"Configuration not loaded. Call load_config() first.")
+        return self.config[key]
+
+    def __contains__(self, key: str) -> bool:
+        """Check if a key exists in the configuration.
+
+        Args:
+            key: Configuration key
+
+        Returns:
+            True if key exists, False otherwise
+        """
+        if self.config is None:
+            return False
+        return key in self.config
+
 
 def generate_mongodb_uri(
     host,

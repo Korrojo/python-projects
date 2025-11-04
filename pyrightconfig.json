@@ -20,5 +20,15 @@
     "pythonPlatform": "Windows",
     "typeCheckingMode": "basic",
     "reportMissingImports": "none",
-    "reportMissingTypeStubs": false
+    "reportMissingTypeStubs": false,
+    "reportOptionalMemberAccess": "warning",
+    "reportOptionalSubscript": "warning",
+    "reportOptionalIterable": "warning",
+    "reportOptionalCall": "warning",
+    "reportAttributeAccessIssue": "warning",
+    "reportUnknownMemberType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportUnknownVariableType": "none",
+    "reportCallIssue": "warning",
+    "reportArgumentType": "warning"
 }
