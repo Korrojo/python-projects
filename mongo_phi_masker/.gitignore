@@ -53,3 +53,4 @@ checkpoint.json
 test_patients.json
 test_*.json
 sample_data.json
+.pytest_cache/

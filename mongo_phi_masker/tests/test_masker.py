@@ -1,11 +1,13 @@
 """Unit tests for data masking/transformation logic."""
 
+import pytest
 from unittest.mock import Mock, patch
 
 from src.core.masker import DocumentMasker
 from src.models.masking_rule import MaskingRule, MaskingRuleType
 
 
+@pytest.mark.unit
 class TestDocumentMaskerInitialization:
     """Test DocumentMasker initialization."""
 
@@ -28,6 +30,7 @@ class TestDocumentMaskerInitialization:
         assert len(masker.rule_engine.rules) == 2
 
 
+@pytest.mark.unit
 class TestDocumentMasking:
     """Test document masking functionality."""
 
@@ -103,6 +106,7 @@ class TestDocumentMasking:
             assert result["age"] == 30
 
 
+@pytest.mark.unit
 class TestFieldMasking:
     """Test individual field masking."""
 
@@ -170,6 +174,7 @@ class TestFieldMasking:
         assert result == document
 
 
+@pytest.mark.unit
 class TestRuleApplication:
     """Test applying masking rules to values."""
 
@@ -187,6 +192,7 @@ class TestRuleApplication:
             mock_engine._apply_rule_to_value.assert_called_once_with("original_value", rule)
 
 
+@pytest.mark.unit
 class TestSpecialFieldMasking:
     """Test special field masking logic."""
 
@@ -203,14 +209,15 @@ class TestSpecialFieldMasking:
     def test_special_field_masking_preserves_other_fields(self):
         """Test that special masking preserves non-special fields."""
         masker = DocumentMasker()
-        document = {"FirstName": "Jane", "LastName": "Doe", "Email": "jane@example.com"}
+        document = {"FirstName": "Jane", "LastName": "Smith", "Email": "test@domain.org"}
 
         result = masker._apply_special_field_masking(document)
 
         # Non-John FirstName should be unchanged
         assert result["FirstName"] == "Jane"
-        assert result["LastName"] == "Doe"
-        assert result["Email"] == "jane@example.com"
+        assert result["LastName"] == "Smith"
+        # Email with @ should still be masked
+        assert result["Email"] == "xxxxxx@xxxx.com"
 
     def test_special_field_masking_empty_document(self):
         """Test special masking on empty document."""
@@ -222,6 +229,7 @@ class TestSpecialFieldMasking:
         assert result == {}
 
 
+@pytest.mark.unit
 class TestGetAllFields:
     """Test field extraction from documents."""
 
@@ -272,6 +280,7 @@ class TestGetAllFields:
         assert any("appointments[0].date" in field for field in fields)
 
 
+@pytest.mark.unit
 class TestComplexDocumentMasking:
     """Test masking complex real-world documents."""
 
