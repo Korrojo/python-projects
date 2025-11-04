@@ -338,7 +338,7 @@ class ConfigLoader:
             KeyError: If key not found
         """
         if self.config is None:
-            raise KeyError(f"Configuration not loaded. Call load_config() first.")
+            raise KeyError("Configuration not loaded. Call load_config() first.")
         return self.config[key]
 
     def __contains__(self, key: str) -> bool:
