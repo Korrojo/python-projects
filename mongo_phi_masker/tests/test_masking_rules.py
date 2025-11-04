@@ -5,6 +5,7 @@ import pytest
 from src.models.masking_rule import MaskingRule, MaskingRuleType, RuleEngine
 
 
+@pytest.mark.unit
 class TestMaskingRuleType:
     """Test MaskingRuleType enum."""
 
@@ -40,6 +41,7 @@ class TestMaskingRuleType:
             MaskingRuleType("invalid_rule_type")
 
 
+@pytest.mark.unit
 class TestMaskingRule:
     """Test MaskingRule class."""
 
@@ -111,6 +113,7 @@ class TestMaskingRule:
         assert repr(rule) == str(rule)
 
 
+@pytest.mark.unit
 class TestRuleEngine:
     """Test RuleEngine class."""
 
@@ -226,6 +229,7 @@ class TestRuleEngine:
         assert any("appointments[0].doctor" in field for field in fields)
 
 
+@pytest.mark.unit
 class TestMaskingRuleValidation:
     """Test masking rule validation logic."""
 

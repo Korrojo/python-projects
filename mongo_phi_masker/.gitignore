@@ -48,3 +48,9 @@ masking_verification_results.log
 masking_verification_data.json
 verification_results.json
 checkpoint.json
+
+# Test data (generated)
+test_patients.json
+test_*.json
+sample_data.json
+.pytest_cache/

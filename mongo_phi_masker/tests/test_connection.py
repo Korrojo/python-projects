@@ -7,6 +7,8 @@ from unittest.mock import MagicMock, patch
 from src.core.connector import MongoConnector, ConnectionError
 
 
+@pytest.mark.unit
+@pytest.mark.unit
 class TestMongoConnectorInitialization:
     """Test MongoConnector initialization."""
 
@@ -60,6 +62,7 @@ class TestMongoConnectorInitialization:
         assert connector.auth_database == "admin"
 
 
+@pytest.mark.unit
 class TestMongoConnectorConnection:
     """Test MongoConnector connection methods."""
 
@@ -185,14 +188,15 @@ class TestMongoConnectorConnection:
         connector = MongoConnector(uri="mongodb://localhost:27017")
 
         # Mock a connected state
-        connector.client = MagicMock()
+        mock_client = MagicMock()
+        connector.client = mock_client
         connector.db = MagicMock()
         connector.coll = MagicMock()
 
         connector.disconnect()
 
         # Verify close was called and objects reset
-        connector.client.close.assert_called_once()
+        mock_client.close.assert_called_once()
         assert connector.client is None
         assert connector.db is None
         assert connector.coll is None
@@ -207,6 +211,7 @@ class TestMongoConnectorConnection:
         assert connector.client is None
 
 
+@pytest.mark.unit
 class TestMongoConnectorErrorHandling:
     """Test MongoDB connector error handling."""
 
@@ -262,6 +267,7 @@ class TestMongoConnectorErrorHandling:
         assert "Failed to connect to MongoDB" in str(exc_info.value)
 
 
+@pytest.mark.unit
 class TestMongoConnectorContextManager:
     """Test MongoDB connector as context manager (if implemented)."""
 
@@ -285,6 +291,7 @@ class TestMongoConnectorContextManager:
         assert connector.coll is None
 
 
+@pytest.mark.unit
 class TestConnectionErrorClass:
     """Test custom ConnectionError exception class."""
 
