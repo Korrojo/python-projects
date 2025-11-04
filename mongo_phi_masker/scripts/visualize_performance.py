@@ -3,10 +3,14 @@ import glob
 import os
 from datetime import datetime
 
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import seaborn as sns
+try:
+    import matplotlib.pyplot as plt  # type: ignore[import-untyped]
+    import numpy as np  # type: ignore[import-untyped]
+    import pandas as pd  # type: ignore[import-untyped]
+    import seaborn as sns  # type: ignore[import-untyped]
+except ImportError as e:
+    msg = "Visualization dependencies not installed. " "Install them with: pip install matplotlib numpy pandas seaborn"
+    raise ImportError(msg) from e
 
 
 def load_metrics_data(metrics_dir):
