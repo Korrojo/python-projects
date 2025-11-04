@@ -353,26 +353,77 @@ python run.py mask \
 1. **Checkpoint Management**: Use checkpoints for resumability
 1. **Environment Isolation**: Keep LOCAL, DEV, and PROD .env files separate
 
+## Generating Test Data
+
+The project includes a Faker-based test data generator that creates realistic patient documents with all 34 PHI fields.
+
+### Quick Start - Generate Test Patients
+
+```bash
+# Generate 100 test patients to JSON file
+python scripts/generate_test_patients.py --count 100 --output test_patients.json
+
+# Generate and load directly into LOCAL MongoDB
+python scripts/generate_test_patients.py \
+  --count 1000 \
+  --mongo-uri "mongodb://localhost:27017" \
+  --database local_test_db \
+  --collection Patients
+
+# Generate with custom seed for reproducibility
+python scripts/generate_test_patients.py --count 50 --seed 12345
+```
+
+### PHI Fields Included
+
+The generator creates documents with all 34 identified PHI fields:
+
+- **Personal**: FirstName, LastName, Email, Dob, Gender, MedicareId
+- **Contact**: PhoneNumber, HomePhoneNumber, WorkPhoneNumber, Fax numbers
+- **Address**: Street1, Street2, City, StateName, StateCode, Zip5
+- **Clinical**: Notes, Comments, FinalNotes, Reason fields
+
+See `docs/TEST_DATA_GENERATION_PROPOSAL.md` for complete field mappings.
+
+### Loading Generated Data
+
+```bash
+# Option 1: Generate directly to MongoDB
+python scripts/generate_test_patients.py \
+  --count 100 \
+  --mongo-uri "mongodb://localhost:27017" \
+  --database local_test_db \
+  --collection Patients
+
+# Option 2: Generate to JSON, then import
+python scripts/generate_test_patients.py --count 100 --output test_patients.json
+mongoimport --db local_test_db --collection Patients \
+  --file test_patients.json --jsonArray
+```
+
 ## Example Test Workflow
 
 ```bash
-# 1. Set up test data in LOCAL
-mongoimport --db local_test_db --collection Patients \
-  --file sample_data.json --jsonArray
+# 1. Generate realistic test data with all PHI fields
+python scripts/generate_test_patients.py --count 100 --output test_patients.json
 
-# 2. Test masking (small batch)
+# 2. Load into LOCAL MongoDB
+mongoimport --db local_test_db --collection Patients \
+  --file test_patients.json --jsonArray
+
+# 3. Test masking (small batch)
 python run.py mask \
   --config config/test/config_local_dev_test.json \
   --env .env.local-to-dev \
   --collection Patients
 
-# 3. Verify results in DEV
+# 4. Verify results in DEV
 python scripts/simple_verify.py
 
-# 4. Check masked data quality
+# 5. Check masked data quality
 python scripts/verify_masking.py
 
-# 5. Review logs
+# 6. Review logs
 cat logs/*/masking_*.log
 ```
 
