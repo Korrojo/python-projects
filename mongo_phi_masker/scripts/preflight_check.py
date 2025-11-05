@@ -75,25 +75,55 @@ class CheckCategory:
 class PreFlightChecker:
     """Comprehensive pre-flight validation system."""
 
-    def __init__(self, collection: str, env_file: str = ".env", verbose: bool = False, fix: bool = False):
+    def __init__(
+        self,
+        collection: str,
+        env_file: str = ".env",
+        verbose: bool = False,
+        fix: bool = False,
+        src_env: str | None = None,
+        dst_env: str | None = None,
+        src_db: str | None = None,
+        dst_db: str | None = None,
+    ):
         """Initialize the pre-flight checker.
 
         Args:
             collection: Collection name to validate
-            env_file: Path to environment file
+            env_file: Path to environment file (legacy mode)
             verbose: Enable verbose output
             fix: Attempt to fix issues automatically
+            src_env: Source environment preset (LOCL, DEV, STG, PROD, etc.)
+            dst_env: Destination environment preset
+            src_db: Optional source database override
+            dst_db: Optional destination database override
         """
         self.collection = collection
         self.env_file = Path(env_file)
         self.verbose = verbose
         self.fix = fix
 
+        # Environment preset mode
+        self.src_env = src_env
+        self.dst_env = dst_env
+        self.src_db = src_db
+        self.dst_db = dst_db
+        self.using_env_presets = bool(src_env and dst_env)
+
         self.logger = self._setup_logging()
         self.categories: list[CheckCategory] = []
 
         # Load environment variables
-        if self.env_file.exists():
+        if self.using_env_presets:
+            # Load from shared_config
+            try:
+                from src.utils.env_config import load_shared_config
+
+                load_shared_config()
+            except Exception as e:
+                self.logger.warning(f"Could not load shared_config: {e}")
+        elif self.env_file.exists():
+            # Legacy mode - load from specific .env file
             load_dotenv(self.env_file)
 
     def _setup_logging(self) -> logging.Logger:
@@ -116,13 +146,31 @@ class PreFlightChecker:
         self.logger.info("MongoDB PHI Masker - Pre-Flight Checks")
         self.logger.info("=" * 70)
         self.logger.info(f"Collection: {self.collection}")
-        self.logger.info(f"Environment File: {self.env_file}")
+
+        if self.using_env_presets:
+            self.logger.info(f"Source Environment: {self.src_env}")
+            self.logger.info(f"Destination Environment: {self.dst_env}")
+            if self.src_db:
+                self.logger.info(f"Source Database Override: {self.src_db}")
+            if self.dst_db:
+                self.logger.info(f"Destination Database Override: {self.dst_db}")
+        else:
+            self.logger.info(f"Environment File: {self.env_file}")
+
         self.logger.info("")
 
         # Run all check categories
         self.check_python_environment()
         self.check_config_files()
-        self.check_environment_variables()
+
+        # Check environment configuration (new or legacy mode)
+        if self.using_env_presets:
+            self.check_shared_config_environments(
+                self.src_env, self.dst_env, self.src_db, self.dst_db
+            )
+        else:
+            self.check_environment_variables()
+
         self.check_collection_definition()
         self.check_file_system_permissions()
         self.check_database_connectivity()
@@ -415,6 +463,110 @@ class PreFlightChecker:
                     passed=False,
                     message=f"Cannot construct URI: {str(e)}",
                     recommendation="Check MONGO_DEST_* environment variables",
+                    severity="error",
+                )
+            )
+
+        self.categories.append(category)
+
+    def check_shared_config_environments(self, src_env: str, dst_env: str, src_db: str | None = None, dst_db: str | None = None):
+        """Check shared_config environment presets.
+
+        Args:
+            src_env: Source environment (LOCL, DEV, STG, PROD, etc.)
+            dst_env: Destination environment
+            src_db: Optional source database override
+            dst_db: Optional destination database override
+        """
+        category = CheckCategory(name="Shared Config Environments")
+
+        # Import env_config utilities
+        try:
+            from src.utils.env_config import (
+                get_shared_config_path,
+                validate_env_config,
+                get_env_config,
+            )
+
+            # Check shared_config/.env exists
+            try:
+                shared_config_path = get_shared_config_path()
+                category.checks.append(
+                    CheckResult(
+                        name="Shared Config File",
+                        passed=True,
+                        message=str(shared_config_path),
+                        severity="info",
+                    )
+                )
+            except FileNotFoundError as e:
+                category.checks.append(
+                    CheckResult(
+                        name="Shared Config File",
+                        passed=False,
+                        message=str(e),
+                        recommendation="Ensure shared_config/.env exists at repository root",
+                        severity="error",
+                    )
+                )
+                self.categories.append(category)
+                return
+
+            # Validate source environment
+            src_valid, src_errors = validate_env_config(src_env)
+            if src_valid:
+                src_config = get_env_config(src_env, src_db)
+                category.checks.append(
+                    CheckResult(
+                        name=f"Source Environment: {src_env}",
+                        passed=True,
+                        message=f"URI: {src_config['uri']}, DB: {src_config['database']}",
+                        severity="info",
+                    )
+                )
+            else:
+                for error in src_errors:
+                    category.checks.append(
+                        CheckResult(
+                            name=f"Source Environment: {src_env}",
+                            passed=False,
+                            message=error,
+                            recommendation=f"Configure {src_env} environment in shared_config/.env",
+                            severity="error",
+                        )
+                    )
+
+            # Validate destination environment
+            dst_valid, dst_errors = validate_env_config(dst_env)
+            if dst_valid:
+                dst_config = get_env_config(dst_env, dst_db)
+                category.checks.append(
+                    CheckResult(
+                        name=f"Destination Environment: {dst_env}",
+                        passed=True,
+                        message=f"URI: {dst_config['uri']}, DB: {dst_config['database']}",
+                        severity="info",
+                    )
+                )
+            else:
+                for error in dst_errors:
+                    category.checks.append(
+                        CheckResult(
+                            name=f"Destination Environment: {dst_env}",
+                            passed=False,
+                            message=error,
+                            recommendation=f"Configure {dst_env} environment in shared_config/.env",
+                            severity="error",
+                        )
+                    )
+
+        except ImportError as e:
+            category.checks.append(
+                CheckResult(
+                    name="Environment Config Module",
+                    passed=False,
+                    message=f"Cannot import env_config: {str(e)}",
+                    recommendation="Ensure src/utils/env_config.py exists",
                     severity="error",
                 )
             )
@@ -773,12 +925,43 @@ class PreFlightChecker:
 def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(
-        description="Pre-flight validation for MongoDB PHI Masker", formatter_class=argparse.RawDescriptionHelpFormatter
+        description="Pre-flight validation for MongoDB PHI Masker",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Environment-based validation (recommended)
+  python scripts/preflight_check.py --collection Patients --src-env LOCL --dst-env DEV
+
+  # With database overrides
+  python scripts/preflight_check.py --collection Patients --src-env DEV --dst-env DEV --src-db devdb --dst-db devdb
+
+  # Legacy mode
+  python scripts/preflight_check.py --collection Patients --env .env
+        """,
     )
 
     parser.add_argument("--collection", required=True, help="Collection name to validate")
 
-    parser.add_argument("--env", default=".env", help="Path to environment file (default: .env)")
+    # Environment preset mode (new)
+    parser.add_argument(
+        "--src-env",
+        choices=["LOCL", "DEV", "STG", "TRNG", "PERF", "PRPRD", "PROD"],
+        help="Source environment (loads from shared_config/.env)",
+    )
+    parser.add_argument(
+        "--dst-env",
+        choices=["LOCL", "DEV", "STG", "TRNG", "PERF", "PRPRD", "PROD"],
+        help="Destination environment (loads from shared_config/.env)",
+    )
+    parser.add_argument(
+        "--src-db", help="Source database name override"
+    )
+    parser.add_argument(
+        "--dst-db", help="Destination database name override"
+    )
+
+    # Legacy mode
+    parser.add_argument("--env", default=".env", help="Path to environment file (legacy mode, default: .env)")
 
     parser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose output")
 
@@ -786,8 +969,25 @@ def main():
 
     args = parser.parse_args()
 
+    # Validate arguments
+    using_env_presets = args.src_env or args.dst_env
+
+    if using_env_presets:
+        if not args.src_env or not args.dst_env:
+            print("ERROR: Both --src-env and --dst-env are required when using environment presets")
+            sys.exit(1)
+
     # Run pre-flight checks
-    checker = PreFlightChecker(collection=args.collection, env_file=args.env, verbose=args.verbose, fix=args.fix)
+    checker = PreFlightChecker(
+        collection=args.collection,
+        env_file=args.env,
+        verbose=args.verbose,
+        fix=args.fix,
+        src_env=args.src_env,
+        dst_env=args.dst_env,
+        src_db=args.src_db,
+        dst_db=args.dst_db,
+    )
 
     success = checker.run_all_checks()
 
