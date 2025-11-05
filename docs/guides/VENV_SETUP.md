@@ -4,20 +4,20 @@ Automated scripts to create and activate Python virtual environments across diff
 
 ## Scripts Overview
 
-| Script | Platform | Purpose |
-|--------|----------|---------|
-| `install_venv.sh` | Linux/macOS/Windows (Git Bash) | Detects Python versions and creates venv |
-| `install_venv.ps1` | Windows (PowerShell) | PowerShell version of installer |
-| `activate_venv.sh` | Linux/macOS/Windows (Git Bash) | Smart venv activator |
+| Script             | Platform                       | Purpose                                  |
+| ------------------ | ------------------------------ | ---------------------------------------- |
+| `install_venv.sh`  | Linux/macOS/Windows (Git Bash) | Detects Python versions and creates venv |
+| `install_venv.ps1` | Windows (PowerShell)           | PowerShell version of installer          |
+| `activate_venv.sh` | Linux/macOS/Windows (Git Bash) | Smart venv activator                     |
 
 ## Features
 
-✅ **Auto-detects OS** - Works on Windows, macOS, and Linux  
-✅ **Finds all Python versions** - Scans system for installed Python  
-✅ **Interactive selection** - Choose your preferred Python version  
-✅ **Validates installation** - Confirms venv uses correct Python  
-✅ **Python 3.11 highlighting** - Recommends Python 3.11 (repository standard)  
-✅ **Safety checks** - Warns before overwriting existing venv  
+✅ **Auto-detects OS** - Works on Windows, macOS, and Linux\
+✅ **Finds all Python versions** - Scans system for installed Python\
+✅ **Interactive selection** - Choose your preferred Python version\
+✅ **Validates installation** - Confirms venv uses correct Python\
+✅ **Python 3.11 highlighting** - Recommends Python 3.11 (repository standard)\
+✅ **Safety checks** - Warns before overwriting existing venv\
 ✅ **Cross-platform** - Same workflow on all platforms
 
 ## Quick Start
@@ -55,11 +55,12 @@ pip install -e .\common_config
 ### install_venv.sh / install_venv.ps1
 
 **What it does:**
+
 1. Detects your operating system
-2. Searches for all installed Python versions
-3. Displays available versions with recommendations
-4. Creates virtual environment with selected version
-5. Verifies installation
+1. Searches for all installed Python versions
+1. Displays available versions with recommendations
+1. Creates virtual environment with selected version
+1. Verifies installation
 
 **Example output:**
 
@@ -99,6 +100,7 @@ Virtual environment created at: .venv311
 ```
 
 **Options:**
+
 - Interactive prompts guide you through selection
 - Default choice is always option 1
 - Warns if venv already exists
@@ -107,10 +109,11 @@ Virtual environment created at: .venv311
 ### activate_venv.sh
 
 **What it does:**
+
 1. Finds all virtual environments in current directory (`.venv*`)
-2. Detects Python version in each venv
-3. Activates selected venv
-4. Verifies activation
+1. Detects Python version in each venv
+1. Activates selected venv
+1. Verifies activation
 
 **Example output:**
 
@@ -126,6 +129,7 @@ To deactivate, run: deactivate
 ```
 
 **Important:** Must be run with `source`:
+
 ```bash
 source ./activate_venv.sh  # ✓ Correct
 ./activate_venv.sh          # ✗ Won't work - creates subshell
@@ -138,7 +142,8 @@ source ./activate_venv.sh  # ✓ Correct
 **Cause:** Python is not installed or not in PATH
 
 **Solution:**
-- **Windows:** Install from https://www.python.org/downloads/windows/
+
+- **Windows:** Install from <https://www.python.org/downloads/windows/>
   - ✓ Check "Add Python to PATH" during installation
   - Or use `py` launcher (comes with Python 3.3+)
 - **macOS:** `brew install python@3.11`
@@ -149,6 +154,7 @@ source ./activate_venv.sh  # ✓ Correct
 **Cause:** venv module not installed or insufficient permissions
 
 **Solution:**
+
 ```bash
 # Install venv module (if missing)
 # Debian/Ubuntu
@@ -163,6 +169,7 @@ ls -la  # Should have write access to current directory
 **Cause:** Python launcher redirecting to different version
 
 **Solution:**
+
 - Check `pyvenv.cfg` in venv directory to see actual Python
 - Recreate venv using direct path instead of `py` launcher
 - Example: Use `C:\Python311\python.exe` instead of `py -3.11`
@@ -172,6 +179,7 @@ ls -la  # Should have write access to current directory
 **Cause:** Not using `source` command
 
 **Solution:**
+
 ```bash
 source ./activate_venv.sh  # ✓ Correct
 ./activate_venv.sh          # ✗ Won't work
@@ -182,6 +190,7 @@ source ./activate_venv.sh  # ✓ Correct
 **Cause:** Script execution disabled
 
 **Solution:**
+
 ```powershell
 # Check current policy
 Get-ExecutionPolicy
@@ -197,14 +206,15 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 This repository **requires Python 3.11** for consistency:
 
-| Python Version | Status | Notes |
-|----------------|--------|-------|
-| 3.11.x | ✅ **RECOMMENDED** | Repository standard, all projects tested |
-| 3.10.x | ⚠️ May work | Not officially supported |
-| 3.12.x | ⚠️ May work | Some packages may have compatibility issues |
-| 3.14.x | ❌ **NOT SUPPORTED** | Breaking changes, package incompatibility |
+| Python Version | Status               | Notes                                       |
+| -------------- | -------------------- | ------------------------------------------- |
+| 3.11.x         | ✅ **RECOMMENDED**   | Repository standard, all projects tested    |
+| 3.10.x         | ⚠️ May work          | Not officially supported                    |
+| 3.12.x         | ⚠️ May work          | Some packages may have compatibility issues |
+| 3.14.x         | ❌ **NOT SUPPORTED** | Breaking changes, package incompatibility   |
 
 **Why Python 3.11?**
+
 - All documentation assumes 3.11
 - Dependencies tested with 3.11
 - CI/CD pipeline uses 3.11
@@ -237,6 +247,7 @@ pip install -e ./common_config
 If scripts don't work, create venv manually:
 
 **Git Bash / Linux / macOS:**
+
 ```bash
 # Using py launcher (Windows)
 py -3.11 -m venv .venv311
@@ -249,6 +260,7 @@ source .venv311/bin/activate
 ```
 
 **PowerShell:**
+
 ```powershell
 # Using py launcher
 py -3.11 -m venv .venv311

@@ -1,0 +1,11 @@
+2025-03-30 18:22:25,581 - Collection contains 11780 documents. Sampling 1000.
+2025-03-30 18:22:32,530 - 8/51 fields found.
+2025-03-30 18:22:32,530 - Found field 'Email' at path: Email
+2025-03-30 18:22:32,530 - Found field 'MiddleName' at path: MiddleName
+2025-03-30 18:22:32,530 - Found field 'City' at path: City
+2025-03-30 18:22:32,530 - Found field 'FirstName' at path: FirstName
+2025-03-30 18:22:32,530 - Found field 'LastName' at path: LastName
+2025-03-30 18:22:32,530 - Found field 'UserName' at path: UserName
+2025-03-30 18:22:32,530 - Found field 'Street2' at path: Street2
+2025-03-30 18:22:32,530 - Found field 'StateName' at path: StateSpecificDEA.StateName
+2025-03-30 18:22:32,683 - Field check completed for 'Users'.----------------------------

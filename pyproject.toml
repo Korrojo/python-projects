@@ -1,4 +1,4 @@
-# Black - Code formatter
+# Black - Python code formatter
 [tool.black]
 line-length = 120
 target-version = ['py311']
@@ -19,6 +19,11 @@ extend-exclude = '''
   | dist
 )/
 '''
+
+# mdformat - Markdown formatter (pure Python, like Black for markdown)
+[tool.mdformat]
+wrap = 120  # Max line length
+number = false  # Don't use numbered lists
 
 # Ruff - Fast Python linter
 [tool.ruff]
@@ -65,6 +70,7 @@ select = [
 ignore = [
     "E501",  # line too long (handled by black)
     "B008",  # do not perform function calls in argument defaults
+    "B904",  # raise from within except (style preference for typer.Exit)
     "W191",  # indentation contains tabs
     "E712",  # comparison to True/False (needed for pandas)
 ]

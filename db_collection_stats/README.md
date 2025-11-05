@@ -2,13 +2,15 @@
 
 **MongoDB collection statistics gathering and export tool**
 
-Gathers comprehensive statistics for all collections in a MongoDB database and exports them to CSV format with a console summary.
+Gathers comprehensive statistics for all collections in a MongoDB database and exports them to CSV format with a console
+summary.
 
----
+______________________________________________________________________
 
 ## What It Does
 
-This tool connects to a MongoDB database, gathers statistics for all collections (excluding system collections by default), and provides:
+This tool connects to a MongoDB database, gathers statistics for all collections (excluding system collections by
+default), and provides:
 
 - **CSV Export** - Timestamped CSV file with detailed collection statistics
 - **Console Summary** - Human-readable summary with totals and top 5 largest collections
@@ -17,6 +19,7 @@ This tool connects to a MongoDB database, gathers statistics for all collections
 ### Statistics Collected
 
 For each collection:
+
 - Collection name
 - Document count
 - Collection size (bytes)
@@ -25,7 +28,7 @@ For each collection:
 - Number of indexes
 - Total index size (bytes)
 
----
+______________________________________________________________________
 
 ## Prerequisites
 
@@ -34,7 +37,7 @@ For each collection:
 - Virtual environment activated (`.venv311/`)
 - `common_config` installed (`pip install -e ./common_config`)
 
----
+______________________________________________________________________
 
 ## Configuration
 
@@ -59,9 +62,11 @@ python -c "from common_config.config.settings import get_settings; s=get_setting
 
 ### 3. Multi-Environment Configuration
 
-You can configure multiple environments (DEV, PROD, STG, etc.) in your `.env` file and switch between them using the `--env` option:
+You can configure multiple environments (DEV, PROD, STG, etc.) in your `.env` file and switch between them using the
+`--env` option:
 
 **Setup in `.env`:**
+
 ```bash
 # Default environment
 APP_ENV=DEV
@@ -80,6 +85,7 @@ DATABASE_NAME_STG=staging_database
 ```
 
 **Switch environments from CLI:**
+
 ```bash
 # Use DEV environment (default from .env)
 python db_collection_stats/run.py coll-stats
@@ -92,16 +98,18 @@ python db_collection_stats/run.py index-stats --env STG
 ```
 
 **Priority order:**
+
 1. `--env` CLI option (highest priority)
-2. `APP_ENV` environment variable
-3. Default configuration in `.env`
+1. `APP_ENV` environment variable
+1. Default configuration in `.env`
 
 **Use cases:**
+
 - Quick analysis of different environments without changing `.env`
 - CI/CD pipelines with dynamic environment selection
 - Testing against multiple databases
 
----
+______________________________________________________________________
 
 ## Usage
 
@@ -135,11 +143,12 @@ python db_collection_stats/run.py coll-stats --help
 ```
 
 **What this does:**
+
 1. Connects to MongoDB
-2. Lists all collections (excludes system collections by default)
-3. Gathers statistics for each collection
-4. Prints summary to console
-5. Exports to timestamped CSV file (unless --no-csv)
+1. Lists all collections (excludes system collections by default)
+1. Gathers statistics for each collection
+1. Prints summary to console
+1. Exports to timestamped CSV file (unless --no-csv)
 
 ### Command: `index-stats`
 
@@ -179,19 +188,22 @@ python db_collection_stats/run.py index-stats --help
 ```
 
 **What this does:**
+
 1. Connects to MongoDB
-2. For each collection, lists all indexes
-3. Shows index names, key patterns, and usage statistics
-4. Highlights unused indexes (when --show-unused is used)
-5. Exports to timestamped CSV file (unless --no-csv)
-6. Helps identify indexes that could be removed
+1. For each collection, lists all indexes
+1. Shows index names, key patterns, and usage statistics
+1. Highlights unused indexes (when --show-unused is used)
+1. Exports to timestamped CSV file (unless --no-csv)
+1. Helps identify indexes that could be removed
 
 **Output:**
+
 - **Console:** Formatted display with index details
 - **CSV:** `YYYYMMDD_HHMMSS_index_stats_<database>.csv`
 - **Logs:** `YYYYMMDD_HHMMSS_app.log`
 
 **CSV Format:**
+
 ```csv
 collection_name,index_name,index_keys,usage_count,is_unused
 Patients,_id_,"_id: 1",1234567,No
@@ -211,6 +223,7 @@ python db_collection_stats/run.py --help
 ### Output
 
 **Console Summary:**
+
 ```
 ================================================================================
 Collection Statistics Summary for Database: UbiquityProduction
@@ -235,12 +248,15 @@ Users                              50,000    512.45 MB            3
 ```
 
 **CSV File:**
+
 ```
 data/output/db_collection_stats/20250127_143022_collection_stats_UbiquityProduction.csv
 ```
+
 **Note:** Timestamp comes first for chronological sorting.
 
 **CSV Format:**
+
 ```csv
 collection_name,document_count,collection_size_bytes,avg_document_size_bytes,storage_size_bytes,num_indexes,total_index_size_bytes
 Patients,500000,2150000000,430.00,2580000000,5,52000000
@@ -249,11 +265,12 @@ Appointments,300000,1840000000,613.33,2210000000,4,48000000
 ```
 
 **Logs:**
+
 ```
 logs/db_collection_stats/20250127_143022_app.log
 ```
 
----
+______________________________________________________________________
 
 ## Project Structure
 
@@ -295,6 +312,7 @@ This project uses a **CLI with subcommands** pattern, allowing multiple related 
 **CLI Framework:** Entry point for all commands
 
 **Commands:**
+
 - `coll-stats` - Gather collection statistics
 - `index-stats` - Analyze index usage
 
@@ -305,14 +323,17 @@ This project uses a **CLI with subcommands** pattern, allowing multiple related 
 #### `collector.py`
 
 **CollectionStats Dataclass:**
+
 - Type-safe storage for collection statistics
 - Provides `to_dict()` method for CSV export
 
 **Functions:**
+
 - `gather_collection_stats(db, collection_name)` - Gets stats for single collection
 - `gather_all_collections_stats(client, database_name, exclude_system=True)` - Gets stats for all collections
 
 **Usage Example:**
+
 ```python
 from common_config.connectors.mongodb import get_mongo_client
 from db_collection_stats.collector import gather_all_collections_stats
@@ -326,12 +347,14 @@ with get_mongo_client(mongodb_uri="...", database_name="...") as client:
 #### `exporter.py`
 
 **Functions:**
+
 - `export_to_csv(stats_list, output_dir, database_name)` - Exports collection stats to timestamped CSV
 - `export_index_stats_to_csv(index_data, output_dir, database_name)` - Exports index stats to timestamped CSV
 - `format_bytes(bytes_value)` - Human-readable byte formatting (KB, MB, GB, TB)
 - `print_summary(stats_list, database_name)` - Console summary with totals and top 5
 
 **Usage Example (Collection Stats):**
+
 ```python
 from pathlib import Path
 from db_collection_stats.exporter import export_to_csv, print_summary
@@ -346,6 +369,7 @@ print(f"Exported to: {csv_path}")
 ```
 
 **Usage Example (Index Stats):**
+
 ```python
 from pathlib import Path
 from db_collection_stats.exporter import export_index_stats_to_csv
@@ -368,7 +392,7 @@ csv_path = export_index_stats_to_csv(index_data, output_dir, "UbiquityProduction
 print(f"Exported to: {csv_path}")
 ```
 
----
+______________________________________________________________________
 
 ## Testing
 
@@ -380,6 +404,7 @@ pytest db_collection_stats/tests/ -v
 ```
 
 **Expected output:**
+
 ```
 db_collection_stats/tests/test_collector.py::TestCollectionStats::test_to_dict PASSED
 db_collection_stats/tests/test_collector.py::TestCollectionStats::test_to_dict_rounds_avg_size PASSED
@@ -390,6 +415,7 @@ db_collection_stats/tests/test_collector.py::TestCollectionStats::test_to_dict_r
 ### Test Coverage
 
 Tests cover:
+
 - ✅ CollectionStats dataclass (to_dict, rounding)
 - ✅ Single collection statistics gathering
 - ✅ All collections statistics gathering
@@ -414,7 +440,7 @@ pytest db_collection_stats/tests/test_exporter.py -v
 pytest db_collection_stats/tests/ --cov=db_collection_stats --cov-report=term-missing
 ```
 
----
+______________________________________________________________________
 
 ## Features
 
@@ -423,6 +449,7 @@ pytest db_collection_stats/tests/ --cov=db_collection_stats --cov-report=term-mi
 By default, excludes collections starting with `system.` (e.g., `system.indexes`, `system.profile`).
 
 **To include system collections:**
+
 ```python
 # In collector.py
 stats_list = gather_all_collections_stats(client, database_name, exclude_system=False)
@@ -437,6 +464,7 @@ stats_list = gather_all_collections_stats(client, database_name, exclude_system=
 ### Timestamped Outputs
 
 All outputs include timestamps (timestamp first for chronological sorting):
+
 - CSV: `YYYYMMDD_HHMMSS_collection_stats_<database>.csv`
 - Logs: `YYYYMMDD_HHMMSS_app.log`
 
@@ -445,18 +473,20 @@ All outputs include timestamps (timestamp first for chronological sorting):
 ### Human-Readable Formatting
 
 Console output uses:
+
 - Thousand separators for document counts (1,234,567)
 - Byte formatting (5.23 GB instead of 5230000000 bytes)
 - Sorted collections (alphabetically)
 - Top 5 largest collections highlighted
 
----
+______________________________________________________________________
 
 ## Common Use Cases
 
 ### 1. Database Health Check
 
 Quickly assess database size and distribution:
+
 ```bash
 python db_collection_stats/run.py coll-stats
 # Review console output for totals and top collections
@@ -465,6 +495,7 @@ python db_collection_stats/run.py coll-stats
 ### 2. Capacity Planning
 
 Export historical statistics for trend analysis:
+
 ```bash
 # Run weekly/monthly, keep CSV files
 python db_collection_stats/run.py coll-stats
@@ -474,6 +505,7 @@ python db_collection_stats/run.py coll-stats
 ### 3. Index Optimization
 
 Identify unused indexes that can be removed:
+
 ```bash
 # Find all unused indexes
 python db_collection_stats/run.py index-stats --show-unused
@@ -484,6 +516,7 @@ python db_collection_stats/run.py index-stats
 ```
 
 **Why this matters:**
+
 - Unused indexes waste storage space
 - Every index slows down write operations
 - Removing unused indexes improves performance
@@ -491,6 +524,7 @@ python db_collection_stats/run.py index-stats
 ### 4. Collection Index Overview
 
 Check total index count and size per collection:
+
 ```bash
 python db_collection_stats/run.py coll-stats
 # Check "Total Index Size" in console output
@@ -500,6 +534,7 @@ python db_collection_stats/run.py coll-stats
 ### 5. Development Monitoring
 
 Track collection growth during development:
+
 ```bash
 # Before making changes
 python db_collection_stats/run.py coll-stats
@@ -510,7 +545,7 @@ python db_collection_stats/run.py coll-stats
 # Compare CSV files
 ```
 
----
+______________________________________________________________________
 
 ## Development Notes
 
@@ -519,6 +554,7 @@ python db_collection_stats/run.py coll-stats
 To collect additional statistics:
 
 1. **Update CollectionStats dataclass** (collector.py):
+
 ```python
 @dataclass
 class CollectionStats:
@@ -527,6 +563,7 @@ class CollectionStats:
 ```
 
 2. **Update gather_collection_stats()** (collector.py):
+
 ```python
 return CollectionStats(
     # Existing fields...
@@ -535,6 +572,7 @@ return CollectionStats(
 ```
 
 3. **Update to_dict()** (collector.py):
+
 ```python
 def to_dict(self) -> dict:
     return {
@@ -544,6 +582,7 @@ def to_dict(self) -> dict:
 ```
 
 4. **Update CSV headers** (exporter.py):
+
 ```python
 headers = [
     # Existing headers...
@@ -556,11 +595,13 @@ headers = [
 ### MongoDB collStats Command
 
 This tool uses MongoDB's `collStats` command:
+
 ```javascript
 db.runCommand({ collStats: "collectionName" })
 ```
 
 **Available fields:**
+
 - `count` - Document count
 - `size` - Collection size in bytes
 - `avgObjSize` - Average document size
@@ -572,13 +613,14 @@ db.runCommand({ collStats: "collectionName" })
 
 See [MongoDB collStats documentation](https://www.mongodb.com/docs/manual/reference/command/collStats/) for more fields.
 
----
+______________________________________________________________________
 
 ## Troubleshooting
 
 ### "ModuleNotFoundError: No module named 'common_config'"
 
 **Solution:**
+
 ```bash
 pip install -e ./common_config
 ```
@@ -586,6 +628,7 @@ pip install -e ./common_config
 ### "ModuleNotFoundError: No module named 'db_collection_stats'"
 
 **Solution:** Run from repository root, not from project directory:
+
 ```bash
 # ❌ Wrong
 cd db_collection_stats
@@ -598,6 +641,7 @@ python db_collection_stats/run.py
 ### "MongoDB URI not found"
 
 **Solution:** Configure `shared_config/.env`:
+
 ```bash
 MONGODB_URI=mongodb://localhost:27017
 DATABASE_NAME=your_database
@@ -606,36 +650,37 @@ DATABASE_NAME=your_database
 ### Permission Denied for Some Collections
 
 **Behavior:** Tool prints warning and continues with other collections:
+
 ```
 Warning: Failed to gather stats for restricted_collection: Permission denied
 ```
 
 **Solution:** This is expected. Only collections with read permission are included.
 
----
+______________________________________________________________________
 
 ## Configuration Reference
 
 ### Environment Variables
 
-| Variable | Required | Description | Example |
-|----------|----------|-------------|---------|
-| `MONGODB_URI` | Yes | MongoDB connection string | `mongodb://localhost:27017` |
-| `DATABASE_NAME` | Yes | Database name to analyze | `UbiquityProduction` |
-| `APP_ENV` | No | Environment selector | `DEV`, `PROD`, etc. |
+| Variable        | Required | Description               | Example                     |
+| --------------- | -------- | ------------------------- | --------------------------- |
+| `MONGODB_URI`   | Yes      | MongoDB connection string | `mongodb://localhost:27017` |
+| `DATABASE_NAME` | Yes      | Database name to analyze  | `UbiquityProduction`        |
+| `APP_ENV`       | No       | Environment selector      | `DEV`, `PROD`, etc.         |
 
 ### Paths
 
 All paths are relative to repository root:
 
-| Type | Path | Description |
-|------|------|-------------|
-| **Input** | `data/input/db_collection_stats/` | (Not used by this tool) |
-| **Output** | `data/output/db_collection_stats/` | CSV files saved here |
-| **Logs** | `logs/db_collection_stats/` | Log files saved here |
-| **Temp** | `temp/` | Temporary files (if needed) |
+| Type       | Path                               | Description                 |
+| ---------- | ---------------------------------- | --------------------------- |
+| **Input**  | `data/input/db_collection_stats/`  | (Not used by this tool)     |
+| **Output** | `data/output/db_collection_stats/` | CSV files saved here        |
+| **Logs**   | `logs/db_collection_stats/`        | Log files saved here        |
+| **Temp**   | `temp/`                            | Temporary files (if needed) |
 
----
+______________________________________________________________________
 
 ## Related Documentation
 
@@ -644,13 +689,14 @@ All paths are relative to repository root:
 - **[NEW_PROJECT_GUIDE](../docs/guides/NEW_PROJECT_GUIDE.md)** - How this project was created
 - **[TESTING_GUIDE](../docs/guides/TESTING_GUIDE.md)** - Testing strategies
 
----
+______________________________________________________________________
 
 ## Changelog
 
 ### 2025-01-27 - Multi-Command Architecture + CSV Export
 
 **Added:**
+
 - CLI with subcommands architecture (cli.py)
 - New command: `index-stats` - Analyze index usage statistics with CSV export
 - CSV export for index statistics (`export_index_stats_to_csv()`)
@@ -658,40 +704,45 @@ All paths are relative to repository root:
 - Support for multiple use cases in single project
 
 **Changed:**
+
 - run.py now a thin wrapper calling cli.py
 - Original functionality moved to `coll-stats` command
 - Filename pattern: Timestamp first (YYYYMMDD_HHMMSS_description.ext)
 - Replaced `--mongodb-uri` and `--database` options with `--env` for environment switching
 
 **CSV Outputs:**
+
 - Collection stats: `YYYYMMDD_HHMMSS_collection_stats_<database>.csv`
 - Index stats: `YYYYMMDD_HHMMSS_index_stats_<database>.csv`
 
 **Migration:**
+
 - Old: `python run.py`
 - New: `python run.py coll-stats`
 
 ### 2025-01-27 - Initial Implementation
 
 **Created:**
+
 - Statistics gathering module (collector.py)
 - CSV export and console display (exporter.py)
 - Main entry point (run.py)
 - Comprehensive test suite (35 tests, 100% pass rate)
 
 **Features:**
+
 - Gathers 7 statistics per collection
 - CSV export with timestamps
 - Console summary with human-readable formatting
 - System collection filtering
 - Error handling for restricted collections
 
----
+______________________________________________________________________
 
 ## License
 
 See repository root for license information.
 
----
+______________________________________________________________________
 
 **Last Updated:** 2025-01-27

@@ -2,9 +2,10 @@
 
 **Purpose:** Quick reference for correct import paths and usage patterns when developing with common_config.
 
-**Why this document exists:** To prevent import errors and ensure developers use the correct API patterns consistently across all projects.
+**Why this document exists:** To prevent import errors and ensure developers use the correct API patterns consistently
+across all projects.
 
----
+______________________________________________________________________
 
 <details open>
 <summary><strong>📖 Table of Contents</strong> (click to expand/collapse)</summary>
@@ -52,16 +53,18 @@
 
 </details>
 
----
+______________________________________________________________________
 
 ## Configuration & Settings
 
 ### Import Path
+
 ```python
 from common_config.config.settings import get_settings, AppSettings
 ```
 
 ### Usage
+
 ```python
 settings = get_settings()
 
@@ -81,16 +84,18 @@ settings.ensure_dirs()
 ```
 
 ### Configuration Precedence
+
 1. OS environment variables (highest priority)
-2. `.env` in project root
-3. `config/.env` in project directory
-4. `shared_config/.env` (lowest priority)
+1. `.env` in project root
+1. `config/.env` in project directory
+1. `shared_config/.env` (lowest priority)
 
 ### Environment-Specific Variables
 
 **⭐ RECOMMENDED PATTERN:** Use environment suffixes for multi-environment support.
 
 #### Setup in `.env`
+
 ```bash
 # Default environment
 APP_ENV=DEV
@@ -113,10 +118,11 @@ DATABASE_NAME_STG=staging_database
 When `APP_ENV` is set, `common_config` automatically resolves environment-specific variables:
 
 1. **`APP_ENV=DEV`** → uses `MONGODB_URI_DEV` → sets `MONGODB_URI`
-2. **`APP_ENV=PROD`** → uses `MONGODB_URI_PROD` → sets `MONGODB_URI`
-3. **`APP_ENV=STG`** → uses `MONGODB_URI_STG` → sets `MONGODB_URI`
+1. **`APP_ENV=PROD`** → uses `MONGODB_URI_PROD` → sets `MONGODB_URI`
+1. **`APP_ENV=STG`** → uses `MONGODB_URI_STG` → sets `MONGODB_URI`
 
-Your code always uses the base variable names (`settings.mongodb_uri`), and the environment resolution happens automatically.
+Your code always uses the base variable names (`settings.mongodb_uri`), and the environment resolution happens
+automatically.
 
 #### CLI Integration Pattern
 
@@ -134,6 +140,7 @@ print(settings.mongodb_uri)  # Uses MONGODB_URI_PROD if env="PROD"
 ```
 
 **Complete example:**
+
 ```python
 import os
 import typer
@@ -158,6 +165,7 @@ def my_command(
 ```
 
 **Supported Variables with Environment Suffixes:**
+
 - `MONGODB_URI_{ENV}`
 - `DATABASE_NAME_{ENV}`
 - `COLLECTION_NAME_{ENV}`
@@ -169,18 +177,20 @@ def my_command(
 
 **See also:** [Standard CLI Patterns](../best-practices/CLI_PATTERNS.md)
 
----
+______________________________________________________________________
 
 ## Database Connectors
 
 ### MongoDB Connection
 
 #### Import Path
+
 ```python
 from common_config.connectors.mongodb import get_mongo_client, MongoDBConnector
 ```
 
 #### Usage Pattern 1: Context Manager (Recommended)
+
 ```python
 from common_config.connectors.mongodb import get_mongo_client
 
@@ -196,6 +206,7 @@ with get_mongo_client(
 ```
 
 #### Usage Pattern 2: MongoDBConnector Class
+
 ```python
 from common_config.connectors.mongodb import MongoDBConnector
 
@@ -208,6 +219,7 @@ with connector.connect() as client:
 ```
 
 #### Testing Connection
+
 ```python
 connector = MongoDBConnector(env="DEV")
 if connector.test_connection():
@@ -217,11 +229,13 @@ if connector.test_connection():
 ### Alternative: Simple MongoConnection Wrapper
 
 #### Import Path
+
 ```python
 from common_config.db.mongo import MongoConnection, ConnectionInfo
 ```
 
 #### Usage
+
 ```python
 conn = MongoConnection(uri="mongodb://localhost:27017", database_name="mydb")
 with conn as c:
@@ -233,16 +247,18 @@ info = conn.test_connection()
 print(f"Connected: {info.connected}, Server: {info.server_version}")
 ```
 
----
+______________________________________________________________________
 
 ## Logging
 
 ### Import Path
+
 ```python
 from common_config.utils.logger import get_logger, setup_logging, get_run_timestamp
 ```
 
 ### Usage
+
 ```python
 from pathlib import Path
 from common_config.utils.logger import setup_logging, get_logger
@@ -265,13 +281,14 @@ logger.warning("Warning message")
 run_id = get_run_timestamp()  # Returns: "20240115_143022"
 ```
 
----
+______________________________________________________________________
 
 ## Security Utilities
 
 **⚠️ CRITICAL:** Use these utilities to prevent credential exposure in logs.
 
 ### Import Path
+
 ```python
 from common_config.utils.security import (
     redact_uri,
@@ -304,6 +321,7 @@ logger.info(f"Connecting to: {redact_uri(settings.mongodb_uri)}")
 ```
 
 **Why this is critical:**
+
 - Prevents credentials in log files
 - Prevents credentials in CI/CD logs
 - Prevents credentials in error tracking systems
@@ -368,11 +386,12 @@ logger.info(f"MongoDB URI: {settings.mongodb_uri}")  # Exposes credentials!
 logger.info(f"Connecting to: {uri}")  # Exposes credentials!
 ```
 
----
+______________________________________________________________________
 
 ## File Operations
 
 ### Import Path
+
 ```python
 from common_config.utils.file_ops import (
     ensure_dir,
@@ -382,6 +401,7 @@ from common_config.utils.file_ops import (
 ```
 
 ### Usage
+
 ```python
 from pathlib import Path
 from common_config.utils.file_ops import ensure_dir, archive_file
@@ -393,7 +413,7 @@ output_dir = ensure_dir(Path("data/output/my_project"))
 archive_file(Path("data/output/report.csv"), archive_dir=Path("archive"))
 ```
 
----
+______________________________________________________________________
 
 ## Common Patterns
 
@@ -523,7 +543,7 @@ if __name__ == "__main__":
     main()
 ```
 
----
+______________________________________________________________________
 
 ## Quick Troubleshooting
 
@@ -532,15 +552,17 @@ if __name__ == "__main__":
 **Problem:** Python can't find the common_config package.
 
 **Solutions:**
+
 1. Ensure common_config is installed: `pip show common-config`
-2. If not installed: `pip install -e common_config`
-3. Check virtual environment is activated: `which python` (should show .venv311)
+1. If not installed: `pip install -e common_config`
+1. Check virtual environment is activated: `which python` (should show .venv311)
 
 ### Import Error: `No module named 'common_config.db.mongo_client'`
 
 **Problem:** Using old/incorrect import path.
 
 **Solution:** Use correct path:
+
 ```python
 # WRONG
 from common_config.db.mongo_client import get_mongo_client
@@ -554,12 +576,14 @@ from common_config.connectors.mongodb import get_mongo_client
 **Problem:** MongoDB configuration missing from .env files.
 
 **Solution:** Add to `shared_config/.env`:
+
 ```bash
 MONGODB_URI=mongodb://localhost:27017
 DATABASE_NAME=your_database_name
 ```
 
 Or use environment-specific variables:
+
 ```bash
 MONGODB_URI_DEV=mongodb://localhost:27017
 DATABASE_NAME_DEV=dev_database
@@ -568,18 +592,19 @@ MONGODB_URI_PROD=mongodb://production-server:27017
 DATABASE_NAME_PROD=prod_database
 ```
 
----
+______________________________________________________________________
 
 ## Version Information
 
 This reference is valid for common_config as of January 2025.
 
 If you encounter import errors:
-1. Check this reference first
-2. Inspect the actual common_config source code
-3. Update this document if you find discrepancies
 
----
+1. Check this reference first
+1. Inspect the actual common_config source code
+1. Update this document if you find discrepancies
+
+______________________________________________________________________
 
 ## See Also
 

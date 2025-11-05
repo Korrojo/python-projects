@@ -15,9 +15,11 @@ Built a tool to validate 2,127 appointment records from Athena CSV against Mongo
 ## 1. MongoDB Performance Optimization
 
 ### Problem: Slow Aggregation Queries
+
 **Initial State**: Processing 2,127 rows took ~50 minutes (2.3 minutes per 100 rows)
 
-**Root Cause**: 
+**Root Cause**:
+
 - Unwinding entire collection before filtering
 - No early-stage filters to reduce document processing
 - Nested arrays ($unwind twice) on full dataset
@@ -27,6 +29,7 @@ Built a tool to validate 2,127 appointment records from Athena CSV against Mongo
 #### ✅ **Lesson 1: Filter BEFORE Unwinding Nested Arrays**
 
 **Bad (Slow)**:
+
 ```javascript
 [
   { $unwind: "$Slots" },                    // Unwinds ALL documents
@@ -36,6 +39,7 @@ Built a tool to validate 2,127 appointment records from Athena CSV against Mongo
 ```
 
 **Good (Fast)**:
+
 ```javascript
 [
   { 
@@ -52,7 +56,7 @@ Built a tool to validate 2,127 appointment records from Athena CSV against Mongo
 
 **Impact**: Reduced documents to unwind by 50-90%, resulting in **4x performance improvement**
 
-**Key Principle**: 
+**Key Principle**:
 > Always add root-level filters before $unwind operations. Even if you can't filter on the nested field itself, filter on related root-level fields (dates, existence checks, status flags).
 
 ---
@@ -74,8 +78,9 @@ pipeline = [
 ```
 
 **Benefits**:
+
 - Reduces MongoDB documents scanned by 50-90% (if CSV spans weeks/months but DB has years)
-- Uses existing index on `AvailabilityDate` 
+- Uses existing index on `AvailabilityDate`
 - Automatic - no manual configuration needed
 - One-time CSV scan cost << savings from 20+ optimized queries
 
@@ -89,11 +94,13 @@ pipeline = [
 **Problem**: Many documents have empty nested arrays that still get processed during $unwind
 
 **Solution**: Add existence check for first element
+
 ```javascript
 { "Slots.Appointments.0": { $exists: true } }
 ```
 
-**Impact**: 
+**Impact**:
+
 - Skips documents with no appointments (20-40% reduction)
 - No index required - fast boolean check
 - Combined with date filter = massive reduction in documents processed
@@ -118,6 +125,7 @@ db.StaffAvailability.createIndex(
 ```
 
 **Why This Matters**:
+
 - MongoDB can use index AFTER $unwind operations
 - Without index: Full collection scan per batch query
 - With index: O(log n) lookup for each ID
@@ -131,12 +139,14 @@ db.StaffAvailability.createIndex(
 #### ✅ **Lesson 5: Batch Processing is Essential**
 
 **Anti-pattern**: One query per row
+
 ```python
 for row in rows:
     result = db.collection.aggregate([...])  # 2,127 queries!
 ```
 
 **Best Practice**: Batch queries using $in
+
 ```python
 for batch in chunks(rows, 100):
     ids = [row["id"] for row in batch]
@@ -145,7 +155,8 @@ for batch in chunks(rows, 100):
     ])
 ```
 
-**Impact**: 
+**Impact**:
+
 - Reduces total queries from 2,127 to ~22 (100x reduction)
 - Reduces network round-trips by 100x
 - Amortizes MongoDB query overhead
@@ -160,6 +171,7 @@ for batch in chunks(rows, 100):
 ### Problem: Confusing and Inaccurate Statistics
 
 **Initial Output**:
+
 ```
 AthenaAppointmentId found: 1585
 AthenaAppointmentId not found: 139
@@ -183,6 +195,7 @@ stats = {
 ```
 
 **Improved Output**:
+
 ```
 Rows with complete data: 1724
   ├─ AthenaAppointmentId found: 1581
@@ -205,6 +218,7 @@ Total mismatches: 267 (124 field mismatches + 143 not found)
 #### ✅ **Lesson 7: Always Include Math Verification**
 
 **Implementation**:
+
 ```python
 expected_total = matches + mismatches + missing_fields
 if expected_total == processed:
@@ -214,6 +228,7 @@ else:
 ```
 
 **Benefits**:
+
 - Catches logic bugs immediately
 - Builds user confidence in results
 - Documents assumptions clearly
@@ -226,6 +241,7 @@ else:
 #### ✅ **Lesson 8: Hierarchical Statistics Presentation**
 
 **Bad (Flat)**:
+
 ```
 Processed: 2127
 Found: 1585
@@ -233,9 +249,11 @@ Not found: 139
 Matches: 1461
 Mismatches: 263
 ```
+
 Hard to understand relationships between numbers.
 
 **Good (Tree)**:
+
 ```
 Rows with complete data: 1724
   ├─ AthenaAppointmentId found: 1581
@@ -267,11 +285,13 @@ if not result:
 ```
 
 **Benefits**:
+
 - Finds records even when IDs are missing/incorrect
 - Tracks which method worked (important for data quality)
 - Graceful degradation
 
 **Tracking**: Always log which matching method succeeded:
+
 ```python
 if primary_match:
     stats["primary_matches"] += 1
@@ -288,6 +308,7 @@ elif fallback_match:
 #### ✅ **Lesson 10: Handle Missing Fields Gracefully**
 
 **Don't crash on missing data**:
+
 ```python
 required_fields = ["id", "date", "time", "type"]
 missing = validate_required_fields(row, required_fields)
@@ -300,6 +321,7 @@ if missing:
 ```
 
 **Benefits**:
+
 - Process continues even with incomplete data
 - Clear reporting of data quality issues
 - Counts how many rows affected
@@ -323,6 +345,7 @@ row["Mismatched Fields"] = ", ".join(mismatched_fields)
 ```
 
 **Output**:
+
 ```csv
 AthenaAppointmentId,Total Match?,Mismatched Fields
 12345,False,VisitStartDateTime
@@ -330,6 +353,7 @@ AthenaAppointmentId,Total Match?,Mismatched Fields
 ```
 
 **Benefits**:
+
 - Identifies systematic issues (e.g., "VisitStartDateTime always mismatches")
 - Helps prioritize fixes
 - Useful for data reconciliation
@@ -344,6 +368,7 @@ AthenaAppointmentId,Total Match?,Mismatched Fields
 #### ✅ **Lesson 12: Separate Concerns into Focused Modules**
 
 **Good Structure**:
+
 ```
 src/
 ├── validator.py           # Orchestration only
@@ -354,6 +379,7 @@ src/
 ```
 
 **Benefits**:
+
 - Easy to test each component independently
 - Clear separation of database, business logic, I/O
 - Easy to swap implementations (e.g., different DB)
@@ -368,12 +394,14 @@ src/
 #### ✅ **Lesson 13: Configuration Over Hard-coding**
 
 **Bad**:
+
 ```python
 batch_size = 100  # Hard-coded
 case_sensitive = False  # Hard-coded
 ```
 
 **Good**:
+
 ```python
 @click.option("--batch-size", default=100, help="Records per batch")
 @click.option("--case-sensitive", is_flag=True, help="Case-sensitive comparison")
@@ -385,6 +413,7 @@ def main(batch_size, case_sensitive):
 ```
 
 **Benefits**:
+
 - Test different settings without code changes
 - Document options via CLI help
 - Easy to tune performance
@@ -397,6 +426,7 @@ def main(batch_size, case_sensitive):
 #### ✅ **Lesson 14: Logging Best Practices**
 
 **Essential logs**:
+
 ```python
 # At start: Configuration
 logger.info(f"Batch size: {batch_size}")
@@ -411,6 +441,7 @@ logger.info("Total mismatches: 267")
 ```
 
 **What to log**:
+
 - ✅ Configuration/settings at start
 - ✅ Progress updates (every N records)
 - ✅ Warnings for data issues
@@ -428,6 +459,7 @@ logger.info("Total mismatches: 267")
 #### ✅ **Lesson 15: Test with Representative Data Samples**
 
 **Strategy**: Test with progressively larger samples
+
 ```bash
 # Quick smoke test (seconds)
 python run.py --limit 10
@@ -440,6 +472,7 @@ python run.py  # All rows
 ```
 
 **Benefits**:
+
 - Catch issues fast with small samples
 - Validate performance with medium samples
 - Confidence before full run
@@ -452,11 +485,13 @@ python run.py  # All rows
 #### ✅ **Lesson 16: Output Files Should Be Idempotent**
 
 **Problem**: Re-running appends validation columns repeatedly
+
 ```csv
 id,name,match?,match?,match?  # Duplicates!
 ```
 
 **Solution**: Detect and remove existing validation columns
+
 ```python
 def remove_validation_columns(rows):
     """Remove validation columns from previous runs."""
@@ -475,11 +510,13 @@ def remove_validation_columns(rows):
 #### ✅ **Lesson 17: Use MongoDB explain() for Query Analysis**
 
 **Always check execution plans**:
+
 ```javascript
 db.collection.explain("executionStats").aggregate([...])
 ```
 
 **What to look for**:
+
 - ✅ `indexName` in winning plan (using index)
 - ❌ `COLLSCAN` (full collection scan - BAD)
 - Check `totalDocsExamined` (should be close to `nReturned`)
@@ -493,6 +530,7 @@ db.collection.explain("executionStats").aggregate([...])
 #### ✅ **Lesson 18: Log Execution Time for Each Stage**
 
 **Add timestamps to progress logs**:
+
 ```python
 start_time = time.time()
 # ... process batch ...
@@ -501,6 +539,7 @@ logger.info(f"Batch completed in {elapsed:.2f}s")
 ```
 
 **Benefits**:
+
 - Identify which batches are slow (data-dependent?)
 - Calculate remaining time estimates
 - Validate performance improvements
@@ -513,6 +552,7 @@ logger.info(f"Batch completed in {elapsed:.2f}s")
 ## 7. Common Pitfalls to Avoid
 
 ### ❌ **Pitfall 1: Assuming Index Usage**
+
 **Issue**: Just because an index exists doesn't mean it's used
 
 **Solution**: Always verify with explain()
@@ -520,6 +560,7 @@ logger.info(f"Batch completed in {elapsed:.2f}s")
 ---
 
 ### ❌ **Pitfall 2: Processing Records One-by-One**
+
 **Issue**: Network overhead dominates when making individual queries
 
 **Solution**: Always batch operations (50-500 records per query)
@@ -527,6 +568,7 @@ logger.info(f"Batch completed in {elapsed:.2f}s")
 ---
 
 ### ❌ **Pitfall 3: Not Tracking Failure Reasons**
+
 **Issue**: Generic "failed" messages don't help diagnosis
 
 **Solution**: Track different failure types separately with specific comments
@@ -534,6 +576,7 @@ logger.info(f"Batch completed in {elapsed:.2f}s")
 ---
 
 ### ❌ **Pitfall 4: Hard-coding Paths**
+
 **Issue**: Code breaks when run from different directories
 
 **Solution**: Use absolute paths calculated from project root
@@ -541,6 +584,7 @@ logger.info(f"Batch completed in {elapsed:.2f}s")
 ---
 
 ### ❌ **Pitfall 5: Ignoring Missing Data**
+
 **Issue**: Crashes or incorrect comparisons when fields missing
 
 **Solution**: Validate required fields first, handle missing gracefully
@@ -572,7 +616,7 @@ logger.info(f"Batch completed in {elapsed:.2f}s")
 
 ## 9. Recommendations for Future Projects
 
-### When Building Similar Validation Tools:
+### When Building Similar Validation Tools
 
 1. ✅ **Start with batch processing** - Never process one record at a time
 2. ✅ **Design statistics first** - Know what you want to report before coding
@@ -590,6 +634,7 @@ logger.info(f"Batch completed in {elapsed:.2f}s")
 ## 10. Quick Reference Commands
 
 ### Testing
+
 ```bash
 # Smoke test (10 rows)
 python -m appointment_comparison --input file.csv --env PROD --limit 10
@@ -602,6 +647,7 @@ python -m appointment_comparison --input file.csv --env PROD
 ```
 
 ### MongoDB Index Check
+
 ```javascript
 // Check if index exists
 db.StaffAvailability.getIndexes()
@@ -617,6 +663,7 @@ db.StaffAvailability.createIndex(
 ```
 
 ### Performance Analysis
+
 ```javascript
 // Count documents in date range
 db.StaffAvailability.countDocuments({

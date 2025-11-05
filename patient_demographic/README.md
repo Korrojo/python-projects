@@ -2,12 +2,13 @@
 
 ## Overview
 
-A production-ready Python system for updating patient demographic data in MongoDB from CSV files. The system handles CSV transformation, database updates, and cross-environment validation with comprehensive logging.
+A production-ready Python system for updating patient demographic data in MongoDB from CSV files. The system handles CSV
+transformation, database updates, and cross-environment validation with comprehensive logging.
 
 **Key Features:**
 
 - ✅ CSV-to-MongoDB transformation with automatic data type conversion
-- ✅ Safe database updates with metadata management  
+- ✅ Safe database updates with metadata management
 - ✅ Cross-environment validation (Production vs Training)
 - ✅ Comprehensive logging and audit trails
 - ✅ Support for multiple environments (Production, Training, Staging)
@@ -15,25 +16,27 @@ A production-ready Python system for updating patient demographic data in MongoD
 > Unified configuration (new)
 >
 > This project now supports the workspace-wide unified configuration via `common_config` and `shared_config/.env`.
-> - Prefer setting your Mongo URI and database in `../shared_config/.env` and selecting the environment using `APP_ENV` (e.g., `stg`, `prod`).
+>
+> - Prefer setting your Mongo URI and database in `../shared_config/.env` and selecting the environment using `APP_ENV`
+>   (e.g., `stg`, `prod`).
 > - Logging and data paths will use the shared folders from the repository root.
 > - The legacy `env/` files still work as a fallback during migration.
 
----
+______________________________________________________________________
 
 ## Table of Contents
 
 1. [Quick Start](#quick-start)
-2. [Project Structure](#project-structure)
-3. [Prerequisites](#prerequisites)
-4. [Installation](#installation)
-5. [Configuration](#configuration)
-6. [Usage](#usage)
-7. [Validation](#validation)
-8. [Troubleshooting](#troubleshooting)
-9. [Technical Details](#technical-details)
+1. [Project Structure](#project-structure)
+1. [Prerequisites](#prerequisites)
+1. [Installation](#installation)
+1. [Configuration](#configuration)
+1. [Usage](#usage)
+1. [Validation](#validation)
+1. [Troubleshooting](#troubleshooting)
+1. [Technical Details](#technical-details)
 
----
+______________________________________________________________________
 
 ## Quick Start
 
@@ -86,9 +89,10 @@ python src/core/update_mongodb_from_csv.py \
 python validate_prod_vs_training.py
 ```
 
-> Unified-only: This project now uses `shared_config/.env` via `common_config` exclusively; no per-project `env/` files or `--env` flags.
+> Unified-only: This project now uses `shared_config/.env` via `common_config` exclusively; no per-project `env/` files
+> or `--env` flags.
 
----
+______________________________________________________________________
 
 ## Project Structure
 
@@ -125,7 +129,7 @@ patient_demographic/
 └── validate_prod_vs_training.py      # Validation script
 ```
 
----
+______________________________________________________________________
 
 ## Prerequisites
 
@@ -143,7 +147,7 @@ pymongo==4.5.0
 python-dateutil
 ```
 
----
+______________________________________________________________________
 
 ## Installation
 
@@ -159,17 +163,19 @@ pip install -r requirements.txt
 python -c "import pandas, pymongo; print('All packages installed successfully!')"
 ```
 
----
+______________________________________________________________________
 
 ## Configuration
 
 This project now uses the unified configuration in `shared_config/.env` via `common_config`.
 
-- Set `APP_ENV` and provide suffixed keys like `MONGODB_URI_TRNG`, `DATABASE_NAME_TRNG`, `MONGODB_URI_PROD`, `DATABASE_NAME_PROD`, etc.
-- Directories are auto-created at startup: `logs/`, `data/input/`, `data/output/`, `archive/` under the repo’s shared root with a per-project subfolder (e.g., `logs/patient_demographic`).
+- Set `APP_ENV` and provide suffixed keys like `MONGODB_URI_TRNG`, `DATABASE_NAME_TRNG`, `MONGODB_URI_PROD`,
+  `DATABASE_NAME_PROD`, etc.
+- Directories are auto-created at startup: `logs/`, `data/input/`, `data/output/`, `archive/` under the repo’s shared
+  root with a per-project subfolder (e.g., `logs/patient_demographic`).
 - No per-project `.env` files are used anymore. See the root `README.md` for detailed examples.
 
----
+______________________________________________________________________
 
 ## Usage
 
@@ -259,7 +265,7 @@ python validate_prod_vs_training.py
 
 **Log File**: `logs/YYYYMMDD_HHMMSS_validation_prod_vs_training.log`
 
----
+______________________________________________________________________
 
 ## Validation
 
@@ -294,9 +300,9 @@ python validate_prod_vs_training.py
 
 ### Success Criteria
 
-✅ **100% Success Rate**: All sampled patients show changes  
-✅ **All Fields Updated**: Every expected field shows BEFORE → AFTER change  
-✅ **Metadata Valid**: Timestamps are recent, flags are set  
+✅ **100% Success Rate**: All sampled patients show changes\
+✅ **All Fields Updated**: Every expected field shows BEFORE → AFTER change\
+✅ **Metadata Valid**: Timestamps are recent, flags are set\
 ✅ **No Errors**: No patients missing from either collection
 
 ### Example Validation Output
@@ -321,7 +327,7 @@ PatientId 2812722: ✓ PASS
 ...
 ```
 
----
+______________________________________________________________________
 
 ## Troubleshooting
 
@@ -387,7 +393,7 @@ PatientId 2812722: ✓ PASS
 - Check metadata validation results
 - Verify success rate
 
----
+______________________________________________________________________
 
 ## Technical Details
 
@@ -477,7 +483,7 @@ pymongo==4.5.0         # MongoDB driver
 python-dateutil        # Date parsing utilities
 ```
 
----
+______________________________________________________________________
 
 ## Security & Best Practices
 
@@ -496,7 +502,7 @@ python-dateutil        # Date parsing utilities
 - ✅ Keep backups of important collections
 - ✅ Use staging environment for large-scale testing
 
----
+______________________________________________________________________
 
 ## Support & Maintenance
 
@@ -520,12 +526,12 @@ find logs/ -name "*.log" -mtime +30 -delete
 find data/output/ -name "*.csv" -mtime +30 -delete
 ```
 
----
+______________________________________________________________________
 
 ## Version History
 
-**Current Version**: 2.0  
-**Last Updated**: October 2, 2025  
+**Current Version**: 2.0\
+**Last Updated**: October 2, 2025\
 **Status**: Production-Ready
 
 ### Changelog
@@ -533,13 +539,13 @@ find data/output/ -name "*.csv" -mtime +30 -delete
 - **v2.0** (Oct 2025): Streamlined architecture, removed unused components
 - **v1.0** (Jul 2025): Initial production release
 
----
+______________________________________________________________________
 
 ## License
 
 Internal use only. Proprietary software.
 
----
+______________________________________________________________________
 
 ## Contact
 

@@ -1,0 +1,10 @@
+{
+    "rules": [
+      {"field": "PatientName", "rule": "random_uppercase_name", "params": null},
+      {"field": "City", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "VisitNotes", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "VisitAddress", "rule": "replace_string", "params": "xxxxxxxxxx"},
+      {"field": "Comments", "rule": "replace_string", "params": "xxxxxxxxxx"}
+
+    ]
+  }

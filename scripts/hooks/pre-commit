@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Git pre-commit hook: Prevent commits directly to main/master branches
+#
+# This hook enforces feature branch workflow by blocking commits to protected branches.
+# To bypass in emergencies: git commit --no-verify (NOT RECOMMENDED)
+#
+
+# Get current branch name
+BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+# Protected branches
+PROTECTED_BRANCHES="main master"
+
+# Check if current branch is protected
+for protected in $PROTECTED_BRANCHES; do
+    if [ "$BRANCH" = "$protected" ]; then
+        echo ""
+        echo "❌ ERROR: Direct commits to '$BRANCH' branch are not allowed!"
+        echo ""
+        echo "Please create a feature branch first:"
+        echo "  git checkout -b feature/your-feature-name"
+        echo ""
+        echo "Or for bug fixes:"
+        echo "  git checkout -b fix/bug-description"
+        echo ""
+        echo "See CONTRIBUTING.md for proper workflow."
+        echo ""
+        echo "To bypass this check (NOT RECOMMENDED): git commit --no-verify"
+        echo ""
+        exit 1
+    fi
+done
+
+# Allow commit on feature branches
+exit 0

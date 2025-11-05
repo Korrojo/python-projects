@@ -36,6 +36,7 @@ db.StaffAvailability.aggregate([
 ```
 
 **Expected Output:**
+
 ```json
 {
   "AthenaAppointmentId": "18821",
@@ -138,6 +139,7 @@ db.StaffAvailability.aggregate([
 ```
 
 **Note:** For the date comparison, you need to convert the CSV date (e.g., "11/17/25") to ISO format:
+
 - Input: `11/17/25`
 - Output: `ISODate("2025-11-17T00:00:00.000Z")` to `ISODate("2025-11-18T00:00:00.000Z")`
 
@@ -243,11 +245,14 @@ db.StaffAvailability.aggregate([
 ## Key Query Components Used in the Project
 
 ### 1. **$unwind Stages** (Required)
+
 The collection has nested arrays, so we need two `$unwind` operations:
+
 1. First `$unwind: "$Slots"` - Expands the Slots array
 2. Second `$unwind: "$Slots.Appointments"` - Expands the Appointments array within each Slot
 
 ### 2. **$match Stage** (Filtering)
+
 - **Primary Match**: `"Slots.Appointments.AthenaAppointmentId": { $in: [array_of_ids] }`
 - **Secondary Match**: Combination of 4 fields with operators:
   - `PatientRef`: Exact match (string)
@@ -256,7 +261,9 @@ The collection has nested arrays, so we need two `$unwind` operations:
   - `VisitStartDateTime`: Exact match (string in "HH:MM:SS" format)
 
 ### 3. **$project Stage** (Field Selection)
+
 Projects only the 5 fields needed for comparison:
+
 - `AthenaAppointmentId` (from nested path)
 - `PatientRef` (from nested path)
 - `VisitTypeValue` (from nested path)
@@ -264,6 +271,7 @@ Projects only the 5 fields needed for comparison:
 - `AvailabilityDate` (from root level)
 
 ### 4. **$limit Stage** (Performance)
+
 - Batch queries: No limit (returns all matches)
 - Secondary matching: `$limit: 1` (only first match needed)
 
@@ -271,7 +279,7 @@ Projects only the 5 fields needed for comparison:
 
 ## Comparison Rules Applied in Project
 
-### Field Comparison Logic:
+### Field Comparison Logic
 
 1. **PatientRef** (Number)
    - MongoDB: String like `"2565003"`
@@ -298,6 +306,7 @@ Projects only the 5 fields needed for comparison:
 ## How to Run These Queries
 
 ### Option 1: MongoDB Compass
+
 1. Open MongoDB Compass
 2. Connect to your database
 3. Select the `StaffAvailability` collection
@@ -306,12 +315,14 @@ Projects only the 5 fields needed for comparison:
 6. Click "Run"
 
 ### Option 2: MongoDB Shell (mongosh)
+
 ```javascript
 use UbiquityProduction
 // Paste the query here
 ```
 
 ### Option 3: Python with PyMongo
+
 ```python
 from pymongo import MongoClient
 
@@ -332,6 +343,7 @@ for doc in results:
 ## Performance Considerations
 
 1. **Indexes**: Consider creating compound indexes for better performance:
+
    ```javascript
    db.StaffAvailability.createIndex({"Slots.Appointments.AthenaAppointmentId": 1})
    db.StaffAvailability.createIndex({"AvailabilityDate": 1})
@@ -347,6 +359,7 @@ for doc in results:
 ## Example: Testing a Specific CSV Row
 
 To test row from CSV:
+
 ```
 AthenaAppointmentId: 18821
 PatientRef: 2565003
@@ -356,6 +369,7 @@ AvailabilityDate: 10/27/25
 ```
 
 Run this query:
+
 ```javascript
 db.StaffAvailability.aggregate([
   {
@@ -383,6 +397,7 @@ db.StaffAvailability.aggregate([
 ```
 
 **Expected Match:**
+
 - PatientRef: `"2565003"` ✅
 - VisitTypeValue: `"Palliative Prognosis Visit"` ✅ (case-insensitive)
 - AvailabilityDate: `ISODate("2025-10-27T00:00:00.000Z")` ✅ (date only)

@@ -12,7 +12,8 @@ The validation script was taking **~50 minutes** for 2,127 rows (2.3 minutes per
 
 **What**: Added `"Slots.Appointments.0": { $exists: true }` filter before `$unwind`
 
-**Impact**: 
+**Impact**:
+
 - Skips documents with no appointments entirely
 - Reduces documents to unwind by 20-40%
 - **Speed improvement**: 1.2-1.5x faster
@@ -29,17 +30,20 @@ match_filter: dict[str, Any] = {
 
 ### 2. ✅ Dynamic Date Range Calculation & Filtering
 
-**What**: 
+**What**:
+
 - Automatically calculates min/max dates from CSV data
 - Adds date range filter to MongoDB query before `$unwind`
 - Uses existing `AvailabilityDate` index
 
 **Impact**:
+
 - Filters out 50-90% of documents before expensive unwind operations
 - Uses indexed field for fast filtering
 - **Speed improvement**: 2-5x faster
 
-**Code Location**: 
+**Code Location**:
+
 - `validator.py` lines ~138-162 (calculation)
 - `mongo_matcher.py` lines ~123-128 (application)
 
@@ -63,6 +67,7 @@ if self.min_date and self.max_date:
 **What**: The `Slots.Appointments.AthenaAppointmentId` index is already created
 
 **Impact**:
+
 - Enables fast lookup by AthenaAppointmentId after unwinding
 - Without index: Full collection scan per batch
 - With index: O(log n) lookup
@@ -75,6 +80,7 @@ if self.min_date and self.max_date:
 **What**: Processes 100 rows per MongoDB query instead of 1 row at a time
 
 **Impact**:
+
 - Reduces total queries from 2,127 to ~22
 - Network round-trip reduction
 - **Speed improvement**: 50-100x faster vs per-row queries
@@ -85,19 +91,22 @@ if self.min_date and self.max_date:
 
 ## Performance Comparison
 
-### Before All Optimizations:
+### Before All Optimizations
+
 - **Estimated Time**: 4-6 hours
 - **Queries**: 2,127 individual queries
 - **Documents Scanned**: Entire collection per query
 - **Network Round-trips**: 2,127
 
-### After Index Only:
+### After Index Only
+
 - **Estimated Time**: ~50 minutes (observed)
 - **Queries**: ~22 batch queries
 - **Documents Scanned**: Entire collection unwound per batch
 - **Network Round-trips**: ~22
 
-### After All Optimizations:
+### After All Optimizations
+
 - **Estimated Time**: 3-10 minutes ✅
 - **Queries**: ~22 batch queries
 - **Documents Scanned**: Only 10-50% of collection (date-filtered + appointments check)
@@ -108,14 +117,16 @@ if self.min_date and self.max_date:
 
 ## Performance Metrics
 
-### Previous Performance (from log):
+### Previous Performance (from log)
+
 ```
 100 rows: 2m 20s (140 seconds)
 200 rows: 4m 36s (276 seconds)
 Estimated 2,127 rows: ~50 minutes
 ```
 
-### Expected Performance (After Optimizations):
+### Expected Performance (After Optimizations)
+
 ```
 100 rows: 15-30 seconds (4-9x faster)
 200 rows: 30-60 seconds (4-8x faster)
@@ -126,7 +137,8 @@ Estimated 2,127 rows: 3-10 minutes (5-15x faster)
 
 ## Query Pipeline Before vs After
 
-### BEFORE (Slow):
+### BEFORE (Slow)
+
 ```javascript
 [
   { $unwind: "$Slots" },                    // Unwind ALL slots
@@ -139,11 +151,13 @@ Estimated 2,127 rows: 3-10 minutes (5-15x faster)
   { $project: { ... } }
 ]
 ```
+
 **Problem**: Unwinding ALL documents in collection before filtering
 
 ---
 
-### AFTER (Fast):
+### AFTER (Fast)
+
 ```javascript
 [
   // OPTIMIZATION: Filter FIRST
@@ -166,6 +180,7 @@ Estimated 2,127 rows: 3-10 minutes (5-15x faster)
   { $project: { ... } }
 ]
 ```
+
 **Benefit**: Only unwinds 10-50% of documents
 
 ---
@@ -173,15 +188,18 @@ Estimated 2,127 rows: 3-10 minutes (5-15x faster)
 ## Why This is Fast
 
 ### 1. **Index Usage**
+
 - `AvailabilityDate` index exists → Fast date range filter
 - `Slots.Appointments.AthenaAppointmentId` index exists → Fast ID lookup
 
 ### 2. **Early Filtering**
+
 - Date range filter: Reduces docs by 50-90%
 - Appointments existence check: Reduces docs by 20-40%
 - Combined: Only 5-40% of docs get unwound
 
 ### 3. **Compound Effect**
+
 ```
 Original:  100,000 docs * 2 unwinds = 200,000 operations
 Optimized: 10,000 docs * 2 unwinds = 20,000 operations
@@ -192,7 +210,8 @@ Reduction: 90% fewer operations!
 
 ## Monitoring Performance
 
-### Check Query Execution Plan:
+### Check Query Execution Plan
+
 ```javascript
 db.StaffAvailability.explain("executionStats").aggregate([
   {
@@ -214,7 +233,8 @@ db.StaffAvailability.explain("executionStats").aggregate([
 ])
 ```
 
-### Look for:
+### Look for
+
 - ✅ `indexName: "AvailabilityDate"` in winning plan
 - ✅ `indexName: "IX_Appointments_AthenaAppointmentId"` for ID lookup
 - ✅ Low `totalDocsExamined` (should be 10-40% of collection)
@@ -225,21 +245,27 @@ db.StaffAvailability.explain("executionStats").aggregate([
 ## Additional Optimizations (Optional)
 
 ### 1. Increase Batch Size (if memory allows)
+
 ```bash
 python run.py --input file.csv --env PROD --batch-size 200
 ```
+
 **Pros**: Fewer queries
 **Cons**: More memory per query
 
 ### 2. Parallel Processing (Future Enhancement)
+
 Process multiple batches in parallel using threading/multiprocessing
 **Speed improvement**: 2-4x faster
 
 ### 3. IsActive Filter (Use with Caution)
+
 Only if CSV contains only active appointments:
+
 ```python
 match_filter["IsActive"] = True
 ```
+
 **Pros**: Filters inactive records
 **Cons**: May miss valid data if CSV has inactive appointments
 
@@ -256,7 +282,8 @@ cd f:/ubiquityMongo_phiMasking/python/appointment_comparison
 python run.py --input Daily_Appointment_Comparison_input1_20251023_cleaned.csv --env PROD --limit 100
 ```
 
-**Expected Result**: 
+**Expected Result**:
+
 - Should complete in **15-30 seconds** (vs 2m 20s before)
 - Log should show: `"Date range filter: 2025-10-23 to 2026-01-17"`
 

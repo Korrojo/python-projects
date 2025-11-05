@@ -1,0 +1,9 @@
+        "ExternalReferral",
+        "MedicalRecordRequests",
+        "Messages",
+        "PatientCarePlan",
+        "PatientPanel",
+        "StaffAvailability",
+        "StaffAvailabilityHistory",
+        "Tasks"
+    

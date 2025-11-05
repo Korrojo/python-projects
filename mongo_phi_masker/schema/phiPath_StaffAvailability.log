@@ -1,0 +1,9 @@
+2025-03-30 18:12:49,950 - Starting field check in collection: StaffAvailability
+2025-03-30 18:13:34,169 - Collection contains 3759508 documents. Sampling 1000.
+2025-03-30 18:13:34,454 - 5/51 fields found.
+2025-03-30 18:13:34,455 - Found field 'PatientName' at path: Slots.Appointments.PatientName
+2025-03-30 18:13:34,455 - Found field 'City' at path: Slots.Appointments.City
+2025-03-30 18:13:34,455 - Found field 'VisitNotes' at path: Slots.Appointments.VisitNotes
+2025-03-30 18:13:34,455 - Found field 'VisitAddress' at path: Slots.Appointments.VisitAddress
+2025-03-30 18:13:34,455 - Found field 'Comments' at path: Slots.Appointments.Comments
+2025-03-30 18:13:34,473 - Field check completed for 'StaffAvailability'.----------------------------

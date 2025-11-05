@@ -2,7 +2,9 @@
 
 ## Overview
 
-A Python utility for updating MongoDB Users collection with Athena provider information from CSV files. The system creates a backup collection, matches users by name, and updates provider-specific fields with comprehensive logging and validation.
+A Python utility for updating MongoDB Users collection with Athena provider information from CSV files. The system
+creates a backup collection, matches users by name, and updates provider-specific fields with comprehensive logging and
+validation.
 
 **Key Features:**
 
@@ -16,25 +18,27 @@ A Python utility for updating MongoDB Users collection with Athena provider info
 Unified configuration only
 
 This project now uses the workspace-wide unified configuration via `common_config` and `shared_config/.env` exclusively.
-- Set `APP_ENV` and environment-suffixed variables in `../shared_config/.env` (e.g., `MONGODB_URI_TRNG`, `DATABASE_NAME_TRNG`).
+
+- Set `APP_ENV` and environment-suffixed variables in `../shared_config/.env` (e.g., `MONGODB_URI_TRNG`,
+  `DATABASE_NAME_TRNG`).
 - Logs are written under `logs/users-provider-update/` and directories are auto-created at startup.
 - Place inputs under `data/input/users-provider-update/` and outputs under `data/output/users-provider-update/`.
 
----
+______________________________________________________________________
 
 ## Table of Contents
 
 1. [Quick Start](#quick-start)
-2. [Project Structure](#project-structure)
-3. [Prerequisites](#prerequisites)
-4. [Installation](#installation)
-5. [Configuration](#configuration)
-6. [Usage](#usage)
-7. [Validation](#validation)
-8. [Processing Rules](#processing-rules)
-9. [Troubleshooting](#troubleshooting)
+1. [Project Structure](#project-structure)
+1. [Prerequisites](#prerequisites)
+1. [Installation](#installation)
+1. [Configuration](#configuration)
+1. [Usage](#usage)
+1. [Validation](#validation)
+1. [Processing Rules](#processing-rules)
+1. [Troubleshooting](#troubleshooting)
 
----
+______________________________________________________________________
 
 ## Quick Start
 
@@ -62,7 +66,7 @@ python validate_users_update.py --csv "data/input/users-provider-update/provider
 
 > Note: Project-local `env/` files and `--env` flags are no longer supported.
 
----
+______________________________________________________________________
 
 ## Project Structure
 
@@ -92,7 +96,7 @@ users-provider-update/
 └── validate_users_update.py          # Validation script
 ```
 
----
+______________________________________________________________________
 
 ## Prerequisites
 
@@ -109,7 +113,7 @@ pandas==2.0.3
 pymongo==4.5.0
 ```
 
----
+______________________________________________________________________
 
 ## Installation
 
@@ -125,15 +129,16 @@ pip install -r requirements.txt
 python -c "import pandas, pymongo; print('All packages installed successfully!')"
 ```
 
----
+______________________________________________________________________
 
 ## Configuration
 
 This project uses the shared `shared_config/.env` only. Set:
+
 - `APP_ENV` and suffixed variables like `MONGODB_URI_PROD`, `DATABASE_NAME_PROD` (and TRNG/STG as needed)
 - Optional per-project overrides via common_config settings (e.g., collection names) if supported
 
----
+______________________________________________________________________
 
 ## Usage
 
@@ -142,7 +147,7 @@ This project uses the shared `shared_config/.env` only. Set:
 Place your CSV file in `data/input/users-provider-update/`. Required columns:
 
 | Column      | Purpose              | Example      | Notes                                |
-|-------------|----------------------|--------------|--------------------------------------|
+| ----------- | -------------------- | ------------ | ------------------------------------ |
 | `ID`        | Athena Provider ID   | `34`         | Maps to `AthenaProviderId` (integer) |
 | `First`     | First Name           | `MANDY`      | Used for matching (case-insensitive) |
 | `Last`      | Last Name            | `HEATON`     | Used for matching (case-insensitive) |
@@ -159,18 +164,18 @@ python src/core/update_users_from_csv.py \
 **What This Does:**
 
 1. ✅ Connects to MongoDB using credentials from `shared_config/.env` (via common_config)
-2. ✅ Creates backup collection (`Users` → `AD_Users_20250910`)
-3. ✅ Reads and validates CSV data
-4. ✅ Matches users by FirstName/LastName (case-insensitive, IsActive: true)
-5. ✅ Updates matched users with Athena information
-6. ✅ Logs all operations to `logs/` directory
+1. ✅ Creates backup collection (`Users` → `AD_Users_20250910`)
+1. ✅ Reads and validates CSV data
+1. ✅ Matches users by FirstName/LastName (case-insensitive, IsActive: true)
+1. ✅ Updates matched users with Athena information
+1. ✅ Logs all operations to `logs/` directory
 
-**Output**: 
+**Output**:
 
 - Updated MongoDB collection
 - Log file: `logs/users-provider-update/YYYYMMDD_HHMMSS_update_users_from_csv.log`
 
----
+______________________________________________________________________
 
 ## Validation
 
@@ -217,26 +222,26 @@ Match rate              : 89.6%
 ================================================================================
 ```
 
----
+______________________________________________________________________
 
 ## Processing Rules
 
 ### Matching & Update Logic
 
 1. **Active Users Only**: Only users with `IsActive: true` are considered
-2. **Case-Insensitive Matching**: Users matched by FirstName/LastName (case-insensitive, trimmed)
-3. **Strict Duplicate Handling**: If multiple active users found, **ALL are skipped** (no updates)
-4. **AthenaProviderId Check**: If user already has `AthenaProviderId`, update is skipped
-5. **Three Field Update**: Updates `AthenaProviderId`, `AthenaUserName`, `NPI`
-6. **Continue on Error**: Errors logged, processing continues for all records
+1. **Case-Insensitive Matching**: Users matched by FirstName/LastName (case-insensitive, trimmed)
+1. **Strict Duplicate Handling**: If multiple active users found, **ALL are skipped** (no updates)
+1. **AthenaProviderId Check**: If user already has `AthenaProviderId`, update is skipped
+1. **Three Field Update**: Updates `AthenaProviderId`, `AthenaUserName`, `NPI`
+1. **Continue on Error**: Errors logged, processing continues for all records
 
 ### Order of Checks
 
 1. Validate CSV row (required fields, correct types)
-2. Find active users by name (case-insensitive)
-3. If no users found → Log and skip
-4. If multiple users found → Log all user IDs and skip (strict duplicate rule)
-5. If single user found:
+1. Find active users by name (case-insensitive)
+1. If no users found → Log and skip
+1. If multiple users found → Log all user IDs and skip (strict duplicate rule)
+1. If single user found:
    - If `AthenaProviderId` exists → Log and skip
    - Else → Update user with Athena fields
 
@@ -248,7 +253,7 @@ Match rate              : 89.6%
 2025-10-02T14:15:36.789Z - Successfully updated user AMBER ARNOLD (ID: 507f1f77bcf86cd799439011).
 ```
 
----
+______________________________________________________________________
 
 ## Troubleshooting
 
@@ -308,7 +313,7 @@ pip install -r requirements.txt
 - Check for mismatches
 - Identify missing users
 
----
+______________________________________________________________________
 
 ## Workflow Steps
 
@@ -362,7 +367,7 @@ ls -lt logs/users-provider-update/*_validation_users_update.log | head -1
 - Rename original `Users` to `Users_bkp_{timestamp}`
 - Rename backup collection (`AD_Users_20250910`) to `Users`
 
----
+______________________________________________________________________
 
 ## Dependencies
 
@@ -371,7 +376,7 @@ pandas==2.0.3          # CSV processing and data manipulation
 pymongo==4.5.0         # MongoDB driver
 ```
 
----
+______________________________________________________________________
 
 ## Security & Best Practices
 
@@ -390,12 +395,12 @@ pymongo==4.5.0         # MongoDB driver
 - ✅ Review logs before and after updates
 - ✅ Keep backups of important collections
 
----
+______________________________________________________________________
 
 ## Version History
 
-**Current Version**: 2.0 (Python)  
-**Last Updated**: October 2, 2025  
+**Current Version**: 2.0 (Python)\
+**Last Updated**: October 2, 2025\
 **Status**: Production-Ready
 
 ### Changelog
@@ -403,7 +408,7 @@ pymongo==4.5.0         # MongoDB driver
 - **v2.0** (Oct 2025): Complete Python rewrite from Node.js
 - **v1.0** (Sep 2025): Initial Node.js implementation
 
----
+______________________________________________________________________
 
 ## Support
 
@@ -417,24 +422,24 @@ All logs are stored in `logs/` directory with timestamps:
 ### Getting Help
 
 1. Check logs in `logs/` directory for detailed error information
-2. Review sample data in `artifacts/samples/` for expected formats
-3. Test with small dataset first
-4. Verify MongoDB permissions and connection settings
+1. Review sample data in `artifacts/samples/` for expected formats
+1. Test with small dataset first
+1. Verify MongoDB permissions and connection settings
 
----
+______________________________________________________________________
 
 ## License
 
 Internal use only. Proprietary software.
 
----
+______________________________________________________________________
 
 ## Contact
 
-For questions or issues, contact: demesew.abebe@optum.com
+For questions or issues, contact: <demesew.abebe@optum.com>
 
----
+______________________________________________________________________
 
-**Last Updated**: October 2, 2025  
-**Version**: 2.0 (Python)  
+**Last Updated**: October 2, 2025\
+**Version**: 2.0 (Python)\
 **Environment**: UbiquitySTG3 Database

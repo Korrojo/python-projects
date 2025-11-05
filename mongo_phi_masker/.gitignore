@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+.venv*/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linting/Testing
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# Logs
+*.log
+logs/
+
+# Environment files (keep .env.example and .env.*.example)
+.env
+.env.local
+.env.*.local
+!.env.example
+!.env.*.example
+
+# MongoDB PHI Masker specific
+masking_verification_results.log
+masking_verification_data.json
+verification_results.json
+checkpoint.json
+
+# Test data (generated)
+test-data/
+test_*.json
+sample_data.json
+.pytest_cache/

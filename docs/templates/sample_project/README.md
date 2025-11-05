@@ -30,10 +30,12 @@ python sample_project/run.py
 From `shared_config/.env` using the current `APP_ENV`:
 
 Required per environment:
+
 - `MONGODB_URI_<ENV>`
 - `DATABASE_NAME_<ENV>`
 
 Optional overrides:
+
 - `SAMPLE_COLLECTION_NAME_<ENV>` — target collection; default `AD_test_<YYYYMMDD>`
 - `SAMPLE_INPUT_CSV_<ENV>` — input CSV path; default `sample_input.csv` under shared input dir
 

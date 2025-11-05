@@ -1,4 +1,5 @@
 Questions Before Implementation:
+
 1. Date/Time Handling:
 Q1: For AvailabilityDate comparison, should I:
 
@@ -28,7 +29,7 @@ Trim whitespace before comparing? yes
 
 Q5: Should I:
 Build one aggregation pipeline per CSV row?
-Batch multiple AthenaAppointmentIds into single $in query? yes 
+Batch multiple AthenaAppointmentIds into single $in query? yes
 Create temporary indexes on Slots.Appointments.AthenaAppointmentId? no
 
 4. Secondary Matching:
@@ -39,7 +40,7 @@ Should I report multiple matches? no
 
 5. Output Format:
 
-Q7: Should the output CSV: 
+Q7: Should the output CSV:
 Overwrite the input file? no
 Create timestamped output like {timestamp}_appointment_comparison_output.csv? yes
 All the columns in the input file should exisit in the new output csv file
@@ -55,13 +56,13 @@ MongoDB connection failures mid-processing? report failure and exit
 7. Performance & Logging:
 
 Q9: Expected performance requirements:
-Process all 4,179 rows in one run? yes, but provide --limit argument to limit the number of rows which will be usfull for testing 
+Process all 4,179 rows in one run? yes, but provide --limit argument to limit the number of rows which will be usfull for testing
 Progress logging frequency (e.g., every 100 rows)? yes
 Retry logic for MongoDB queries? yes
 
 8. Environment:
 
-Q10: Which MongoDB environment should this target: PROD, 
+Q10: Which MongoDB environment should this target: PROD,
 Should it support APP_ENV switching (PROD, STG, LOCL)? yes, follow the patern in other projects, env should be overriden by --env in the argument
 Which StaffAvailability collection (is there one per environment)? --env PROD (from shared_config/.env file DATABASE_NAME_PROD=UbiquityProduction)
 

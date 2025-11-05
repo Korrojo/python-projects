@@ -1,0 +1,7 @@
+{
+    "rules": [
+        {"field": "PatientName", "rule": "random_uppercase_name", "params": null},
+        {"field": "UserName", "rule": "replace_string", "params": "xxxxxxxxxx"},
+        {"field": "Notes", "rule": "replace_string", "params": "xxxxxxxxxx"}
+    ]
+}

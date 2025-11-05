@@ -1,6 +1,7 @@
 # PatientOtherDetail IsActive Update (Unified Config)
 
-Bulk update and verification tools to set `Admits.IsActive = false` in the MongoDB PatientOtherDetails collection, now fully aligned to the unified configuration via `shared_config/.env` and `common_config`.
+Bulk update and verification tools to set `Admits.IsActive = false` in the MongoDB PatientOtherDetails collection, now
+fully aligned to the unified configuration via `shared_config/.env` and `common_config`.
 
 ## What’s included
 
@@ -12,10 +13,12 @@ Bulk update and verification tools to set `Admits.IsActive = false` in the Mongo
 All configuration is loaded from `shared_config/.env` using `APP_ENV`-suffixed variables. No per-project `.env` is used.
 
 Required (per environment):
+
 - `MONGODB_URI_<ENV>`
 - `DATABASE_NAME_<ENV>`
 
 Optional (project-specific overrides, if you want to change defaults):
+
 - `COLLECTION_NAME_<ENV>` — defaults to `PatientOtherDetails_copy` for `run.py`
 - `COLLECTION_BEFORE_<ENV>` — defaults to `PatientOtherDetails_backup` for `verify_updates.py`
 - `COLLECTION_AFTER_<ENV>` — defaults to `PatientOtherDetails_copy` for `verify_updates.py`
@@ -31,14 +34,15 @@ This project uses shared paths provided by `common_config`:
 - Inputs: `data/input/PatientOtherDetail_isActive_false/`
 - Outputs: `data/output/PatientOtherDetail_isActive_false/`
 
-By default, the scripts look for an Excel file named `patient_updates.xlsx` under the shared input folder above. You can override the filename with `INPUT_EXCEL_FILE_<ENV>`.
+By default, the scripts look for an Excel file named `patient_updates.xlsx` under the shared input folder above. You can
+override the filename with `INPUT_EXCEL_FILE_<ENV>`.
 
 ## Excel File Format
 
 The input Excel file must contain these columns:
 
 - **Patientid** (or PatientId) - Patient reference ID
-- **_id** - MongoDB ObjectId of the admit record
+- **\_id** - MongoDB ObjectId of the admit record
 
 Other columns are ignored. Column order doesn't matter.
 
@@ -59,12 +63,12 @@ python run.py
 **What it does:**
 
 1. Reads Excel file from `data/input/`
-2. For each row:
+1. For each row:
    - Finds document where `PatientRef` matches `Patientid`
    - Finds matching `Admits._id` in the Admits array
    - Sets `Admits.$.IsActive = false` using MongoDB positional operator
-3. Logs all operations to `logs/PatientOtherDetail_isActive_false/`
-4. Reports summary:
+1. Logs all operations to `logs/PatientOtherDetail_isActive_false/`
+1. Reports summary:
    - Successfully updated count
    - Not found count
    - Error count
@@ -98,10 +102,10 @@ python verify_updates.py
 **What it does:**
 
 1. Reads same Excel file
-2. Queries BOTH collections (before and after)
-3. Extracts `Admits.IsActive` from each
-4. Exports CSV to `data/output/PatientOtherDetail_isActive_false/{timestamp}_isactive_verification.csv`
-5. Shows comparison summary
+1. Queries BOTH collections (before and after)
+1. Extracts `Admits.IsActive` from each
+1. Exports CSV to `data/output/PatientOtherDetail_isActive_false/{timestamp}_isactive_verification.csv`
+1. Shows comparison summary
 
 **Output CSV Columns:**
 
@@ -120,11 +124,13 @@ PatientId,_id,IsActive_before,IsActive_after
 
 ### Task Scheduler (Windows)
 
-`run.bat` is provided for scheduling. It defers to the Python logger which writes to `logs/PatientOtherDetail_isActive_false/`. You can still capture console output if desired.
+`run.bat` is provided for scheduling. It defers to the Python logger which writes to
+`logs/PatientOtherDetail_isActive_false/`. You can still capture console output if desired.
 
 ## Dependencies
 
-Relies on the shared `common_config` package and repo-level requirements. Use the repo’s unified setup documented in the root `README.md`.
+Relies on the shared `common_config` package and repo-level requirements. Use the repo’s unified setup documented in the
+root `README.md`.
 
 ## Logging
 
@@ -147,9 +153,9 @@ The scripts handle:
 ## Safety Features
 
 1. **Read-only verification** - `verify_updates.py` never modifies data
-2. **Detailed logging** - Full audit trail of all operations
-3. **Dry-run capability** - Test with small datasets first
-4. **Before/after comparison** - Verify changes were applied correctly
+1. **Detailed logging** - Full audit trail of all operations
+1. **Dry-run capability** - Test with small datasets first
+1. **Before/after comparison** - Verify changes were applied correctly
 
 ## Example Workflow
 
@@ -161,23 +167,23 @@ The scripts handle:
    ])
    ```
 
-2. **Update config/.env** with collection names
+1. **Update config/.env** with collection names
 
-3. **Place Excel file** in `data/input/`
+1. **Place Excel file** in `data/input/`
 
-4. **Run update:**
+1. **Run update:**
 
    ```bash
    python run.py
    ```
 
-5. **Verify changes:**
+1. **Verify changes:**
 
    ```bash
    python verify_updates.py
    ```
 
-6. **Review CSV** in `data/output/` and logs in `logs/`
+1. **Review CSV** in `data/output/` and logs in `logs/`
 
 ## Troubleshooting
 
@@ -222,7 +228,7 @@ Uses `common_config` for:
 
 - Updates use MongoDB's positional operator `$` to update specific array element
 - Only the first matching admit in the array is updated per query
-- Duplicate PatientId + _id combinations in Excel will show `modified=0` after first update
+- Duplicate PatientId + \_id combinations in Excel will show `modified=0` after first update
 - Verification script is READ-ONLY and safe to run multiple times
 
 ## Support
@@ -230,4 +236,4 @@ Uses `common_config` for:
 For issues or questions, check:
 
 1. Logs in `logs/PatientOtherDetail_isActive_false/`
-2. Shared config in `shared_config/.env` (verify `APP_ENV`, `MONGODB_URI_<ENV>`, `DATABASE_NAME_<ENV>`)
+1. Shared config in `shared_config/.env` (verify `APP_ENV`, `MONGODB_URI_<ENV>`, `DATABASE_NAME_<ENV>`)

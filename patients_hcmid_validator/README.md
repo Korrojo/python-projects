@@ -1,41 +1,43 @@
 # patients_hcmid_validator
 
-High-volume validation utility to compare input CSV or Excel patient identity records against the MongoDB
-`Patients` collection using `HcmId` as the primary key.
+High-volume validation utility to compare input CSV or Excel patient identity records against the MongoDB `Patients`
+collection using `HcmId` as the primary key.
 
 ## Features (Current)
 
-**Multi-format support with separated implementations**: Optimized CSV and Excel processing with distinct, specialized validation logic.
+**Multi-format support with separated implementations**: Optimized CSV and Excel processing with distinct, specialized
+validation logic.
 
 Implemented through Phase 6 (separated implementations):
 
-* **Separated CSV and Excel implementations**: Distinct optimized processors for each format
-* **Multi-format input support**: Both CSV and Excel (.xlsx/.xls) files with automatic format detection
-* Streaming & batched processing of large files (500K+ rows) with constant memory usage per batch
-* Batch Mongo lookups via `$in` on `HcmId` (single find per batch)
-* Case-insensitive, trimmed comparison for `FirstName` / `LastName`
-* Exact comparison for `Gender`, `Dob` (date-only), and `HcmId`
-* Populates existing CSV columns: `Match Found` (`True`/`False`) & `Comments`
-* **NEW**: Separate mismatches CSV file with database values and mismatched field names
-* **Excel date handling**: Automatic conversion of Excel date formats to standard format
-* **Enhanced logging**: Input file, output file, and processing parameters logged at startup
-* Comments semantics:
-  * `HcmId Not Found` – no matching document
-  * Comma-separated mismatched field names (e.g., `FirstName,Dob`)
-  * `<FieldName> missing on csv` – missing mandatory field in input
-* Periodic progress logging every N rows (default 10,000)
-* Timestamped outputs: 
-  * `data/output/patients_hcmid_validator/{timestamp}_output.csv` (main validation results)
-  * `data/output/patients_hcmid_validator/{timestamp}_output_mismatches.csv` (mismatches only with DB values)
-* Logging to: `logs/patients_hcmid_validator/{timestamp}_app.log`
-* Retry with exponential backoff on Mongo batch failures (`--max-retries`, `--base-retry-sleep`)
-* Final machine-readable JSON summary printed to stdout
+- **Separated CSV and Excel implementations**: Distinct optimized processors for each format
+- **Multi-format input support**: Both CSV and Excel (.xlsx/.xls) files with automatic format detection
+- Streaming & batched processing of large files (500K+ rows) with constant memory usage per batch
+- Batch Mongo lookups via `$in` on `HcmId` (single find per batch)
+- Case-insensitive, trimmed comparison for `FirstName` / `LastName`
+- Exact comparison for `Gender`, `Dob` (date-only), and `HcmId`
+- Populates existing CSV columns: `Match Found` (`True`/`False`) & `Comments`
+- **NEW**: Separate mismatches CSV file with database values and mismatched field names
+- **Excel date handling**: Automatic conversion of Excel date formats to standard format
+- **Enhanced logging**: Input file, output file, and processing parameters logged at startup
+- Comments semantics:
+  - `HcmId Not Found` – no matching document
+  - Comma-separated mismatched field names (e.g., `FirstName,Dob`)
+  - `<FieldName> missing on csv` – missing mandatory field in input
+- Periodic progress logging every N rows (default 10,000)
+- Timestamped outputs:
+  - `data/output/patients_hcmid_validator/{timestamp}_output.csv` (main validation results)
+  - `data/output/patients_hcmid_validator/{timestamp}_output_mismatches.csv` (mismatches only with DB values)
+- Logging to: `logs/patients_hcmid_validator/{timestamp}_app.log`
+- Retry with exponential backoff on Mongo batch failures (`--max-retries`, `--base-retry-sleep`)
+- Final machine-readable JSON summary printed to stdout
 
 ### Input File Support
 
 The validator now supports both CSV and Excel files:
 
 #### **CSV Files**
+
 - Standard comma-separated values with full date processing capabilities
 - Advanced DOB normalization supporting multiple formats (D-Mon-YY, M/D/YY, YYYY-MM-DD, etc.)
 - Configurable 2-digit year interpretation strategies (senior, pivot, force1900, force2000)
@@ -44,6 +46,7 @@ The validator now supports both CSV and Excel files:
 - **Implementation**: `runner_csv.py` with comprehensive date parsing
 
 #### **Excel Files (.xlsx/.xls)**
+
 - Simplified date handling expecting pre-formatted YYYY-MM-DD dates
 - Excel-native date formats automatically converted by openpyxl
 - No complex date parsing needed (Excel dates are already resolved)
@@ -56,9 +59,10 @@ The validator now supports both CSV and Excel files:
 ### Mismatches CSV Format
 
 The mismatches CSV contains only records where `Match Found = False`, with the following columns:
-* `HcmId`, `FirstName`, `LastName`, `Dob`, `Gender` - Values from the **database**
-* `Mismatched Field` - Comma-separated field names that didn't match (e.g., "Dob", "FirstName,Gender")
-  * For "HcmId Not Found" cases: Contains "HcmId" and uses input values (since no DB record exists)
+
+- `HcmId`, `FirstName`, `LastName`, `Dob`, `Gender` - Values from the **database**
+- `Mismatched Field` - Comma-separated field names that didn't match (e.g., "Dob", "FirstName,Gender")
+  - For "HcmId Not Found" cases: Contains "HcmId" and uses input values (since no DB record exists)
 
 Planned polish / future (not implemented yet): parallel batches, richer mismatch detail, optional stats export.
 
@@ -70,7 +74,7 @@ You can run the validator in three ways:
 
 The main CLI automatically detects file format and routes to the appropriate implementation:
 
-```bash
+````bash
 # Auto-detect format from file extension
 python -m patients_hcmid_validator --input data/sample.csv --collection Patients
 python -m patients_hcmid_validator --input data/sample.xlsx --collection Patients
@@ -137,7 +141,7 @@ Example:
 2025-10-15 18:01:26 | INFO | patients_hcmid_validator.runner_excel | Output file: data\output\patients_hcmid_validator\20251015_180118_output.csv, Collection: Patients, Environment: prod
 2025-10-15 18:01:28 | INFO | common_config.db.connection | Connected to database 'UbiquityProduction'
 2025-10-15 18:01:30 | INFO | patients_hcmid_validator.runner_excel | Processed 10000 rows (matched=9683 mismatched=317 not_found=0)
-```
+````
 
 ## How to Run
 
@@ -155,6 +159,7 @@ python -m patients_hcmid_validator --input data/sample.data --input-format excel
 ```
 
 Common options:
+
 - `--mongodb-env LOCL|PROD|STAGING` select environment
 - `--batch-size N`, `--progress-every N`, `--max-retries N`, `--base-retry-sleep SEC`
 - `--limit N`, `--dry-run`, `--debug`
@@ -193,13 +198,16 @@ python -c "from patients_hcmid_validator.cli_excel import app; app()" validate d
 
 ### Output Files
 
-- Main results CSV: `data/output/patients_hcmid_validator/{timestamp}_output.csv` (original data + `Match Found` + `Comments`)
-- Mismatches CSV: `data/output/patients_hcmid_validator/{timestamp}_output_mismatches.csv` (DB values + `Mismatched Field`)
+- Main results CSV: `data/output/patients_hcmid_validator/{timestamp}_output.csv` (original data + `Match Found` +
+  `Comments`)
+- Mismatches CSV: `data/output/patients_hcmid_validator/{timestamp}_output_mismatches.csv` (DB values +
+  `Mismatched Field`)
 - Logs: `logs/patients_hcmid_validator/{timestamp}_app.log`
 
 ## Installation & Setup
 
 Prerequisites:
+
 - Python 3.11+ with pip
 - MongoDB access
 - Packages: `typer`, `pymongo`, `openpyxl`, `pydantic`
@@ -269,26 +277,31 @@ C:/Python314/python.exe -c "from pathlib import Path; print(Path('f:/data/sample
 ## Performance Guidelines
 
 File size recommendations:
-- <10K rows: defaults
+
+- \<10K rows: defaults
 - 10K–100K: `--batch-size 2000`
 - 100K–1M: `--batch-size 5000 --progress-every 25000`
-- >1M: `--batch-size 10000 --progress-every 50000`
+- > 1M: `--batch-size 10000 --progress-every 50000`
 
 Memory optimization:
+
 - Prefer CSV for very large files (lowest overhead)
 - Excel is inherently slower; consider converting to CSV for frequent runs
 
 MongoDB performance:
+
 - Ensure index: `db.Patients.createIndex({ HcmId: 1 })`
 - Use production-grade Mongo for large datasets
 
 ## Implementation Summaries
 
 ### Mismatches Feature
+
 - Adds a dedicated mismatches CSV with DB values and `Mismatched Field`
 - Not created during dry runs; includes duplicates; uses input values when `HcmId` not found
 
 ### Excel Support
+
 - `ExcelDictReader` adapter to mimic `csv.DictReader`
 - Auto-detect format by extension; create appropriate reader
 - Excel date handling converts native dates to a standard format
@@ -310,6 +323,7 @@ src/patients_hcmid_validator/
 ```
 
 Key differences:
+
 - CSV: comprehensive date parsing, 2-digit year strategies, `csv.DictReader`
 - Excel: simplified date assumption (Excel-native → YYYY-MM-DD), `ExcelDictReader`, sheet selection
 - Main `cli.py` auto-detects by extension and routes accordingly
@@ -317,11 +331,11 @@ Key differences:
 ## Roadmap
 
 1. Scaffolding & CLI skeleton
-2. Matching logic
-3. Batch I/O + performance
-4. Integration (retry, config, logging polish)
-5. Enhancements (dry-run, limit)
-6. Polishing & docs
+1. Matching logic
+1. Batch I/O + performance
+1. Integration (retry, config, logging polish)
+1. Enhancements (dry-run, limit)
+1. Polishing & docs
 
 ## Testing Guide (Quick Reference)
 
@@ -344,14 +358,14 @@ Get-Content data/output/patients_hcmid_validator/*_mismatches.csv | Select-Objec
 ```
 
 Tips:
+
 - Mismatches CSV only created when mismatches exist; not created in `--dry-run`
 - Values in mismatches come from DB (except `HcmId Not Found` uses input)
 - Use `--debug` for verbose logs and progress
 
-├── cli_excel.py           # Excel-specific CLI
-├── cli.py                 # Main CLI with auto-detection
-└── __init__.py            # Package initialization
-```
+├── cli_excel.py # Excel-specific CLI ├── cli.py # Main CLI with auto-detection └── **init**.py # Package initialization
+
+````
 
 ## Output
 
@@ -361,26 +375,26 @@ Tips:
 
 ```json
 {"summary":{"total_rows":500000,"matched":480000,"not_found":15000,"mismatched":5000}}
-```
+````
 
 1. Logs: Detailed progress & batch retry information.
 
 ## Exit Codes
 
-* 0 success
-* 2 Mongo connection failure
-* 3 Input file not found
+- 0 success
+- 2 Mongo connection failure
+- 3 Input file not found
 
 ## Performance Tips
 
-* Keep an index on `HcmId` for the `Patients` collection: `db.Patients.createIndex({ HcmId: 1 })`.
-* Adjust `--batch-size` to balance memory and round-trip overhead (1k–5k typical sweet spot).
-* Increase `--progress-every` for less verbose logging during very large runs.
+- Keep an index on `HcmId` for the `Patients` collection: `db.Patients.createIndex({ HcmId: 1 })`.
+- Adjust `--batch-size` to balance memory and round-trip overhead (1k–5k typical sweet spot).
+- Increase `--progress-every` for less verbose logging during very large runs.
 
 ## Notes / Future
 
 Testing intentionally deferred per initial scope. Consider adding:
 
-* Unit tests for normalization & mismatch detection.
-* Integration test using `mongomock` to validate batch logic.
-* Optional mismatch frequency report.
+- Unit tests for normalization & mismatch detection.
+- Integration test using `mongomock` to validate batch logic.
+- Optional mismatch frequency report.

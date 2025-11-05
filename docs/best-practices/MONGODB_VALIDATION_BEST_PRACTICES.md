@@ -1,23 +1,23 @@
 # MongoDB Data Validation Projects - Best Practices Guide
 
-**Audience**: Developers building data validation, migration, or comparison tools  
-**Scope**: Repository-wide patterns and practices  
+**Audience**: Developers building data validation, migration, or comparison tools\
+**Scope**: Repository-wide patterns and practices\
 **Last Updated**: October 24, 2025
 
----
+______________________________________________________________________
 
 ## Table of Contents
 
 1. [Project Structure](#1-project-structure)
-2. [MongoDB Query Optimization](#2-mongodb-query-optimization)
-3. [Statistics & Reporting](#3-statistics--reporting)
-4. [Error Handling & Validation](#4-error-handling--validation)
-5. [Performance Patterns](#5-performance-patterns)
-6. [Testing Strategy](#6-testing-strategy)
-7. [Code Organization](#7-code-organization)
-8. [Common Patterns Library](#8-common-patterns-library)
+1. [MongoDB Query Optimization](#2-mongodb-query-optimization)
+1. [Statistics & Reporting](#3-statistics--reporting)
+1. [Error Handling & Validation](#4-error-handling--validation)
+1. [Performance Patterns](#5-performance-patterns)
+1. [Testing Strategy](#6-testing-strategy)
+1. [Code Organization](#7-code-organization)
+1. [Common Patterns Library](#8-common-patterns-library)
 
----
+______________________________________________________________________
 
 ## 1. Project Structure
 
@@ -56,6 +56,7 @@ project_name/
 ### Key Principles
 
 ✅ **DO**:
+
 - Separate source code into `src/` directory
 - Use `data/input/` and `data/output/` for data files
 - Include comprehensive README with examples
@@ -63,12 +64,13 @@ project_name/
 - Create LESSONS_LEARNED.md at project end
 
 ❌ **DON'T**:
+
 - Mix source code with data files
 - Store logs in project directory (use repo-level `logs/`)
 - Hard-code file paths
 - Skip documentation
 
----
+______________________________________________________________________
 
 ## 2. MongoDB Query Optimization
 
@@ -77,6 +79,7 @@ project_name/
 **Use Case**: Querying nested arrays in documents
 
 **Anti-Pattern** (Slow):
+
 ```javascript
 db.collection.aggregate([
     { $unwind: "$nestedArray" },           // Processes ALL documents
@@ -85,6 +88,7 @@ db.collection.aggregate([
 ```
 
 **Best Practice** (Fast):
+
 ```javascript
 db.collection.aggregate([
     { 
@@ -100,13 +104,14 @@ db.collection.aggregate([
 
 **Impact**: 50-90% reduction in documents processed
 
----
+______________________________________________________________________
 
 ### Pattern 2: Dynamic Date Range Filtering
 
 **Use Case**: Input data spans limited time range, but database has years of data
 
 **Implementation**:
+
 ```python
 def calculate_date_range(input_rows: list[dict]) -> tuple[datetime, datetime]:
     """Calculate min/max dates from input data."""
@@ -130,18 +135,20 @@ pipeline = [
 ```
 
 **Benefits**:
+
 - One-time CSV scan (fast)
 - Reduces MongoDB documents by 50-90%
 - Automatic - no manual configuration
 - Uses existing date indexes
 
----
+______________________________________________________________________
 
 ### Pattern 3: Existence Checks for Arrays
 
 **Use Case**: Many documents have empty arrays that still get unwound
 
 **Best Practice**:
+
 ```javascript
 {
     $match: {
@@ -152,7 +159,7 @@ pipeline = [
 
 **Impact**: 20-40% reduction in documents processed
 
----
+______________________________________________________________________
 
 ### Pattern 4: Index Strategy
 
@@ -196,17 +203,19 @@ db.collection.explain("executionStats").aggregate([...])
 // - executionTimeMillis < 1000ms
 ```
 
----
+______________________________________________________________________
 
 ### Pattern 5: Batch Queries with $in
 
 **Anti-Pattern** (Slow):
+
 ```python
 for row in rows:  # 2,000 queries!
     result = db.collection.find_one({"id": row["id"]})
 ```
 
 **Best Practice** (Fast):
+
 ```python
 def process_in_batches(rows: list[dict], batch_size: int = 100):
     for i in range(0, len(rows), batch_size):
@@ -231,12 +240,13 @@ def process_in_batches(rows: list[dict], batch_size: int = 100):
 **Impact**: 50-100x reduction in queries
 
 **Batch Size Guidelines**:
+
 - Small documents: 200-500 per batch
 - Medium documents: 100-200 per batch
 - Large documents: 50-100 per batch
 - Consider network latency and memory
 
----
+______________________________________________________________________
 
 ## 3. Statistics & Reporting
 
@@ -245,6 +255,7 @@ def process_in_batches(rows: list[dict], batch_size: int = 100):
 **Use Case**: Multi-stage validation with different failure types
 
 **Implementation**:
+
 ```python
 class ValidationStats:
     def __init__(self):
@@ -293,6 +304,7 @@ class ValidationStats:
 ```
 
 **Output Example**:
+
 ```
 Validation Statistics:
   Total processed: 2127
@@ -311,11 +323,12 @@ Validation Statistics:
   ✓ Math verified: 2127 = 2127
 ```
 
----
+______________________________________________________________________
 
 ### Pattern 7: Math Verification
 
 **Always verify statistics add up**:
+
 ```python
 def verify_statistics(stats: dict) -> bool:
     """Verify statistics totals are consistent."""
@@ -338,7 +351,7 @@ def verify_statistics(stats: dict) -> bool:
     return True
 ```
 
----
+______________________________________________________________________
 
 ### Pattern 8: Distinguish Failure Types
 
@@ -363,17 +376,19 @@ elif result.failure_reason == "field_mismatch":
 ```
 
 **Benefits**:
+
 - Actionable insights (fix data vs fix code)
 - Pattern detection (same field always mismatches)
 - Better user communication
 
----
+______________________________________________________________________
 
 ## 4. Error Handling & Validation
 
 ### Pattern 9: Validate Early, Fail Gracefully
 
 **Required field validation**:
+
 ```python
 def validate_required_fields(
     row: dict, 
@@ -398,7 +413,7 @@ if missing:
 
 **Key Principle**: Never crash on bad data. Skip gracefully and report exactly what's wrong.
 
----
+______________________________________________________________________
 
 ### Pattern 10: Data Type Conversion with Error Handling
 
@@ -423,7 +438,7 @@ if patient_ref is None:
     continue
 ```
 
----
+______________________________________________________________________
 
 ### Pattern 11: Date Parsing with Multiple Formats
 
@@ -455,7 +470,7 @@ def parse_date_flexible(date_str: str) -> Optional[datetime]:
     return None
 ```
 
----
+______________________________________________________________________
 
 ## 5. Performance Patterns
 
@@ -492,7 +507,7 @@ def process_with_progress(
             )
 ```
 
----
+______________________________________________________________________
 
 ### Pattern 13: Connection Pooling & Retry Logic
 
@@ -528,7 +543,7 @@ class MongoConnection:
                 time.sleep(wait_time)
 ```
 
----
+______________________________________________________________________
 
 ### Pattern 14: Memory-Efficient Processing
 
@@ -559,7 +574,7 @@ def process_large_csv_streaming(
             process_batch(batch)
 ```
 
----
+______________________________________________________________________
 
 ## 6. Testing Strategy
 
@@ -579,11 +594,12 @@ def main(input_file: str, limit: Optional[int] = None):
 ```
 
 **Testing Workflow**:
-1. Smoke test: `--limit 10` (seconds)
-2. Validation test: `--limit 100` (1-2 minutes)
-3. Full run: no limit (only after above pass)
 
----
+1. Smoke test: `--limit 10` (seconds)
+1. Validation test: `--limit 100` (1-2 minutes)
+1. Full run: no limit (only after above pass)
+
+______________________________________________________________________
 
 ### Pattern 16: Test Data Fixtures
 
@@ -619,7 +635,7 @@ def get_sample_mongo_docs() -> list[dict]:
     ]
 ```
 
----
+______________________________________________________________________
 
 ## 7. Code Organization
 
@@ -660,7 +676,7 @@ config = DatabaseConfig(
 )
 ```
 
----
+______________________________________________________________________
 
 ### Pattern 18: Dependency Injection
 
@@ -683,11 +699,12 @@ class Validator:
 ```
 
 **Benefits**:
+
 - Easy to test (inject mocks)
 - Easy to swap implementations
 - Clear dependencies
 
----
+______________________________________________________________________
 
 ## 8. Common Patterns Library
 
@@ -721,7 +738,7 @@ result, method = find_with_fallback(row, find_by_id, find_by_fields)
 stats[f"{method}_matches"] += 1
 ```
 
----
+______________________________________________________________________
 
 ### Pattern 20: Field-by-Field Comparison
 
@@ -755,7 +772,7 @@ def compare_all_fields(
     return len(mismatched) == 0, mismatched
 ```
 
----
+______________________________________________________________________
 
 ## Quick Reference Checklist
 
@@ -801,16 +818,18 @@ def compare_all_fields(
 - [ ] List recommendations for similar projects
 - [ ] Update this guide with new patterns learned
 
----
+______________________________________________________________________
 
 ## MongoDB Quick Reference
 
 ### Check Index Usage
+
 ```javascript
 db.collection.explain("executionStats").aggregate([...])
 ```
 
 ### Create Index
+
 ```javascript
 db.collection.createIndex(
     { "field": 1 },
@@ -819,6 +838,7 @@ db.collection.createIndex(
 ```
 
 ### Check Query Performance
+
 ```javascript
 var start = Date.now();
 db.collection.aggregate([...]);
@@ -826,6 +846,7 @@ print("Time:", Date.now() - start, "ms");
 ```
 
 ### Count Documents in Date Range
+
 ```javascript
 db.collection.countDocuments({
     "dateField": {
@@ -835,18 +856,18 @@ db.collection.countDocuments({
 })
 ```
 
----
+______________________________________________________________________
 
 ## Additional Resources
 
-- **MongoDB Aggregation Pipeline**: https://www.mongodb.com/docs/manual/core/aggregation-pipeline/
-- **MongoDB Index Strategies**: https://www.mongodb.com/docs/manual/indexes/
-- **Python Type Hints**: https://docs.python.org/3/library/typing.html
-- **Pytest Documentation**: https://docs.pytest.org/
+- **MongoDB Aggregation Pipeline**: <https://www.mongodb.com/docs/manual/core/aggregation-pipeline/>
+- **MongoDB Index Strategies**: <https://www.mongodb.com/docs/manual/indexes/>
+- **Python Type Hints**: <https://docs.python.org/3/library/typing.html>
+- **Pytest Documentation**: <https://docs.pytest.org/>
 
----
+______________________________________________________________________
 
-**Document Version**: 1.0  
-**Last Updated**: October 24, 2025  
-**Maintainer**: Development Team  
+**Document Version**: 1.0\
+**Last Updated**: October 24, 2025\
+**Maintainer**: Development Team\
 **Repository**: ubiquityMongo_phiMasking

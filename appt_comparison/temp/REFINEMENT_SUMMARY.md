@@ -20,6 +20,7 @@ After successful test validation (10 rows), three architectural improvements wer
 3. **String format**: ISO string format with T separator
 
 **Code Change** (field_comparator.py):
+
 ```python
 def compare_availability_date(csv_date: datetime, mongo_date: Any) -> bool:
     if isinstance(mongo_date, datetime):
@@ -50,6 +51,7 @@ def compare_availability_date(csv_date: datetime, mongo_date: Any) -> bool:
 **Solution**: Modified `validator.py` `validate_file()` to check for existing cleaned file and reuse it.
 
 **Code Change** (validator.py):
+
 ```python
 # Check if cleaned file already exists
 if cleaned_csv_path.exists():
@@ -71,7 +73,8 @@ else:
     logger.info(f"Saved cleaned CSV for future runs: {cleaned_csv_path}")
 ```
 
-**Impact**: 
+**Impact**:
+
 - First run: Reads original, removes cancelled rows, saves cleaned version
 - Subsequent runs: Detects existing cleaned file, skips cleanup entirely
 - Significant performance improvement for repeated validations on same source file
@@ -80,12 +83,14 @@ else:
 
 **Problem**: Project had local `data/`, `logs/`, `temp/`, `archive/` directories, inconsistent with repo-wide common_config pattern.
 
-**Solution**: 
+**Solution**:
+
 1. Removed all project-level directories
 2. Updated project README to document repo-level paths
 3. Updated main repo README to document standardized structure for all projects
 
 **Changes Made**:
+
 - **Removed**: `appointment_comparison/data/`, `appointment_comparison/logs/`, `appointment_comparison/temp/`, `appointment_comparison/archive/`
 - **Updated** `appointment_comparison/README.md`:
   - Added "Repo-Level Shared Directories" section to Project Structure
@@ -101,6 +106,7 @@ else:
 ## Directory Structure (After Refinements)
 
 ### Repo Level (Shared)
+
 ```
 python/
 ├── data/
@@ -133,6 +139,7 @@ python/
 ## Test Results
 
 ### Initial Test (10 rows)
+
 - **Total Rows**: 10
 - **Cancelled Removed**: 1
 - **Processed**: 9
@@ -142,6 +149,7 @@ python/
 - **Total Mismatches**: 9
 
 ### Files Generated
+
 1. **Cleaned CSV**: `Daily_Appointment_Comparison_input1_20251023_cleaned.csv` (saved to `data/output/appointment_comparison/`)
 2. **Results CSV**: `20251023_193907_appointment_comparison_output.csv` (saved to `data/output/appointment_comparison/`)
 3. **Log File**: Saved to `logs/appointment_comparison/`
@@ -149,32 +157,39 @@ python/
 ## Known Issues & Next Steps
 
 ### 1. VisitStartDateTime Format Mismatch
+
 **Issue**: All 9 test appointments had VisitStartDateTime mismatches despite matching on other fields.
 
 **Root Cause**: Format difference between CSV and MongoDB:
+
 - **CSV**: Likely `"HH:MM AM/PM"` format (e.g., "09:00 AM")
 - **MongoDB**: Unknown exact format (needs investigation)
 
 **Next Steps**:
+
 1. Query actual MongoDB documents to see exact VisitStartDateTime format stored
 2. Update `field_comparator.py` `compare_visit_start_time()` to handle format normalization
 3. Consider time zone handling if applicable
 
 ### 2. Full Validation Run
+
 **Action**: Run without `--limit` flag to process all 2,128 cleaned rows and get complete statistics.
 
 **Command**:
+
 ```bash
 cd f:/ubiquityMongo_phiMasking/python/appointment_comparison
 python -m appointment_comparison --input Daily_Appointment_Comparison_input1_20251023.csv --env PROD
 ```
 
 ### 3. Secondary Matching Validation
+
 **Action**: Analyze secondary matching effectiveness after full run. Only 1 secondary match attempt in test (8/10 found by ID).
 
 ## Configuration Files
 
 ### app_config.json (Unchanged)
+
 ```json
 {
   "processing": {
@@ -194,6 +209,7 @@ python -m appointment_comparison --input Daily_Appointment_Comparison_input1_202
 ```
 
 ### .env (via shared_config/.env)
+
 ```env
 APP_ENV=PROD
 MONGODB_URI_PROD=<connection_string>
@@ -203,12 +219,15 @@ DATABASE_NAME_PROD=UbiquityProduction
 ## Performance Improvements
 
 ### Cleanup Optimization Impact
+
 For a 4,179 row CSV (2,051 cancelled, 2,128 valid):
+
 - **Before**: Cleanup on every run (~2-3 seconds per run)
 - **After**: Cleanup once, subsequent runs skip cleanup entirely (0 seconds cleanup overhead)
 - **Benefit**: Significant time savings for iterative development, testing, and re-validations
 
 ### Batch Processing Performance
+
 - **Batch Size**: 100 rows per MongoDB query
 - **Expected Queries**: ~22 batches for full 2,128 row run
 - **Retry Logic**: Exponential backoff (max 3 retries, 2s base sleep)
@@ -216,6 +235,7 @@ For a 4,179 row CSV (2,051 cancelled, 2,128 valid):
 ## Documentation Updates
 
 ### Files Modified
+
 1. **appointment_comparison/README.md**:
    - Updated Project Structure section with repo-level paths
    - Added explicit note about no project-level directories
@@ -230,6 +250,7 @@ For a 4,179 row CSV (2,051 cancelled, 2,128 valid):
 ## Conclusion
 
 All three refinements successfully implemented:
+
 1. ✅ **MongoDB date format handling**: Supports 3 formats (datetime, dict, string)
 2. ✅ **Cleanup optimization**: One-time cleanup with reuse logic
 3. ✅ **Directory standardization**: Project-level dirs removed, READMEs updated

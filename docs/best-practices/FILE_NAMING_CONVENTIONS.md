@@ -2,17 +2,18 @@
 
 **Standard patterns for output files, logs, and artifacts across all projects**
 
----
+______________________________________________________________________
 
 ## Purpose
 
 Consistent file naming ensures:
+
 - ✅ Chronological sorting by default (files sort by date automatically)
 - ✅ Easy identification of file type and purpose
 - ✅ Simple automated cleanup (delete files older than X days)
 - ✅ Clear provenance (which project, which database, which run)
 
----
+______________________________________________________________________
 
 ## Standard Pattern
 
@@ -25,6 +26,7 @@ YYYYMMDD_HHMMSS_<description>.<ext>
 ```
 
 **Examples:**
+
 ```
 20250127_143022_collection_stats_UbiquityProduction.csv
 20250127_143022_app.log
@@ -35,22 +37,26 @@ YYYYMMDD_HHMMSS_<description>.<ext>
 ### Why Timestamp First?
 
 **❌ Bad (timestamp at end):**
+
 ```
 collection_stats_UbiquityProduction_20250127_143022.csv
 collection_stats_UbiquityProduction_20250126_091523.csv
 collection_stats_UbiquityDevelopment_20250127_143022.csv
 ```
+
 **Problem:** Files don't sort chronologically. Latest files are scattered.
 
 **✅ Good (timestamp first):**
+
 ```
 20250126_091523_collection_stats_UbiquityProduction.csv
 20250127_143022_collection_stats_UbiquityDevelopment.csv
 20250127_143022_collection_stats_UbiquityProduction.csv
 ```
+
 **Benefit:** Latest files appear at the bottom (or top if reverse sorted). Easy to find today's files.
 
----
+______________________________________________________________________
 
 ## Implementation Guidelines
 
@@ -98,6 +104,7 @@ log_path = Path("logs/my_project") / log_file
 ```
 
 **Examples:**
+
 - `20250127_143022_app.log` - Application log
 - `20250127_143022_error.log` - Error log
 - `20250127_143022_audit.log` - Audit log
@@ -122,6 +129,7 @@ csv_file = f"{timestamp}_patient_data_export.csv"
 ```
 
 **Examples:**
+
 - `20250127_143022_collection_stats_UbiquityProduction.csv`
 - `20250127_143022_validation_report_patients.csv`
 - `20250127_143022_appointment_comparison_results.csv`
@@ -136,7 +144,7 @@ json_file = f"{timestamp}_export_{collection_name}.json"
 # Result: 20250127_143022_export_Patients.json
 ```
 
----
+______________________________________________________________________
 
 ## Special Cases
 
@@ -186,7 +194,7 @@ summary_file = f"{run_timestamp}_summary.txt"
 # All files share same timestamp = easy to identify files from same run
 ```
 
----
+______________________________________________________________________
 
 ## File Cleanup
 
@@ -223,7 +231,7 @@ cleanup_old_files(
 )
 ```
 
----
+______________________________________________________________________
 
 ## Migration Guide
 
@@ -270,11 +278,12 @@ for file in data/output/my_project/collection_stats_*_20*.csv; do
 done
 ```
 
----
+______________________________________________________________________
 
 ## Common Mistakes
 
 ### ❌ Mistake 1: Timestamp at End
+
 ```python
 # Wrong
 filename = f"output_{database_name}_{timestamp}.csv"
@@ -282,6 +291,7 @@ filename = f"output_{database_name}_{timestamp}.csv"
 ```
 
 ### ❌ Mistake 2: No Underscore Separators
+
 ```python
 # Wrong
 filename = f"{timestamp}collectionstats{database_name}.csv"
@@ -289,6 +299,7 @@ filename = f"{timestamp}collectionstats{database_name}.csv"
 ```
 
 ### ❌ Mistake 3: Inconsistent Date Format
+
 ```python
 # Wrong - Different projects use different formats
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Project A
@@ -297,13 +308,14 @@ timestamp = datetime.now().strftime("%Y%m%d%H%M%S")        # Project B
 ```
 
 ### ❌ Mistake 4: Human-Readable but Not Sortable
+
 ```python
 # Wrong
 filename = f"Report_Jan_27_2025_2_30_PM.csv"
 # Problem: Doesn't sort chronologically, inconsistent format
 ```
 
----
+______________________________________________________________________
 
 ## Validation Checklist
 
@@ -318,7 +330,7 @@ When creating output files, verify:
 - [ ] Tests verify the filename pattern
 - [ ] Documentation shows correct examples
 
----
+______________________________________________________________________
 
 ## Tools and Utilities
 
@@ -372,17 +384,19 @@ timestamp = extract_timestamp(file_path.name)
 print(f"File created: {timestamp}")
 ```
 
----
+______________________________________________________________________
 
 ## Examples by Project Type
 
 ### MongoDB Statistics Tool
+
 ```
 20250127_143022_collection_stats_UbiquityProduction.csv
 20250127_143022_app.log
 ```
 
 ### Data Validator
+
 ```
 20250127_143022_validation_report_patients.csv
 20250127_143022_validation_errors.log
@@ -390,6 +404,7 @@ print(f"File created: {timestamp}")
 ```
 
 ### Data Exporter
+
 ```
 20250127_143022_export_Patients.json
 20250127_143022_export_Appointments.json
@@ -397,12 +412,13 @@ print(f"File created: {timestamp}")
 ```
 
 ### Report Generator
+
 ```
 20250127_143022_monthly_report_January.xlsx
 20250127_143022_report_generation.log
 ```
 
----
+______________________________________________________________________
 
 ## Related Documentation
 
@@ -410,13 +426,14 @@ print(f"File created: {timestamp}")
 - [Testing Guide](../guides/TESTING_GUIDE.md) - How to test filename patterns
 - [MongoDB Best Practices](MONGODB_VALIDATION_BEST_PRACTICES.md) - Data export patterns
 
----
+______________________________________________________________________
 
 ## Enforcement
 
 ### In Code Reviews
 
 Check that all new code follows this convention:
+
 - ✅ Filenames use timestamp-first pattern
 - ✅ Tests validate the pattern
 - ✅ Documentation shows correct examples
@@ -425,6 +442,6 @@ Check that all new code follows this convention:
 
 (Future enhancement - not yet implemented)
 
----
+______________________________________________________________________
 
 **Last Updated:** 2025-01-27

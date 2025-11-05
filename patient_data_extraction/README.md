@@ -3,7 +3,7 @@
 This project uses the common MongoDB framework to extract patient data across two databases:
 
 1. Extract PatientIds from MO state patients (Database 1)
-2. Extract detailed patient information using those IDs (Database 2)
+1. Extract detailed patient information using those IDs (Database 2)
 
 ## Project Structure
 
@@ -50,17 +50,18 @@ MongoDB URIs are loaded from `../shared_config/.env`:
    python setup_project.py
    ```
 
-2. **Configure Connections**:
+1. **Configure Connections**:
+
    - Copy `config/.env.example` to `config/.env`
    - Update with your MongoDB connection details
 
-3. **Run Extraction**:
+1. **Run Extraction**:
 
    ```bash
    python run_extraction.py
    ```
 
-4. **For Task Scheduler**:
+1. **For Task Scheduler**:
 
    ```batch
    run_extraction.bat

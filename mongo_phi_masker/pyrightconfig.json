@@ -1,0 +1,25 @@
+{
+  "include": ["src", "scripts", "tests"],
+  "exclude": [
+    "**/__pycache__",
+    "**/.pytest_cache",
+    "**/.venv*",
+    "**/node_modules"
+  ],
+  "typeCheckingMode": "basic",
+  "reportOptionalMemberAccess": "warning",
+  "reportOptionalSubscript": "warning",
+  "reportOptionalIterable": "warning",
+  "reportOptionalCall": "warning",
+  "reportAttributeAccessIssue": "warning",
+  "reportUnknownMemberType": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUnknownVariableType": "none",
+  "reportMissingTypeStubs": "none",
+  "reportCallIssue": "warning",
+  "reportArgumentType": "warning",
+  "venvPath": ".",
+  "venv": ".venv311",
+  "pythonVersion": "3.11",
+  "pythonPlatform": "Darwin"
+}

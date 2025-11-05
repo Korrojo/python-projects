@@ -53,7 +53,14 @@ pytest-cov>=4.1.0
 coverage>=7.0.0
 
 # Code quality
-ruff>=0.1.0
+black>=24.0.0  # Python code formatter
+ruff>=0.1.0  # Python linter
+
+# Markdown formatting (pure Python solution)
+mdformat>=0.7.0  # Markdown formatter (like Black for markdown)
+mdformat-gfm>=1.0.0  # GitHub Flavored Markdown support
+mdformat-tables>=1.0.0  # Table formatting
+mdformat-frontmatter>=2.0.0  # YAML frontmatter support
 
 # Type checking (IDE-agnostic - works with any editor/OS)
 pyright>=1.1.0

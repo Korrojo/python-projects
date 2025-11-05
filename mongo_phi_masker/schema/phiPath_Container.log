@@ -1,0 +1,18 @@
+2025-03-30 17:57:53,457 - Starting field check in collection: Container
+2025-03-30 18:02:30,368 - Collection contains 31351210 documents. Sampling 1000.
+2025-03-30 18:02:30,839 - 14/51 fields found.
+2025-03-30 18:02:30,839 - Found field 'PatientLastName' at path: Encounter.PatientLastName
+2025-03-30 18:02:30,839 - Found field 'PatientMiddleName' at path: Encounter.PatientMiddleName
+2025-03-30 18:02:30,839 - Found field 'PatientFirstName' at path: Encounter.PatientFirstName
+2025-03-30 18:02:30,839 - Found field 'UserName' at path: Encounter.UserName
+2025-03-30 18:02:30,839 - Found field 'Reason' at path: Encounter.Reason
+2025-03-30 18:02:30,839 - Found field 'HPINote' at path: Encounter.HPI.HPINote
+2025-03-30 18:02:30,839 - Found field 'OtherReason' at path: Encounter.Dat.OtherReason
+2025-03-30 18:02:30,839 - Found field 'Goals' at path: Encounter.CareSnapshot.Goals
+2025-03-30 18:02:30,839 - Found field 'FinalNotes' at path: Encounter.AssessmentAndPlan.ProblemList.FinalNotes
+2025-03-30 18:02:30,839 - Found field 'Comments' at path: Encounter.AssessmentAndPlan.ProblemList.Comments
+2025-03-30 18:02:30,839 - Found field 'VisitAddress' at path: Encounter.PhoneCall.Activities.VisitAddress
+2025-03-30 18:02:30,839 - Found field 'Notes' at path: Encounter.PhoneCall.Activities.Notes
+2025-03-30 18:02:30,839 - Found field 'PhoneNumber' at path: Encounter.PhoneCall.Activities.PhoneNumber
+2025-03-30 18:02:30,839 - Found field 'Path' at path: Encounter.Document.Documents.Path
+2025-03-30 18:02:30,871 - Field check completed for 'Container'.----------------------------

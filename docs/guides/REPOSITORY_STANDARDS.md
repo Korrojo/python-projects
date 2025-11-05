@@ -1,33 +1,36 @@
 # Repository Standards & Best Practices
 
-**Created:** 2025-10-24  
+**Created:** 2025-10-24\
 **Purpose:** Establish consistent standards for directory structure and testing across the Python monorepo
 
----
+______________________________________________________________________
 
 ## 1. Directory Structure Standards
 
 ### Current State Analysis
 
 **Root Level:**
+
 - ✅ `archive/` - Repository-wide archived files (old packages, deprecated env files)
 - ✅ `docs/` - Repository documentation (best practices, lessons learned, schemas)
 - ✅ `tests/` - Repository-wide integration tests
 - ⚠️ **No `artifacts/` at root** (only in users-provider-update project)
 
 **Project Level (varies by project):**
+
 - ✅ All projects have `archive/` (7 projects)
 - ❌ Only 2 projects have `tests/` (appointment_comparison, PatientOtherDetail_isActive_false)
 - ❌ Only 1 project has `artifacts/` (users-provider-update)
 - ❌ No projects have `docs/` subdirectories
 
 **Scattered Archive Directories:**
+
 - Root: `./archive/`
 - Projects: 7 project-level `archive/` folders
 - Data: `./data/input/appointment_comparison/archive/`, `./data/output/patients_hcmid_validator/archive/`
 - Logs: `./logs/archive/`, `./logs/locl/automate_refresh/archive/`, `./logs/patients_hcmid_validator/archive/`
 
----
+______________________________________________________________________
 
 ## 📋 RECOMMENDED STANDARDS
 
@@ -62,12 +65,13 @@ python/
 ```
 
 **Rationale:**
+
 - ✅ **Single source of truth** - No confusion about where things are
 - ✅ **Centralized documentation** - Easy to find and maintain
 - ✅ **Shared test infrastructure** - Reusable fixtures and utilities
 - ✅ **Clean builds** - All artifacts in one place, easy to .gitignore
 
----
+______________________________________________________________________
 
 #### **Tier 2: Shared Infrastructure** (Already Standardized)
 
@@ -91,7 +95,7 @@ python/
 └── temp/                 # Temporary files (already exists ✅)
 ```
 
----
+______________________________________________________________________
 
 #### **Tier 3: Project-Level Directories** (Per-Project)
 
@@ -116,13 +120,14 @@ Each project should have this **minimal, consistent** structure:
 ```
 
 **What should NOT exist at project level:**
+
 - ❌ `config/` - Use shared_config/.env instead (already removed ✅)
 - ❌ `data/` - Use root data/<project>/ instead (already removed ✅)
 - ❌ `logs/` - Use root logs/<project>/ instead (already removed ✅)
 - ❌ `docs/` - Use root docs/ with project subdirectories if needed
 - ❌ `artifacts/` - Use root artifacts/ instead
 
----
+______________________________________________________________________
 
 ### B. Archive Strategy - Hierarchical by Type
 
@@ -156,50 +161,55 @@ archive/
 ```
 
 **Migration Plan:**
-1. Move all project `archive/` contents to root `archive/code/<project>/`
-2. Remove all project-level `archive/` directories
-3. Clean up data/logs archive subdirectories into root `archive/data/` and `archive/logs/`
 
----
+1. Move all project `archive/` contents to root `archive/code/<project>/`
+1. Remove all project-level `archive/` directories
+1. Clean up data/logs archive subdirectories into root `archive/data/` and `archive/logs/`
+
+______________________________________________________________________
 
 ### C. Artifacts vs Archive - Clear Distinction
 
-| Directory | Purpose | Lifespan | In Git? |
-|-----------|---------|----------|---------|
-| `archive/` | Historical code, deprecated files | Permanent (reference) | ✅ Yes |
-| `artifacts/` | Build outputs, test reports | Temporary (rebuild) | ❌ No (.gitignore) |
+| Directory    | Purpose                           | Lifespan              | In Git?            |
+| ------------ | --------------------------------- | --------------------- | ------------------ |
+| `archive/`   | Historical code, deprecated files | Permanent (reference) | ✅ Yes             |
+| `artifacts/` | Build outputs, test reports       | Temporary (rebuild)   | ❌ No (.gitignore) |
 
 **Artifacts should contain:**
+
 - Test coverage reports (HTML, XML)
 - Built wheels/packages
 - Performance benchmarks
 - CI/CD outputs
 
 **Archive should contain:**
+
 - Deprecated source code (with explanation)
 - Old configuration files (with migration notes)
 - Historical documentation (with timestamps)
 
----
+______________________________________________________________________
 
 ## 2. Testing Standards
 
 ### Current State Analysis
 
 **✅ What exists:**
+
 - Root `tests/` directory with integration tests
 - GitHub Actions CI workflow (`.github/workflows/python-ci.yml`)
 - Common_config has smoke tests
 - 2 projects have basic smoke tests (appointment_comparison, PatientOtherDetail_isActive_false)
 
 **❌ What's missing:**
+
 - 7 projects have NO tests (78% of projects untested!)
 - No pytest configuration in root `pyproject.toml`
 - No coverage requirements
 - No pre-commit hooks
 - Tests run manually, not enforced
 
----
+______________________________________________________________________
 
 ### RECOMMENDED TESTING STANDARDS
 
@@ -207,12 +217,12 @@ archive/
 
 **Minimum standards by project type:**
 
-| Project Type | Min Coverage | Test Types Required |
-|--------------|--------------|---------------------|
-| Library (common_config) | 80% | Unit + Integration |
-| CLI Scripts (run.py) | 60% | Smoke + Integration |
-| Data Pipelines | 70% | Unit + E2E |
-| Validators | 75% | Unit + Edge Cases |
+| Project Type            | Min Coverage | Test Types Required |
+| ----------------------- | ------------ | ------------------- |
+| Library (common_config) | 80%          | Unit + Integration  |
+| CLI Scripts (run.py)    | 60%          | Smoke + Integration |
+| Data Pipelines          | 70%          | Unit + E2E          |
+| Validators              | 75%          | Unit + Edge Cases   |
 
 #### B. Required Test Structure
 
@@ -406,6 +416,7 @@ repos:
 #### F. Test Writing Guidelines
 
 **1. Use descriptive test names:**
+
 ```python
 # ✅ Good
 def test_patient_ref_comparison_handles_string_to_int_conversion():
@@ -417,6 +428,7 @@ def test_compare():
 ```
 
 **2. Follow AAA pattern (Arrange, Act, Assert):**
+
 ```python
 def test_mongo_connection_with_invalid_uri():
     # Arrange
@@ -431,6 +443,7 @@ def test_mongo_connection_with_invalid_uri():
 ```
 
 **3. Use fixtures for common setup:**
+
 ```python
 # conftest.py
 @pytest.fixture
@@ -444,6 +457,7 @@ def test_patient_processing(sample_patient_data):
 ```
 
 **4. Mock external dependencies:**
+
 ```python
 from unittest.mock import Mock, patch
 
@@ -454,7 +468,7 @@ def test_mongodb_query_without_real_db():
         # Test logic here
 ```
 
----
+______________________________________________________________________
 
 ## 3. Implementation Roadmap
 
@@ -470,7 +484,7 @@ def test_mongodb_query_without_real_db():
 
 **Estimated effort:** 4-6 hours
 
----
+______________________________________________________________________
 
 ### Phase 2: Testing Infrastructure (Week 1-2)
 
@@ -483,23 +497,24 @@ def test_mongodb_query_without_real_db():
 
 **Estimated effort:** 4-6 hours
 
----
+______________________________________________________________________
 
 ### Phase 3: Per-Project Test Coverage (Week 2-4)
 
 **Priority: MEDIUM**
 
 For each of 7 untested projects:
+
 - [ ] Create `tests/` directory
 - [ ] Add `test_smoke.py` (imports, entry point)
 - [ ] Add `conftest.py` with project fixtures
 - [ ] Achieve 30% coverage minimum
 - [ ] Document what's NOT tested and why
 
-**Estimated effort per project:** 2-4 hours  
+**Estimated effort per project:** 2-4 hours\
 **Total:** 14-28 hours
 
----
+______________________________________________________________________
 
 ### Phase 4: Coverage Improvement (Ongoing)
 
@@ -512,11 +527,12 @@ For each of 7 untested projects:
 
 **Estimated effort:** Ongoing, 2-4 hours per sprint
 
----
+______________________________________________________________________
 
 ## 4. Success Metrics
 
 ### Directory Structure
+
 - ✅ Single `archive/` at root with hierarchical structure
 - ✅ Single `docs/` at root (no project-level docs/)
 - ✅ Single `artifacts/` at root (gitignored)
@@ -524,24 +540,25 @@ For each of 7 untested projects:
 - ✅ Zero project-level data/, logs/, config/ directories
 
 ### Testing
+
 - ✅ 100% of projects have smoke tests
 - ✅ 70%+ overall test coverage
 - ✅ GitHub Actions passing on all PRs
 - ✅ Pre-commit hooks enforcing quality
 - ✅ Test artifacts uploaded to CI
 
----
+______________________________________________________________________
 
 ## 5. Best Practices Summary
 
 ### Python Development Standards
 
 1. **One source of truth** - Root-level for shared resources
-2. **Hierarchical organization** - Group by type, then by date/project
-3. **Test everything** - No project without tests
-4. **Automate quality** - CI/CD + pre-commit hooks
-5. **Document decisions** - README in every archive subdirectory
-6. **Version artifacts** - Timestamp all archived items
+1. **Hierarchical organization** - Group by type, then by date/project
+1. **Test everything** - No project without tests
+1. **Automate quality** - CI/CD + pre-commit hooks
+1. **Document decisions** - README in every archive subdirectory
+1. **Version artifacts** - Timestamp all archived items
 
 ### Anti-Patterns to Avoid
 
@@ -551,29 +568,32 @@ For each of 7 untested projects:
 - ❌ Archiving without explanation/documentation
 - ❌ Mixing active code with archived code
 
----
+______________________________________________________________________
 
 ## Appendix: Project Inventory
 
 ### Projects WITH Tests (2/9 = 22%)
+
 1. ✅ appointment_comparison - Has `tests/test_smoke.py`
-2. ✅ PatientOtherDetail_isActive_false - Has `tests/test_smoke.py`
+1. ✅ PatientOtherDetail_isActive_false - Has `tests/test_smoke.py`
 
 ### Projects WITHOUT Tests (7/9 = 78%)
+
 1. ❌ automate_refresh
-2. ❌ patient_data_extraction
-3. ❌ patient_demographic
-4. ❌ patients_hcmid_validator
-5. ❌ sample_project
-6. ❌ staff_appointment_visitStatus
-7. ❌ users-provider-update
+1. ❌ patient_data_extraction
+1. ❌ patient_demographic
+1. ❌ patients_hcmid_validator
+1. ❌ sample_project
+1. ❌ staff_appointment_visitStatus
+1. ❌ users-provider-update
 
 ### Archive Directories to Consolidate (13 total)
+
 - Root: `./archive/`
 - Projects: 7 directories
 - Data: 2 directories
 - Logs: 3 directories
 
----
+______________________________________________________________________
 
 **Next Steps:** Review and approve this standard, then proceed with Phase 1 implementation.
