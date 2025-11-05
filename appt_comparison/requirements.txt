@@ -11,4 +11,5 @@ typer
 pymongo
 
 # CSV/Data processing
+pandas>=2.0.0
 python-dateutil
