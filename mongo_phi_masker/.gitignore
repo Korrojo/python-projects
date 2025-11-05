@@ -10,6 +10,7 @@ build/
 
 # Virtual environments
 .venv/
+.venv*/
 venv/
 ENV/
 
@@ -50,7 +51,7 @@ verification_results.json
 checkpoint.json
 
 # Test data (generated)
-test_patients.json
+test-data/
 test_*.json
 sample_data.json
 .pytest_cache/

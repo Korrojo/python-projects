@@ -379,9 +379,43 @@ def run_masking(
 
 def main():
     # Parse arguments
-    parser = argparse.ArgumentParser(description="MongoDB PHI Masker")
+    parser = argparse.ArgumentParser(
+        description="MongoDB PHI Masker",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Environment-based usage (recommended):
+  python masking.py --config config.json --src-env LOCL --dst-env DEV --collection Patients
+  python masking.py --config config.json --src-env DEV --dst-env DEV --src-db devdb --collection Patients
+
+Legacy usage:
+  python masking.py --config config.json --env .env --collection Patients
+        """,
+    )
+
+    # Configuration file (required)
     parser.add_argument("--config", required=True, help="Path to configuration file")
-    parser.add_argument("--env", required=True, help="Path to environment file")
+
+    # Environment-based configuration (new approach)
+    parser.add_argument(
+        "--src-env",
+        choices=["LOCL", "DEV", "STG", "TRNG", "PERF", "PRPRD", "PROD"],
+        help="Source environment (loads from shared_config/.env)",
+    )
+    parser.add_argument(
+        "--dst-env",
+        choices=["LOCL", "DEV", "STG", "TRNG", "PERF", "PRPRD", "PROD"],
+        help="Destination environment (loads from shared_config/.env)",
+    )
+    parser.add_argument("--src-db", help="Source database name (overrides DATABASE_NAME_{src_env})")
+    parser.add_argument(
+        "--dst-db",
+        help="Destination database name (overrides DATABASE_NAME_{dst_env})",
+    )
+
+    # Legacy environment file (for backward compatibility)
+    parser.add_argument("--env", help="Path to environment file (legacy mode, use --src-env instead)")
+
+    # Collection and processing parameters
     parser.add_argument("--collection", help="Specific collection to process (optional)")
     parser.add_argument("--limit", type=int, help="Maximum number of documents to process")
     parser.add_argument("--query", help="MongoDB query to filter documents")
@@ -421,6 +455,23 @@ def main():
 
     args = parser.parse_args()
 
+    # Validate arguments
+    using_env_presets = args.src_env or args.dst_env
+    using_legacy_env = args.env
+
+    if using_env_presets and using_legacy_env:
+        print("ERROR: Cannot use both --src-env/--dst-env and --env together. " "Choose one approach.")
+        return 1
+
+    if not using_env_presets and not using_legacy_env:
+        print("ERROR: Must specify either --src-env/--dst-env (recommended) or --env (legacy)")
+        return 1
+
+    if using_env_presets:
+        if not args.src_env or not args.dst_env:
+            print("ERROR: Both --src-env and --dst-env are required")
+            return 1
+
     # Setup logging with enhanced options
     log_level = logging.DEBUG if args.debug else logging.INFO
     logger = setup_logging(
@@ -432,7 +483,26 @@ def main():
     )
 
     # Load environment variables
-    load_dotenv(args.env, override=True)
+    if using_env_presets:
+        # New approach: Load from shared_config using environment presets
+        logger.info(f"Loading environment configuration: {args.src_env} → {args.dst_env}")
+        try:
+            from src.utils.env_config import setup_masking_env_vars
+
+            src_uri, src_db_name, dst_uri, dst_db_name = setup_masking_env_vars(
+                args.src_env, args.dst_env, args.src_db, args.dst_db
+            )
+
+            logger.info(f"Source: {args.src_env} / {src_db_name}")
+            logger.info(f"Destination: {args.dst_env} / {dst_db_name}")
+
+        except (ValueError, EnvironmentError) as e:
+            logger.error(f"Environment configuration error: {e}")
+            return 1
+    else:
+        # Legacy approach: Load from specified .env file
+        logger.info(f"Loading environment from file: {args.env}")
+        load_dotenv(args.env, override=True)
 
     # Load configuration
     if not os.path.exists(args.config):
