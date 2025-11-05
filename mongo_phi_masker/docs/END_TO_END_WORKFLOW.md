@@ -189,6 +189,7 @@ python scripts/preflight_check.py --collection Patients --src-env LOCL --dst-env
 ```
 
 Expected output:
+
 ```
 ✓ Shared Config File
 ✓ Source Environment: LOCL
@@ -217,6 +218,7 @@ Use the orchestrator for the full 6-step workflow:
 ```
 
 **Expected duration for 10K documents:**
+
 - Step 1 (Generate): ~30-60 seconds
 - Step 2 (Backup): ~5-10 seconds
 - Step 3 (Restore): ~5-10 seconds
@@ -332,6 +334,7 @@ python scripts/compare_masking.py \
 ```
 
 Expected output:
+
 ```
 ✓ FirstName: 100% masked (100/100 documents)
 ✓ LastName: 100% masked (100/100 documents)
@@ -352,6 +355,7 @@ mongosh mongodb://localhost:27017/UbiquityLOCAL-masked --eval "db.Patients.findO
 ```
 
 Verify:
+
 - PHI fields are different
 - Non-PHI fields are identical
 - Document structure is preserved
@@ -361,6 +365,7 @@ Verify:
 ### Issue: "shared_config/.env not found"
 
 **Solution:**
+
 ```bash
 # Copy example and configure
 cp ../shared_config/.env.example ../shared_config/.env
@@ -370,6 +375,7 @@ nano ../shared_config/.env
 ### Issue: "Module 'faker' not found" or "Module 'tqdm' not found"
 
 **Solution:**
+
 ```bash
 pip install -r requirements.txt
 # Or specifically:
@@ -379,6 +385,7 @@ pip install Faker==24.0.0 tqdm==4.66.1
 ### Issue: "MongoDB connection failed"
 
 **Solution:**
+
 ```bash
 # Check if MongoDB is running
 mongosh --eval "db.adminCommand('ping')"
@@ -441,24 +448,24 @@ Fix any reported errors before running the workflow.
 
 ### Expected Performance (10K Documents)
 
-| Step | Duration | Throughput |
-|------|----------|------------|
-| 1. Generate | 30-60s | ~200-300 docs/sec |
-| 2. Backup | 5-10s | N/A |
-| 3. Restore | 5-10s | N/A |
-| 4. Mask | 60-120s | ~80-150 docs/sec |
-| 5. Backup | 5-10s | N/A |
-| 6. Restore | 5-10s | N/A |
-| **Total** | **2-4 min** | **~40-80 docs/sec** |
+| Step        | Duration    | Throughput          |
+| ----------- | ----------- | ------------------- |
+| 1. Generate | 30-60s      | ~200-300 docs/sec   |
+| 2. Backup   | 5-10s       | N/A                 |
+| 3. Restore  | 5-10s       | N/A                 |
+| 4. Mask     | 60-120s     | ~80-150 docs/sec    |
+| 5. Backup   | 5-10s       | N/A                 |
+| 6. Restore  | 5-10s       | N/A                 |
+| **Total**   | **2-4 min** | **~40-80 docs/sec** |
 
 ### Scaling to Larger Datasets
 
 | Size | Estimated Duration |
-|------|-------------------|
-| 10K | 2-4 minutes |
-| 50K | 10-20 minutes |
-| 100K | 20-40 minutes |
-| 500K | 1.5-3 hours |
+| ---- | ------------------ |
+| 10K  | 2-4 minutes        |
+| 50K  | 10-20 minutes      |
+| 100K | 20-40 minutes      |
+| 500K | 1.5-3 hours        |
 
 *Note: Performance varies based on hardware, network, and complexity of masking rules.*
 
@@ -467,10 +474,10 @@ Fix any reported errors before running the workflow.
 After successful workflow completion:
 
 1. **Review masked data** - Verify PHI is properly masked
-2. **Test application compatibility** - Ensure masked data works with your application
-3. **Scale up** - Try larger datasets (50K, 100K)
-4. **Automate** - Schedule regular masking workflows
-5. **Monitor** - Track performance metrics and optimization opportunities
+1. **Test application compatibility** - Ensure masked data works with your application
+1. **Scale up** - Try larger datasets (50K, 100K)
+1. **Automate** - Schedule regular masking workflows
+1. **Monitor** - Track performance metrics and optimization opportunities
 
 ## Related Documentation
 
@@ -479,7 +486,7 @@ After successful workflow completion:
 - [Masking Validation](MASKING_VALIDATION.md) - Validating masking results
 - [Performance Tracking](PERFORMANCE_TRACKING.md) - Monitoring pipeline performance
 
----
+______________________________________________________________________
 
 **Questions or Issues?**
 

@@ -3,24 +3,26 @@
 **Date**: November 5, 2025
 **Status**: ✅ **COMPLETE** - All features implemented and tested
 
----
+______________________________________________________________________
 
 ## 📋 Overview
 
 This document summarizes the complete implementation of the end-to-end PHI masking workflow system, including:
+
 - Environment-based configuration with shared_config integration
 - Schema-based test data generation (10K-100K documents)
 - Automated 6-step workflow orchestration
 - Backup/restore utilities with timestamp naming
 - Comprehensive validation at each step
 
----
+______________________________________________________________________
 
 ## ✅ Completed Features
 
 ### **Phase 1: Environment Configuration Foundation**
 
 #### 1. Shared Config Environment Loader (`src/utils/env_config.py`)
+
 - ✅ Loads environment configurations from `../shared_config/.env`
 - ✅ Supports 7 environments: LOCL, DEV, STG, TRNG, PERF, PRPRD, PROD
 - ✅ Functions:
@@ -31,12 +33,14 @@ This document summarizes the complete implementation of the end-to-end PHI maski
   - `setup_masking_env_vars()` - Set environment variables for masking
 
 #### 2. Enhanced Masking.py CLI
+
 - ✅ New arguments: `--src-env`, `--dst-env`, `--src-db`, `--dst-db`
 - ✅ Backward compatible with legacy `--env` mode
 - ✅ Automatic validation of argument combinations
 - ✅ Auto-loads from shared_config when using environment presets
 
 **Example Usage:**
+
 ```bash
 # New environment-based approach
 python masking.py --config config.json --src-env LOCL --dst-env DEV --collection Patients
@@ -49,6 +53,7 @@ python masking.py --config config.json --env .env --collection Patients
 ```
 
 #### 3. Enhanced Pre-Flight Checks (`scripts/preflight_check.py`)
+
 - ✅ New method: `check_shared_config_environments()`
 - ✅ Validates shared_config/.env exists
 - ✅ Validates source and destination environment configurations
@@ -56,6 +61,7 @@ python masking.py --config config.json --env .env --collection Patients
 - ✅ Backward compatible with legacy `--env` mode
 
 **Example Usage:**
+
 ```bash
 # Environment-based validation
 python scripts/preflight_check.py --collection Patients --src-env LOCL --dst-env DEV --verbose
@@ -64,11 +70,12 @@ python scripts/preflight_check.py --collection Patients --src-env LOCL --dst-env
 python scripts/preflight_check.py --collection Patients --env .env --verbose
 ```
 
----
+______________________________________________________________________
 
 ### **Phase 2: Workflow Automation Tools**
 
 #### 4. Schema-Based Test Data Generator (`scripts/generate_test_data.py`)
+
 - ✅ Generates realistic test data based on collection schema
 - ✅ Uses Faker library for realistic PHI data (names, emails, SSN, addresses, etc.)
 - ✅ Supports 10K-100K+ documents with batch processing
@@ -77,6 +84,7 @@ python scripts/preflight_check.py --collection Patients --env .env --verbose
 - ✅ Validated: Generated 100 documents at 1690 docs/sec
 
 **Features:**
+
 - Realistic PHI data generation
 - Configurable batch sizes
 - Default Patients schema included
@@ -84,6 +92,7 @@ python scripts/preflight_check.py --collection Patients --env .env --verbose
 - Performance metrics tracking
 
 **Example Usage:**
+
 ```bash
 # Generate 10K Patients in LOCL
 python scripts/generate_test_data.py --collection Patients --size 10000 --env LOCL
@@ -93,6 +102,7 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 ```
 
 **Test Results:**
+
 ```
 ✓ Generated 100 documents in 0.06 seconds
 ✓ Throughput: 1690 docs/sec
@@ -102,6 +112,7 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 ```
 
 #### 5. Backup Helper Script (`scripts/backup_collection.sh`)
+
 - ✅ Wraps mongodump with timestamp naming
 - ✅ Integrates with shared_config environments
 - ✅ Supports compression (`--compress`)
@@ -110,6 +121,7 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 - ✅ Automatic backup size reporting
 
 **Example Usage:**
+
 ```bash
 # Backup from LOCL environment
 ./scripts/backup_collection.sh --env LOCL --collection Patients
@@ -122,6 +134,7 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 ```
 
 #### 6. Restore Helper Script (`scripts/restore_collection.sh`)
+
 - ✅ Wraps mongorestore with environment support
 - ✅ Auto-detects backup structure and compression
 - ✅ Supports `--drop` flag for clean restore
@@ -130,6 +143,7 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 - ✅ Validates source database from backup
 
 **Example Usage:**
+
 ```bash
 # Restore to DEV
 ./scripts/restore_collection.sh --env DEV --backup-dir backup/20251105_120000_localdb_Patients
@@ -142,6 +156,7 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 ```
 
 #### 7. Workflow Orchestrator (`scripts/workflow_orchestrator.sh`)
+
 - ✅ Complete 6-step end-to-end workflow automation
 - ✅ Interactive and automated modes (`--interactive` / `--automated`)
 - ✅ Built-in validation at each step (document counts)
@@ -150,14 +165,16 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 - ✅ Automatic backup directory tracking
 
 **The 6 Steps:**
+
 1. ✅ Generate test data in LOCL (localdb-unmasked)
-2. ✅ Backup from LOCL with timestamp
-3. ✅ Restore to DEV (devdb)
-4. ✅ Mask data in-situ in DEV
-5. ✅ Backup masked data from DEV
-6. ✅ Restore to LOCL (localdb-masked)
+1. ✅ Backup from LOCL with timestamp
+1. ✅ Restore to DEV (devdb)
+1. ✅ Mask data in-situ in DEV
+1. ✅ Backup masked data from DEV
+1. ✅ Restore to LOCL (localdb-masked)
 
 **Example Usage:**
+
 ```bash
 # Interactive mode (default) - prompts before each step
 ./scripts/workflow_orchestrator.sh --collection Patients --size 10000 --interactive
@@ -169,11 +186,12 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 ./scripts/workflow_orchestrator.sh --collection Patients --size 10000 --config config/custom.json
 ```
 
----
+______________________________________________________________________
 
 ## 📚 Documentation
 
 #### 8. End-to-End Workflow Guide (`docs/END_TO_END_WORKFLOW.md`)
+
 - ✅ Complete setup and installation guide
 - ✅ Step-by-step workflow instructions
 - ✅ Prerequisites and dependency setup
@@ -183,6 +201,7 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 - ✅ Performance benchmarks
 
 **Sections:**
+
 - Prerequisites
 - Quick Start
 - Workflow Overview (visual diagram)
@@ -193,11 +212,12 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 - Performance Benchmarks
 - Next Steps
 
----
+______________________________________________________________________
 
 ## 🧪 Testing & Validation
 
 ### Test Data Generator
+
 - ✅ Tested with 100 documents
 - ✅ Throughput: 1690 docs/sec
 - ✅ Generated realistic PHI data
@@ -205,6 +225,7 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 - ✅ MongoDB ObjectId auto-generation working
 
 ### Sample Generated Document
+
 ```json
 {
   "_id": ObjectId("690b69465f7814f17dfd1eb2"),
@@ -236,20 +257,22 @@ python scripts/generate_test_data.py --collection Patients --size 50000 --env LO
 }
 ```
 
----
+______________________________________________________________________
 
 ## 📦 Dependencies Added
 
 ### requirements.txt Updates
+
 - ✅ `Faker==24.0.0` - Already present (test data generation)
 - ✅ `tqdm==4.66.1` - **Added** (progress bars)
 
 ### Installation
+
 ```bash
 pip install -r requirements.txt
 ```
 
----
+______________________________________________________________________
 
 ## 📊 File Structure
 
@@ -275,11 +298,12 @@ Modified Files:
 └── requirements.txt                      # Added tqdm dependency
 ```
 
----
+______________________________________________________________________
 
 ## 🎯 Usage Quick Reference
 
 ### Complete Workflow (One Command)
+
 ```bash
 # Interactive mode (recommended for first run)
 ./scripts/workflow_orchestrator.sh --collection Patients --size 10000 --interactive
@@ -291,61 +315,70 @@ Modified Files:
 ### Individual Operations
 
 **Generate Test Data:**
+
 ```bash
 python scripts/generate_test_data.py --collection Patients --size 10000 --env LOCL
 ```
 
 **Backup Collection:**
+
 ```bash
 ./scripts/backup_collection.sh --env LOCL --collection Patients --compress
 ```
 
 **Restore Collection:**
+
 ```bash
 ./scripts/restore_collection.sh --env DEV --backup-dir backup/... --drop
 ```
 
 **Run Masking:**
+
 ```bash
 python masking.py --config config.json --src-env DEV --dst-env DEV --src-db devdb --dst-db devdb --collection Patients --in-situ
 ```
 
 **Pre-Flight Checks:**
+
 ```bash
 python scripts/preflight_check.py --collection Patients --src-env LOCL --dst-env DEV --verbose
 ```
 
----
+______________________________________________________________________
 
 ## ✨ Key Features Highlights
 
 1. **Environment-Based Configuration**
+
    - Single source of truth: `../shared_config/.env`
    - 7 environment presets (LOCL, DEV, STG, TRNG, PERF, PRPRD, PROD)
    - Database name overrides supported
    - Backward compatible with legacy `.env` files
 
-2. **Realistic Test Data**
+1. **Realistic Test Data**
+
    - Schema-based generation
    - Faker library for realistic PHI
    - Scalable to 100K+ documents
    - ~1690 docs/sec throughput
 
-3. **Automated Workflow**
+1. **Automated Workflow**
+
    - 6-step orchestration
    - Interactive and automated modes
    - Built-in validation
    - Performance tracking
    - Colored output with progress indicators
 
-4. **Safety & Validation**
+1. **Safety & Validation**
+
    - Pre-flight checks before running
    - Document count validation at each step
    - Confirmation prompts in interactive mode
    - Timestamped backups for rollback
    - Comprehensive error handling
 
----
+______________________________________________________________________
 
 ## 🚀 Next Steps
 
@@ -354,40 +387,44 @@ python scripts/preflight_check.py --collection Patients --src-env LOCL --dst-env
 The system is fully implemented and tested. You can now:
 
 1. **Run a test workflow** with 100-1000 documents
+
    ```bash
    ./scripts/workflow_orchestrator.sh --collection Patients --size 1000 --interactive
    ```
 
-2. **Scale to 10K documents** as originally planned
+1. **Scale to 10K documents** as originally planned
+
    ```bash
    ./scripts/workflow_orchestrator.sh --collection Patients --size 10000 --automated
    ```
 
-3. **Validate masking results**
+1. **Validate masking results**
+
    ```bash
    python scripts/compare_masking.py --src-env LOCL --src-db UbiquityLOCAL --dst-env LOCL --dst-db UbiquityLOCAL-masked --collection Patients --sample-size 100
    ```
 
-4. **Test with larger datasets** (50K, 100K)
+1. **Test with larger datasets** (50K, 100K)
+
    ```bash
    ./scripts/workflow_orchestrator.sh --collection Patients --size 50000 --automated
    ```
 
----
+______________________________________________________________________
 
 ## 📈 Performance Expectations
 
-| Dataset Size | Estimated Duration | Throughput |
-|--------------|-------------------|------------|
-| 100 | ~10 seconds | ~10 docs/sec (with prompts) |
-| 1,000 | ~30 seconds | ~30 docs/sec |
-| 10,000 | 2-4 minutes | ~40-80 docs/sec |
-| 50,000 | 10-20 minutes | ~40-80 docs/sec |
-| 100,000 | 20-40 minutes | ~40-80 docs/sec |
+| Dataset Size | Estimated Duration | Throughput                  |
+| ------------ | ------------------ | --------------------------- |
+| 100          | ~10 seconds        | ~10 docs/sec (with prompts) |
+| 1,000        | ~30 seconds        | ~30 docs/sec                |
+| 10,000       | 2-4 minutes        | ~40-80 docs/sec             |
+| 50,000       | 10-20 minutes      | ~40-80 docs/sec             |
+| 100,000      | 20-40 minutes      | ~40-80 docs/sec             |
 
 *Note: Performance varies based on hardware, masking complexity, and network latency.*
 
----
+______________________________________________________________________
 
 ## ✅ Implementation Checklist
 
@@ -412,11 +449,12 @@ The system is fully implemented and tested. You can now:
   - [x] Faker (already present)
   - [x] tqdm (added and installed)
 
----
+______________________________________________________________________
 
 ## 🎊 Summary
 
 **All implementation complete!** The end-to-end PHI masking workflow system is:
+
 - ✅ Fully implemented
 - ✅ Tested with sample data
 - ✅ Documented comprehensively
@@ -429,9 +467,10 @@ You can now run the complete workflow with 10K Patient documents from generation
 **Files Created**: 7 new files
 **Files Modified**: 3 files
 
----
+______________________________________________________________________
 
 **Questions or Issues?** Refer to:
+
 - [docs/END_TO_END_WORKFLOW.md](docs/END_TO_END_WORKFLOW.md) - Complete guide
 - [docs/PREFLIGHT_CHECKS.md](docs/PREFLIGHT_CHECKS.md) - Configuration validation
 - [docs/PERFORMANCE_TRACKING.md](docs/PERFORMANCE_TRACKING.md) - Performance monitoring
