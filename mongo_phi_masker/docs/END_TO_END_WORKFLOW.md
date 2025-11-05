@@ -1,6 +1,7 @@
 # End-to-End PHI Masking Workflow
 
-Complete guide for running the end-to-end PHI masking workflow with test data generation, backup, masking, and validation.
+Complete guide for running the end-to-end PHI masking workflow with test data generation, backup, masking, and
+validation.
 
 ## Table of Contents
 
