@@ -81,11 +81,10 @@ class TestPerformanceMonitor:
         with pytest.raises(ValueError):
             with monitor.phase("Test Phase"):
                 raise ValueError("Test error")
-
-        # Phase should still be ended
-        assert "Test Phase" in monitor.phases
-        assert monitor._current_phase is None
-        assert "end_time" in monitor.phases["Test Phase"][0]
+            # Phase should still be ended
+            assert "Test Phase" in monitor.phases
+            assert monitor._current_phase is None
+            assert "end_time" in monitor.phases["Test Phase"][0]
 
     def test_multiple_phase_instances(self, monitor):
         """Test tracking the same phase multiple times."""
