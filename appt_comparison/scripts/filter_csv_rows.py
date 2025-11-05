@@ -18,8 +18,8 @@ from pathlib import Path
 
 import pandas as pd
 import typer
-from common_config.utils.logger import get_logger, setup_logging
 
+from common_config.utils.logger import get_logger, setup_logging
 
 app = typer.Typer()
 
@@ -72,7 +72,7 @@ def main(
         filtered_df.to_csv(output_path, index=False)
 
         # Log results
-        logger.info(f"Successfully filtered the data")
+        logger.info("Successfully filtered the data")
         logger.info(f"Original rows: {len(df)}")
         logger.info(f"Filtered rows: {len(filtered_df)}")
 
