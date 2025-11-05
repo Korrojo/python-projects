@@ -165,9 +165,7 @@ class PreFlightChecker:
 
         # Check environment configuration (new or legacy mode)
         if self.using_env_presets:
-            self.check_shared_config_environments(
-                self.src_env, self.dst_env, self.src_db, self.dst_db
-            )
+            self.check_shared_config_environments(self.src_env, self.dst_env, self.src_db, self.dst_db)
         else:
             self.check_environment_variables()
 
@@ -469,7 +467,9 @@ class PreFlightChecker:
 
         self.categories.append(category)
 
-    def check_shared_config_environments(self, src_env: str, dst_env: str, src_db: str | None = None, dst_db: str | None = None):
+    def check_shared_config_environments(
+        self, src_env: str, dst_env: str, src_db: str | None = None, dst_db: str | None = None
+    ):
         """Check shared_config environment presets.
 
         Args:
@@ -953,12 +953,8 @@ Examples:
         choices=["LOCL", "DEV", "STG", "TRNG", "PERF", "PRPRD", "PROD"],
         help="Destination environment (loads from shared_config/.env)",
     )
-    parser.add_argument(
-        "--src-db", help="Source database name override"
-    )
-    parser.add_argument(
-        "--dst-db", help="Destination database name override"
-    )
+    parser.add_argument("--src-db", help="Source database name override")
+    parser.add_argument("--dst-db", help="Destination database name override")
 
     # Legacy mode
     parser.add_argument("--env", default=".env", help="Path to environment file (legacy mode, default: .env)")

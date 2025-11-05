@@ -136,10 +136,7 @@ class TestDataGenerator:
         elif field_type == "array":
             item_config = field_config.get("items", {"type": "string"})
             array_length = fake.random_int(min=0, max=field_config.get("maxItems", 5))
-            return [
-                self.generate_field_value(f"{field_name}_item", item_config)
-                for _ in range(array_length)
-            ]
+            return [self.generate_field_value(f"{field_name}_item", item_config) for _ in range(array_length)]
 
         # Object fields
         elif field_type == "object":
@@ -183,9 +180,7 @@ class TestDataGenerator:
         """
         return [self.generate_document() for _ in range(batch_size)]
 
-    def generate_and_insert(
-        self, mongo_uri: str, database: str, collection: str, total_count: int
-    ) -> int:
+    def generate_and_insert(self, mongo_uri: str, database: str, collection: str, total_count: int) -> int:
         """Generate and insert documents into MongoDB.
 
         Args:
@@ -209,9 +204,7 @@ class TestDataGenerator:
         inserted_count = 0
         batches = (total_count + self.batch_size - 1) // self.batch_size
 
-        self.logger.info(
-            f"Generating {total_count} documents in {batches} batches of {self.batch_size}"
-        )
+        self.logger.info(f"Generating {total_count} documents in {batches} batches of {self.batch_size}")
 
         with tqdm(total=total_count, desc="Generating documents") as pbar:
             for batch_num in range(batches):
@@ -348,9 +341,7 @@ Examples:
         help="Target environment",
     )
 
-    parser.add_argument(
-        "--db", help="Database name override (uses DATABASE_NAME_{env} if not specified)"
-    )
+    parser.add_argument("--db", help="Database name override (uses DATABASE_NAME_{env} if not specified)")
 
     parser.add_argument(
         "--batch-size",

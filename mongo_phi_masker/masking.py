@@ -406,31 +406,21 @@ Legacy usage:
         choices=["LOCL", "DEV", "STG", "TRNG", "PERF", "PRPRD", "PROD"],
         help="Destination environment (loads from shared_config/.env)",
     )
-    parser.add_argument(
-        "--src-db", help="Source database name (overrides DATABASE_NAME_{src_env})"
-    )
+    parser.add_argument("--src-db", help="Source database name (overrides DATABASE_NAME_{src_env})")
     parser.add_argument(
         "--dst-db",
         help="Destination database name (overrides DATABASE_NAME_{dst_env})",
     )
 
     # Legacy environment file (for backward compatibility)
-    parser.add_argument(
-        "--env", help="Path to environment file (legacy mode, use --src-env instead)"
-    )
+    parser.add_argument("--env", help="Path to environment file (legacy mode, use --src-env instead)")
 
     # Collection and processing parameters
     parser.add_argument("--collection", help="Specific collection to process (optional)")
-    parser.add_argument(
-        "--limit", type=int, help="Maximum number of documents to process"
-    )
+    parser.add_argument("--limit", type=int, help="Maximum number of documents to process")
     parser.add_argument("--query", help="MongoDB query to filter documents")
-    parser.add_argument(
-        "--reset-checkpoint", action="store_true", help="Reset checkpoint"
-    )
-    parser.add_argument(
-        "--verify-only", action="store_true", help="Only verify results"
-    )
+    parser.add_argument("--reset-checkpoint", action="store_true", help="Reset checkpoint")
+    parser.add_argument("--verify-only", action="store_true", help="Only verify results")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
 
     # Batch processing parameters
@@ -470,16 +460,11 @@ Legacy usage:
     using_legacy_env = args.env
 
     if using_env_presets and using_legacy_env:
-        print(
-            "ERROR: Cannot use both --src-env/--dst-env and --env together. "
-            "Choose one approach."
-        )
+        print("ERROR: Cannot use both --src-env/--dst-env and --env together. " "Choose one approach.")
         return 1
 
     if not using_env_presets and not using_legacy_env:
-        print(
-            "ERROR: Must specify either --src-env/--dst-env (recommended) or --env (legacy)"
-        )
+        print("ERROR: Must specify either --src-env/--dst-env (recommended) or --env (legacy)")
         return 1
 
     if using_env_presets:
@@ -500,9 +485,7 @@ Legacy usage:
     # Load environment variables
     if using_env_presets:
         # New approach: Load from shared_config using environment presets
-        logger.info(
-            f"Loading environment configuration: {args.src_env} → {args.dst_env}"
-        )
+        logger.info(f"Loading environment configuration: {args.src_env} → {args.dst_env}")
         try:
             from src.utils.env_config import setup_masking_env_vars
 

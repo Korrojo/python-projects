@@ -95,10 +95,7 @@ def get_env_config(env: str, database: str | None = None) -> dict[str, Any]:
     env = env.upper()
 
     if env not in get_available_environments():
-        msg = (
-            f"Invalid environment: {env}\n"
-            f"Available environments: {', '.join(get_available_environments())}"
-        )
+        msg = f"Invalid environment: {env}\n" f"Available environments: {', '.join(get_available_environments())}"
         raise ValueError(msg)
 
     # Load shared config if not already loaded
@@ -109,8 +106,7 @@ def get_env_config(env: str, database: str | None = None) -> dict[str, Any]:
     uri = os.getenv(f"MONGODB_URI_{env}")
     if not uri:
         msg = (
-            f"MongoDB URI not configured for {env} environment.\n"
-            f"Please set MONGODB_URI_{env} in shared_config/.env"
+            f"MongoDB URI not configured for {env} environment.\n" f"Please set MONGODB_URI_{env} in shared_config/.env"
         )
         raise EnvironmentError(msg)
 
@@ -189,10 +185,7 @@ def validate_env_config(env: str) -> tuple[bool, list[str]]:
 
     # Check if environment is valid
     if env not in get_available_environments():
-        errors.append(
-            f"Invalid environment: {env}. "
-            f"Valid options: {', '.join(get_available_environments())}"
-        )
+        errors.append(f"Invalid environment: {env}. " f"Valid options: {', '.join(get_available_environments())}")
         return False, errors
 
     # Load shared config
@@ -247,9 +240,7 @@ def setup_masking_env_vars(
         EnvironmentError: If required config is missing
     """
     # Get source and destination configs
-    src_config, dst_config = get_source_and_target_config(
-        src_env, dst_env, src_db, dst_db
-    )
+    src_config, dst_config = get_source_and_target_config(src_env, dst_env, src_db, dst_db)
 
     # Set environment variables for source
     os.environ["MONGO_SOURCE_URI"] = src_config["uri"]
