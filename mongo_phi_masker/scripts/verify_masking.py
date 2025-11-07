@@ -23,9 +23,9 @@ from src.utils.env_config import get_env_config, load_shared_config
 
 def compare_documents(original_db, masked_db, collection_name, logger, sample_size=5):
     """Compare original and masked documents."""
-    logger.info("="*70)
+    logger.info("=" * 70)
     logger.info(f"Verifying Masking Results: {collection_name}")
-    logger.info("="*70)
+    logger.info("=" * 70)
 
     # Get sample documents
     original_docs = list(original_db[collection_name].find().limit(sample_size))
@@ -95,8 +95,7 @@ def compare_documents(original_db, masked_db, collection_name, logger, sample_si
                     f"({masked['FirstName'].lower()} != {masked['FirstNameLower']})"
                 )
                 logger.error(
-                    f"  FirstNameLower: MISMATCH "
-                    f"({masked['FirstName'].lower()} != {masked['FirstNameLower']})"
+                    f"  FirstNameLower: MISMATCH " f"({masked['FirstName'].lower()} != {masked['FirstNameLower']})"
                 )
 
         # Check Dob (should be shifted)
@@ -112,9 +111,9 @@ def compare_documents(original_db, masked_db, collection_name, logger, sample_si
 
     # Summary
     logger.info("")
-    logger.info("="*70)
+    logger.info("=" * 70)
     logger.info("SUMMARY")
-    logger.info("="*70)
+    logger.info("=" * 70)
     logger.info(f"Checks Passed: {len(checks_passed)}")
     logger.info(f"Issues Found: {len(issues_found)}")
 
@@ -125,7 +124,7 @@ def compare_documents(original_db, masked_db, collection_name, logger, sample_si
             logger.error(f"  - {issue}")
 
     logger.info("")
-    logger.info("="*70)
+    logger.info("=" * 70)
 
     return len(issues_found) == 0
 
@@ -133,9 +132,7 @@ def compare_documents(original_db, masked_db, collection_name, logger, sample_si
 def main():
     """Main verification function."""
     # Parse command-line arguments
-    parser = argparse.ArgumentParser(
-        description="Verify PHI masking results by comparing original vs masked documents"
-    )
+    parser = argparse.ArgumentParser(description="Verify PHI masking results by comparing original vs masked documents")
     parser.add_argument(
         "--src-env",
         required=True,
@@ -188,9 +185,9 @@ def main():
     )
     logger = logging.getLogger(__name__)
 
-    logger.info("="*70)
+    logger.info("=" * 70)
     logger.info("PHI Masking Verification")
-    logger.info("="*70)
+    logger.info("=" * 70)
     logger.info(f"Source: {args.src_env} / {args.src_db}")
     logger.info(f"Destination: {args.dst_env} / {args.dst_db}")
     logger.info(f"Collection: {args.collection}")

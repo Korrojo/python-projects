@@ -199,10 +199,7 @@ def setup_logging(
 
     # Set up logging format and level
     # Use consistent format across project: YYYY-MM-DD HH:MM:SS | LEVEL | message
-    formatter = logging.Formatter(
-        "%(asctime)s | %(levelname)s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
-    )
+    formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
 
     # File handler with appropriate rotation
     if use_timed_rotating:

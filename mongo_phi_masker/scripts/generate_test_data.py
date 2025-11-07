@@ -306,7 +306,12 @@ class PathBasedDataGenerator:
             return fake.sentence(nb_words=10)
         elif "reason" in field_lower and "other" not in field_lower:
             return fake.random_element(
-                ["Appointment confirmation", "Medication refill reminder", "Annual wellness check reminder", "Flu vaccination reminder"]
+                [
+                    "Appointment confirmation",
+                    "Medication refill reminder",
+                    "Annual wellness check reminder",
+                    "Flu vaccination reminder",
+                ]
             )
         elif "otherreason" in field_lower:
             return fake.sentence(nb_words=15)
@@ -448,7 +453,9 @@ class PathBasedDataGenerator:
         """
         return [self.generate_document() for _ in range(batch_size)]
 
-    def generate_and_insert(self, mongo_uri: str, database: str, collection: str, total_count: int, clear_existing: bool = True) -> int:
+    def generate_and_insert(
+        self, mongo_uri: str, database: str, collection: str, total_count: int, clear_existing: bool = True
+    ) -> int:
         """Generate and insert documents into MongoDB.
 
         Args:
@@ -533,7 +540,9 @@ Examples:
 
     parser.add_argument("--batch-size", type=int, default=1000, help="Batch size for inserts (default: 1000)")
 
-    parser.add_argument("--keep-existing", action="store_true", help="Keep existing documents (default: clear before generating)")
+    parser.add_argument(
+        "--keep-existing", action="store_true", help="Keep existing documents (default: clear before generating)"
+    )
 
     args = parser.parse_args()
 
