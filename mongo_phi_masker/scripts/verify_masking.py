@@ -51,61 +51,56 @@ def compare_documents(original_db, masked_db, collection_name, logger, sample_si
         # Check FirstName
         if "FirstName" in orig and "FirstName" in masked:
             if orig["FirstName"] == masked["FirstName"]:
-                issues_found.append(f"Doc {i}: FirstName not masked ({orig['FirstName']})")
-                logger.error(f"  FirstName: NOT MASKED ({orig['FirstName']})")
+                issues_found.append(f"Doc {i}: FirstName not masked")
+                logger.error("  FirstName: NOT MASKED")
             else:
                 checks_passed.append(f"Doc {i}: FirstName masked")
-                logger.info(f"  FirstName: {orig['FirstName']} → {masked['FirstName']}")
+                logger.info("  FirstName: ✓ masked")
 
         # Check LastName
         if "LastName" in orig and "LastName" in masked:
             if orig["LastName"] == masked["LastName"]:
-                issues_found.append(f"Doc {i}: LastName not masked ({orig['LastName']})")
-                logger.error(f"  LastName: NOT MASKED ({orig['LastName']})")
+                issues_found.append(f"Doc {i}: LastName not masked")
+                logger.error("  LastName: NOT MASKED")
             else:
                 checks_passed.append(f"Doc {i}: LastName masked")
-                logger.info(f"  LastName: {orig['LastName']} → {masked['LastName']}")
+                logger.info("  LastName: ✓ masked")
 
         # Check Email
         if "Email" in orig and "Email" in masked:
             if orig["Email"] == masked["Email"]:
-                issues_found.append(f"Doc {i}: Email not masked ({orig['Email']})")
-                logger.error(f"  Email: NOT MASKED ({orig['Email']})")
+                issues_found.append(f"Doc {i}: Email not masked")
+                logger.error("  Email: NOT MASKED")
             else:
                 checks_passed.append(f"Doc {i}: Email masked")
-                logger.info(f"  Email: {orig['Email']} → {masked['Email']}")
+                logger.info("  Email: ✓ masked")
 
         # Check Gender (should be "Female")
         if "Gender" in masked:
             if masked["Gender"] == "Female":
                 checks_passed.append(f"Doc {i}: Gender set to Female")
-                logger.info(f"  Gender: {orig.get('Gender', 'N/A')} → {masked['Gender']}")
+                logger.info("  Gender: ✓ set to Female")
             else:
-                issues_found.append(f"Doc {i}: Gender not set to Female ({masked['Gender']})")
-                logger.error(f"  Gender: NOT SET TO FEMALE ({masked['Gender']})")
+                issues_found.append(f"Doc {i}: Gender not set to Female")
+                logger.error("  Gender: NOT SET TO FEMALE")
 
         # Check lowercase consistency
         if "FirstName" in masked and "FirstNameLower" in masked:
             if masked["FirstName"].lower() == masked["FirstNameLower"]:
                 checks_passed.append(f"Doc {i}: FirstNameLower matches")
-                logger.info("  FirstNameLower: matches lowercase of FirstName")
+                logger.info("  FirstNameLower: ✓ matches lowercase of FirstName")
             else:
-                issues_found.append(
-                    f"Doc {i}: FirstNameLower mismatch "
-                    f"({masked['FirstName'].lower()} != {masked['FirstNameLower']})"
-                )
-                logger.error(
-                    f"  FirstNameLower: MISMATCH " f"({masked['FirstName'].lower()} != {masked['FirstNameLower']})"
-                )
+                issues_found.append(f"Doc {i}: FirstNameLower mismatch")
+                logger.error("  FirstNameLower: MISMATCH")
 
         # Check Dob (should be shifted)
         if "Dob" in orig and "Dob" in masked:
             if orig["Dob"] == masked["Dob"]:
-                issues_found.append(f"Doc {i}: Dob not shifted ({orig['Dob']})")
-                logger.error(f"  Dob: NOT SHIFTED ({orig['Dob']})")
+                issues_found.append(f"Doc {i}: Dob not shifted")
+                logger.error("  Dob: NOT SHIFTED")
             else:
                 checks_passed.append(f"Doc {i}: Dob shifted")
-                logger.info(f"  Dob: {orig['Dob']} → {masked['Dob']}")
+                logger.info("  Dob: ✓ shifted")
 
         logger.info("")
 
