@@ -53,7 +53,7 @@
         }
     },
     "masking": {
-        "rules_path": "config/masking_rules/rules_container.json",
+        "rules_path": "config/masking_rules/rules_Container.json",
         "default_rules": "config/masking_rules/default.json",
         "field_cache": {
             "enabled": true,

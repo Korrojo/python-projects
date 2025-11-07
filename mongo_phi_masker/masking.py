@@ -15,7 +15,7 @@ import re
 import string
 import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 import pymongo
@@ -60,7 +60,39 @@ def redact_uri(uri):
 
 
 def build_mongo_uri(prefix, logger=None, db_name=None, coll_name=None):
-    """Build a MongoDB URI from environment variables with proper SRV handling."""
+    """Build or retrieve MongoDB URI from environment variables.
+
+    Priority:
+    1. Use {prefix}_URI if it exists (full connection string from shared_config)
+    2. Otherwise build from component variables for backward compatibility
+    """
+    # PRIORITY 1: Check if full URI already exists (from shared_config/.env)
+    existing_uri = os.getenv(f"{prefix}_URI")
+    if existing_uri:
+        if logger:
+            # Mask credentials in log - show only protocol and host
+            if "mongodb+srv://" in existing_uri or "mongodb://" in existing_uri:
+                # Extract protocol
+                protocol = existing_uri.split("://")[0] + "://"
+                # Extract host (after @ if credentials exist, otherwise after protocol)
+                if "@" in existing_uri:
+                    host_part = existing_uri.split("@")[1].split("/")[0].split("?")[0]
+                    masked_uri = f"{protocol}***:***@{host_part}"
+                else:
+                    host_part = existing_uri.split("://")[1].split("/")[0].split("?")[0]
+                    masked_uri = f"{protocol}{host_part}"
+            else:
+                masked_uri = "[REDACTED]"
+
+            namespace_info = ""
+            if db_name and coll_name:
+                namespace_info = f", Namespace={db_name}.{coll_name}"
+
+            logger.info(f"Using existing {prefix}_URI: {masked_uri}{namespace_info}")
+
+        return existing_uri
+
+    # PRIORITY 2: Build from components (backward compatibility)
     username = os.getenv(f"{prefix}_USERNAME", "")
     password = os.getenv(f"{prefix}_PASSWORD", "")
     host = os.getenv(f"{prefix}_HOST", "localhost")
@@ -69,14 +101,15 @@ def build_mongo_uri(prefix, logger=None, db_name=None, coll_name=None):
     use_ssl = os.getenv(f"{prefix}_USE_SSL", "false").lower() == "true"
     use_srv = os.getenv(f"{prefix}_USE_SRV", "false").lower() == "true"
 
-    # Add logging for environment variables
-    logger.info(f"{prefix}_USERNAME: {username}")
-    logger.info(f"{prefix}_PASSWORD: ***")  # Redacted for security
-    logger.info(f"{prefix}_HOST: {host}")
-    logger.info(f"{prefix}_PORT: {port}")
-    logger.info(f"{prefix}_AUTH_DB: {auth_db}")
-    logger.info(f"{prefix}_USE_SSL: {use_ssl}")
-    logger.info(f"{prefix}_USE_SRV: {use_srv}")
+    if logger:
+        logger.info(f"Building {prefix} URI from components:")
+        logger.info(f"  {prefix}_USERNAME: {username}")
+        logger.info(f"  {prefix}_PASSWORD: ***")
+        logger.info(f"  {prefix}_HOST: {host}")
+        logger.info(f"  {prefix}_PORT: {port}")
+        logger.info(f"  {prefix}_AUTH_DB: {auth_db}")
+        logger.info(f"  {prefix}_USE_SSL: {use_ssl}")
+        logger.info(f"  {prefix}_USE_SRV: {use_srv}")
 
     # Auth string (if credentials provided)
     auth_string = ""
@@ -103,15 +136,11 @@ def build_mongo_uri(prefix, logger=None, db_name=None, coll_name=None):
     # Build final URI
     uri = f"{protocol}{auth_string}{host_part}/{options_str}"
 
-    # Log components if logger provided
     if logger:
         namespace_info = ""
         if db_name and coll_name:
             namespace_info = f", Namespace={db_name}.{coll_name}"
-
-        logger.info(
-            f"URI components for {prefix}: Protocol={protocol}, Host={host_part}, Auth DB={auth_db}, SSL={use_ssl}, SRV={use_srv}{namespace_info}"
-        )
+        logger.info(f"Built URI: {protocol}***@{host_part}{namespace_info}")
 
     return uri
 
@@ -145,8 +174,8 @@ def setup_logging(
             # Use the run-specific log directory
             log_dir = run_log_dir
         else:
-            # Use the default base log directory
-            log_dir = "C:/Users/demesew/logs/mask/PHI"
+            # Use the default base log directory (cross-platform)
+            log_dir = "logs/masking"
 
         # Create logs directory if it doesn't exist
         os.makedirs(log_dir, exist_ok=True)
@@ -169,7 +198,11 @@ def setup_logging(
             log_file = f"{log_dir}/mask_parallel_{timestamp}.log"
 
     # Set up logging format and level
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    # Use consistent format across project: YYYY-MM-DD HH:MM:SS | LEVEL | message
+    formatter = logging.Formatter(
+        "%(asctime)s | %(levelname)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
 
     # File handler with appropriate rotation
     if use_timed_rotating:
@@ -831,9 +864,16 @@ Legacy usage:
                                             dt = datetime.strptime(value, "%m/%d/%Y")
                                             original_format = "%m/%d/%Y"
 
-                                # Add milliseconds as days
-                                days = int(params) // (1000 * 60 * 60 * 24)
-                                new_dt = dt + timedelta(days=days)
+                                # Calculate years to shift (preserves month and day)
+                                # Milliseconds per year (approximate): 31,536,000,000
+                                years = round(int(params) / (1000 * 60 * 60 * 24 * 365))
+
+                                # Shift by exactly N years (preserve month and day)
+                                try:
+                                    new_dt = dt.replace(year=dt.year + years)
+                                except ValueError:
+                                    # Handle leap year edge case (Feb 29 -> Feb 28)
+                                    new_dt = dt.replace(year=dt.year + years, day=28)
 
                                 # Return in the same format as the original string
                                 if original_format == "iso":
@@ -842,7 +882,7 @@ Legacy usage:
                                     result = new_dt.strftime(original_format)
 
                                 logger.debug(
-                                    f"Masked Dob from {value} to {result} by adding {days} days (preserved format: {original_format})"
+                                    f"Masked Dob from {value} to {result} by shifting {years} years (preserved month/day)"
                                 )
                                 return result
                             except Exception as e:
@@ -851,10 +891,18 @@ Legacy usage:
                         elif isinstance(value, datetime):
                             # Handle datetime objects directly
                             try:
-                                days = int(params) // (1000 * 60 * 60 * 24)
-                                new_dt = value + timedelta(days=days)
+                                # Calculate years to shift
+                                years = int(params) // (1000 * 60 * 60 * 24 * 365)
+
+                                # Shift by exactly N years (preserve month and day)
+                                try:
+                                    new_dt = value.replace(year=value.year + years)
+                                except ValueError:
+                                    # Handle leap year edge case (Feb 29 -> Feb 28)
+                                    new_dt = value.replace(year=value.year + years, day=28)
+
                                 # Return datetime object to preserve original type
-                                logger.debug(f"Masked Dob from {value} to {new_dt} by adding {days} days")
+                                logger.debug(f"Masked Dob from {value} to {new_dt} by shifting {years} years")
                                 return new_dt
                             except Exception as e:
                                 logger.debug(f"Date processing error: {e}")
@@ -1215,9 +1263,49 @@ Legacy usage:
                         direct_client = None
 
                 # Final summary for this collection
-                logger.info(
-                    f"\nCollection {collection_name}: Masking complete: {processed_count} documents processed, {error_count} errors\n"
-                )
+                end_time = datetime.now()
+                total_elapsed = (end_time - start_time).total_seconds()
+                success_rate = (processed_count / total_docs * 100) if total_docs > 0 else 0
+                avg_throughput = processed_count / total_elapsed if total_elapsed > 0 else 0
+
+                # Calculate memory stats
+                if memory_tracking and len(metrics["memory_samples"]) > 0:
+                    initial_mem = metrics["memory_samples"][0]
+                    peak_mem = max(metrics["memory_samples"])
+                    mem_growth = peak_mem - initial_mem
+                else:
+                    initial_mem = peak_mem = mem_growth = 0
+
+                # Build comprehensive summary
+                logger.info("")
+                logger.info("=" * 70)
+                logger.info(f"MASKING SUMMARY - {collection_name} Collection")
+                logger.info("=" * 70)
+                logger.info(f"Total Documents:        {total_docs}")
+                logger.info(f"Successfully Masked:    {processed_count}")
+                logger.info(f"Errors:                 {error_count}")
+                logger.info(f"Success Rate:          {success_rate:.2f}%")
+                logger.info("")
+                logger.info("Performance Metrics:")
+                logger.info(f"  Total Time:          {total_elapsed:.2f}s")
+                logger.info(f"  Processing Rate:     {avg_throughput:.2f} docs/sec")
+                logger.info(f"  Batch Size:          {max_batch_size}")
+                logger.info(f"  Batches Processed:   {batch_counter}")
+                logger.info("")
+                if memory_tracking and initial_mem > 0:
+                    logger.info("Memory Usage:")
+                    logger.info(f"  Initial:             {initial_mem:.2f} MB")
+                    logger.info(f"  Peak:                {peak_mem:.2f} MB")
+                    logger.info(f"  Growth:              +{mem_growth:.2f} MB")
+                    logger.info("")
+                logger.info("Database:")
+                logger.info(f"  Environment:         {args.src_env} → {args.dst_env}")
+                logger.info(f"  Namespace:           {source_db}.{source_coll}")
+                logger.info(f"  Mode:                {'In-situ' if args.in_situ else 'Copy'}")
+                logger.info("")
+                logger.info(f"Rules Applied:         {len(rules)} masking rules")
+                logger.info("=" * 70)
+                logger.info("")
 
             finally:
                 # Ensure connections are closed for this collection

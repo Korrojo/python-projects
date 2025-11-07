@@ -28,7 +28,7 @@ def test_dob_masking():
     ]
 
     # Create rule
-    milliseconds_to_add = 62208000000  # ~720 days
+    milliseconds_to_add = 63072000000  # ~720 days
     rule = MaskingRule(field="Dob", rule_type="add_milliseconds", params=milliseconds_to_add)
 
     # Create rule engine with this rule
