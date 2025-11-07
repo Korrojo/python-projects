@@ -1,0 +1,11 @@
+{
+    "rules": [
+        {
+            "comment": "Placeholder rules for Messages collection",
+            "comment2": "Update this file with actual PHI fields that need masking"
+        },
+        {"field": "PatientName", "rule": "random_uppercase_name", "params": null},
+        {"field": "MessageContent", "rule": "replace_string", "params": "xxxxxxxxxx"},
+        {"field": "SenderName", "rule": "random_uppercase_name", "params": null}
+    ]
+}

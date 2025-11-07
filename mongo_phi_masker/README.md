@@ -1,29 +1,53 @@
 # MongoDB PHI Masker
 
-A comprehensive data pipeline for extracting data from MongoDB, masking Protected Health Information (PHI), and
-restoring it to another MongoDB collection.
+A production-ready data pipeline for masking Protected Health Information (PHI) in MongoDB collections.
 
-## Documentation
+## 📚 Documentation Index
 
-- [Project Overview](PROJECT.md) - Features, installation, and getting started
-- [Development Guide](DEVELOPMENT.md) - Coding standards, architecture, and contribution guidelines
-- [Testing Guide](TESTING.md) - Test status, running tests, and known issues
+### Core Documentation
+
+| Document                                                   | Purpose                                          | When to Use                                |
+| ---------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------ |
+| **[README.md](README.md)** (this file)                     | Main documentation, workflows, quick start       | Start here for overview                    |
+| **[COLLECTIONS.md](COLLECTIONS.md)**                       | Collection configuration inventory & setup guide | Adding new collections, validating configs |
+| **[WINDOWS_TASK_SCHEDULER.md](WINDOWS_TASK_SCHEDULER.md)** | Windows Task Scheduler setup guide               | Scheduling automated workflows on Windows  |
+| **[LOGGING_STANDARD.md](LOGGING_STANDARD.md)**             | Unified logging format specification             | Writing new scripts, debugging             |
+| **[ARCHIVE_PROPOSAL.md](ARCHIVE_PROPOSAL.md)**             | List of archived files and rationale             | Understanding project history              |
+
+### Quick Reference
+
+- **New to the project?** → Start with [Quick Start](#quick-start) below
+- **Setting up a new collection?** → See [COLLECTIONS.md](COLLECTIONS.md)
+- **Running production workflow?** → See [Automated Orchestration](#automated-orchestration-production)
+- **Scheduling on Windows?** → See [WINDOWS_TASK_SCHEDULER.md](WINDOWS_TASK_SCHEDULER.md)
+- **Troubleshooting?** → See [Troubleshooting](#troubleshooting) section
+- **Email notifications?** → See [Email Notifications](#email-notifications)
+- **Understanding Steps 0-6?** → See [Complete End-to-End Workflow](#complete-end-to-end-workflow)
+
+______________________________________________________________________
 
 ## Quick Start
 
 ### Prerequisites
 
 - Python 3.8+
-- MongoDB 4.4+
-- Docker (optional)
+- MongoDB 4.4+ (local or Atlas)
+- Shared configuration file: `../shared_config/.env`
 
 ### Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/mongophimasker.git
-   cd mongophimasker
+   git clone https://github.com/yourusername/mongo_phi_masker.git
+   cd mongo_phi_masker
+   ```
+
+1. Create virtual environment:
+
+   ```bash
+   python3 -m venv .venv312
+   source .venv312/bin/activate
    ```
 
 1. Install dependencies:
@@ -32,496 +56,509 @@ restoring it to another MongoDB collection.
    pip install -r requirements.txt
    ```
 
-1. Copy and configure the environment:
+1. Configure environments in `../shared_config/.env`:
 
    ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
+   # Local MongoDB
+   MONGODB_URI_LOCL=mongodb://localhost:27017
+   DATABASE_NAME_LOCL=localdb
+
+   # Atlas DEV
+   MONGODB_URI_DEV=mongodb+srv://user:pass@cluster.mongodb.net
+   DATABASE_NAME_DEV=dev-phidb
    ```
 
-1. Run the masker:
+______________________________________________________________________
 
-   ```bash
-   python -m src.main --env .env.dev --config config/config_rules/config.json
-   ```
+## Complete End-to-End Workflow
 
-## Features
+This workflow demonstrates the full PHI masking pipeline from test data generation through verification.
 
-- **Flexible Data Masking**: Mask PHI data in MongoDB collections using configurable rules
-- **Complex Document Support**: Handle nested documents, arrays, and complex MongoDB structures
-- **Incremental Processing**: Support for incremental data processing with checkpointing
-- **Multi-environment Support**: Configuration for development, testing, and production environments
-- **Performance Optimized**: Batch processing with configurable settings for high-volume data
+### Automated vs Manual Workflows
 
-## Latest Updates
+**Automated Production Workflow:**
 
-- **PowerShell Wrapper Script (Oct 2025)**: Added `run_masking_job.ps1` for Windows users with automatic log file
-  management, background job support, and real-time monitoring capabilities. Fixed issues with path resolution and
-  output redirection in background jobs.
-- **Enhanced Logging**: Added support for log rotation and configurable log levels
-- **Backward Compatibility Layer**: New compatibility module to maintain backward compatibility
-- **In-situ Masking**: New functionality to mask documents in-place without copying to a destination collection
-- **Multi-collection Processing**: Support for processing a list of collections defined in config.json
-- **Test Improvements**: Fixed test failures related to API changes and object instantiation
-- **Configuration Examples**: Added example configuration files for easier setup
-- **Test Utilities**: Created test runner scripts for different testing scenarios
-- **Documentation Updates**: Added detailed documentation of test fixes and status
-- **Strict Category Ordering:** PHI collection categories are now strictly ordered by complexity (most to least) in
-  `collection_rule_mapping.py`. Each category is clearly numbered (1-8) for reference and automation.
-- **Category-Specific Masking Rules:** Masking rules are now split into `rule_group_1.json` through `rule_group_8.json`,
-  each aligned to the new category order and field mapping. Each rule group file contains only the PHI fields and
-  masking logic relevant to its category.
-- **Updated Masking Logic:** The `PatientName` field now uses the `random_uppercase_name` rule, generating two random
-  uppercase words (first and last name). Fax fields (e.g., Fax, MRRFax, FaxNumber, etc.) are masked with `1111111111111`
-  for HIPAA compliance.
-- **rules.json as Template:** The main `rules.json` now serves as a template/example and is not used directly for
-  masking. Category-specific rule groups are used for actual processing.
-- **Documentation & Config Updates:** Comments and documentation in config files have been updated to reflect these
-  changes.
+- Use `scripts/orchestrate_masking.sh` for production
+- Runs Steps 1-6 automatically
+- Stops on any error
+- Creates comprehensive logs
+- See "Automated Orchestration" section below
 
-## Architecture
+**Manual Step-by-Step Workflow:**
 
-The application follows a modular architecture with the following components:
+- Best for learning, testing, troubleshooting
+- Full control over each step
+- See Steps 0-6 below
 
-- **Orchestrator**: Coordinates the overall masking process
-- **Processor**: Manages the data processing workflow
-- **Connector**: Handles MongoDB connections and operations
-- **Masker**: Applies masking rules to PHI data
-- **Validator**: Validates data before and after masking
-- **Config Loader**: Loads and validates configuration
-- **Logger**: Manages application logging
-- **Error Handler**: Handles and reports errors
-- **Email Alerter**: Sends email notifications
-- **Metrics Collector**: Collects and reports metrics
-- **Compatibility Layer**: Provides backward compatibility for evolving APIs
+### Database Naming Convention
 
-## Installation
+**Use these database names consistently:**
 
-### Prerequisites
+- **LOCL (Localhost):**
+  - Unmasked: `local-phi-unmasked`
+  - Masked: `local-phi-masked`
+- **DEV (Atlas):**
+  - Working database: `dev-phidb`
 
-- Python 3.10+
-- MongoDB 4.4+
-- Docker (optional)
-- Kubernetes (optional)
+______________________________________________________________________
 
-### Local Installation
+### ⚠️ Step 0: Generate Test Data (TESTING ONLY)
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/yourusername/MongoPHIMasker.git
-   cd MongoPHIMasker
-   ```
-
-1. Create a virtual environment:
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-1. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-1. Configure the application:
-
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   cp config/config_rules/config.example.yaml config/config_rules/config.json
-   # Edit config.json with your configuration
-   ```
-
-### Docker Installation
-
-1. Build the Docker image:
-
-   ```bash
-   docker build -t phi-masker:latest .
-   ```
-
-1. Run with Docker Compose:
-
-   ```bash
-   docker-compose up
-   ```
-
-## Usage
-
-### Command Line Interface
-
-The application provides a command-line interface with various options:
+**NOT FOR PRODUCTION.** This simulates unmasked production data for testing purposes.
 
 ```bash
-python masking.py [options]
+python scripts/generate_test_data.py \
+  --env LOCL \
+  --db local-phi-unmasked \
+  --collection Patients \
+  --size 100
 ```
 
-Options:
+**Output:** 100 test documents in `local-phi-unmasked.Patients` **Log:** `logs/test_data/YYYYMMDD_HHMMSS_Patients.log`
 
-- `--config`: Path to configuration file (required)
-- `--env`: Path to environment file (required)
-- `--limit`: Maximum number of documents to process
-- `--query`: MongoDB query in JSON format to filter documents
-- `--reset-checkpoint`: Reset checkpoint file
-- `--verify-only`: Only verify results without processing
-- `--debug`: Enable debug logging
-- `--in-situ`: Enable in-situ masking (mask documents directly in source collection)
-- `--collection`: Process a specific collection (overrides collections in config)
-- `--log-file`: Custom log file path
-- `--log-level`: Set logging level (DEBUG, INFO, WARNING, ERROR)
-- `--log-max-bytes`: Maximum log file size before rotation (default: 10MB)
-- `--log-backup-count`: Number of backup log files to keep (default: 5)
-- `--log-timed-rotation`: Enable time-based log rotation
+______________________________________________________________________
 
-### Running Tests
+## Production Workflow (Steps 1-6)
 
-We've added several scripts to help run tests with different configurations:
+### Step 1: Backup Unmasked Data from Source
 
-1. **Run Specific Tests**:
-
-   ```bash
-   ./run_specific_tests.sh
-   ```
-
-   This runs specific test modules that are known to work.
-
-1. **Run Filtered Tests**:
-
-   ```bash
-   ./run_filtered_tests.sh
-   ```
-
-   This runs all tests except those that depend on dask/pyarrow.
-
-1. **Run Key Tests**:
-
-   ```bash
-   ./run_key_tests.sh
-   ```
-
-   This runs specific tests that have been fixed to verify they now pass.
-
-1. **Run All Tests**:
-
-   ```bash
-   ./run_all_tests.sh
-   ```
-
-   This runs all unit tests.
-
-## Test Environment Setup
-
-All scripts and documentation for creating a test environment with sample data are now organized under the `test_env/`
-folder.
-
-- Scripts: `test_env/create_test_samples.py`, `test_env/create_test_config.py`, `test_env/setup_test_environment.py`,
-  `test_env/setup_test_environment.bat`
-- Documentation: `test_env/TEST_ENVIRONMENT_SETUP.md`
-
-See [test_env/TEST_ENVIRONMENT_SETUP.md](test_env/TEST_ENVIRONMENT_SETUP.md) for instructions on creating and running a
-test environment for orchestration and masking workflows.
-
-### Performance Optimization
-
-For optimal performance with large datasets, configure:
-
-1. **Batch Size**: Set in `.env.prod` file with `PROCESSING_BATCH_SIZE` (recommended: 1000-5000)
-1. **Connection Pool Size**: Adjust MongoDB connection pool settings in config file
-
-### Windows PowerShell Wrapper Script
-
-For Windows users, a dedicated PowerShell wrapper script (`run_masking_job.ps1`) is provided for running masking jobs in
-the background with automatic log file management.
-
-#### Features
-
-- Runs masking jobs as PowerShell background jobs
-- Automatic timestamped log file creation
-- Built-in error logging with separate `.err` files
-- In-situ mode enabled by default
-- Interactive job monitoring options
-
-#### Usage
-
-**Basic usage:**
-
-```powershell
-.\run_masking_job.ps1 -Collection "StaffAvailabilityHistory"
+```bash
+bash scripts/backup_collection.sh \
+  --env LOCL \
+  --db local-phi-unmasked \
+  --collection Patients \
+  --compress
 ```
 
-**With custom parameters:**
+**Output:** `backup/YYYYMMDD_HHMMSS_local-phi-unmasked_Patients/` **Log:**
+`logs/backup/YYYYMMDD_HHMMSS_backup_Patients.log`
 
-```powershell
-.\run_masking_job.ps1 -Collection "StaffAvailabilityHistory" -BatchSize 5000 -ConfigFile "config/config_rules/config_StaffAavailability.json" -EnvFile ".env.phi" -LogDir "logs/phi"
+______________________________________________________________________
+
+### Step 2: Restore Unmasked Data to DEV
+
+```bash
+echo "y" | bash scripts/restore_collection.sh \
+  --env DEV \
+  --db dev-phidb \
+  --backup-dir backup/20251106_172046_local-phi-unmasked_Patients \
+  --drop
 ```
 
-#### Parameters
+**Note:** Replace timestamp with your actual backup directory. **Log:**
+`logs/restore/YYYYMMDD_HHMMSS_restore_Patients.log`
 
-- `-Collection` (required): MongoDB collection name to mask
-- `-BatchSize` (optional): Documents per batch (default: 9000)
-- `-ConfigFile` (optional): Config file path (default: "config/config_rules/config_StaffAavailability.json")
-- `-EnvFile` (optional): Environment file (default: ".env.phi")
-- `-InSitu` (optional): Enable in-situ masking (enabled by default)
-- `-LogDir` (optional): Log directory (default: "logs/phi")
+______________________________________________________________________
 
-#### Log Files
+### Step 3: Mask Data on DEV (In-Situ)
 
-Log files are automatically created with the format:
-
-```
-logs/phi/{YYYYMMDD_HHMMSS}_masking_{CollectionName}.log
-logs/phi/{YYYYMMDD_HHMMSS}_masking_{CollectionName}.log.err
-```
-
-#### Monitoring Jobs
-
-```powershell
-# Check job status
-Get-Job
-
-# View job output
-Receive-Job -Id <JobId> -Keep
-
-# Monitor log file in real-time
-Get-Content -Path 'logs/phi/20251010_230303_masking_StaffAvailabilityHistory.log' -Tail 20 -Wait
-
-# Stop a job
-Stop-Job -Id <JobId>
-
-# Remove completed job
-Remove-Job -Id <JobId>
+```bash
+python masking.py \
+  --config config/config_rules/config_Patients.json \
+  --collection Patients \
+  --src-env DEV \
+  --dst-env DEV \
+  --src-db dev-phidb \
+  --dst-db dev-phidb \
+  --in-situ
 ```
 
-### Examples
+**Verifies:**
 
-1. Process a collection in production:
+- 34 masking rules applied
+- DOB dates shifted by 2 years (month/day preserved)
+- All PHI fields masked
 
-   ```bash
-   nohup python masking.py --config config/config.json --env .env.prod > logs/prod/Patients_$(date +%Y%m%d_%H%M%S).log 2>&1 &
-   ```
+**Log:** `logs/masking/YYYYMMDD_HHMMSS_mask_Patients_XXXXXX.log`
 
-1. Process multiple collections in-situ:
+______________________________________________________________________
 
-   ```bash
-   nohup python masking.py --config config/config.json --env .env.prod --in-situ --reset-checkpoint >logs/prod/nohup.out 2>&1 &
-   ```
+### Step 4: Backup Masked Data from DEV
 
-1. Process with a specific limit:
+```bash
+bash scripts/backup_collection.sh \
+  --env DEV \
+  --db dev-phidb \
+  --collection Patients \
+  --compress
+```
 
-   ```bash
-   source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --limit 10000
-   ```
+**Output:** `backup/YYYYMMDD_HHMMSS_dev-phidb_Patients/` **Log:** `logs/backup/YYYYMMDD_HHMMSS_backup_Patients.log`
 
-1. Process a specific collection in-situ:
+______________________________________________________________________
 
-   ```bash
-   source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --in-situ --collection YourCollectionName
-   ```
+### Step 5: Restore Masked Data to Destination
 
-1. Process with a specific query:
+```bash
+echo "y" | bash scripts/restore_collection.sh \
+  --env LOCL \
+  --db local-phi-masked \
+  --backup-dir backup/20251106_174712_dev-phidb_Patients \
+  --drop
+```
 
-   ```bash
-   source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --query '{"createdAt": {"$gt": {"$date": "2023-01-01T00:00:00Z"}}}'
-   ```
+**Note:** Replace timestamp with your actual backup directory. **Log:**
+`logs/restore/YYYYMMDD_HHMMSS_restore_Patients.log`
 
-1. Process with custom logging configuration:
+______________________________________________________________________
 
-   ```bash
-   source venv/Scripts/activate && python masking.py --config config/config.json --env .env.prod --log-file logs/custom_log.log --log-level DEBUG --log-max-bytes 5242880 --log-backup-count 10
-   ```
+### Step 6: Verify Masking Results
+
+```bash
+python scripts/verify_masking.py \
+  --src-env LOCL \
+  --dst-env LOCL \
+  --src-db local-phi-unmasked \
+  --dst-db local-phi-masked \
+  --collection Patients \
+  --sample-size 5
+```
+
+**Expected Results:**
+
+- ✅ All PHI fields masked (FirstName, LastName, Email, DOB)
+- ✅ Lowercase fields match uppercase
+- ✅ DOB dates shifted by exactly 2 years
+- ✅ Gender set to "Female"
+- ✅ Non-PHI fields preserved
+
+**Log:** `logs/verification/YYYYMMDD_HHMMSS_verify_Patients.log`
+
+______________________________________________________________________
+
+## Automated Orchestration (Production)
+
+For production environments, use the orchestration script to automate Steps 1-6:
+
+### Full Production Workflow
+
+```bash
+./scripts/orchestrate_masking.sh \
+  --src-env PROD \
+  --src-db prod-phidb \
+  --proc-env DEV \
+  --proc-db dev-phidb \
+  --dst-env PROD \
+  --dst-db prod-phidb-masked \
+  --collection Patients
+```
+
+### Development/Testing Workflow
+
+```bash
+# Skip backups for faster testing
+# NOTE: Masked data stays in DEV/dev-phidb ONLY
+# Local databases (local-phi-unmasked, local-phi-masked) are NEVER created
+./scripts/orchestrate_masking.sh \
+  --src-env LOCL \
+  --src-db local-phi-unmasked \
+  --proc-env DEV \
+  --proc-db dev-phidb \
+  --dst-env LOCL \
+  --dst-db local-phi-masked \
+  --collection Patients \
+  --skip-backup-source \
+  --skip-backup-masked
+```
+
+### Create Local Masked Database
+
+```bash
+# Run ALL steps to populate local databases
+# Requires: local-phi-unmasked exists (run Step 0 first)
+# Creates: local-phi-masked with masked data
+./scripts/orchestrate_masking.sh \
+  --src-env LOCL \
+  --src-db local-phi-unmasked \
+  --proc-env DEV \
+  --proc-db dev-phidb \
+  --dst-env LOCL \
+  --dst-db local-phi-masked \
+  --collection Patients
+```
+
+### What It Does
+
+The orchestration script automatically: 0. ✅ Validates collection configuration (Step 0 - automatic pre-flight check)
+
+1. ✅ Backs up source data (Step 1)
+1. ✅ Restores to processing environment (Step 2)
+1. ✅ Masks data in-situ (Step 3)
+1. ✅ Backs up masked data (Step 4)
+1. ✅ Restores to destination (Step 5)
+1. ✅ Verifies masking results (Step 6)
+
+**Features:**
+
+- **Automatic validation**: Checks collection configuration before starting (fails fast on errors)
+- Stops immediately on any error
+- Creates unified log file: `logs/orchestration/YYYYMMDD_HHMMSS_orchestrate_<collection>.log`
+- Tracks execution time
+- Shows clear progress for each step
+- Lists all created artifacts
+
+### Optional Flags
+
+**`--skip-backup-source`** (Skip Step 1)
+
+- Uses most recent existing backup instead of creating new one
+- Source database is NOT accessed/modified
+- Useful for: Testing when you already have a backup
+
+**`--skip-backup-masked`** (Skip Step 4)
+
+- No backup created from processing environment after masking
+- **CASCADING EFFECT**: Automatically skips Step 5 (restore to destination)
+- **Result**: Masked data stays in **processing environment ONLY**
+- **Destination database is NEVER created/populated**
+- Useful for: Development/testing when you only want to mask data in DEV
+
+**`--skip-restore-dest`** (Skip Step 5)
+
+- Masked data not restored to destination environment
+- Destination database is NEVER created/populated
+- Useful for: When you only need masked data in processing environment
+
+**`--skip-validation`** (Skip Step 0)
+
+- Bypasses pre-flight configuration validation
+- **Not recommended** unless you're confident config is valid
+- Useful for: Repeated runs on known-good collections
+
+**`--skip-verification`** (Skip Step 6)
+
+- No masking verification performed
+- Useful for: Trusted workflows where verification is not needed
+
+**`--verify-samples N`**
+
+- Number of documents to verify (default: 5)
+- Higher numbers = more thorough verification but slower
+
+### Data Flow Based on Flags
+
+**No flags (Full Production)**:
+
+```
+Source DB → Backup → Processing DB → Mask → Backup → Destination DB
+Result: Masked data in DESTINATION database
+```
+
+**`--skip-backup-source --skip-backup-masked` (Development/Testing)**:
+
+```
+Existing Backup → Processing DB → Mask (stays in Processing DB)
+Result: Masked data in PROCESSING database ONLY
+Note: Source and Destination databases are NEVER touched
+```
+
+**`--skip-backup-source` (Use existing backup)**:
+
+```
+Existing Backup → Processing DB → Mask → Backup → Destination DB
+Result: Masked data in DESTINATION database
+```
+
+### Monitoring
+
+```bash
+# Watch progress in real-time
+tail -f logs/orchestration/YYYYMMDD_HHMMSS_orchestrate_Patients.log
+
+# Check status
+ps aux | grep orchestrate_masking.sh
+```
+
+### Email Notifications
+
+The orchestration script can send HTML-formatted email notifications on success or failure.
+
+**Configuration** (`../shared_config/.env`):
+
+```bash
+# Enable email notifications
+EMAIL_NOTIFICATIONS_ENABLED=true
+
+# Recipients (comma-separated)
+EMAIL_RECIPIENTS=admin@company.com,team@company.com
+
+# SMTP settings
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USE_TLS=true
+SMTP_USERNAME=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+
+# Optional customization
+EMAIL_SENDER=phi-masker-noreply@company.com
+EMAIL_SENDER_NAME=PHI Masking System
+EMAIL_SUBJECT_PREFIX=[PHI Masker]
+```
+
+**Success Email** includes:
+
+- Collection name and duration
+- Data flow (source → processing → destination)
+- List of artifacts created
+- Log file path
+
+**Failure Email** includes:
+
+- Failed step number and name
+- Error message
+- Environment details
+- Log file path
+- Action required notice
+
+**Disable for specific run**:
+
+```bash
+./scripts/orchestrate_masking.sh \
+  --src-env PROD \
+  --src-db prod-phidb \
+  --proc-env DEV \
+  --proc-db dev-phidb \
+  --dst-env PROD \
+  --dst-db prod-phidb-masked \
+  --collection Patients \
+  --no-email  # Disable emails for this run
+```
+
+______________________________________________________________________
+
+## Data Quality Checks
+
+After completing the workflow:
+
+1. **Date Format:** All DOB fields should be `YYYY-MM-DDTHH:00:00.000Z`
+1. **No Unix Timestamps:** Dates should not appear as negative numbers
+1. **Masking Coverage:** All 34 rules applied (check verification log)
+1. **Document Count:** Same count in original and masked collections
+
+______________________________________________________________________
+
+## Troubleshooting
+
+**Issue:** Wrong database used **Solution:** Always specify `--db` flag explicitly
+
+**Issue:** Credentials visible in logs **Solution:** Logs should show `mongodb+srv://***:***@host`
+
+**Issue:** Date format issues **Solution:** Regenerate test data with updated script
+
+______________________________________________________________________
 
 ## Configuration
 
-### Environment Variables
+### Collections Supported
 
-Key environment variables in `.env.prod`:
+- **Patients** - Primary test collection (34 masking rules)
+- Container
+- Messages
+- OfflineAppointments
+- PatientCarePlanHistory
+- PatientReportFaxQueue
+- StaffAvailability
+- Tasks
 
-- `PROCESSING_BATCH_SIZE`: Number of documents to process in each batch (default: 100)
-- `PROCESSING_DOC_LIMIT`: Maximum number of documents to process (default: 9999999999)
-- `PROCESSING_CHECKPOINT_INTERVAL`: How often to save checkpoints (default: 10000)
-- `MONGO_SOURCE_*`: Source MongoDB connection settings
-- `MONGO_DEST_*`: Destination MongoDB connection settings
+Each collection has:
 
-### Configuration File
-
-Key configuration sections in `config/config.json`:
-
-```json
-{
-    "mongodb": {
-        "source": {
-            "uri": "${MONGO_SOURCE_URI}",
-            "database": "${MONGO_SOURCE_DB}",
-            "collection": "${MONGO_SOURCE_COLL}"
-        },
-        "destination": {
-            "uri": "${MONGO_DEST_URI}",
-            "database": "${MONGO_DEST_DB}",
-            "collection": "${MONGO_DEST_COLL}"
-        }
-    },
-    "processing": {
-        "masking_mode": "separate",
-        "batch_size": {
-            "initial": 50,
-            "min": 10,
-            "max": 200
-        }
-    },
-    "phi_collections": [
-        "Collection1",
-        "Collection2",
-        "Collection3"
-    ]
-}
-```
-
-The `phi_collections` array specifies which collections to process when running without the `--collection` parameter.
-
-See `config/config.example.yaml` for additional configuration options.
+- Config file: `config/config_rules/config_<Collection>.json`
+- Rules file: `config/masking_rules/rules_<collection>.json`
 
 ### Masking Rules
 
-Masking rules are defined in `config/masking_rules/rules.json`.
+Rules are defined per collection in `config/masking_rules/rules_*.json`:
+
+```json
+{
+  "rules": [
+    {"field": "FirstName", "rule": "random_uppercase", "params": null},
+    {"field": "Dob", "rule": "add_milliseconds", "params": 63072000000},
+    {"field": "Email", "rule": "replace_email", "params": "xxxxxx@xxxx.com"}
+  ]
+}
+```
+
+**Available rules:**
+
+- `random_uppercase` - Random uppercase string
+- `add_milliseconds` - Shift dates by N milliseconds (2 years = 63072000000)
+- `replace_email` - Replace with fixed email
+- `replace_string` - Replace with fixed string
+- `replace_gender` - Replace with fixed gender
+- `random_10_digit_number` - Random 10-digit number
+- `lowercase_match` - Match lowercase version of another field
+
+______________________________________________________________________
+
+## Project Structure
+
+```
+mongo_phi_masker/
+├── config/
+│   ├── collection_rule_mapping.py   # Field path mappings
+│   ├── config_rules/                # Collection configs
+│   └── masking_rules/               # Masking rules per collection
+├── scripts/
+│   ├── orchestrate_masking.sh       # Automated workflow (Steps 1-6)
+│   ├── backup_collection.sh         # Backup script
+│   ├── restore_collection.sh        # Restore script
+│   ├── generate_test_data.py        # Test data generator
+│   └── verify_masking.py            # Verification script
+├── src/
+│   ├── core/
+│   │   ├── masker.py                # Core masking engine
+│   │   └── connector.py             # MongoDB connection
+│   ├── models/
+│   │   └── masking_rule.py          # Rule definitions
+│   └── utils/
+│       ├── env_config.py            # Environment config loader
+│       ├── config_loader.py         # Config file loader
+│       └── logger.py                # Logging utilities
+├── logs/                            # Log files (by operation)
+├── backup/                          # Backup files
+├── test-data/                       # Sample data files
+├── tests/                           # Test suite
+├── masking.py                       # Main masking script
+├── README.md                        # This file
+├── LOGGING_STANDARD.md              # Logging format standard
+└── ARCHIVE_PROPOSAL.md              # Archive documentation
+```
+
+______________________________________________________________________
 
 ## Development
 
-### Project Structure
+### Running Tests
 
+```bash
+# Run all unit tests
+pytest tests/ -m "unit"
+
+# Run specific test
+pytest tests/test_masking_rules.py -v
+
+# Run with coverage
+pytest tests/ --cov=src --cov-report=html
 ```
-MongoPHIMasker/
-├── config/                 # Configuration files
-│   ├── config.example.yaml # Example configuration
-│   └── masking_rules/      # Masking rule definitions
-├── checkpoints/            # Checkpoint files for resumable processing
-├── kubernetes/             # Kubernetes deployment files
-├── logs/                   # Log files
-│   ├── dev/                # Development logs
-│   ├── prod/               # Production logs
-│   └── test/               # Test logs
-├── reports/                # 
-├── results/                # 
-├── scripts/                # 
-├── src/                    # Source code
-│   ├── core/               # Core modules
-│   │   ├── connector.py    # MongoDB connection handling
-│   │   ├── orchestrator.py # Orchestration logic
-│   │   ├── processor.py    # Document processing
-│   │   ├── validator.py    # Validation logic
-│   │   └── masker.py       # PHI masking implementation
-│   ├── models/             # Data models
-│   │   └── masking_rule.py # Masking rule definitions
-│   └── utils/              # Utility modules
-│       ├── compatibility.py # Backward compatibility layer
-│       ├── config_loader.py # Configuration loading
-│       ├── logger.py       # Logging utilities
-│       └── results.py      # Results handling
-├── tests/                  # Test files
-│   ├── mocks/
-│   ├── performance/
-│   └── unit/
-├── docs/                   # Documentation
-├── metrics/                # Metrics collection
-├── schema/                 # Schema definitions
-├── .env.example            # Example environment variables
-├── run_*.sh                # Test runner scripts
-├── TEST_FIXES.md           # Documentation of test fixes
-├── TEST_STATUS.md          # Test status report
-├── README.md               # This file
-└── requirements.txt        # Python dependencies
-```
+
+### Adding a New Collection
+
+1. Create masking rules: `config/masking_rules/rules_<collection>.json`
+1. Create config file: `config/config_rules/config_<Collection>.json`
+1. Add field mappings to `config/collection_rule_mapping.py`
+1. Test with Step 0-6 workflow
+
+______________________________________________________________________
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions welcome! Please ensure:
 
-## In-Situ Masking
-
-The default masking process follows a read-mask-transfer-insert approach:
-
-1. Read documents from source database
-1. Apply masking in memory
-1. Transfer masked documents over network
-1. Insert into destination database
-
-This approach is safe but introduces network transfer overhead and requires additional storage for duplicate data.
-
-### Using In-Situ Masking
-
-The new in-situ masking feature modifies documents directly in the source collection, eliminating network transfer
-overhead and reducing processing time significantly:
-
-```bash
-# Mask documents in-place
-python masking.py --in-situ
-
-# Mask specific documents in-place
-python masking.py --in-situ --query '{"department": "cardiology"}'
-```
-
-### Benefits of In-Situ Masking
-
-- **Reduced Processing Time**: Eliminates the network transfer step and destination database writes
-- **Lower Resource Usage**: Minimizes memory and network bandwidth requirements
-- **Space Efficiency**: No need for duplicate storage in a separate collection
-- **Simplified Architecture**: Single database connection instead of source and destination
-
-### Considerations
-
-- **Irreversible**: Since documents are modified in-place, this approach is irreversible
-- **Backup**: Always create a backup of your data before using in-situ masking
-- **Testing**: Consider testing on a small subset of data first
-
-```bash
-# Perform a dry-run first to count affected documents
-python masking.py --in-situ --dry-run
-
-# Test on a small subset with query
-python masking.py --in-situ --query '{"_id": {"$lt": "000000000000000000000010"}}'
-
-# Other options (Linux/Bash)
-nohup python masking.py --config config/config_rules/config_StaffAavailability.json --env .env.phi --in-situ --collection StaffAvailability >logs/phi/20251010_000000_masking_StaffAvailability.log 2>&1 & 
-
-# PowerShell - Using the Wrapper Script (Recommended for Windows)
-.\run_masking_job.ps1 -Collection "StaffAvailabilityHistory" -BatchSize 5000 -ConfigFile "config/config_rules/config_StaffAavailability.json" -EnvFile ".env.phi" -LogDir "logs/phi"
-
-# PowerShell - Direct execution with background job
-Start-Job -ScriptBlock {
-    Set-Location "C:\Users\demesew\projects\python\mongo_phi_masker"
-    .\venv-3.11\Scripts\python.exe masking.py --config config/config_rules/config_StaffAavailability.json --env .env.phi --in-situ --collection StaffAvailability *>&1 | Out-File -FilePath "logs/phi/20251010_000000_masking_StaffAvailability.log" -Encoding UTF8
-}
-
-# masking in-motion with single collection (--collection) - Linux/Bash
-nohup python masking.py --config config/config.json --env .env.test --collection AD_Patients_10k >logs/preprod/nohup.log 2>&1 &
-
-# in-situ masking with single collection (--collection)
-nohup python masking.py --config config/config.json --env .env.prod --in-situ --collection StaffAvailability >logs/prod/nohup.log 2>&1 &
-
-# in-situ masking with multiple collections from config.json
-nohup python masking.py --config config/config.json --env .env.prod --in-situ >logs/prod/nohup.log 2>&1 &
-
-# fresh in-situ masking with multiple collections from config.json (--reset-checkpoint)
-nohup python masking.py --config config/config.json --env .env.prod --in-situ --reset-checkpoint >logs/prod/nohup.log 2>&1 &
-
-# check running process with (Linux/Bash)
-ps -aux | grep masking.py | grep -v grep
-
-# check running jobs (PowerShell)
-Get-Job
-Get-Process | Where-Object { $_.ProcessName -like "*python*" }
-
-# monitor progress with (Linux/Bash)
-tail -10 logs/{env}/nohup.log
-
-# monitor progress with (PowerShell)
-Get-Content -Path logs/{env}/nohup.log -Tail 10 -Wait
-# or receive job output
-Receive-Job -Id <JobId> -Keep
-```
+1. Follow [LOGGING_STANDARD.md](LOGGING_STANDARD.md)
+1. Test with Steps 0-6 workflow
+1. Update documentation

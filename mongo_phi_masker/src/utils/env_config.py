@@ -242,13 +242,15 @@ def setup_masking_env_vars(
     # Get source and destination configs
     src_config, dst_config = get_source_and_target_config(src_env, dst_env, src_db, dst_db)
 
-    # Set environment variables for source
+    # Set environment variables for source - use full URI
     os.environ["MONGO_SOURCE_URI"] = src_config["uri"]
     os.environ["MONGO_SOURCE_DB"] = src_config["database"]
+    os.environ["MONGO_SOURCE_COLL"] = ""  # Will be set by masking.py
 
-    # Set environment variables for destination
+    # Set environment variables for destination - use full URI
     os.environ["MONGO_DEST_URI"] = dst_config["uri"]
     os.environ["MONGO_DEST_DB"] = dst_config["database"]
+    os.environ["MONGO_DEST_COLL"] = ""  # Will be set by masking.py
 
     # Optional: Set backup and log directories if provided
     if src_config["backup_dir"]:

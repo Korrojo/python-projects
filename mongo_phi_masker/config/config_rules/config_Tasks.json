@@ -20,7 +20,7 @@
         }
     },
     "masking": {
-        "rules_path": "config/masking_rules/tasks_rules.json",
+        "rules_path": "config/masking_rules/rules_Tasks.json",
         "default_rules": "config/masking_rules/default.json"
     },
     "phi_collections": [

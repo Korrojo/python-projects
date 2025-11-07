@@ -20,7 +20,7 @@
         }
     },
     "masking": {
-        "rules_path": "config/masking_rules/rules_patients.json",
+        "rules_path": "config/masking_rules/rules_Patients.json",
         "default_rules": "config/masking_rules/default.json"
     },
     "phi_collections": [

@@ -51,7 +51,7 @@
       {"field": "HomePhoneNumber", "rule": "random_10_digit_number", "params": null},
       {"field": "WorkPhoneNumber", "rule": "random_10_digit_number", "params": null},
       {"field": "PhoneNumber", "rule": "random_10_digit_number", "params": null},
-      {"field": "PrimaryMemberDOB", "rule": "add_milliseconds", "params": 62208000000},
-      {"field": "Dob", "rule": "add_milliseconds", "params": 62208000000}
+      {"field": "PrimaryMemberDOB", "rule": "add_milliseconds", "params": 63072000000},
+      {"field": "Dob", "rule": "add_milliseconds", "params": 63072000000}
     ]
   }

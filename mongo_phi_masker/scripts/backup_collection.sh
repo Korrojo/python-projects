@@ -23,21 +23,29 @@ NC='\033[0m' # No Color
 BACKUP_BASE_DIR="backup"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
-# Function to print colored messages
-print_info() {
-    echo -e "${BLUE}ℹ${NC} $1"
+# Setup logging
+LOG_DIR="logs/backup"
+mkdir -p "$LOG_DIR"
+
+# Logging functions with consistent format: YYYY-MM-DD HH:MM:SS | LEVEL | message
+log_info() {
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo -e "${BLUE}${timestamp} | INFO | ${NC}$1"
 }
 
-print_success() {
-    echo -e "${GREEN}✓${NC} $1"
+log_success() {
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo -e "${GREEN}${timestamp} | SUCCESS | ${NC}$1"
 }
 
-print_error() {
-    echo -e "${RED}✗${NC} $1"
+log_error() {
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo -e "${RED}${timestamp} | ERROR | ${NC}$1"
 }
 
-print_warning() {
-    echo -e "${YELLOW}⚠${NC} $1"
+log_warning() {
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo -e "${YELLOW}${timestamp} | WARNING | ${NC}$1"
 }
 
 # Function to show usage
@@ -105,7 +113,7 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
         *)
-            print_error "Unknown option: $1"
+            log_error "Unknown option: $1"
             show_usage
             exit 1
             ;;
@@ -114,24 +122,36 @@ done
 
 # Validate required arguments
 if [ -z "$ENV" ] || [ -z "$COLLECTION" ]; then
-    print_error "Missing required arguments"
+    log_error "Missing required arguments"
     show_usage
     exit 1
 fi
+
+# Setup log file now that we have collection name
+LOG_FILE="${LOG_DIR}/${TIMESTAMP}_backup_${COLLECTION}.log"
+
+# Redirect all output to both console and log file (strip ANSI colors from log file)
+exec > >(tee >(sed 's/\x1b\[[0-9;]*m//g' >> "$LOG_FILE"))
+exec 2>&1
 
 # Header
 echo "======================================================================"
 echo "MongoDB Collection Backup"
 echo "======================================================================"
-print_info "Environment: $ENV"
-print_info "Collection: $COLLECTION"
-print_info "Timestamp: $TIMESTAMP"
+log_info "Environment: $ENV"
+log_info "Collection: $COLLECTION"
+log_info "Timestamp: $TIMESTAMP"
+log_info "Log file: $LOG_FILE"
 echo ""
 
 # Load environment configuration from shared_config/.env
-SHARED_CONFIG="../shared_config/.env"
+# Get script directory to find shared_config relative to project root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+SHARED_CONFIG="$(cd "$PROJECT_ROOT/.." && pwd)/shared_config/.env"
+
 if [ ! -f "$SHARED_CONFIG" ]; then
-    print_error "shared_config/.env not found at $SHARED_CONFIG"
+    log_error "shared_config/.env not found at $SHARED_CONFIG"
     exit 1
 fi
 
@@ -148,26 +168,33 @@ MONGODB_URI="${!URI_VAR}"
 DATABASE="${DATABASE_OVERRIDE:-${!DB_VAR}}"
 
 if [ -z "$MONGODB_URI" ]; then
-    print_error "MongoDB URI not configured for $ENV environment"
-    print_error "Please set $URI_VAR in shared_config/.env"
+    log_error "MongoDB URI not configured for $ENV environment"
+    log_error "Please set $URI_VAR in shared_config/.env"
     exit 1
 fi
 
 if [ -z "$DATABASE" ]; then
-    print_error "Database name not configured for $ENV environment"
-    print_error "Please set $DB_VAR in shared_config/.env or use --db option"
+    log_error "Database name not configured for $ENV environment"
+    log_error "Please set $DB_VAR in shared_config/.env or use --db option"
     exit 1
 fi
 
-print_info "Database: $DATABASE"
-print_info "URI: ${MONGODB_URI%%@*}@***"  # Mask credentials
+log_info "Database: $DATABASE"
+# Extract and mask URI - show only protocol and host, hide credentials completely
+if [[ $MONGODB_URI =~ ^([^:]+://)([^@]+@)?(.+)$ ]]; then
+    PROTOCOL="${BASH_REMATCH[1]}"
+    HOST="${BASH_REMATCH[3]%%/*}"  # Get host before first /
+    log_info "URI: ${PROTOCOL}***:***@${HOST}"
+else
+    log_info "URI: [REDACTED]"
+fi
 echo ""
 
 # Create backup directory with timestamp
 BACKUP_DIR="${BACKUP_BASE_DIR}/${TIMESTAMP}_${DATABASE}_${COLLECTION}"
 mkdir -p "$BACKUP_DIR"
 
-print_info "Backup directory: $BACKUP_DIR"
+log_info "Backup directory: $BACKUP_DIR"
 echo ""
 
 # Build mongodump command
@@ -175,11 +202,11 @@ MONGODUMP_CMD="mongodump --uri=\"$MONGODB_URI\" --db=\"$DATABASE\" --collection=
 
 if [ "$COMPRESS" = true ]; then
     MONGODUMP_CMD="$MONGODUMP_CMD --gzip"
-    print_info "Compression: Enabled"
+    log_info "Compression: Enabled"
 fi
 
 # Execute backup
-print_info "Starting backup..."
+log_info "Starting backup..."
 echo ""
 
 START_TIME=$(date +%s)
@@ -189,22 +216,22 @@ if eval $MONGODUMP_CMD; then
     DURATION=$((END_TIME - START_TIME))
 
     echo ""
-    print_success "Backup completed successfully!"
-    print_info "Duration: ${DURATION}s"
+    log_success "Backup completed successfully!"
+    log_info "Duration: ${DURATION}s"
 
     # Show backup size
     if command -v du &> /dev/null; then
         BACKUP_SIZE=$(du -sh "$BACKUP_DIR" | cut -f1)
-        print_info "Backup size: $BACKUP_SIZE"
+        log_info "Backup size: $BACKUP_SIZE"
     fi
 
     echo ""
     echo "======================================================================"
-    print_success "Backup saved to: $BACKUP_DIR"
+    log_success "Backup saved to: $BACKUP_DIR"
     echo "======================================================================"
 
     exit 0
 else
-    print_error "Backup failed!"
+    log_error "Backup failed!"
     exit 1
 fi
