@@ -2,7 +2,8 @@
 
 ## Purpose
 
-This document defines the **unified logging format** for the MongoDB PHI Masker project. All scripts (Python and Bash) MUST follow this standard to ensure:
+This document defines the **unified logging format** for the MongoDB PHI Masker project. All scripts (Python and Bash)
+MUST follow this standard to ensure:
 
 1. **Consistency** across the codebase
 1. **Easy parsing** for log aggregation tools

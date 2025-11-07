@@ -220,7 +220,8 @@ ______________________________________________________________________
 
 ### Shared Rules Files
 
-`container_emergency` shares `rules_Container.json` with `Container` collection. This is intentional for emergency scenarios.
+`container_emergency` shares `rules_Container.json` with `Container` collection. This is intentional for emergency
+scenarios.
 
 ### PATH_MAPPING Cleanup
 

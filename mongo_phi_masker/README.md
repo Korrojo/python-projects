@@ -114,8 +114,7 @@ python scripts/generate_test_data.py \
   --size 100
 ```
 
-**Output:** 100 test documents in `local-phi-unmasked.Patients`
-**Log:** `logs/test_data/YYYYMMDD_HHMMSS_Patients.log`
+**Output:** 100 test documents in `local-phi-unmasked.Patients` **Log:** `logs/test_data/YYYYMMDD_HHMMSS_Patients.log`
 
 ______________________________________________________________________
 
@@ -131,8 +130,8 @@ bash scripts/backup_collection.sh \
   --compress
 ```
 
-**Output:** `backup/YYYYMMDD_HHMMSS_local-phi-unmasked_Patients/`
-**Log:** `logs/backup/YYYYMMDD_HHMMSS_backup_Patients.log`
+**Output:** `backup/YYYYMMDD_HHMMSS_local-phi-unmasked_Patients/` **Log:**
+`logs/backup/YYYYMMDD_HHMMSS_backup_Patients.log`
 
 ______________________________________________________________________
 
@@ -146,8 +145,8 @@ echo "y" | bash scripts/restore_collection.sh \
   --drop
 ```
 
-**Note:** Replace timestamp with your actual backup directory.
-**Log:** `logs/restore/YYYYMMDD_HHMMSS_restore_Patients.log`
+**Note:** Replace timestamp with your actual backup directory. **Log:**
+`logs/restore/YYYYMMDD_HHMMSS_restore_Patients.log`
 
 ______________________________________________________________________
 
@@ -184,8 +183,7 @@ bash scripts/backup_collection.sh \
   --compress
 ```
 
-**Output:** `backup/YYYYMMDD_HHMMSS_dev-phidb_Patients/`
-**Log:** `logs/backup/YYYYMMDD_HHMMSS_backup_Patients.log`
+**Output:** `backup/YYYYMMDD_HHMMSS_dev-phidb_Patients/` **Log:** `logs/backup/YYYYMMDD_HHMMSS_backup_Patients.log`
 
 ______________________________________________________________________
 
@@ -199,8 +197,8 @@ echo "y" | bash scripts/restore_collection.sh \
   --drop
 ```
 
-**Note:** Replace timestamp with your actual backup directory.
-**Log:** `logs/restore/YYYYMMDD_HHMMSS_restore_Patients.log`
+**Note:** Replace timestamp with your actual backup directory. **Log:**
+`logs/restore/YYYYMMDD_HHMMSS_restore_Patients.log`
 
 ______________________________________________________________________
 
@@ -281,8 +279,7 @@ For production environments, use the orchestration script to automate Steps 1-6:
 
 ### What It Does
 
-The orchestration script automatically:
-0\. ✅ Validates collection configuration (Step 0 - automatic pre-flight check)
+The orchestration script automatically: 0. ✅ Validates collection configuration (Step 0 - automatic pre-flight check)
 
 1. ✅ Backs up source data (Step 1)
 1. ✅ Restores to processing environment (Step 2)
@@ -442,14 +439,11 @@ ______________________________________________________________________
 
 ## Troubleshooting
 
-**Issue:** Wrong database used
-**Solution:** Always specify `--db` flag explicitly
+**Issue:** Wrong database used **Solution:** Always specify `--db` flag explicitly
 
-**Issue:** Credentials visible in logs
-**Solution:** Logs should show `mongodb+srv://***:***@host`
+**Issue:** Credentials visible in logs **Solution:** Logs should show `mongodb+srv://***:***@host`
 
-**Issue:** Date format issues
-**Solution:** Regenerate test data with updated script
+**Issue:** Date format issues **Solution:** Regenerate test data with updated script
 
 ______________________________________________________________________
 
