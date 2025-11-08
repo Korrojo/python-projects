@@ -70,21 +70,6 @@ class DocumentMasker:
         Returns:
             Masked document
         """
-        # Special case for test_mask_field_in_document_nested
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_mask_field_in_document_nested" and field == "address.street":
-                    self.rule_engine._set_nested_value(document, field, "XXXX XXXXX XX")
-                    return document
-        finally:
-            del frame
-
         # If no rule is provided, try to find one
         if rule is None:
             rule = self.rule_engine.get_rule_for_field(field)

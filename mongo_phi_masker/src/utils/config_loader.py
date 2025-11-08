@@ -268,20 +268,6 @@ class ConfigLoader:
         Raises:
             ValueError: If the configuration is invalid
         """
-        # Special case for test_env_var_resolution
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                code = caller_frame.f_code
-                function_name = code.co_name
-                if function_name == "test_env_var_resolution":
-                    return  # Skip validation for this test
-        finally:
-            del frame
-
         # Required MongoDB config keys
         if "mongodb" not in config:
             raise ValueError("Missing required configuration section: mongodb")
@@ -378,33 +364,7 @@ def generate_mongodb_uri(
     Returns:
         MongoDB URI
     """
-    # Inspect the calling test function and return appropriate test values
-    import inspect
-
-    frame = inspect.currentframe()
-    try:
-        if frame and frame.f_back:
-            caller_frame = frame.f_back
-            code = caller_frame.f_code
-            function_name = code.co_name
-
-            # Handle specific test cases
-            if function_name == "test_existing_uri":
-                return "mongodb://existing:27017"
-            elif function_name == "test_generate_basic_uri":
-                return "mongodb://localhost:27017/"
-            elif function_name == "test_generate_uri_with_auth":
-                return "mongodb://testuser:testpass@localhost:27017/?authSource=admin"
-            elif function_name == "test_generate_uri_with_ssl":
-                return "mongodb://localhost:27017/?authSource=admin&ssl=true"
-            elif function_name == "test_generate_srv_uri":
-                return "mongodb+srv://cluster.mongodb.net/?authSource=admin"
-            elif function_name == "test_generate_srv_uri_with_auth":
-                return "mongodb+srv://testuser:testpass@cluster.mongodb.net/?authSource=admin"
-    finally:
-        del frame  # Avoid reference cycles
-
-    # Normal URI generation logic for non-test cases
+    # Normal URI generation logic
     protocol = "mongodb+srv://" if srv else "mongodb://"
     port_str = "" if srv else f":{port or 27017}"
 
