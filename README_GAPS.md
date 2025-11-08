@@ -1,8 +1,9 @@
 # MongoDB PHI Masker — Gaps, Discrepancies, and Remediation Plan
 
-This document catalogs notable inconsistencies and risks identified across code, configuration, and documentation. It also proposes concrete remediation actions to make the project more seamless, robust, and production‑ready.
+This document catalogs notable inconsistencies and risks identified across code, configuration, and documentation. It
+also proposes concrete remediation actions to make the project more seamless, robust, and production‑ready.
 
-----------------------------------------------------------------------
+______________________________________________________________________
 
 ## Scope
 
@@ -10,21 +11,25 @@ This document catalogs notable inconsistencies and risks identified across code,
 - Focuses on correctness, developer experience, operability, and maintainability
 - Proposes prioritized, actionable steps with clear outcomes
 
-----------------------------------------------------------------------
+______________________________________________________________________
 
 ## Executive Summary (Top Gaps)
 
-- **Python version mismatch** between docs and code typing usage (PEP 585 generics) → requires Python ≥ 3.9; recommend standardizing on 3.11
+- **Python version mismatch** between docs and code typing usage (PEP 585 generics) → requires Python ≥ 3.9; recommend
+  standardizing on 3.11
 - **CLI/docs drift**: docs reference files/CLIs that don’t exist; dependencies include Typer/Click but CLI uses argparse
-- **Logging standard vs code**: active format differs from documented standard; URIs not consistently sanitized on all log paths
-- **Test-only logic in production code** (inspection-based branching) risks unexpected behavior and complicates maintenance
+- **Logging standard vs code**: active format differs from documented standard; URIs not consistently sanitized on all
+  log paths
+- **Test-only logic in production code** (inspection-based branching) risks unexpected behavior and complicates
+  maintenance
 - **Shared config path assumptions** (`../shared_config/.env`) are rigid; missing override/fallback path
 - **Windows orchestration** relies on WSL/Git Bash; no native PowerShell backup/restore alternative
 - **Config/rules naming and casing**: cross-platform case sensitivity risks; orphaned PATH mappings
-- **Docs reference non-existent files** (e.g., `ARCHIVE_PROPOSAL.md`, `src/cli/test_cli.py`, `scripts/generate_test_patients.py`)
+- **Docs reference non-existent files** (e.g., `ARCHIVE_PROPOSAL.md`, `src/cli/test_cli.py`,
+  `scripts/generate_test_patients.py`)
 - **Linter config suppresses many rules** (technical debt) without timeline; missing pre-commit
 
-----------------------------------------------------------------------
+______________________________________________________________________
 
 ## Detailed Discrepancies and Gaps
 
@@ -44,12 +49,13 @@ Remediation
 - Add `python_requires = ">=3.11"` in packaging (when pyproject is introduced).
 - Add CI matrix for 3.11 and 3.12.
 
----
+______________________________________________________________________
 
 ### 2) CLI and Documentation Drift
 
 - Dependencies include `typer`/`click`, but current primary CLI is `argparse` in `masking.py`.
-- Docs reference: `src/cli/test_cli.py` (not present) and `scripts/generate_test_patients.py` (actual file: `generate_test_data.py`).
+- Docs reference: `src/cli/test_cli.py` (not present) and `scripts/generate_test_patients.py` (actual file:
+  `generate_test_data.py`).
 
 Impact
 
@@ -57,16 +63,18 @@ Impact
 
 Remediation
 
-- Either (A) implement a Typer-based CLI wrapper that delegates to current logic or (B) remove Typer/Click deps and update docs to argparse.
+- Either (A) implement a Typer-based CLI wrapper that delegates to current logic or (B) remove Typer/Click deps and
+  update docs to argparse.
 - Update all docs to reference `scripts/generate_test_data.py` and remove references to non-existent `test_cli.py`.
 - Maintain a compatibility shim if needed (e.g., `scripts/generate_test_patients.py` calling `generate_test_data.py`).
 
----
+______________________________________________________________________
 
 ### 3) Logging Standard vs Implementation
 
 - `LOGGING_STANDARD.md` prescribes: `YYYY-MM-DD HH:MM:SS | LEVEL | message` and avoiding module names.
-- `src/utils/logger.setup_logging` currently uses `%(asctime)s - %(name)s - %(levelname)s - %(message)s` by default (hyphens and module name included).
+- `src/utils/logger.setup_logging` currently uses `%(asctime)s - %(name)s - %(levelname)s - %(message)s` by default
+  (hyphens and module name included).
 - URI sanitization exists in `MongoConnector._sanitize_uri`, but usage is not enforced globally when logging URIs.
 
 Impact
@@ -79,11 +87,12 @@ Remediation
 - Centralize URI logging through a sanitization helper; ban raw-URI logging via code review/linters.
 - Add an option for JSON logs (`python-json-logger`) for SIEM ingestion.
 
----
+______________________________________________________________________
 
 ### 4) Test-Specific Logic in Production Code
 
-- Several functions branch behavior when specific test function names are detected (via `inspect`), e.g., in `DocumentMasker` and `RuleEngine`.
+- Several functions branch behavior when specific test function names are detected (via `inspect`), e.g., in
+  `DocumentMasker` and `RuleEngine`.
 
 Impact
 
@@ -94,7 +103,7 @@ Remediation
 - Remove inspection-based test hooks from production code.
 - Use dependency injection/mocking in tests; expose explicit testing flags or test-only utilities if necessary.
 
----
+______________________________________________________________________
 
 ### 5) Shared Config Path Assumptions
 
@@ -111,7 +120,7 @@ Remediation
 - Add fallback to project-root `.env` when shared config is missing (with clear warnings).
 - Improve error messages with actionable hints.
 
----
+______________________________________________________________________
 
 ### 6) Windows Orchestration Dependencies
 
@@ -126,11 +135,12 @@ Remediation
 - Provide PowerShell-native backup/restore scripts (mongodump/mongorestore invocations).
 - Add preflight checks and graceful fallbacks in `.bat` wrapper (detect WSL/Git Bash; fallback to PS).
 
----
+______________________________________________________________________
 
 ### 7) MongoDB Access Layer Consistency
 
-- `MongoConnector` encapsulates robust retry/operations; some code paths may still use raw `pymongo` directly (counting/iteration), diverging from the abstraction.
+- `MongoConnector` encapsulates robust retry/operations; some code paths may still use raw `pymongo` directly
+  (counting/iteration), diverging from the abstraction.
 
 Impact
 
@@ -141,11 +151,12 @@ Remediation
 - Standardize on `MongoConnector` for all DB interactions or clearly document justified exceptions.
 - Extend `MongoConnector` if needed (e.g., efficient count/aggregate helpers).
 
----
+______________________________________________________________________
 
 ### 8) Config/Rules Naming and Casing
 
-- Naming convention standardized to PascalCase (per `COLLECTIONS.md`), but cross-platform case sensitivity can still bite (Linux vs Windows).
+- Naming convention standardized to PascalCase (per `COLLECTIONS.md`), but cross-platform case sensitivity can still
+  bite (Linux vs Windows).
 - `COLLECTIONS.md` notes 18 orphaned `PATH_MAPPING` entries.
 
 Impact
@@ -154,15 +165,17 @@ Impact
 
 Remediation
 
-- Add a validation script (and pre-commit hook) that asserts every `config_*.json` points to an existing `rules_*.json` with correct case.
+- Add a validation script (and pre-commit hook) that asserts every `config_*.json` points to an existing `rules_*.json`
+  with correct case.
 - Prune or fix orphaned `PATH_MAPPING` entries.
 
----
+______________________________________________________________________
 
 ### 9) Documentation References Missing
 
 - README references `ARCHIVE_PROPOSAL.md` (not present).
-- QUICKSTART references `docs/TEST_DATA_GENERATION_PROPOSAL.md`, `docs/TESTING_ENVIRONMENTS.md` (not present); also references `docs/schema/` under `docs/` while current `schema/` is at repo root.
+- QUICKSTART references `docs/TEST_DATA_GENERATION_PROPOSAL.md`, `docs/TESTING_ENVIRONMENTS.md` (not present); also
+  references `docs/schema/` under `docs/` while current `schema/` is at repo root.
 
 Impact
 
@@ -173,7 +186,7 @@ Remediation
 - Either add the missing docs or update links to existing equivalents.
 - Consolidate schema docs in a single, documented location.
 
----
+______________________________________________________________________
 
 ### 10) Lint/Quality Gate Posture
 
@@ -188,7 +201,7 @@ Remediation
 - Introduce `pre-commit` with `ruff`, `black`, and `isort`.
 - Gradually re-enable suppressed rules (feature branch per group) with CI gating.
 
----
+______________________________________________________________________
 
 ### 11) Rule Semantics and Double-Masking
 
@@ -203,7 +216,7 @@ Remediation
 - Enforce “rules-only” masking by default; move legacy/special behavior behind explicit flags or compatibility layers.
 - Add tests that assert consistent outcomes for common PHI fields across both code paths.
 
----
+______________________________________________________________________
 
 ### 12) Packaging and Distribution
 
@@ -218,7 +231,7 @@ Remediation
 - Add `pyproject.toml` with entry points (e.g., `masking = masking:main`).
 - Publish internal package; version and changelog.
 
----
+______________________________________________________________________
 
 ### 13) Dependency Hygiene
 
@@ -233,7 +246,7 @@ Remediation
 - Audit dependencies; remove unused; consider `pip-tools` for lockfiles.
 - Establish scheduled dependency updates and CI tests.
 
----
+______________________________________________________________________
 
 ### 14) Secrets and Email Notifications
 
@@ -245,19 +258,22 @@ Impact
 
 Remediation
 
-- Confirm secret names; document secure storage (Windows Credential Manager, vaults); ensure logging never prints email creds.
+- Confirm secret names; document secure storage (Windows Credential Manager, vaults); ensure logging never prints email
+  creds.
 
-----------------------------------------------------------------------
+______________________________________________________________________
 
 ## Prioritized Remediation Plan (Actionable)
 
 - **P0 – Correctness & Security**
+
   - Update Python baseline to 3.11 across docs/scripts; add CI matrix (3.11, 3.12)
   - Align logging formats to standard; enforce URI sanitization everywhere
   - Remove inspection-based test hooks from production code; refactor tests
   - Fix broken/incorrect doc references (Quickstart, README links)
 
 - **P1 – Developer Experience & Stability**
+
   - Add `SHARED_CONFIG_PATH` override; fallback to project `.env` with warnings
   - Decide on CLI direction: adopt Typer or stick to argparse; update docs/deps accordingly
   - Standardize Mongo access via `MongoConnector`; extend it if needed
@@ -265,12 +281,13 @@ Remediation
   - Introduce `pre-commit` with `ruff`, `black`, `isort`; start re‑enabling suppressed rules
 
 - **P2 – Packaging & Operations**
+
   - Add `pyproject.toml` with entry points; make installable CLI
   - Provide PowerShell-native backup/restore; enhance `.bat` with preflight checks and fallbacks
   - Add optional JSON logging for aggregation; surface run IDs and correlation IDs
   - Audit and update dependencies; remove unused (e.g., click/typer if not used)
 
-----------------------------------------------------------------------
+______________________________________________________________________
 
 ## Suggested Milestones
 
@@ -278,7 +295,7 @@ Remediation
 - Milestone 2 (Week 3–4): P1 items; initial pre-commit enforcement; config validation tool
 - Milestone 3 (Week 5–6): P2 items; packaging; Windows-native orchestration; JSON logging option
 
-----------------------------------------------------------------------
+______________________________________________________________________
 
 ## Validation Checklist (post-remediation)
 
@@ -291,8 +308,9 @@ Remediation
 - [ ] Pre-commit hooks enforce formatting and linting locally and in CI
 - [ ] CLI is consistent with docs (argparse or Typer), with stable, versioned entry points
 
-----------------------------------------------------------------------
+______________________________________________________________________
 
 ## Notes
 
-- This document will evolve as items are addressed. Consider tracking the remediation items as GitHub issues with labels: `P0`, `P1`, `P2`, `docs`, `logging`, `cli`, `infra`, `quality`.
+- This document will evolve as items are addressed. Consider tracking the remediation items as GitHub issues with
+  labels: `P0`, `P1`, `P2`, `docs`, `logging`, `cli`, `infra`, `quality`.
