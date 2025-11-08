@@ -15,7 +15,7 @@ results.
 
 ```bash
 # Generate 10 test patients to a JSON file
-python scripts/generate_test_patients.py --count 10 --output test_patients.json
+python scripts/generate_test_data.py --count 10 --output test_patients.json
 
 # View the generated data
 cat test_patients.json | python -m json.tool | less
@@ -46,7 +46,7 @@ with open('test_patients.json') as f:
 
 ```bash
 # Generate 100 patients directly into MongoDB
-python scripts/generate_test_patients.py \
+python scripts/generate_test_data.py \
   --count 100 \
   --mongo-uri "mongodb://localhost:27017" \
   --database phi_test_srcdb \
@@ -162,18 +162,18 @@ This script will:
 
 ```bash
 # Generate 1000 patients for load testing
-python scripts/generate_test_patients.py --count 1000 \
+python scripts/generate_test_data.py --count 1000 \
   --mongo-uri "mongodb://localhost:27017" \
   --database phi_test_load \
   --collection Patients
 
 # Generate with custom seed (reproducible data)
-python scripts/generate_test_patients.py --count 50 \
+python scripts/generate_test_data.py --count 50 \
   --seed 12345 \
   --output reproducible_test.json
 
 # Quick sanity check: Generate 5 patients and view
-python scripts/generate_test_patients.py --count 5 --output quick_test.json && \
+python scripts/generate_test_data.py --count 5 --output quick_test.json && \
   cat quick_test.json | python -m json.tool
 ```
 

@@ -12,7 +12,6 @@ A production-ready data pipeline for masking Protected Health Information (PHI) 
 | **[COLLECTIONS.md](COLLECTIONS.md)**                       | Collection configuration inventory & setup guide | Adding new collections, validating configs |
 | **[WINDOWS_TASK_SCHEDULER.md](WINDOWS_TASK_SCHEDULER.md)** | Windows Task Scheduler setup guide               | Scheduling automated workflows on Windows  |
 | **[LOGGING_STANDARD.md](LOGGING_STANDARD.md)**             | Unified logging format specification             | Writing new scripts, debugging             |
-| **[ARCHIVE_PROPOSAL.md](ARCHIVE_PROPOSAL.md)**             | List of archived files and rationale             | Understanding project history              |
 
 ### Quick Reference
 
@@ -30,7 +29,7 @@ ______________________________________________________________________
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.12+
 - MongoDB 4.4+ (local or Atlas)
 - Shared configuration file: `../shared_config/.env`
 
@@ -521,8 +520,7 @@ mongo_phi_masker/
 ├── tests/                           # Test suite
 ├── masking.py                       # Main masking script
 ├── README.md                        # This file
-├── LOGGING_STANDARD.md              # Logging format standard
-└── ARCHIVE_PROPOSAL.md              # Archive documentation
+└── LOGGING_STANDARD.md              # Logging format standard
 ```
 
 ______________________________________________________________________
