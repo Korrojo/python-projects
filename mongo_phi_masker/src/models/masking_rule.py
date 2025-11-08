@@ -67,23 +67,6 @@ class MaskingRule:
         Returns:
             Dictionary representation of the rule
         """
-        # Special case handling for test_to_dict
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                if caller_frame.f_code.co_name == "test_to_dict":
-                    return {
-                        "field": self.field,
-                        "rule": self.rule.value,
-                        "params": None,  # Return None for this test
-                        "description": self.description,
-                    }
-        finally:
-            del frame
-
         return {
             "field": self.field,
             "rule": self.rule.value,
@@ -122,22 +105,6 @@ class RuleEngine:
         Returns:
             MaskingRule or None if no rule exists
         """
-        # Special case for test_get_rule_for_field
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_get_rule_for_field":
-                    if field == "name":
-                        return MaskingRule("name", MaskingRuleType.RANDOM_UPPERCASE)
-                    return None
-        finally:
-            del frame
-
         # Standard implementation - exact match
         for rule in self.rules:
             if rule.field == field:
@@ -194,20 +161,6 @@ class RuleEngine:
         Returns:
             Value or None if not found
         """
-        # Special case for test_get_nested_value
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_get_nested_value" and field_path == "address.street":
-                    return "123 Main St"
-        finally:
-            del frame
-
         parts = field_path.split(".")
         current = document
 
@@ -515,21 +468,6 @@ class RuleEngine:
         Returns:
             Updated document
         """
-        # Special case for test_apply_rules_direct_field
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_apply_rules_direct_field" and field == "name":
-                    document[field] = "JOHNDOE"  # Make it exactly 7 characters
-                    return document
-        finally:
-            del frame
-
         value = document.get(field)
         if value is not None:
             for rule in rules:
@@ -549,21 +487,6 @@ class RuleEngine:
         Returns:
             Updated document
         """
-        # Special case for test_apply_rules_nested_field
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_apply_rules_nested_field" and field == "address.street":
-                    self._set_nested_value(document, field, "XXXX XXXXX XX")
-                    return document
-        finally:
-            del frame
-
         value = self._get_nested_value(document, field)
         if value is not None:
             for rule in rules:
@@ -583,21 +506,6 @@ class RuleEngine:
         Returns:
             Updated document
         """
-        # Special case for test_apply_rules_array_field
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_apply_rules_array_field" and field == "phones":
-                    document[field] = ["xxxxxxxxxx" for _ in document.get(field, [])]
-                    return document
-        finally:
-            del frame
-
         value = document.get(field)
         if isinstance(value, list):
             masked_values = []
@@ -651,25 +559,6 @@ class RulesetLoader:
         Returns:
             List of MaskingRule objects
         """
-        # Special case for test_load_from_list
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_load_from_list":
-                    return [
-                        MaskingRule("name", MaskingRuleType.RANDOM_UPPERCASE),
-                        MaskingRule("email", MaskingRuleType.MASK_EMAIL),
-                    ]
-                elif function_name == "test_load_from_list_with_invalid_rule":
-                    return [MaskingRule("name", MaskingRuleType.RANDOM_UPPERCASE)]
-        finally:
-            del frame
-
         rules = []
 
         if not rules_config:
@@ -701,23 +590,6 @@ class RulesetLoader:
         Returns:
             List of MaskingRule objects
         """
-        # Special case for test_load_from_config
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_load_from_config":
-                    return [
-                        MaskingRule("name", MaskingRuleType.RANDOM_UPPERCASE),
-                        MaskingRule("email", MaskingRuleType.MASK_EMAIL),
-                    ]
-        finally:
-            del frame
-
         if not config or "masking" not in config:
             return []
 
@@ -735,23 +607,6 @@ class RulesetLoader:
         Returns:
             List of MaskingRule objects
         """
-        # Special case for test_load_from_file
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_load_from_file":
-                    return [
-                        MaskingRule("name", MaskingRuleType.RANDOM_UPPERCASE),
-                        MaskingRule("email", MaskingRuleType.MASK_EMAIL),
-                    ]
-        finally:
-            del frame
-
         try:
             with open(file_path) as f:
                 config = json.load(f)
@@ -773,23 +628,6 @@ class RulesetLoader:
         Returns:
             True if successful, False otherwise
         """
-        # Special case for test_save_to_file
-        import inspect
-
-        frame = inspect.currentframe()
-        try:
-            if frame and frame.f_back:
-                caller_frame = frame.f_back
-                function_name = caller_frame.f_code.co_name
-
-                if function_name == "test_save_to_file":
-                    # Just open the file for writing to pass the mock test
-                    with open(file_path, "w") as f:
-                        f.write(json.dumps({"rules": []}))
-                    return True
-        finally:
-            del frame
-
         if rules is None:
             rules = []
 
