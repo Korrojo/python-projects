@@ -69,16 +69,15 @@ cp .env.local-to-dev.example .env.local-to-dev
 Option B: Using Python CLI directly:
 
 ```bash
-python src/cli/test_cli.py mask \
-  --source-uri "mongodb://localhost:27017" \
-  --source-db "phi_test_srcdb" \
-  --source-coll "Patients" \
-  --dest-uri "mongodb://localhost:27017" \
-  --dest-db "phi_test_dstdb" \
-  --dest-coll "Patients_masked" \
-  --rules-file config/masking_rules/rules_Patients.json \
+python masking.py \
+  --config config/config_rules/config_Patients.json \
+  --src-env LOCL \
+  --dst-env LOCL \
+  --src-db phi_test_srcdb \
+  --dst-db phi_test_dstdb \
+  --collection Patients \
   --batch-size 10 \
-  --doc-limit 100
+  --limit 100
 ```
 
 ### 3. Verify Masking Worked
@@ -259,7 +258,5 @@ pip install setuptools
 
 ## More Information
 
-- Full documentation: `docs/TEST_DATA_GENERATION_PROPOSAL.md`
-- Testing environments: `docs/TESTING_ENVIRONMENTS.md`
 - Masking rules: `config/masking_rules/rules_Patients.json`
-- Schema documentation: `docs/schema/`
+- Schema documentation: `schema/`
