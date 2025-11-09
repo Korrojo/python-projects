@@ -85,7 +85,7 @@ python src/cli/test_cli.py mask \
 
 ```python
 # Create a verification script
-python << 'EOF'
+python << "EOF"
 from pymongo import MongoClient
 import json
 
@@ -122,9 +122,11 @@ if orig and mask:
     print("\n" + "=" * 60)
     print("VERIFICATION RESULTS:")
     print("=" * 60)
-    name_masked = orig.get('FirstName') != mask.get('FirstName')
-    email_masked = orig.get('Email') != mask.get('Email')
-    phone_masked = orig.get('Contacts', {}).get('HomePhoneNumber') != mask.get('Contacts', {}).get('HomePhoneNumber')
+    name_masked = orig.get("FirstName") != mask.get("FirstName")
+    email_masked = orig.get("Email") != mask.get("Email")
+    phone_masked = orig.get("Contacts", {}).get("HomePhoneNumber") != mask.get(
+        "Contacts", {}
+    ).get("HomePhoneNumber")
 
     print(f"✓ FirstName masked: {name_masked}")
     print(f"✓ Email masked:     {email_masked}")

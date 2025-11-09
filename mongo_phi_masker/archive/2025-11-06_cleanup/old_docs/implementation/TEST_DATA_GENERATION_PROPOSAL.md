@@ -91,7 +91,6 @@ containing only the essential nested structures for PHI field testing:
 ```python
 {
     "_id": ObjectId(),
-
     # Top-level Personal Info (9 fields)
     "FirstName": "JOHN",
     "MiddleName": "MICHAEL",
@@ -103,7 +102,6 @@ containing only the essential nested structures for PHI field testing:
     "Dob": ISODate("1985-06-15T00:00:00Z"),
     "Gender": "Male",
     "MedicareId": "A12-BC-3456",
-
     # Address nested object (6 fields)
     "Address": {
         "Street1": "123 Main Street",
@@ -111,85 +109,70 @@ containing only the essential nested structures for PHI field testing:
         "City": "Springfield",
         "StateName": "Illinois",
         "StateCode": "IL",
-        "Zip5": "62701"
+        "Zip5": "62701",
     },
-
     # Phones nested array (2 fields)
     "Phones": [
         {
             "PhoneType": "Mobile",
             "PhoneNumber": "5551234567",
-            "Notes": "Primary contact number"
+            "Notes": "Primary contact number",
         }
     ],
-
     # Contacts nested object (2 fields)
-    "Contacts": {
-        "HomePhoneNumber": "5559876543",
-        "WorkPhoneNumber": "5555555555"
-    },
-
+    "Contacts": {"HomePhoneNumber": "5559876543", "WorkPhoneNumber": "5555555555"},
     # Pcp (Primary Care Provider) nested object (3 fields)
     "Pcp": {
         "Fax": "5551111111",
         "PcpSecondaryFaxNumber": "5552222222",
-        "MRRFax": "5553333333"
+        "MRRFax": "5553333333",
     },
-
     # Insurance nested object (3 fields)
     "Insurance": {
         "PrimaryMemberName": "JANE DOE",
         "PrimaryMemberDOB": ISODate("1987-03-22T00:00:00Z"),
-        "EmployerStreet": "456 Business Blvd"
+        "EmployerStreet": "456 Business Blvd",
     },
-
     # Specialists nested array (2 fields)
     "Specialists": [
         {
             "SpecialtyType": "Cardiology",
             "MRRFaxNumber": "5554444444",
-            "FaxNumber2": "5555555555"
+            "FaxNumber2": "5555555555",
         }
     ],
-
     # PatientCallLog nested array (2 fields)
     "PatientCallLog": [
         {
             "CallDate": ISODate("2025-01-15T10:30:00Z"),
             "PatientName": "JOHN DOE",
-            "VisitAddress": "789 Healthcare Dr, Springfield, IL"
+            "VisitAddress": "789 Healthcare Dr, Springfield, IL",
         }
     ],
-
     # PatientProblemList nested structure (2 fields)
     "PatientProblemList": {
         "EncounterProblemList": [
             {
                 "Problem": "Hypertension",
                 "FinalNotes": "Blood pressure controlled with medication",
-                "Comments": "Follow up in 3 months"
+                "Comments": "Follow up in 3 months",
             }
         ]
     },
-
     # SubscribedUserDetails nested object (1 field)
     "SubscribedUserDetails": {
         "UserName": "johndoe123",
-        "SubscriptionDate": ISODate("2024-01-01T00:00:00Z")
+        "SubscriptionDate": ISODate("2024-01-01T00:00:00Z"),
     },
-
     # OutreachActivitiesList nested array (1 field)
     "OutreachActivitiesList": [
         {
             "ActivityDate": ISODate("2025-02-01T14:00:00Z"),
-            "Reason": "Annual wellness check reminder"
+            "Reason": "Annual wellness check reminder",
         }
     ],
-
     # PatientDat nested object (1 field)
-    "PatientDat": {
-        "OtherReason": "Patient requested appointment change"
-    }
+    "PatientDat": {"OtherReason": "Patient requested appointment change"},
 }
 ```
 
@@ -215,7 +198,7 @@ from faker import Faker
 import random
 
 # Initialize Faker with US locale for healthcare data
-fake = Faker('en_US')
+fake = Faker("en_US")
 Faker.seed(42)  # For reproducible test data
 
 
@@ -224,7 +207,7 @@ class PatientDataGenerator:
 
     def __init__(self, seed: int = 42):
         """Initialize generator with optional seed for reproducibility."""
-        self.fake = Faker('en_US')
+        self.fake = Faker("en_US")
         Faker.seed(seed)
         random.seed(seed)
 
@@ -250,115 +233,148 @@ class PatientDataGenerator:
             "LastNameLower": last_name.lower(),
             "Email": self.fake.email(),
             "Dob": self.fake.date_of_birth(minimum_age=18, maximum_age=90).isoformat(),
-            "Gender": random.choice(['Male', 'Female', 'Other']),
-            "MedicareId": self.fake.bothify('?##-??-####').upper(),
-
+            "Gender": random.choice(["Male", "Female", "Other"]),
+            "MedicareId": self.fake.bothify("?##-??-####").upper(),
             # Address nested object (6 fields)
             "Address": {
                 "Street1": self.fake.street_address(),
-                "Street2": self.fake.secondary_address() if random.random() > 0.5 else None,
+                "Street2": (
+                    self.fake.secondary_address() if random.random() > 0.5 else None
+                ),
                 "City": self.fake.city(),
                 "StateName": state_name,
                 "StateCode": state_abbr,
-                "Zip5": self.fake.zipcode()[:5]
+                "Zip5": self.fake.zipcode()[:5],
             },
-
             # Phones nested array (2 fields)
             "Phones": [
                 {
                     "PhoneType": "Mobile",
-                    "PhoneNumber": self.fake.numerify('##########'),
-                    "Notes": self.fake.sentence(nb_words=10)
+                    "PhoneNumber": self.fake.numerify("##########"),
+                    "Notes": self.fake.sentence(nb_words=10),
                 }
             ],
-
             # Contacts nested object (2 fields)
             "Contacts": {
-                "HomePhoneNumber": self.fake.numerify('##########'),
-                "WorkPhoneNumber": self.fake.numerify('##########')
+                "HomePhoneNumber": self.fake.numerify("##########"),
+                "WorkPhoneNumber": self.fake.numerify("##########"),
             },
-
             # Pcp nested object (3 fields)
             "Pcp": {
                 "ProviderName": self.fake.name(),
-                "Fax": self.fake.numerify('##########'),
-                "PcpSecondaryFaxNumber": self.fake.numerify('##########'),
-                "MRRFax": self.fake.numerify('##########')
+                "Fax": self.fake.numerify("##########"),
+                "PcpSecondaryFaxNumber": self.fake.numerify("##########"),
+                "MRRFax": self.fake.numerify("##########"),
             },
-
             # Insurance nested object (3 fields)
             "Insurance": {
                 "PrimaryMemberName": self.fake.name().upper(),
-                "PrimaryMemberDOB": self.fake.date_of_birth(minimum_age=18, maximum_age=90).isoformat(),
-                "EmployerStreet": self.fake.street_address()
+                "PrimaryMemberDOB": self.fake.date_of_birth(
+                    minimum_age=18, maximum_age=90
+                ).isoformat(),
+                "EmployerStreet": self.fake.street_address(),
             },
-
             # Specialists nested array (2 fields)
             "Specialists": [
                 {
-                    "SpecialtyType": random.choice(['Cardiology', 'Dermatology', 'Orthopedics']),
-                    "MRRFaxNumber": self.fake.numerify('##########'),
-                    "FaxNumber2": self.fake.numerify('##########')
+                    "SpecialtyType": random.choice(
+                        ["Cardiology", "Dermatology", "Orthopedics"]
+                    ),
+                    "MRRFaxNumber": self.fake.numerify("##########"),
+                    "FaxNumber2": self.fake.numerify("##########"),
                 }
             ],
-
             # PatientCallLog nested array (2 fields)
             "PatientCallLog": [
                 {
                     "CallDate": self.fake.date_time_this_year().isoformat(),
                     "PatientName": f"{first_name} {last_name}",
-                    "VisitAddress": f"{self.fake.street_address()}, {self.fake.city()}, {state_abbr}"
+                    "VisitAddress": f"{self.fake.street_address()}, {self.fake.city()}, {state_abbr}",
                 }
             ],
-
             # PatientProblemList nested structure (2 fields)
             "PatientProblemList": {
                 "EncounterProblemList": [
                     {
-                        "Problem": random.choice(['Hypertension', 'Diabetes', 'Asthma', 'Arthritis']),
+                        "Problem": random.choice(
+                            ["Hypertension", "Diabetes", "Asthma", "Arthritis"]
+                        ),
                         "FinalNotes": self.fake.text(max_nb_chars=200),
-                        "Comments": self.fake.text(max_nb_chars=150)
+                        "Comments": self.fake.text(max_nb_chars=150),
                     }
                 ]
             },
-
             # SubscribedUserDetails nested object (1 field)
             "SubscribedUserDetails": {
                 "UserName": self.fake.user_name(),
-                "SubscriptionDate": self.fake.date_time_this_year().isoformat()
+                "SubscriptionDate": self.fake.date_time_this_year().isoformat(),
             },
-
             # OutreachActivitiesList nested array (1 field)
             "OutreachActivitiesList": [
                 {
                     "ActivityDate": self.fake.date_time_this_month().isoformat(),
-                    "Reason": self.fake.sentence(nb_words=8)
+                    "Reason": self.fake.sentence(nb_words=8),
                 }
             ],
-
             # PatientDat nested object (1 field)
-            "PatientDat": {
-                "OtherReason": self.fake.sentence(nb_words=10)
-            }
+            "PatientDat": {"OtherReason": self.fake.sentence(nb_words=10)},
         }
 
     def _get_state_name(self, state_abbr: str) -> str:
         """Map state abbreviation to full state name."""
         # Simplified mapping - in production use complete mapping
         state_map = {
-            'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas',
-            'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware',
-            'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho',
-            'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas',
-            'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland',
-            'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi',
-            'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada',
-            'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York',
-            'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma',
-            'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina',
-            'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah',
-            'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
-            'WI': 'Wisconsin', 'WY': 'Wyoming', 'DC': 'District of Columbia'
+            "AL": "Alabama",
+            "AK": "Alaska",
+            "AZ": "Arizona",
+            "AR": "Arkansas",
+            "CA": "California",
+            "CO": "Colorado",
+            "CT": "Connecticut",
+            "DE": "Delaware",
+            "FL": "Florida",
+            "GA": "Georgia",
+            "HI": "Hawaii",
+            "ID": "Idaho",
+            "IL": "Illinois",
+            "IN": "Indiana",
+            "IA": "Iowa",
+            "KS": "Kansas",
+            "KY": "Kentucky",
+            "LA": "Louisiana",
+            "ME": "Maine",
+            "MD": "Maryland",
+            "MA": "Massachusetts",
+            "MI": "Michigan",
+            "MN": "Minnesota",
+            "MS": "Mississippi",
+            "MO": "Missouri",
+            "MT": "Montana",
+            "NE": "Nebraska",
+            "NV": "Nevada",
+            "NH": "New Hampshire",
+            "NJ": "New Jersey",
+            "NM": "New Mexico",
+            "NY": "New York",
+            "NC": "North Carolina",
+            "ND": "North Dakota",
+            "OH": "Ohio",
+            "OK": "Oklahoma",
+            "OR": "Oregon",
+            "PA": "Pennsylvania",
+            "RI": "Rhode Island",
+            "SC": "South Carolina",
+            "SD": "South Dakota",
+            "TN": "Tennessee",
+            "TX": "Texas",
+            "UT": "Utah",
+            "VT": "Vermont",
+            "VA": "Virginia",
+            "WA": "Washington",
+            "WV": "West Virginia",
+            "WI": "Wisconsin",
+            "WY": "Wyoming",
+            "DC": "District of Columbia",
         }
         return state_map.get(state_abbr, state_abbr)
 
@@ -368,12 +384,17 @@ class PatientDataGenerator:
 
     def save_to_json(self, patients: List[Dict[str, Any]], filepath: str):
         """Save generated patients to JSON file."""
-        with open(filepath, 'w') as f:
+        with open(filepath, "w") as f:
             json.dump(patients, f, indent=2, default=str)
         print(f"✓ Generated {len(patients)} patient documents → {filepath}")
 
-    def save_to_mongodb(self, patients: List[Dict[str, Any]], connection_string: str,
-                       database: str, collection: str):
+    def save_to_mongodb(
+        self,
+        patients: List[Dict[str, Any]],
+        connection_string: str,
+        database: str,
+        collection: str,
+    ):
         """Save generated patients directly to MongoDB."""
         from pymongo import MongoClient
 
@@ -382,7 +403,9 @@ class PatientDataGenerator:
         coll = db[collection]
 
         result = coll.insert_many(patients)
-        print(f"✓ Inserted {len(result.inserted_ids)} documents into {database}.{collection}")
+        print(
+            f"✓ Inserted {len(result.inserted_ids)} documents into {database}.{collection}"
+        )
         client.close()
 
 
@@ -390,13 +413,27 @@ def main():
     """CLI entry point for test data generation."""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Generate test patient data with Faker')
-    parser.add_argument('--count', type=int, default=100, help='Number of patients to generate')
-    parser.add_argument('--output', type=str, default='test_patients.json', help='Output JSON file')
-    parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
-    parser.add_argument('--mongo-uri', type=str, help='MongoDB connection URI (optional)')
-    parser.add_argument('--database', type=str, default='local_test_db', help='MongoDB database name')
-    parser.add_argument('--collection', type=str, default='Patients', help='MongoDB collection name')
+    parser = argparse.ArgumentParser(
+        description="Generate test patient data with Faker"
+    )
+    parser.add_argument(
+        "--count", type=int, default=100, help="Number of patients to generate"
+    )
+    parser.add_argument(
+        "--output", type=str, default="test_patients.json", help="Output JSON file"
+    )
+    parser.add_argument(
+        "--seed", type=int, default=42, help="Random seed for reproducibility"
+    )
+    parser.add_argument(
+        "--mongo-uri", type=str, help="MongoDB connection URI (optional)"
+    )
+    parser.add_argument(
+        "--database", type=str, default="local_test_db", help="MongoDB database name"
+    )
+    parser.add_argument(
+        "--collection", type=str, default="Patients", help="MongoDB collection name"
+    )
 
     args = parser.parse_args()
 
@@ -410,7 +447,9 @@ def main():
 
     # Optionally save to MongoDB
     if args.mongo_uri:
-        generator.save_to_mongodb(patients, args.mongo_uri, args.database, args.collection)
+        generator.save_to_mongodb(
+            patients, args.mongo_uri, args.database, args.collection
+        )
 
     print(f"\n✓ Test data generation complete!")
     print(f"  Documents: {args.count}")
@@ -418,7 +457,7 @@ def main():
     print(f"  Output file: {args.output}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 ```
 
@@ -431,12 +470,15 @@ if __name__ == '__main__':
 def patient_generator():
     """Provide PatientDataGenerator for tests."""
     from scripts.generate_test_patients import PatientDataGenerator
+
     return PatientDataGenerator(seed=42)
+
 
 @pytest.fixture
 def sample_patient(patient_generator):
     """Generate a single test patient."""
     return patient_generator.generate_patient()
+
 
 @pytest.fixture
 def sample_patient_batch(patient_generator):
@@ -451,8 +493,8 @@ def sample_patient_batch(patient_generator):
 def test_mask_all_phi_fields(sample_patient, sample_masking_rules, mock_mongo_client):
     """Test that all 34 PHI fields are properly masked."""
     # Insert test patient
-    db = mock_mongo_client['test_db']
-    coll = db['Patients']
+    db = mock_mongo_client["test_db"]
+    coll = db["Patients"]
     coll.insert_one(sample_patient)
 
     # Apply masking rules
@@ -460,8 +502,8 @@ def test_mask_all_phi_fields(sample_patient, sample_masking_rules, mock_mongo_cl
     masked_patient = masker.mask_document(sample_patient)
 
     # Verify all PHI fields are masked
-    assert masked_patient['FirstName'] != sample_patient['FirstName']
-    assert masked_patient['Email'] != sample_patient['Email']
+    assert masked_patient["FirstName"] != sample_patient["FirstName"]
+    assert masked_patient["Email"] != sample_patient["Email"]
     # ... verify all 34 fields
 ```
 
@@ -639,6 +681,6 @@ Faker==24.0.0
 - ✅ All 34 PHI fields present in generated documents
 - ✅ Data passes existing masking rule validation
 - ✅ Reproducible test data with seeded generation
-- ✅ Performance: Generate 10,000 documents in < 30 seconds
+- ✅ Performance: Generate 10,000 documents in \< 30 seconds
 - ✅ Integration with pytest test suite
 - ✅ Documentation complete with usage examples

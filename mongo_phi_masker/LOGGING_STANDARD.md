@@ -54,7 +54,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
     handlers=[
         logging.FileHandler("logs/operation/timestamp_operation.log"),
-        logging.StreamHandler()
+        logging.StreamHandler(),
     ],
 )
 
@@ -68,8 +68,7 @@ logger.error("This is an error")
 
 ```python
 formatter = logging.Formatter(
-    "%(asctime)s | %(levelname)s | %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
+    "%(asctime)s | %(levelname)s | %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
 )
 file_handler.setFormatter(formatter)
 console_handler.setFormatter(formatter)

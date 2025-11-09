@@ -16,6 +16,7 @@ Features:
 - Test database targeting
 """
 
+
 # Pseudo-implementation
 def rank_documents_by_phi_fields(collection, phi_fields):
     """
@@ -23,6 +24,7 @@ def rank_documents_by_phi_fields(collection, phi_fields):
     Higher score = more PHI fields present = better test data
     """
     pass
+
 
 def export_top_phi_documents(source_collection, target_db, count=10):
     """
@@ -46,12 +48,14 @@ Features:
 - Statistical analysis
 """
 
+
 def compare_collections(original_coll, masked_coll):
     """
     Compare original and masked collections
     Verify PHI fields are masked, non-PHI preserved
     """
     pass
+
 
 def generate_validation_report(comparison_results):
     """
@@ -71,27 +75,27 @@ ______________________________________________________________________
 """
 Duration tracking for all major phases:
 - Database connection time
-- Document query time  
+- Document query time
 - Masking processing time
 - Database write time
 - Index operations time
 - Memory cleanup time
 """
 
+
 class PerformanceTracker:
     def __init__(self):
         self.phases = {}
-    
+
     def start_phase(self, phase_name):
         self.phases[phase_name] = {"start": time.time()}
-    
+
     def end_phase(self, phase_name):
         self.phases[phase_name]["end"] = time.time()
         self.phases[phase_name]["duration"] = (
-            self.phases[phase_name]["end"] - 
-            self.phases[phase_name]["start"]
+            self.phases[phase_name]["end"] - self.phases[phase_name]["start"]
         )
-    
+
     def generate_performance_report(self):
         """Generate detailed performance analysis"""
         pass
@@ -110,11 +114,12 @@ Pre-execution validation script
 Purpose: Verify all configurations before running masker
 Features:
 - Config file validation
-- Environment file checks  
+- Environment file checks
 - Database connectivity tests
 - File permission verification
 - Resource availability checks
 """
+
 
 def validate_configuration(collection_name):
     """
@@ -123,11 +128,11 @@ def validate_configuration(collection_name):
     """
     checks = [
         check_config_file_exists(collection_name),
-        check_rules_file_exists(collection_name), 
+        check_rules_file_exists(collection_name),
         check_env_file_valid(),
         check_database_connectivity(),
         check_log_directory_writable(),
-        check_virtual_environment()
+        check_virtual_environment(),
     ]
     return all(checks)
 ```

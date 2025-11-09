@@ -3,7 +3,7 @@
 # ============================================
 # Collections with "#" prefix are ALREADY MASKED:
 # - Container (ALREADY MASKED)
-# - Patients (ALREADY MASKED) 
+# - Patients (ALREADY MASKED)
 # - StaffAvailability (ALREADY MASKED)
 # - Tasks (ALREADY MASKED)
 #

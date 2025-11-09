@@ -1,5 +1,5 @@
 
-here is the system stat while the mongodum script running 
+here is the system stat while the mongodum script running
 
 Device name	vm-01-c-prod
 Processor	AMD EPYC 7763 64-Core Processor                   2.44 GHz
@@ -231,6 +231,3 @@ pet.exe	13400	pet.exe	Running	1	0	0.00
 bash.exe	6184	Git for Windows	Running	1	0	0.00
 bash.exe	4956	Git for Windows	Running	1	0	0.00
 Secure System	168		Suspended	-	0	0.00
-
-
-

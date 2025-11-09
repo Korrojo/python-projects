@@ -129,12 +129,14 @@ try:
 
     with monitor.phase("Masking Process", metadata={"total_docs": len(documents)}):
         for i in range(0, len(documents), batch_size):
-            batch = documents[i:i+batch_size]
+            batch = documents[i : i + batch_size]
 
-            with monitor.phase("Mask Batch", metadata={"batch_num": i//batch_size}):
+            with monitor.phase("Mask Batch", metadata={"batch_num": i // batch_size}):
                 masked_batch = [mask_document(doc) for doc in batch]
 
-            with monitor.phase("Insert Batch", metadata={"batch_size": len(masked_batch)}):
+            with monitor.phase(
+                "Insert Batch", metadata={"batch_size": len(masked_batch)}
+            ):
                 connector.bulk_insert(masked_batch)
 
 finally:
@@ -291,6 +293,7 @@ Here's how to integrate performance tracking into the main masking pipeline:
 # In masking.py or your main masking script
 from src.utils.performance_monitor import PerformanceMonitor
 
+
 def run_masking(config, collection_name):
     """Run masking with performance tracking."""
     logger = setup_logging()
@@ -303,16 +306,12 @@ def run_masking(config, collection_name):
         # Initialize connections
         with monitor.phase("Initialize Connections"):
             source_connector = MongoConnector(
-                config.source_uri,
-                config.source_db,
-                collection_name
+                config.source_uri, config.source_db, collection_name
             )
             source_connector.connect()
 
             dest_connector = MongoConnector(
-                config.dest_uri,
-                config.dest_db,
-                f"{collection_name}_masked"
+                config.dest_uri, config.dest_db, f"{collection_name}_masked"
             )
             dest_connector.connect()
 
@@ -329,14 +328,14 @@ def run_masking(config, collection_name):
             for batch_num, batch_start in enumerate(range(0, total_docs, batch_size)):
                 # Fetch batch
                 with monitor.phase("Fetch Batch", metadata={"batch_num": batch_num}):
-                    cursor = source_connector.find(
-                        skip=batch_start,
-                        limit=batch_size
-                    )
+                    cursor = source_connector.find(skip=batch_start, limit=batch_size)
                     documents = list(cursor)
 
                 # Mask batch
-                with monitor.phase("Mask Batch", metadata={"batch_num": batch_num, "batch_size": len(documents)}):
+                with monitor.phase(
+                    "Mask Batch",
+                    metadata={"batch_num": batch_num, "batch_size": len(documents)},
+                ):
                     masker = DocumentMasker(config.masking_rules)
                     masked_docs = [masker.mask(doc) for doc in documents]
 
@@ -384,7 +383,9 @@ def run_masking_with_checkpoints(config, collection_name):
 
         # Resume from checkpoint
         with monitor.phase("Masking Pipeline", metadata={"resumed_from": start_offset}):
-            for batch_num, offset in enumerate(range(start_offset, total_docs, batch_size)):
+            for batch_num, offset in enumerate(
+                range(start_offset, total_docs, batch_size)
+            ):
                 with monitor.phase("Process Batch", metadata={"offset": offset}):
                     # Process batch
                     process_batch(offset, batch_size)
@@ -455,7 +456,7 @@ End tracking a performance phase.
 monitor.end_phase("Document Query", result_metadata={"docs_found": 850})
 ```
 
-#### `phase(phase_name, metadata=None)` [Context Manager]
+#### `phase(phase_name, metadata=None)` \[Context Manager\]
 
 Context manager for automatic phase tracking.
 
@@ -563,12 +564,15 @@ monitor.end_phase("Mask Documents")
 Include relevant metadata to make reports more useful:
 
 ```python
-with monitor.phase("Process Batch", metadata={
-    "batch_num": batch_num,
-    "batch_size": len(batch),
-    "collection": collection_name,
-    "total_phi_fields": len(phi_fields)
-}):
+with monitor.phase(
+    "Process Batch",
+    metadata={
+        "batch_num": batch_num,
+        "batch_size": len(batch),
+        "collection": collection_name,
+        "total_phi_fields": len(phi_fields),
+    },
+):
     process_batch(batch)
 ```
 
@@ -630,15 +634,11 @@ Add result metadata when ending phases to track success/failure:
 with monitor.phase("Insert Batch"):
     try:
         result = connector.bulk_insert(documents)
-        monitor.end_phase(result_metadata={
-            "status": "success",
-            "inserted": len(documents)
-        })
+        monitor.end_phase(
+            result_metadata={"status": "success", "inserted": len(documents)}
+        )
     except Exception as e:
-        monitor.end_phase(result_metadata={
-            "status": "failed",
-            "error": str(e)
-        })
+        monitor.end_phase(result_metadata={"status": "failed", "error": str(e)})
         raise
 ```
 
@@ -658,9 +658,7 @@ with open("reports/performance_report.json") as f:
 # Find slowest phases
 phases = report["phases"]
 sorted_phases = sorted(
-    phases.items(),
-    key=lambda x: x[1]["total_duration"],
-    reverse=True
+    phases.items(), key=lambda x: x[1]["total_duration"], reverse=True
 )
 
 print("Slowest phases:")

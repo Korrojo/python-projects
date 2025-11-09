@@ -49,7 +49,7 @@ For each document pair (original vs masked):
 | GOOD              | ≥ 90%            | ≥ 90%                     |
 | ACCEPTABLE        | ≥ 80%            | ≥ 80%                     |
 | NEEDS_IMPROVEMENT | ≥ 70%            | Any                       |
-| FAILED            | < 70%            | Any                       |
+| FAILED            | \< 70%           | Any                       |
 
 ## Usage
 

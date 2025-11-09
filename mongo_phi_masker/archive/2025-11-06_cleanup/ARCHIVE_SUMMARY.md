@@ -6,8 +6,9 @@ $(find archive/2025-11-06_cleanup -type f -not -name "ARCHIVE_SUMMARY.md" | wc -
 
 ## By Category
 
-- **Verification Scripts:** $(find archive/2025-11-06_cleanup/old_scripts/verification -type f | wc -l | tr -d ' ') files
-- **Test Data Scripts:** $(find archive/2025-11-06_cleanup/old_scripts/test_data -type f | wc -l | tr -d ' ') files  
+- **Verification Scripts:** $(find archive/2025-11-06_cleanup/old_scripts/verification -type f | wc -l | tr -d ' ')
+  files
+- **Test Data Scripts:** $(find archive/2025-11-06_cleanup/old_scripts/test_data -type f | wc -l | tr -d ' ') files
 - **Workflow Scripts:** $(find archive/2025-11-06_cleanup/old_scripts/workflows -type f | wc -l | tr -d ' ') files
 - **Config Files:** $(find archive/2025-11-06_cleanup/old_configs -type f | wc -l | tr -d ' ') files
 - **Migration Tools:** $(find archive/2025-11-06_cleanup/migration_tools -type f | wc -l | tr -d ' ') files
@@ -23,18 +24,21 @@ All files moved to: `archive/2025-11-06_cleanup/`
 ## Retained Files (Core Workflow)
 
 ### Scripts (5)
+
 - masking.py
 - scripts/generate_test_data.py
 - scripts/backup_collection.sh
-- scripts/restore_collection.sh  
+- scripts/restore_collection.sh
 - scripts/verify_masking.py
 
 ### Config (collection-specific configs retained)
+
 - config/collection_rule_mapping.py
-- config/config_rules/config_*.json (for active collections)
-- config/masking_rules/rules_*.json (for active collections)
+- config/config_rules/config\_\*.json (for active collections)
+- config/masking_rules/rules\_\*.json (for active collections)
 
 ### Source Code (essential modules)
+
 - src/core/masker.py
 - src/core/connector.py
 - src/models/masking_rule.py
@@ -45,11 +49,13 @@ All files moved to: `archive/2025-11-06_cleanup/`
 - src/utils/compatibility.py
 
 ### Documentation
+
 - README.md
 - LOGGING_STANDARD.md
 - ARCHIVE_PROPOSAL.md
 
 ### Tests (all retained)
+
 - tests/
 
 ## Git History Preserved
