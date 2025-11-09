@@ -533,14 +533,16 @@ import subprocess
 import sys
 import requests
 
+
 def run_preflight(collection):
     """Run pre-flight checks and return result."""
     result = subprocess.run(
         ["python", "scripts/preflight_check.py", "--collection", collection],
         capture_output=True,
-        text=True
+        text=True,
     )
     return result.returncode == 0, result.stdout
+
 
 def send_to_monitoring(collection, passed, output):
     """Send results to monitoring system."""
@@ -550,9 +552,10 @@ def send_to_monitoring(collection, passed, output):
             "collection": collection,
             "passed": passed,
             "output": output,
-            "timestamp": datetime.now().isoformat()
-        }
+            "timestamp": datetime.now().isoformat(),
+        },
     )
+
 
 if __name__ == "__main__":
     collection = sys.argv[1]
@@ -582,6 +585,7 @@ You can extend the `PreFlightChecker` class to add custom validation:
 # custom_preflight.py
 from scripts.preflight_check import PreFlightChecker, CheckCategory, CheckResult
 
+
 class CustomPreFlightChecker(PreFlightChecker):
     """Extended pre-flight checker with custom validations."""
 
@@ -597,24 +601,29 @@ class CustomPreFlightChecker(PreFlightChecker):
 
         # Example: Check disk space
         import shutil
+
         stat = shutil.disk_usage("/")
-        free_gb = stat.free / (1024 ** 3)
+        free_gb = stat.free / (1024**3)
 
         if free_gb > 10:
-            category.checks.append(CheckResult(
-                name="Disk Space",
-                passed=True,
-                message=f"{free_gb:.1f} GB available",
-                severity="info"
-            ))
+            category.checks.append(
+                CheckResult(
+                    name="Disk Space",
+                    passed=True,
+                    message=f"{free_gb:.1f} GB available",
+                    severity="info",
+                )
+            )
         else:
-            category.checks.append(CheckResult(
-                name="Disk Space",
-                passed=False,
-                message=f"Only {free_gb:.1f} GB available",
-                recommendation="Free up disk space (need > 10 GB)",
-                severity="warning"
-            ))
+            category.checks.append(
+                CheckResult(
+                    name="Disk Space",
+                    passed=False,
+                    message=f"Only {free_gb:.1f} GB available",
+                    recommendation="Free up disk space (need > 10 GB)",
+                    severity="warning",
+                )
+            )
 
         self.categories.append(category)
 ```
@@ -673,9 +682,9 @@ Works with all collections defined in `config/collection_rule_mapping.py` (70+ c
 
 Pre-flight checks are designed to be fast:
 
-- Configuration checks: < 0.1s
-- Environment checks: < 0.1s
-- File system checks: < 0.1s
+- Configuration checks: \< 0.1s
+- Environment checks: \< 0.1s
+- File system checks: \< 0.1s
 - Database connectivity: 1-5s (depends on network)
 
 **Total runtime**: Typically 2-7 seconds for complete validation.

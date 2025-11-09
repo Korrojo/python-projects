@@ -162,7 +162,7 @@ def get_mongo_clients(config):
 def build_mongodb_uri(host, port, username=None, password=None, auth_db="admin", use_srv=False, use_ssl=False):
     """
     Build a MongoDB URI from connection parameters.
-    
+
     Args:
         host: MongoDB host
         port: MongoDB port (ignored for SRV connections)
@@ -171,13 +171,13 @@ def build_mongodb_uri(host, port, username=None, password=None, auth_db="admin",
         auth_db: Authentication database (default: admin)
         use_srv: Whether to use SRV format for Atlas connections
         use_ssl: Whether to enable SSL
-        
+
     Returns:
         MongoDB URI string
     """
     if not host:
         return None
-        
+
     # Determine protocol and port string based on SRV status
     if use_srv:
         protocol = "mongodb+srv://"
@@ -185,40 +185,40 @@ def build_mongodb_uri(host, port, username=None, password=None, auth_db="admin",
     else:
         protocol = "mongodb://"
         port_str = f":{port}" if port else ":27017"
-    
+
     # Add authentication if provided
     if username and password:
         auth_part = f"{username}:{password}@"
         uri = f"{protocol}{auth_part}{host}{port_str}/"
-        
+
         # Add query parameters if needed
         params = []
         if auth_db:
             params.append(f"authSource={auth_db}")
         if use_ssl:
             params.append("ssl=true")
-            
+
         if params:
             uri += "?" + "&".join(params)
     else:
         # No authentication
         uri = f"{protocol}{host}{port_str}/"
-        
+
         # Add query parameters if needed
         params = []
         if use_ssl:
             params.append("ssl=true")
-            
+
         if params:
             uri += "?" + "&".join(params)
-            
+
     return uri
 
 
 def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip_existing=True, max_workers=None, log_frequency=1000, skip_indexes=False):
     """
     Migrate a collection from source to destination.
-    
+
     Args:
         source_db: Source MongoDB database
         dest_db: Destination MongoDB database
@@ -228,14 +228,14 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
         max_workers: Maximum number of worker threads for document processing
         log_frequency: How often to log progress (in number of documents)
         skip_indexes: Whether to skip index creation
-        
+
     Returns:
         Dictionary with migration statistics
     """
     start_time = time.time()
     thread_id = threading.get_ident()
     logger.info(f"[Thread-{thread_id}] Starting migration of collection: {collection_name}")
-    
+
     result = {
         "collection": collection_name,
         "status": "pending",
@@ -245,7 +245,7 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
         "indexes_failed": 0,
         "failed_indexes": []
     }
-    
+
     try:
         # Check if collection exists in source
         if collection_name not in source_db.list_collection_names():
@@ -255,7 +255,7 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
             result["end_time"] = datetime.now().isoformat()
             result["duration_seconds"] = time.time() - start_time
             return result
-        
+
         # Check if collection exists in destination
         if collection_name in dest_db.list_collection_names():
             if skip_existing:
@@ -268,14 +268,14 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
             else:
                 logger.info(f"[Thread-{thread_id}] Collection {collection_name} already exists in destination database, dropping")
                 dest_db[collection_name].drop()
-        
+
         source_collection = source_db[collection_name]
         dest_collection = dest_db[collection_name]
-        
+
         # Get total document count for progress reporting
         total_docs = source_collection.count_documents({})
         logger.info(f"[Thread-{thread_id}] Collection {collection_name} has {total_docs} documents to migrate")
-        
+
         if total_docs == 0:
             logger.info(f"[Thread-{thread_id}] Collection {collection_name} is empty, creating empty collection")
             result["status"] = "completed"
@@ -283,21 +283,21 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
             result["end_time"] = datetime.now().isoformat()
             result["duration_seconds"] = time.time() - start_time
             return result
-        
+
         # Copy documents in batches using insert_many for better performance
         docs_migrated = 0
         batch_start_time = time.time()
         batch = []
         last_log_count = 0
-        
+
         for doc in source_collection.find({}):
             batch.append(doc)
-            
+
             if len(batch) >= batch_size:
                 try:
                     dest_collection.insert_many(batch, ordered=False)
                     docs_migrated += len(batch)
-                    
+
                     # Log progress at specified frequency
                     if docs_migrated - last_log_count >= log_frequency:
                         batch_duration = time.time() - batch_start_time
@@ -306,7 +306,7 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
                         logger.info(f"[Thread-{thread_id}] Collection {collection_name}: Migrated {docs_migrated}/{total_docs} documents ({progress:.2f}%) - {docs_per_second:.2f} docs/sec")
                         last_log_count = docs_migrated
                         batch_start_time = time.time()
-                    
+
                     batch = []
                 except BulkWriteError as bwe:
                     # Handle partial batch failures
@@ -316,7 +316,7 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
                         logger.warning(f"[Thread-{thread_id}] Collection {collection_name}: Batch partially failed, {successful}/{len(batch)} documents inserted")
                     batch = []
                     batch_start_time = time.time()
-        
+
         # Insert any remaining documents
         if batch:
             try:
@@ -327,7 +327,7 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
                     successful = len(batch) - len(bwe.details['writeErrors'])
                     docs_migrated += successful
                     logger.warning(f"[Thread-{thread_id}] Collection {collection_name}: Final batch partially failed, {successful}/{len(batch)} documents inserted")
-        
+
         if not skip_indexes:
             # Copy indexes
             index_start_time = time.time()
@@ -339,7 +339,7 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
                     try:
                         # Get the key/direction pairs from the index specification
                         key_dict = index["key"]
-                        
+
                         # Create a properly formatted list of (field, direction) tuples
                         # This is what PyMongo expects for create_index()
                         key_pairs = []
@@ -355,30 +355,30 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
                                 # For any other types, default to ascending
                                 logger.warning(f"[Thread-{thread_id}] Invalid index direction '{direction}' for field '{field_name}' in collection {collection_name}, defaulting to ascending (1)")
                                 direction = 1
-                            
+
                             key_pairs.append((field_name, direction))
-                        
+
                         # Filter out options that don't apply or might cause issues
-                        valid_options = ["unique", "sparse", "background", "expireAfterSeconds", 
+                        valid_options = ["unique", "sparse", "background", "expireAfterSeconds",
                                         "partialFilterExpression", "collation", "weights"]
-                        
+
                         # Extract valid options only
                         options = {}
                         for k, v in index.items():
                             if k in valid_options:
                                 options[k] = v
-                        
+
                         # Add the name option
                         if "name" in index:
                             options["name"] = index["name"]
-                        
+
                         # Log detailed debug information
                         logger.info(f"[Thread-{thread_id}] Creating index {index.get('name', 'unnamed')} with keys {key_pairs} on collection {collection_name}")
-                        
+
                         # Create the index with properly formatted key pairs and options
                         dest_collection.create_index(key_pairs, **options)
                         result["indexes_created"] += 1
-                        
+
                     except Exception as e:
                         result["indexes_failed"] += 1
                         result["failed_indexes"].append({
@@ -390,23 +390,23 @@ def migrate_collection(source_db, dest_db, collection_name, batch_size=100, skip
                         # Also log the actual keys structure for debugging
                         logger.warning(f"[Thread-{thread_id}] Index key specification: {index.get('key', {})}")
                         # Continue with other indexes instead of failing the entire collection migration
-        
+
         index_duration = time.time() - index_start_time
         if result["indexes_failed"] > 0:
             logger.warning(f"[Thread-{thread_id}] Finished creating {result['indexes_created']} indexes for collection {collection_name} with {result['indexes_failed']} failed indexes in {index_duration:.2f} seconds")
         else:
             logger.info(f"[Thread-{thread_id}] Finished creating {result['indexes_created']} indexes for collection {collection_name} in {index_duration:.2f} seconds")
-        
+
         # Update result
         result["status"] = "completed"
         result["documents_migrated"] = docs_migrated
         result["end_time"] = datetime.now().isoformat()
         result["duration_seconds"] = time.time() - start_time
-        
+
         logger.info(f"[Thread-{thread_id}] Successfully migrated collection {collection_name}: {docs_migrated} documents in {result['duration_seconds']:.2f} seconds")
-        
+
         return result
-    
+
     except Exception as e:
         error_msg = f"[Thread-{thread_id}] Error migrating collection {collection_name}: {str(e)}"
         logger.error(error_msg)
@@ -422,7 +422,7 @@ def get_no_phi_collections():
     Get list of collections that don't contain PHI data from a text file.
     Each line in the file is treated as a collection name.
     Lines starting with # are treated as comments and ignored.
-    
+
     Returns:
         List of collection names
     """
@@ -434,10 +434,10 @@ def get_no_phi_collections():
                 collection_name = line.strip()
                 if collection_name and not collection_name.startswith('#'):
                     collections.append(collection_name)
-        
+
         logger.info(f"Loaded {len(collections)} no-PHI collections from text file")
         return collections
-    
+
     except Exception as e:
         logger.error(f"Error loading no-PHI collections list: {str(e)}")
         sys.exit(1)
@@ -446,7 +446,7 @@ def get_no_phi_collections():
 def save_migration_log(results, args):
     """
     Save migration results to log file.
-    
+
     Args:
         results: List of migration result dictionaries
         args: Command line arguments
@@ -456,12 +456,12 @@ def save_migration_log(results, args):
     skipped = len([r for r in results if r["status"] == "skipped"])
     failed = len([r for r in results if r["status"] == "error"])
     total_docs = sum(r.get("documents_migrated", 0) for r in results)
-    
+
     # Calculate index statistics
     total_indexes_created = sum(r.get("indexes_created", 0) for r in results)
     total_indexes_failed = sum(r.get("indexes_failed", 0) for r in results)
     collections_with_index_errors = [r["collection"] for r in results if r.get("indexes_failed", 0) > 0]
-    
+
     log_data = {
         "timestamp": datetime.now().isoformat(),
         "migration_type": "no-phi",
@@ -474,7 +474,7 @@ def save_migration_log(results, args):
         "collections_with_index_errors": collections_with_index_errors,
         "details": results
     }
-    
+
     # Add source information to log
     if args.use_all_no_phi:
         log_data["collections_source"] = str(NO_PHI_COLLECTIONS_PATH)
@@ -482,13 +482,13 @@ def save_migration_log(results, args):
         log_data["collections_source"] = args.collections_file
     elif args.collections:
         log_data["collections_source"] = "command_line"
-    
+
     try:
         with open(MIGRATION_LOG_PATH, 'w') as f:
             json.dump(log_data, f, indent=4)
-        
+
         logger.info(f"Migration log saved to {MIGRATION_LOG_PATH}")
-    
+
     except Exception as e:
         logger.error(f"Error saving migration log: {str(e)}")
 
@@ -536,7 +536,7 @@ def main():
 
     # Determine which collections to migrate
     collections_to_migrate = []
-    
+
     if args.use_all_no_phi:
         # Use all collections from no-phi_collections.txt
         collections_to_migrate = get_no_phi_collections()
@@ -559,7 +559,7 @@ def main():
                         collection_name = line.strip()
                         if collection_name and not collection_name.startswith('#'):
                             collections_to_migrate.append(collection_name)
-            
+
             logger.info(f"Loaded {len(collections_to_migrate)} collections from file: {args.collections_file}")
         except Exception as e:
             logger.error(f"Error loading collections from {args.collections_file}: {str(e)}")
@@ -593,13 +593,13 @@ def main():
         if not dest_db_name:
             logger.error("MONGO_DEST_DB environment variable not set.")
             sys.exit(1)
-            
+
         logger.info(f"Using source database: {source_db_name}")
         logger.info(f"Using destination database: {dest_db_name}")
 
         source_db = source_client[source_db_name]
         dest_db = dest_client[dest_db_name]
-        
+
         # Determine max workers
         max_workers = args.max_workers
         if max_workers is None:
@@ -622,7 +622,7 @@ def main():
                     skip_indexes=args.skip_indexes
                 ): collection_name for collection_name in collections_to_migrate
             }
-            
+
             # Process results as they complete
             for future in concurrent.futures.as_completed(future_to_collection):
                 collection_name = future_to_collection[future]
@@ -640,10 +640,10 @@ def main():
                         "end_time": datetime.now().isoformat(),
                         "documents_migrated": 0
                     })
-            
+
             # Ensure all threads are done before proceeding
             logger.info("All collection migrations completed or failed. Finalizing...")
-        
+
         # Save migration log
         save_migration_log(migration_results, args)
 
@@ -652,12 +652,12 @@ def main():
         skipped = len([r for r in migration_results if r["status"] == "skipped"])
         failed = len([r for r in migration_results if r["status"] == "error"])
         total_docs = sum(r.get("documents_migrated", 0) for r in migration_results)
-        
+
         # Calculate index statistics
         total_indexes_created = sum(r.get("indexes_created", 0) for r in migration_results)
         total_indexes_failed = sum(r.get("indexes_failed", 0) for r in migration_results)
         collections_with_index_errors = [r["collection"] for r in migration_results if r.get("indexes_failed", 0) > 0]
-        
+
         logger.info(f"\nMigration Summary:")
         logger.info(f"Collections successfully migrated: {completed}")
         logger.info(f"Collections skipped: {skipped}")
@@ -665,12 +665,12 @@ def main():
         logger.info(f"Total documents migrated: {total_docs}")
         logger.info(f"Total indexes created: {total_indexes_created}")
         logger.info(f"Total indexes failed: {total_indexes_failed}")
-        
+
         if collections_with_index_errors:
             logger.warning(f"Collections with index errors ({len(collections_with_index_errors)}):")
             for coll in collections_with_index_errors:
                 logger.warning(f"  - {coll}")
-        
+
         logger.info(f"Migration log saved to {MIGRATION_LOG_PATH}")
 
     except Exception as e:

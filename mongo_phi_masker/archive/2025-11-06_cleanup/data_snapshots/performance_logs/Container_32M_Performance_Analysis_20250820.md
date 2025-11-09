@@ -122,9 +122,10 @@ ______________________________________________________________________
 def calculate_adaptive_batch_size(avg_processing_time, memory_usage):
     if avg_processing_time > 15:  # Slow processing
         return max(1000, current_batch_size // 3)  # Smaller batches
-    elif avg_processing_time < 3:  # Fast processing  
+    elif avg_processing_time < 3:  # Fast processing
         return min(15000, current_batch_size * 3)  # Larger batches
     return current_batch_size
+
 
 # Expected improvement: 60% better handling of complex documents
 ```
@@ -137,6 +138,7 @@ def analyze_document_complexity(document):
     phi_field_count = count_phi_fields(document)
     document_size = calculate_size(document)
     return complexity_score(phi_field_count, document_size)
+
 
 # Group similar complexity documents in same batch
 ```
@@ -282,4 +284,5 @@ ______________________________________________________________________
 
 *Analysis Date: August 20, 2025*\
 *Dataset: Container Collection - 32,189,471 documents*\
-*Critical Finding: 2,400% performance variance due to document complexity*
+*Critical Finding: 2,400%
+performance variance due to document complexity*

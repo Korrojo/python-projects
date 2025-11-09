@@ -577,11 +577,10 @@ Examples:
 
         # Get PHI fields
         try:
-            phi_fields = get_phi_fields(args.collection)
-            print(f"PHI fields: {len(phi_fields)}")
+            phi_count = len(get_phi_fields(args.collection))
+            print(f"PHI fields: {phi_count}")
         except Exception as e:
             print(f"Warning: Could not load PHI fields: {e}")
-            phi_fields = []
 
         print("")
 

@@ -82,7 +82,7 @@ try{
 
     # Run mongosh with real-time streaming output instead of Start-Process (which buffers until completion)
     Log "Starting mongosh with streaming output..."
-    & $mongosh $argList[0] $argList[1] $argList[2] $argList[3] 2>&1 | ForEach-Object { 
+    & $mongosh $argList[0] $argList[1] $argList[2] $argList[3] 2>&1 | ForEach-Object {
         $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
         $line = "[$timestamp] $_"
         Add-Content -Path $logFile -Value $line
@@ -97,7 +97,7 @@ try{
 
     # Run mongosh with real-time streaming output instead of Start-Process (which buffers until completion)
     Log "Starting mongosh with streaming output..."
-    & $mongosh $argList[0] $argList[1] $argList[2] $argList[3] 2>&1 | ForEach-Object { 
+    & $mongosh $argList[0] $argList[1] $argList[2] $argList[3] 2>&1 | ForEach-Object {
         $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
         $line = "[$timestamp] $_"
         Add-Content -Path $logFile -Value $line

@@ -4,16 +4,16 @@
 param(
     [Parameter(Mandatory=$true)]
     [string]$Collection,
-    
+
     [Parameter(Mandatory=$false)]
     [int]$BatchSize = 9000,  # Default from .env.phi
-    
+
     [Parameter(Mandatory=$false)]
     [string]$ConfigFile = "config/config_rules/config_StaffAavailability.json",
-    
+
     [Parameter(Mandatory=$false)]
     [string]$EnvFile = ".env.phi",
-    
+
     [Parameter(Mandatory=$false)]
     [switch]$InSitu,
 
@@ -64,20 +64,20 @@ $fullLogFile = Join-Path $PSScriptRoot $logFile
 # Start the job
 $job = Start-Job -ScriptBlock {
     param($WorkDir, $PythonExe, $Arguments, $LogFile)
-    
+
     Set-Location $WorkDir
-    
+
     # Use cmd /c to properly capture output
     $outputFile = "${LogFile}"
     $errorFile = "${LogFile}.err"
-    
+
     # Build the full command
-    $argString = ($Arguments | ForEach-Object { 
-        if ($_ -match '\s') { "`"$_`"" } else { $_ } 
+    $argString = ($Arguments | ForEach-Object {
+        if ($_ -match '\s') { "`"$_`"" } else { $_ }
     }) -join ' '
-    
+
     $fullCommand = "& `"$PythonExe`" $argString > `"$outputFile`" 2> `"$errorFile`""
-    
+
     $exitCode = 0
     try {
         Invoke-Expression $fullCommand
@@ -86,7 +86,7 @@ $job = Start-Job -ScriptBlock {
         $exitCode = 1
         $_.Exception.Message | Out-File -FilePath $errorFile -Append
     }
-    
+
     return @{
         ExitCode = $exitCode
         LogFile = $LogFile
@@ -109,12 +109,12 @@ $waitForCompletion = Read-Host "`nWait for job to complete? (y/N)"
 if ($waitForCompletion -eq 'y' -or $waitForCompletion -eq 'Y') {
     Write-Host "Waiting for job to complete..." -ForegroundColor Yellow
     $job | Wait-Job | Out-Null
-    
+
     $result = Receive-Job -Job $job
     Write-Host "`nJob completed with exit code: $($result.ExitCode)" -ForegroundColor $(if($result.ExitCode -eq 0){"Green"}else{"Red"})
-    
+
     Write-Host "`nLog file location: $logFile" -ForegroundColor Cyan
-    
+
     if (Test-Path "$logFile.err") {
         $errContent = Get-Content "$logFile.err"
         if ($errContent) {
@@ -122,7 +122,7 @@ if ($waitForCompletion -eq 'y' -or $waitForCompletion -eq 'Y') {
             Write-Host $errContent -ForegroundColor Red
         }
     }
-    
+
     Remove-Job -Job $job
 } else {
     Write-Host "`nJob is running in background. Use 'Get-Job' to check status." -ForegroundColor Green

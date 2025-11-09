@@ -72,8 +72,8 @@ run_staffavailability_masker.bat # 2.1 hours
 
 ```python
 # Current configuration enhancement
-PROCESSING_MAX_WORKERS=32  # Increase from current
-PROCESSING_BATCH_SIZE=8000 # Increase from 3500
+PROCESSING_MAX_WORKERS = 32  # Increase from current
+PROCESSING_BATCH_SIZE = 8000  # Increase from 3500
 ```
 
 ### **Priority 2: Memory Optimization (MEDIUM IMPACT)**
@@ -123,7 +123,7 @@ def calculate_optimal_batch_size(phi_field_count, avg_doc_size):
     if phi_field_count > 5:
         return base_size // 2  # Smaller batches for complex docs
     elif phi_field_count < 3:
-        return base_size * 2   # Larger batches for simple docs
+        return base_size * 2  # Larger batches for simple docs
     return base_size
 ```
 
@@ -192,6 +192,7 @@ ______________________________________________________________________
    ```python
    # Add to masking.py
    import multiprocessing as mp
+
    WORKER_COUNT = min(32, mp.cpu_count())
    ```
 
@@ -279,4 +280,5 @@ ______________________________________________________________________
 
 *Analysis Date: August 20, 2025*\
 *Baseline: StaffAvailability masking performance*\
-*Target: 85% performance improvement through full optimization*
+*Target: 85% performance
+improvement through full optimization*

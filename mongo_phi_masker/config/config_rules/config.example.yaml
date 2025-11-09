@@ -75,4 +75,4 @@ progress:
 incremental:
   enabled: false
   field: "updatedAt"
-  format: "ISO8601" 
+  format: "ISO8601"

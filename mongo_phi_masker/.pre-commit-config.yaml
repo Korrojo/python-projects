@@ -1,0 +1,73 @@
+# Pre-commit configuration for mongo_phi_masker
+# Install: pip install pre-commit && pre-commit install
+# Run manually: pre-commit run --all-files
+# Update hooks: pre-commit autoupdate
+#
+# Note: This config is for the mongo_phi_masker subdirectory within a monorepo.
+# All hooks are restricted to files matching ^mongo_phi_masker/
+
+repos:
+  # Built-in hooks for common issues
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        files: ^mongo_phi_masker/
+        exclude: ^mongo_phi_masker/(.*\.md|.*\.json)$
+      - id: end-of-file-fixer
+        files: ^mongo_phi_masker/
+        exclude: ^mongo_phi_masker/(.*\.md|.*\.json)$
+      - id: check-yaml
+        files: ^mongo_phi_masker/
+      - id: check-added-large-files
+        files: ^mongo_phi_masker/
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+        files: ^mongo_phi_masker/
+      - id: check-case-conflict
+        files: ^mongo_phi_masker/
+      - id: mixed-line-ending
+        files: ^mongo_phi_masker/
+        args: ['--fix=lf']
+
+  # Markdown formatting (matches lint.sh)
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        files: ^mongo_phi_masker/.*\.md$
+        args: ['--wrap', '120']
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat-black
+
+  # Python formatting - Black (check mode, matches CI)
+  - repo: https://github.com/psf/black
+    rev: 24.1.1
+    hooks:
+      - id: black
+        files: ^mongo_phi_masker/.*\.py$
+        language_version: python3.12
+        args: ['--check', '--diff']
+        exclude: ^mongo_phi_masker/(temp/|artifacts/|archive/|build/|dist/)
+
+  # Python linting - Ruff (respects .ruff.toml)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.15
+    hooks:
+      - id: ruff
+        files: ^mongo_phi_masker/.*\.py$
+        args: ['--fix']
+        exclude: ^mongo_phi_masker/(temp/|artifacts/|archive/|build/|dist/)
+
+  # Type checking - Pyright (optional but recommended)
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.347
+    hooks:
+      - id: pyright
+        files: ^mongo_phi_masker/.*\.py$
+        language_version: python3.12
+        exclude: ^mongo_phi_masker/(tests/|temp/|artifacts/|archive/|build/|dist/)
+        # Make pyright optional - don't fail the commit if it's not installed
+        verbose: true
+        stages: [manual, pre-push]
