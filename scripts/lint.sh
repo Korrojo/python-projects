@@ -87,9 +87,16 @@ if [ "$IS_MARKDOWN_ONLY" = true ]; then
     exit 0
 fi
 
-# Run Black (formatter)
-echo -e "${GREEN}2. Running Black (Python formatter)...${NC}"
-black "$TARGET"
+# Run Black (formatter) - check only (matches CI behavior)
+echo -e "${GREEN}2. Running Black (Python formatter - check)...${NC}"
+if ! black --check --diff "$TARGET"; then
+    echo ""
+    echo -e "${RED}✗ Black formatting issues found${NC}"
+    echo -e "${YELLOW}To fix, run:${NC} black $TARGET"
+    echo ""
+    exit 1
+fi
+echo -e "${GREEN}✓ All Python files properly formatted${NC}"
 echo ""
 
 # Run Ruff (linter) - check only
@@ -142,8 +149,8 @@ echo "  mdformat --check --wrap 120 *.md  (check only)"
 echo "  mdformat --wrap 120 *.md          (auto-fix)"
 echo ""
 echo "Python formatting:"
-echo "  black --check --diff $TARGET      (check only)"
-echo "  black $TARGET                     (auto-fix)"
+echo "  black --check --diff $TARGET      (check - used by this script)"
+echo "  black $TARGET                     (auto-fix - run manually if needed)"
 echo ""
 echo "Python linting:"
 echo "  ruff check $TARGET                (check only)"
@@ -155,6 +162,7 @@ if [ "$PYRIGHT_AVAILABLE" = true ]; then
     echo ""
 fi
 echo "Note:"
-echo "- This script auto-formats markdown AND Python code"
+echo "- This script auto-formats markdown, but only CHECKS Python formatting (matches CI)"
+echo "- If Black fails, run 'black .' manually to auto-fix"
 echo "- Also runs automatically via pre-push hook"
 echo "- Type checking is integrated in VS Code via Pylance"
