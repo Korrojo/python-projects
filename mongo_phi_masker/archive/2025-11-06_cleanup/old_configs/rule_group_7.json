@@ -1,6 +1,0 @@
-{
-  "rules": [
-    {"field": "EmployerStreet", "rule": "replace_string", "params": "xxxxxxxxxx"},
-    {"field": "Reason", "rule": "replace_string", "params": "xxxxxxxxxx"}
-  ]
-}

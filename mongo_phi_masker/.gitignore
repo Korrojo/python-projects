@@ -48,6 +48,9 @@ logs/
 masking_verification_results.log
 masking_verification_data.json
 verification_results.json
+
+# Archive folder (use git history instead)
+archive/
 checkpoint.json
 
 # Test data (generated)
