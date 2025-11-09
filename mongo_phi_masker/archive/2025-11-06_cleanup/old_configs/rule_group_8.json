@@ -1,8 +1,0 @@
-{
-  "rules": [
-    {"field": "PatientName", "rule": "random_uppercase_name", "params": null},
-    {"field": "Notes", "rule": "replace_string", "params": "xxxxxxxxxx"},
-    {"field": "Comments", "rule": "replace_string", "params": "xxxxxxxxxx"},
-    {"field": "Reason", "rule": "replace_string", "params": "xxxxxxxxxx"}
-  ]
-}
