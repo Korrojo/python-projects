@@ -191,8 +191,8 @@ class LoggerFactory:
         console_handler.setLevel(level)
 
         formatter = ColoredFormatter(
-            fmt=console_config.get("format", "%(asctime)s [%(levelname)s] %(name)s - %(message)s"),
-            datefmt=console_config.get("date_format", "%H:%M:%S"),
+            fmt=console_config.get("format", "%(asctime)s | %(levelname)s | %(message)s"),
+            datefmt=console_config.get("date_format", "%Y-%m-%d %H:%M:%S"),
             color_config=console_config.get("colors"),
             style_config=console_config.get("styles"),
             separator=console_config.get("separator", " | "),
@@ -239,7 +239,7 @@ class LoggerFactory:
         file_handler.setLevel(level)
 
         formatter = logging.Formatter(
-            fmt=component_config.get("format", "[%(asctime)s] %(levelname)-8s %(name)s - %(message)s"),
+            fmt=component_config.get("format", "%(asctime)s | %(levelname)s | %(message)s"),
             datefmt=base_config.get("date_format", "%Y-%m-%d %H:%M:%S"),
         )
 
@@ -306,8 +306,11 @@ def setup_logging(
     for handler in root_logger.handlers[:]:
         root_logger.removeHandler(handler)
 
-    # Create formatter
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    # Create formatter matching LOGGING_STANDARD.md
+    formatter = logging.Formatter(
+        fmt="%(asctime)s | %(levelname)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
 
     # Console handler
     console_handler = logging.StreamHandler()
