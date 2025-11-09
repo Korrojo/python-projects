@@ -15,37 +15,91 @@ Usage:
     database = config["database"]
 """
 
+import logging
 import os
 from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
 
+logger = logging.getLogger(__name__)
+
 
 def get_shared_config_path() -> Path:
     """Get path to shared_config directory.
 
+    Priority order:
+    1. SHARED_CONFIG_PATH environment variable (if set)
+    2. ../shared_config/.env (default repository structure)
+    3. ./mongo_phi_masker/.env (project-root fallback for local dev)
+
     Returns:
-        Path: Path to shared_config/.env file
+        Path: Path to .env file
 
     Raises:
-        FileNotFoundError: If shared_config/.env does not exist
+        FileNotFoundError: If no config file found in any location
+
+    Environment Variables:
+        SHARED_CONFIG_PATH: Override default config location
+                           Example: export SHARED_CONFIG_PATH=/etc/app/.env
     """
     # Get project root (mongo_phi_masker)
     project_root = Path(__file__).parent.parent.parent
 
-    # Shared config is one level up from project root
+    # Priority 1: Check environment variable override
+    env_path = os.getenv("SHARED_CONFIG_PATH")
+    if env_path:
+        config_path = Path(env_path)
+        if config_path.exists():
+            logger.info(f"Using config from SHARED_CONFIG_PATH: {config_path}")
+            return config_path
+        else:
+            logger.warning(
+                f"SHARED_CONFIG_PATH set to {config_path} but file not found. " f"Checking fallback locations..."
+            )
+
+    # Priority 2: Default location (../shared_config/.env)
     shared_config_path = project_root.parent / "shared_config" / ".env"
 
-    if not shared_config_path.exists():
-        msg = (
-            f"Shared config not found at {shared_config_path}\n"
-            f"Please ensure shared_config/.env exists at the repository root.\n"
-            f"Copy from shared_config/.env.example and configure your environments."
-        )
-        raise FileNotFoundError(msg)
+    if shared_config_path.exists():
+        if env_path:
+            logger.info(f"Using default config location: {shared_config_path}")
+        return shared_config_path
 
-    return shared_config_path
+    # Priority 3: Fallback to project-root .env
+    project_env = project_root / ".env"
+    if project_env.exists():
+        logger.warning(
+            f"Shared config not found at {shared_config_path}\n"
+            f"Using project-root fallback: {project_env}\n"
+            f"This is acceptable for local development but not recommended for production."
+        )
+        return project_env
+
+    # All options exhausted - fail with helpful message
+    tried_locations = [
+        f"1. SHARED_CONFIG_PATH env var: {env_path or 'not set'}",
+        f"2. Default location: {shared_config_path}",
+        f"3. Project-root fallback: {project_env}",
+    ]
+
+    msg = (
+        f"No configuration file found!\n"
+        f"\n"
+        f"Tried:\n"
+        f"  {chr(10).join('  ' + loc for loc in tried_locations)}\n"
+        f"\n"
+        f"To fix:\n"
+        f"  Option A: Set environment variable\n"
+        f"    export SHARED_CONFIG_PATH=/path/to/your/.env\n"
+        f"\n"
+        f"  Option B: Create config at default location\n"
+        f"    cp shared_config/.env.example {shared_config_path}\n"
+        f"\n"
+        f"  Option C: Create local config (development only)\n"
+        f"    cp .env.example {project_env}"
+    )
+    raise FileNotFoundError(msg)
 
 
 def load_shared_config() -> None:
