@@ -69,7 +69,7 @@ Both `agg_query_runner.py` and `agg_query.js` use the same logic:
 
 ## Setup
 
-1. Python 3.10+ recommended.
+1. Python 3.11+ recommended.
 
 1. Create a virtual environment (optional but recommended):
 

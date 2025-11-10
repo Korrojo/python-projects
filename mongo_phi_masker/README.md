@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 ### Prerequisites
 
-- Python 3.12+
+- Python 3.11+
 - MongoDB 4.4+ (local or Atlas)
 - Shared configuration file: `../shared_config/.env`
 
@@ -45,8 +45,8 @@ ______________________________________________________________________
 1. Create virtual environment:
 
    ```bash
-   python3 -m venv .venv312
-   source .venv312/bin/activate
+   python3 -m venv .venv311
+   source .venv311/bin/activate
    ```
 
 1. Install dependencies:
