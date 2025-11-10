@@ -27,7 +27,7 @@ if not exist "%COMMON_FRAMEWORK_DIR%\venv\Scripts\activate.bat" (
         echo Failed to create virtual environment
         exit /b 1
     )
-    
+
     REM Install common framework requirements
     call venv\Scripts\activate.bat
     pip install -r requirements.txt
@@ -36,7 +36,7 @@ if not exist "%COMMON_FRAMEWORK_DIR%\venv\Scripts\activate.bat" (
         exit /b 1
     )
     deactivate
-    
+
     cd /d "%PROJECT_DIR%"
 )
 

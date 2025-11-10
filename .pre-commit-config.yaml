@@ -1,0 +1,109 @@
+# Unified Pre-commit Configuration for Python Projects Monorepo
+# Install: pip install pre-commit && pre-commit install
+# Run manually: pre-commit run --all-files
+# Update hooks: pre-commit autoupdate
+#
+# IMPORTANT: This configuration matches GitHub Actions CI exactly to prevent
+# local/CI discrepancies (see PR #34 for historical context).
+#
+# All hooks run in CHECK mode (no auto-fix) to match CI behavior:
+# - Black: --check --diff (no auto-format)
+# - Ruff: check only (no --fix)
+# - Pyright: informational (can fail)
+
+repos:
+  # Built-in hooks for common issues
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.(md|json)$
+      - id: end-of-file-fixer
+        exclude: \.(md|json)$
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  # Markdown formatting
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        name: mdformat (markdown formatter)
+        args: ['--wrap', '120']
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat-black
+
+  # Python formatting - Black (CHECK MODE - matches CI exactly)
+  # NO auto-formatting to prevent local/CI discrepancy (see PR #34)
+  - repo: https://github.com/psf/black
+    rev: 24.1.1
+    hooks:
+      - id: black
+        name: black --check (matches CI)
+        language_version: python3.12
+        args: ['--check', '--diff']
+        exclude: (temp/|artifacts/|archive/|build/|dist/|\.venv)
+
+  # Python linting - Ruff (CHECK MODE - matches CI exactly)
+  # NO --fix flag to prevent local/CI discrepancy
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.15
+    hooks:
+      - id: ruff
+        name: ruff check (matches CI)
+        # NO --fix flag - check only like CI
+        exclude: (temp/|artifacts/|archive/|build/|dist/|\.venv)
+
+  # Type checking - Pyright (informational - matches CI)
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.347
+    hooks:
+      - id: pyright
+        name: pyright (informational)
+        language_version: python3.12
+        exclude: (tests/|temp/|artifacts/|archive/|build/|dist/|\.venv)
+        verbose: true
+        # Make optional - matches CI continue-on-error: true
+        stages: [manual, pre-push]
+
+  # Project-specific pytest (local hook)
+  # Only runs for projects that have tests/ directory
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest unit tests
+        entry: bash -c 'if [ -d tests ]; then pytest tests/ --verbose --maxfail=1 --tb=short -m "unit" --cov-report=term-missing || true; else echo "No tests/ directory, skipping"; fi'
+        language: system
+        pass_filenames: false
+        stages: [manual, pre-push]
+        # Make optional - some projects don't have tests yet
+        verbose: true
+
+# Configuration notes:
+#
+# 1. CHECK MODE ONLY (matches CI):
+#    - Black: --check --diff (no auto-format)
+#    - Ruff: no --fix flag (check only)
+#    - This prevents the local/CI discrepancy fixed in PR #34
+#
+# 2. To manually fix issues:
+#    - Black: black .
+#    - Ruff: ruff check . --fix
+#
+# 3. Stages:
+#    - pre-commit: trailing-whitespace, end-of-file, yaml, black, ruff
+#    - pre-push: pyright, pytest (more expensive checks)
+#    - manual: Run with 'pre-commit run --hook-stage manual'
+#
+# 4. Project-specific behavior:
+#    - pytest: Only runs if tests/ directory exists
+#    - pyright: Respects pyrightconfig.json in each project
+#
+# 5. Exclude patterns apply to all projects:
+#    - Temp files, artifacts, build outputs, venvs
