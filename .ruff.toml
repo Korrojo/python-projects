@@ -1,10 +1,12 @@
 # Ruff configuration for monorepo
 
 [lint]
-ignore = ["E402"]  # Allow imports after code (needed for sys.path manipulation)
+# Don't ignore errors globally - catch real issues
 
 [lint.per-file-ignores]
-# Additional per-file ignores can go here
+# E402: Allow imports after code in run.py files only
+# This is intentional pattern for sys.path manipulation in monorepo
+"*/run.py" = ["E402"]
 
 [lint.isort]
 known-first-party = ["src", "common_config"]
