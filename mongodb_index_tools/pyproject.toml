@@ -3,3 +3,7 @@ line-length = 120
 
 [tool.ruff]
 line-length = 120
+
+[tool.ruff.lint.per-file-ignores]
+# E402: Allow imports after code in run.py (sys.path manipulation)
+"run.py" = ["E402"]

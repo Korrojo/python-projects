@@ -174,11 +174,11 @@ All settings are accessed via:
 from common_config.config.settings import get_settings
 
 settings = get_settings()
-print(settings.mongodb_uri)       # Based on APP_ENV
-print(settings.database_name)     # Based on APP_ENV  
+print(settings.mongodb_uri)  # Based on APP_ENV
+print(settings.database_name)  # Based on APP_ENV
 print(settings.paths.data_input)  # data/input
-print(settings.paths.data_output) # data/output
-print(settings.paths.logs)        # logs
+print(settings.paths.data_output)  # data/output
+print(settings.paths.logs)  # logs
 ```
 
 ## Testing
@@ -240,7 +240,7 @@ If you have projects with old structure (`config/.env`, per-project `data/`, `lo
    # Old
    log_dir = Path("logs")
 
-   # New  
+   # New
    log_dir = Path(settings.paths.logs) / "my_project"
    log_dir.mkdir(parents=True, exist_ok=True)
    ```

@@ -2,4 +2,4 @@ you are required to do:
 1. provide your vision of the project
 2. Ask clarifying questions
 3. Upon getting answers from me, provide final roadmap with phases
-4. Start build and integration phase by phase 
+4. Start build and integration phase by phase

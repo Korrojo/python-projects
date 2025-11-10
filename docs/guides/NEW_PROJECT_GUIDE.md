@@ -876,6 +876,7 @@ app = typer.Typer(
     no_args_is_help=True,
 )
 
+
 @app.command("command-name")
 def command_name(
     env: str = typer.Option(
@@ -909,13 +910,16 @@ def command_name(
     # 3. Connect to MongoDB
     try:
         with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri,
-            database_name=settings.database_name
+            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
         ) as client:
             db = client[settings.database_name]
 
-            logger.info(f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}")
-            logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")  # ⚠️ ALWAYS redact
+            logger.info(
+                f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}"
+            )
+            logger.info(
+                f"MongoDB URI: {redact_uri(settings.mongodb_uri)}"
+            )  # ⚠️ ALWAYS redact
             logger.info(f"Database: {settings.database_name}")
 
             if collection:
@@ -931,6 +935,7 @@ def command_name(
         logger.error(f"Error: {e}", exc_info=True)
         print(f"\n❌ Error: {e}\n")
         raise typer.Exit(code=1)
+
 
 if __name__ == "__main__":
     app()
@@ -988,6 +993,7 @@ code <your-project-name>/src/<your_project_name>/processor.py
 
 ```python
 from common_config.config import get_settings
+
 
 def process_data():
     """Your business logic here."""

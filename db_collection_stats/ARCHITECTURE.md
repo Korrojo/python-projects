@@ -113,6 +113,7 @@ ______________________________________________________________________
 ```python
 # src/db_collection_stats/schema_analyzer.py
 
+
 def analyze_schema(db, collection_name):
     """Analyze document schema patterns."""
     coll = db[collection_name]
@@ -134,10 +135,13 @@ def analyze_schema(db, collection_name):
 ```python
 from db_collection_stats.schema_analyzer import analyze_schema
 
+
 @app.command("schema-analysis")
 def schema_analysis(
     collection: str = typer.Argument(..., help="Collection to analyze"),
-    sample_size: int = typer.Option(1000, "--sample-size", help="Number of documents to sample"),
+    sample_size: int = typer.Option(
+        1000, "--sample-size", help="Number of documents to sample"
+    ),
 ):
     """Analyze document schema patterns in a collection.
 
@@ -156,8 +160,7 @@ def schema_analysis(
 
     try:
         with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri,
-            database_name=settings.database_name
+            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
         ) as client:
             db = client[settings.database_name]
             logger.info(f"Analyzing schema for: {collection}")
@@ -185,6 +188,7 @@ import pytest
 from unittest.mock import MagicMock
 
 from db_collection_stats.schema_analyzer import analyze_schema
+
 
 def test_analyze_schema():
     """Test schema analysis logic."""
@@ -279,11 +283,12 @@ def command_name(
     # 2. Connect to MongoDB
     try:
         with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri,
-            database_name=settings.database_name
+            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
         ) as client:
             db = client[settings.database_name]
-            logger.info(f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}")
+            logger.info(
+                f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}"
+            )
             logger.info(f"MongoDB URI: {settings.mongodb_uri}")
             logger.info(f"Database: {settings.database_name}")
 
@@ -316,10 +321,12 @@ For options used across multiple commands:
 def common_options(exclude_system: bool = typer.Option(True, "--exclude-system")):
     return exclude_system
 
+
 # Use in commands
 @app.command()
 def cmd1(exclude_system: bool = common_options()):
     pass
+
 
 @app.command()
 def cmd2(exclude_system: bool = common_options()):
@@ -335,15 +342,18 @@ For many commands, organize into groups:
 stats_app = typer.Typer(help="Statistics commands")
 app.add_typer(stats_app, name="stats")
 
+
 @stats_app.command("collections")
 def stats_collections():
     """Collection statistics."""
     pass
 
+
 @stats_app.command("indexes")
 def stats_indexes():
     """Index statistics."""
     pass
+
 
 # Usage: python run.py stats collections
 #        python run.py stats indexes
@@ -358,10 +368,9 @@ import typer
 from pathlib import Path
 import tomli
 
+
 @app.command()
-def analyze(
-    config: Path = typer.Option(None, "--config", help="Config file path")
-):
+def analyze(config: Path = typer.Option(None, "--config", help="Config file path")):
     """Analyze with configuration file."""
     if config:
         with open(config, "rb") as f:
@@ -391,13 +400,16 @@ def coll_stats():
     # ... collection stats logic
     pass
 
+
 @app.command("index-stats")
 def index_stats():
     # ... index stats logic
     pass
 
+
 # run.py - Thin wrapper
 from cli import app
+
 if __name__ == "__main__":
     app()
 ```
@@ -453,6 +465,7 @@ Test CLI commands (optional):
 from typer.testing import CliRunner
 from db_collection_stats.cli import app
 
+
 def test_coll_stats_command():
     runner = CliRunner()
     result = runner.invoke(app, ["coll-stats", "--help"])
@@ -477,8 +490,9 @@ ______________________________________________________________________
 ```python
 # In cli.py - Uses MongoDB's $indexStats aggregation
 index_stats = list(coll.aggregate([{"$indexStats": {}}]))
-usage_lookup = {stat["name"]: stat.get("accesses", {}).get("ops", 0)
-                for stat in index_stats}
+usage_lookup = {
+    stat["name"]: stat.get("accesses", {}).get("ops", 0) for stat in index_stats
+}
 ```
 
 **2. User Interface:**

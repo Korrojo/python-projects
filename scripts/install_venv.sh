@@ -60,7 +60,7 @@ if [[ "$OS_TYPE" == "Windows" ]]; then
         echo -e "${GREEN}✓ Found py launcher (Windows)${NC}"
         # Get list of available versions via py launcher
         PY_LIST=$(py -0 2>&1 || true)
-        
+
         # Parse py launcher output for versions
         while IFS= read -r line; do
             if [[ $line =~ -([0-9]+\.[0-9]+) ]]; then
@@ -74,7 +74,7 @@ if [[ "$OS_TYPE" == "Windows" ]]; then
             fi
         done <<< "$PY_LIST"
     fi
-    
+
     # Check common Windows installation paths
     for py_path in "/c/Python3"*"/python.exe" "/c/Program Files/Python"*"/python.exe"; do
         if [[ -f "$py_path" ]]; then
@@ -169,7 +169,7 @@ for i in "${!PYTHON_VERSIONS[@]}"; do
     idx=$((i + 1))
     version="${PYTHON_VERSIONS[$i]}"
     path="${PYTHON_PATHS[$i]}"
-    
+
     # Highlight Python 3.11 (recommended)
     if [[ "$version" == 3.11.* ]]; then
         echo -e "  ${idx}) Python ${GREEN}${version}${NC} (RECOMMENDED) - $path"
@@ -184,7 +184,7 @@ echo ""
 while true; do
     read -p "Select Python version (1-${#PYTHON_VERSIONS[@]}) [default: 1]: " selection
     selection=${selection:-1}
-    
+
     if [[ "$selection" =~ ^[0-9]+$ ]] && [ "$selection" -ge 1 ] && [ "$selection" -le "${#PYTHON_VERSIONS[@]}" ]; then
         break
     else

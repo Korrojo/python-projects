@@ -2,9 +2,10 @@
 
 ## Summary of Improvements
 
-The validation script was taking **~50 minutes** for 2,127 rows (2.3 minutes per 100 rows). After optimizations, it should take **3-10 minutes**.
+The validation script was taking **~50 minutes** for 2,127 rows (2.3 minutes per 100 rows). After optimizations, it
+should take **3-10 minutes**.
 
----
+______________________________________________________________________
 
 ## Optimizations Applied
 
@@ -26,7 +27,7 @@ match_filter: dict[str, Any] = {
 }
 ```
 
----
+______________________________________________________________________
 
 ### 2. ✅ Dynamic Date Range Calculation & Filtering
 
@@ -60,7 +61,7 @@ if self.min_date and self.max_date:
     }
 ```
 
----
+______________________________________________________________________
 
 ### 3. ✅ Existing Index Usage
 
@@ -73,7 +74,7 @@ if self.min_date and self.max_date:
 - With index: O(log n) lookup
 - **Speed improvement**: 10-100x faster (already applied)
 
----
+______________________________________________________________________
 
 ### 4. ✅ Batch Processing (Already Implemented)
 
@@ -87,7 +88,7 @@ if self.min_date and self.max_date:
 
 **Code Location**: `validator.py` - batch processing loop
 
----
+______________________________________________________________________
 
 ## Performance Comparison
 
@@ -113,7 +114,7 @@ if self.min_date and self.max_date:
 - **Network Round-trips**: ~22
 - **Documents Unwound**: 50-90% fewer documents
 
----
+______________________________________________________________________
 
 ## Performance Metrics
 
@@ -133,7 +134,7 @@ Estimated 2,127 rows: ~50 minutes
 Estimated 2,127 rows: 3-10 minutes (5-15x faster)
 ```
 
----
+______________________________________________________________________
 
 ## Query Pipeline Before vs After
 
@@ -154,7 +155,7 @@ Estimated 2,127 rows: 3-10 minutes (5-15x faster)
 
 **Problem**: Unwinding ALL documents in collection before filtering
 
----
+______________________________________________________________________
 
 ### AFTER (Fast)
 
@@ -183,7 +184,7 @@ Estimated 2,127 rows: 3-10 minutes (5-15x faster)
 
 **Benefit**: Only unwinds 10-50% of documents
 
----
+______________________________________________________________________
 
 ## Why This is Fast
 
@@ -206,7 +207,7 @@ Optimized: 10,000 docs * 2 unwinds = 20,000 operations
 Reduction: 90% fewer operations!
 ```
 
----
+______________________________________________________________________
 
 ## Monitoring Performance
 
@@ -238,9 +239,9 @@ db.StaffAvailability.explain("executionStats").aggregate([
 - ✅ `indexName: "AvailabilityDate"` in winning plan
 - ✅ `indexName: "IX_Appointments_AthenaAppointmentId"` for ID lookup
 - ✅ Low `totalDocsExamined` (should be 10-40% of collection)
-- ✅ Fast `executionTimeMillis` (should be <1000ms per batch)
+- ✅ Fast `executionTimeMillis` (should be \<1000ms per batch)
 
----
+______________________________________________________________________
 
 ## Additional Optimizations (Optional)
 
@@ -250,13 +251,11 @@ db.StaffAvailability.explain("executionStats").aggregate([
 python run.py --input file.csv --env PROD --batch-size 200
 ```
 
-**Pros**: Fewer queries
-**Cons**: More memory per query
+**Pros**: Fewer queries **Cons**: More memory per query
 
 ### 2. Parallel Processing (Future Enhancement)
 
-Process multiple batches in parallel using threading/multiprocessing
-**Speed improvement**: 2-4x faster
+Process multiple batches in parallel using threading/multiprocessing **Speed improvement**: 2-4x faster
 
 ### 3. IsActive Filter (Use with Caution)
 
@@ -266,10 +265,9 @@ Only if CSV contains only active appointments:
 match_filter["IsActive"] = True
 ```
 
-**Pros**: Filters inactive records
-**Cons**: May miss valid data if CSV has inactive appointments
+**Pros**: Filters inactive records **Cons**: May miss valid data if CSV has inactive appointments
 
----
+______________________________________________________________________
 
 ## Validation
 
@@ -287,16 +285,16 @@ python run.py --input Daily_Appointment_Comparison_input1_20251023_cleaned.csv -
 - Should complete in **15-30 seconds** (vs 2m 20s before)
 - Log should show: `"Date range filter: 2025-10-23 to 2026-01-17"`
 
----
+______________________________________________________________________
 
 ## Summary
 
-| Optimization | Speed Gain | Difficulty | Applied |
-|-------------|------------|-----------|---------|
-| Create Index | 10-100x | Easy | ✅ Yes |
-| Batch Queries | 50-100x | Easy | ✅ Yes (already had) |
-| Date Range Filter | 2-5x | Easy | ✅ **NEW** |
-| Appointments Check | 1.2-1.5x | Easy | ✅ **NEW** |
-| **Combined Effect** | **5-15x** | Easy | ✅ **All Applied** |
+| Optimization        | Speed Gain | Difficulty | Applied              |
+| ------------------- | ---------- | ---------- | -------------------- |
+| Create Index        | 10-100x    | Easy       | ✅ Yes               |
+| Batch Queries       | 50-100x    | Easy       | ✅ Yes (already had) |
+| Date Range Filter   | 2-5x       | Easy       | ✅ **NEW**           |
+| Appointments Check  | 1.2-1.5x   | Easy       | ✅ **NEW**           |
+| **Combined Effect** | **5-15x**  | Easy       | ✅ **All Applied**   |
 
 **Total Expected Improvement**: 2,127 rows in **3-10 minutes** (vs 50 minutes before)! 🚀

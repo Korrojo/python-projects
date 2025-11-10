@@ -105,7 +105,7 @@ Shared Data Directories (created):
 ### Primary Matching
 
 1. Batch query MongoDB by `AthenaAppointmentId` using `$in`
-2. If found:
+1. If found:
    - Mark `AthenaAppointmentId Found? = True`
    - Compare 4 fields
    - If all match → `Total Match? = True`
@@ -129,13 +129,13 @@ Shared Data Directories (created):
 
 Output CSV includes all original columns plus:
 
-| New Column | Description | Values |
-|------------|-------------|--------|
-| `AthenaAppointmentId Found?` | Primary key found in MongoDB | `True`, `False`, `` |
-| `Total Match?` | All 4 fields match | `True`, `False`, `` |
-| `Mismatched Fields` | Comma-separated mismatched fields | `PatientRef,VisitTypeValue`, etc. |
-| `Missing Fields` | Comma-separated missing required fields | `AthenaAppointmentId`, etc. |
-| `Comment` | Additional notes | Various messages |
+| New Column                   | Description                             | Values                            |
+| ---------------------------- | --------------------------------------- | --------------------------------- |
+| `AthenaAppointmentId Found?` | Primary key found in MongoDB            | `True`, `False`, \`\`             |
+| `Total Match?`               | All 4 fields match                      | `True`, `False`, \`\`             |
+| `Mismatched Fields`          | Comma-separated mismatched fields       | `PatientRef,VisitTypeValue`, etc. |
+| `Missing Fields`             | Comma-separated missing required fields | `AthenaAppointmentId`, etc.       |
+| `Comment`                    | Additional notes                        | Various messages                  |
 
 ## 🧪 Testing
 
@@ -186,15 +186,15 @@ python run.py --input myfile.csv --env PROD --batch-size 200 --progress-frequenc
 All requirements from `REQUIRMENT.md` have been implemented:
 
 1. ✅ **Cleanup**: Remove "Cancelled" rows, create cleaned CSV
-2. ✅ **Primary Matching**: AthenaAppointmentId lookup with 4-field comparison
-3. ✅ **Secondary Matching**: 4-field combination fallback
-4. ✅ **Field Validation**: All 4 fields with correct comparison rules
-5. ✅ **Missing Fields**: Detection and reporting
-6. ✅ **Output Columns**: All required validation columns
-7. ✅ **Batch Processing**: Efficient MongoDB queries
-8. ✅ **Progress Logging**: Real-time updates
-9. ✅ **Statistics**: Comprehensive tracking and JSON summary
-10. ✅ **CLI Arguments**: `--env`, `--limit`, `--batch-size`, etc.
+1. ✅ **Primary Matching**: AthenaAppointmentId lookup with 4-field comparison
+1. ✅ **Secondary Matching**: 4-field combination fallback
+1. ✅ **Field Validation**: All 4 fields with correct comparison rules
+1. ✅ **Missing Fields**: Detection and reporting
+1. ✅ **Output Columns**: All required validation columns
+1. ✅ **Batch Processing**: Efficient MongoDB queries
+1. ✅ **Progress Logging**: Real-time updates
+1. ✅ **Statistics**: Comprehensive tracking and JSON summary
+1. ✅ **CLI Arguments**: `--env`, `--limit`, `--batch-size`, etc.
 
 ## 🎉 Next Steps
 
@@ -205,17 +205,19 @@ All requirements from `REQUIRMENT.md` have been implemented:
    python run.py --input Daily_Appointment_Comparison_input1_20251023.csv --env PROD --limit 10
    ```
 
-2. **Review output**:
+1. **Review output**:
+
    - Check `data/output/appointment_comparison/{timestamp}_output.csv`
    - Review `logs/appointment_comparison/{timestamp}_app.log`
 
-3. **Run full validation**:
+1. **Run full validation**:
 
    ```bash
    python run.py --input Daily_Appointment_Comparison_input1_20251023.csv --env PROD
    ```
 
-4. **Analyze results**:
+1. **Analyze results**:
+
    - Total matches vs mismatches
    - Most common mismatched fields
    - Appointments not found in MongoDB
@@ -231,6 +233,6 @@ All requirements from `REQUIRMENT.md` have been implemented:
 
 Created following the repository's integrated pattern with `common_config` utilities.
 
----
+______________________________________________________________________
 
 **Status**: ✅ Ready for testing and production use!

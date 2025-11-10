@@ -168,11 +168,10 @@ pyright
   ```python
   from typing import Optional, Dict, List
 
+
   def process_data(
-      data: List[Dict[str, Any]],
-      options: Optional[Dict[str, str]] = None
-  ) -> pd.DataFrame:
-      ...
+      data: List[Dict[str, Any]], options: Optional[Dict[str, str]] = None
+  ) -> pd.DataFrame: ...
   ```
 
 ### Documentation
@@ -215,13 +214,13 @@ pyright
   ```python
   import pytest
 
+
   @pytest.mark.integration
-  def test_database_connection():
-      ...
+  def test_database_connection(): ...
+
 
   @pytest.mark.slow
-  def test_large_dataset():
-      ...
+  def test_large_dataset(): ...
   ```
 
 ### Running Tests
@@ -249,6 +248,7 @@ pytest -v
 # tests/test_module.py
 import pytest
 from common_config.config import get_settings
+
 
 class TestConfiguration:
     """Tests for configuration management."""

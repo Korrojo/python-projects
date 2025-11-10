@@ -18,10 +18,10 @@ $venvVersions = @()
 Get-ChildItem -Directory -Filter ".venv*" | ForEach-Object {
     $venvDir = $_.Name
     $pythonExe = Join-Path $venvDir "Scripts\python.exe"
-    
+
     if (Test-Path $pythonExe) {
         $venvDirs += $venvDir
-        
+
         # Get Python version
         $version = & $pythonExe --version 2>&1 | Select-String -Pattern '\d+\.\d+\.\d+' | ForEach-Object { $_.Matches.Value }
         if (-not $version) { $version = "unknown" }
@@ -47,30 +47,30 @@ else {
     # Multiple venvs found, prompt for selection
     Write-ColorOutput Yellow "Multiple virtual environments found:"
     Write-Output ""
-    
+
     for ($i = 0; $i -lt $venvDirs.Count; $i++) {
         $idx = $i + 1
         $venv = $venvDirs[$i]
         $version = $venvVersions[$i]
         Write-Output "  $idx) $venv (Python $version)"
     }
-    
+
     Write-Output ""
-    
+
     do {
         $selection = Read-Host "Select virtual environment (1-$($venvDirs.Count)) [default: 1]"
         if ([string]::IsNullOrWhiteSpace($selection)) { $selection = "1" }
-        
+
         $selectionInt = 0
-        $valid = [int]::TryParse($selection, [ref]$selectionInt) -and 
-        $selectionInt -ge 1 -and 
+        $valid = [int]::TryParse($selection, [ref]$selectionInt) -and
+        $selectionInt -ge 1 -and
         $selectionInt -le $venvDirs.Count
-        
+
         if (-not $valid) {
             Write-ColorOutput Red "Invalid selection. Please enter a number between 1 and $($venvDirs.Count)"
         }
     } while (-not $valid)
-    
+
     $idx = $selectionInt - 1
     $selectedVenv = $venvDirs[$idx]
     $selectedVersion = $venvVersions[$idx]

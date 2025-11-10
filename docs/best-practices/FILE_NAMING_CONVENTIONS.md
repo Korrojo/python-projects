@@ -66,7 +66,10 @@ ______________________________________________________________________
 from datetime import datetime
 from pathlib import Path
 
-def generate_output_filename(description: str, database_name: str, extension: str) -> str:
+
+def generate_output_filename(
+    description: str, database_name: str, extension: str
+) -> str:
     """Generate timestamped filename following repository standards.
 
     Args:
@@ -79,6 +82,7 @@ def generate_output_filename(description: str, database_name: str, extension: st
     """
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"{timestamp}_{description}_{database_name}.{extension}"
+
 
 # Usage examples
 csv_file = generate_output_filename("collection_stats", "UbiquityProduction", "csv")
@@ -167,6 +171,7 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
+
 def archive_file(file_path: Path, archive_dir: Path) -> Path:
     """Archive file with timestamp prefix."""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -204,6 +209,7 @@ ______________________________________________________________________
 from datetime import datetime, timedelta
 from pathlib import Path
 
+
 def cleanup_old_files(directory: Path, days_to_keep: int = 30, pattern: str = "*.csv"):
     """Remove files older than specified days.
 
@@ -223,11 +229,10 @@ def cleanup_old_files(directory: Path, days_to_keep: int = 30, pattern: str = "*
                 print(f"Deleting old file: {file_path}")
                 file_path.unlink()
 
+
 # Usage
 cleanup_old_files(
-    directory=Path("data/output/my_project"),
-    days_to_keep=30,
-    pattern="*.csv"
+    directory=Path("data/output/my_project"), days_to_keep=30, pattern="*.csv"
 )
 ```
 
@@ -303,7 +308,7 @@ filename = f"{timestamp}collectionstats{database_name}.csv"
 ```python
 # Wrong - Different projects use different formats
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Project A
-timestamp = datetime.now().strftime("%Y%m%d%H%M%S")        # Project B
+timestamp = datetime.now().strftime("%Y%m%d%H%M%S")  # Project B
 # Problem: Inconsistent, harder to parse, doesn't sort correctly
 ```
 
@@ -340,6 +345,7 @@ ______________________________________________________________________
 import re
 from pathlib import Path
 
+
 def validate_filename_pattern(filename: str) -> bool:
     """Validate filename follows repository standard.
 
@@ -351,9 +357,10 @@ def validate_filename_pattern(filename: str) -> bool:
     pattern = r"^\d{8}_\d{6}_[a-z0-9_]+\.[a-z0-9]+$"
     return bool(re.match(pattern, filename.lower()))
 
+
 # Usage
 assert validate_filename_pattern("20250127_143022_collection_stats_prod.csv")  # Valid
-assert not validate_filename_pattern("collection_stats_20250127_143022.csv")   # Invalid
+assert not validate_filename_pattern("collection_stats_20250127_143022.csv")  # Invalid
 ```
 
 ### Extract Timestamp from Filename
@@ -361,6 +368,7 @@ assert not validate_filename_pattern("collection_stats_20250127_143022.csv")   #
 ```python
 from datetime import datetime
 from pathlib import Path
+
 
 def extract_timestamp(filename: str) -> datetime:
     """Extract datetime from filename following repository standard.
@@ -377,6 +385,7 @@ def extract_timestamp(filename: str) -> datetime:
     # Extract first 15 characters: YYYYMMDD_HHMMSS
     timestamp_str = filename[:15]
     return datetime.strptime(timestamp_str, "%Y%m%d_%H%M%S")
+
 
 # Usage
 file_path = Path("20250127_143022_collection_stats.csv")

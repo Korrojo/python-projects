@@ -2,7 +2,8 @@
 
 **Date**: October 2, 2025\
 **Investigation Method**: MongoDB shell script\
-**Sample Size**: 10 users (out of 56 "not found")\
+**Sample Size**: 10 users (out of 56 "not
+found")\
 **Database**: UbiquityTRAINING.Users_bkp_20251002
 
 ______________________________________________________________________
@@ -252,4 +253,5 @@ ______________________________________________________________________
 
 **Investigation Completed**: October 2, 2025, 3:52 PM\
 **Investigator**: Automated MongoDB shell script\
-**Confidence Level**: High (90% sample accuracy)
+**Confidence
+Level**: High (90% sample accuracy)

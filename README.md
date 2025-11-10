@@ -421,8 +421,7 @@ from common_config.config.settings import get_settings
 
 settings = get_settings()
 with get_mongo_client(
-    mongodb_uri=settings.mongodb_uri,
-    database_name=settings.database_name
+    mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
 ) as client:
     db = client[settings.database_name]
     # Use database

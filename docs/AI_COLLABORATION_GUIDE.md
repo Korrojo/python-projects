@@ -294,6 +294,7 @@ from common_config.utils.security import redact_uri  # ⚠️ REQUIRED
 
 app = typer.Typer(help="Description", no_args_is_help=True)
 
+
 @app.command("command-name")
 def command_name(
     env: str = typer.Option(None, "--env", help="Environment (DEV, PROD, STG)"),
@@ -312,8 +313,7 @@ def command_name(
     # 3. Connect and execute
     try:
         with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri,
-            database_name=settings.database_name
+            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
         ) as client:
             # ⚠️ ALWAYS redact URIs in logs
             logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")
@@ -383,7 +383,11 @@ from common_config.connectors.mongodb import get_mongo_client, MongoDBConnector
 from common_config.utils.logger import get_logger, setup_logging, get_run_timestamp
 
 # Security (⚠️ Required for credential safety)
-from common_config.utils.security import redact_uri, redact_password, get_safe_connection_info
+from common_config.utils.security import (
+    redact_uri,
+    redact_password,
+    get_safe_connection_info,
+)
 
 # File Operations
 from common_config.utils.file_ops import ensure_dir, archive_file

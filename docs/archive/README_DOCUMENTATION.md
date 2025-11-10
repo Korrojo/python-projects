@@ -76,22 +76,26 @@ ______________________________________________________________________
 ### "I'm starting a new validation project"
 
 → Read: **`docs/MONGODB_VALIDATION_BEST_PRACTICES.md`**\
-Then reference: **`appointment_comparison/LESSONS_LEARNED.md`** for real-world example
+Then reference: **`appointment_comparison/LESSONS_LEARNED.md`**
+for real-world example
 
 ### "I'm modifying the appointment comparison tool"
 
 → Read: **`appointment_comparison/LESSONS_LEARNED.md`**\
-Reference: Project-specific docs (PERFORMANCE_OPTIMIZATIONS.md, etc.)
+Reference: Project-specific docs (PERFORMANCE_OPTIMIZATIONS.md,
+etc.)
 
 ### "My queries are slow"
 
 → Read: **`appointment_comparison/PERFORMANCE_OPTIMIZATIONS.md`**\
-And: **`docs/MONGODB_VALIDATION_BEST_PRACTICES.md`** Section 2 (Query Optimization)
+And: **`docs/MONGODB_VALIDATION_BEST_PRACTICES.md`**
+Section 2 (Query Optimization)
 
 ### "I need to improve statistics reporting"
 
 → Read: **`appointment_comparison/STATISTICS_IMPROVEMENT.md`**\
-And: **`docs/MONGODB_VALIDATION_BEST_PRACTICES.md`** Section 3 (Statistics & Reporting)
+And: **`docs/MONGODB_VALIDATION_BEST_PRACTICES.md`**
+Section 3 (Statistics & Reporting)
 
 ### "I need to run database queries manually"
 
@@ -182,17 +186,17 @@ total_rows = len(rows)
 
 for i, batch in enumerate(batches):
     batch_start = time.time()
-    
+
     # Process batch
     process_batch(batch)
-    
+
     batch_elapsed = time.time() - batch_start
     total_elapsed = time.time() - start_time
-    
+
     processed = (i + 1) * batch_size
     rate = processed / total_elapsed
     remaining = (total_rows - processed) / rate if rate > 0 else 0
-    
+
     logger.info(
         f"Batch {i+1}: {batch_elapsed:.1f}s | "
         f"Total: {total_elapsed:.1f}s | "
@@ -207,7 +211,7 @@ ______________________________________________________________________
 
 Before deploying validation tool:
 
-- [ ] Runs successfully with `--limit 10` (< 10 seconds)
+- [ ] Runs successfully with `--limit 10` (\< 10 seconds)
 - [ ] Produces correct results with `--limit 100` (1-2 minutes)
 - [ ] Statistics add up correctly (math verification passes)
 - [ ] MongoDB queries use indexes (verified with explain())
@@ -308,15 +312,18 @@ ______________________________________________________________________
 
 Your validation project is well-built if:
 
-✅ Processes 1000+ records in < 15 minutes\
+✅ Processes 1000+ records in \< 15 minutes\
 ✅ Statistics have math verification that passes\
-✅ Failures tracked by type (field mismatch vs not found)\
+✅ Failures tracked by type
+(field mismatch vs not found)\
 ✅ MongoDB queries use indexes (verified with explain())\
 ✅ Can test with --limit flag\
-✅ Handles missing data without crashing\
+✅
+Handles missing data without crashing\
 ✅ Has comprehensive LESSONS_LEARNED.md\
 ✅ Progress logged during execution\
-✅ Output is idempotent\
+✅
+Output is idempotent\
 ✅ Code follows standard project structure
 
 ______________________________________________________________________

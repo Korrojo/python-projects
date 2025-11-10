@@ -1,6 +1,7 @@
 # MongoDB Aggregation Queries for Appointment Comparison
 
-This document contains MongoDB aggregation queries that can be run directly on the database to replicate the logic used in the appointment_comparison validator.
+This document contains MongoDB aggregation queries that can be run directly on the database to replicate the logic used
+in the appointment_comparison validator.
 
 ## 1. Primary Matching - Find by AthenaAppointmentId (Single Record)
 
@@ -47,7 +48,7 @@ db.StaffAvailability.aggregate([
 }
 ```
 
----
+______________________________________________________________________
 
 ## 2. Primary Matching - Batch Find by AthenaAppointmentId (Multiple Records)
 
@@ -94,7 +95,7 @@ db.StaffAvailability.aggregate([
 
 **Expected Output:** Array of matching appointments with the 5 fields projected.
 
----
+______________________________________________________________________
 
 ## 3. Secondary Matching - Find by 4-Field Combination (Fallback)
 
@@ -143,7 +144,7 @@ db.StaffAvailability.aggregate([
 - Input: `11/17/25`
 - Output: `ISODate("2025-11-17T00:00:00.000Z")` to `ISODate("2025-11-18T00:00:00.000Z")`
 
----
+______________________________________________________________________
 
 ## 4. Count Total Appointments in Collection
 
@@ -163,7 +164,7 @@ db.StaffAvailability.aggregate([
 ])
 ```
 
----
+______________________________________________________________________
 
 ## 5. Find All Appointments for a Specific Date
 
@@ -203,7 +204,7 @@ db.StaffAvailability.aggregate([
 ])
 ```
 
----
+______________________________________________________________________
 
 ## 6. Find All Appointments for a Specific Patient
 
@@ -240,7 +241,7 @@ db.StaffAvailability.aggregate([
 ])
 ```
 
----
+______________________________________________________________________
 
 ## Key Query Components Used in the Project
 
@@ -249,7 +250,7 @@ db.StaffAvailability.aggregate([
 The collection has nested arrays, so we need two `$unwind` operations:
 
 1. First `$unwind: "$Slots"` - Expands the Slots array
-2. Second `$unwind: "$Slots.Appointments"` - Expands the Appointments array within each Slot
+1. Second `$unwind: "$Slots.Appointments"` - Expands the Appointments array within each Slot
 
 ### 2. **$match Stage** (Filtering)
 
@@ -275,44 +276,48 @@ Projects only the 5 fields needed for comparison:
 - Batch queries: No limit (returns all matches)
 - Secondary matching: `$limit: 1` (only first match needed)
 
----
+______________________________________________________________________
 
 ## Comparison Rules Applied in Project
 
 ### Field Comparison Logic
 
 1. **PatientRef** (Number)
+
    - MongoDB: String like `"2565003"`
    - CSV: Number like `2565003`
    - Comparison: Convert CSV to string, exact match
 
-2. **VisitTypeValue** (String)
+1. **VisitTypeValue** (String)
+
    - MongoDB: `"Palliative Management"`
    - CSV: `"Palliative Management"` or `"palliative management"`
    - Comparison: Case-insensitive, trimmed
 
-3. **AvailabilityDate** (Date)
+1. **AvailabilityDate** (Date)
+
    - MongoDB: `ISODate("2025-10-27T00:00:00.000Z")` or `{"$date": "2025-10-27T00:00:00.000Z"}`
    - CSV: `"10/27/25"` (M/D/YY format)
    - Comparison: Date-only (ignore time component)
 
-4. **VisitStartDateTime** (String/Time)
+1. **VisitStartDateTime** (String/Time)
+
    - MongoDB: `"13:35:00"` (24-hour HH:MM:SS)
    - CSV: `"1:35 PM"` (12-hour with AM/PM)
    - Comparison: Parse both to time objects, compare
 
----
+______________________________________________________________________
 
 ## How to Run These Queries
 
 ### Option 1: MongoDB Compass
 
 1. Open MongoDB Compass
-2. Connect to your database
-3. Select the `StaffAvailability` collection
-4. Click "Aggregations" tab
-5. Paste the pipeline stages
-6. Click "Run"
+1. Connect to your database
+1. Select the `StaffAvailability` collection
+1. Click "Aggregations" tab
+1. Paste the pipeline stages
+1. Click "Run"
 
 ### Option 2: MongoDB Shell (mongosh)
 
@@ -330,7 +335,7 @@ client = MongoClient("your_connection_string")
 db = client["UbiquityProduction"]
 
 pipeline = [
-  # Paste pipeline stages here
+    # Paste pipeline stages here
 ]
 
 results = list(db.StaffAvailability.aggregate(pipeline))
@@ -338,7 +343,7 @@ for doc in results:
     print(doc)
 ```
 
----
+______________________________________________________________________
 
 ## Performance Considerations
 
@@ -350,11 +355,12 @@ for doc in results:
    db.StaffAvailability.createIndex({"Slots.Appointments.PatientRef": 1})
    ```
 
-2. **Batch Size**: The project uses batches of 100 rows to balance memory usage and query performance.
+1. **Batch Size**: The project uses batches of 100 rows to balance memory usage and query performance.
 
-3. **$unwind Impact**: The double `$unwind` can be expensive on large collections. Consider adding `$match` early in the pipeline when possible.
+1. **$unwind Impact**: The double `$unwind` can be expensive on large collections. Consider adding `$match` early in the
+   pipeline when possible.
 
----
+______________________________________________________________________
 
 ## Example: Testing a Specific CSV Row
 

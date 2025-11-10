@@ -22,7 +22,7 @@ Write-Output ""
 # Function to get Python version from executable
 function Get-PythonVersion {
     param([string]$PyCmd)
-    
+
     try {
         $version = & $PyCmd --version 2>&1 | Select-String -Pattern '\d+\.\d+\.\d+' | ForEach-Object { $_.Matches.Value }
         return $version
@@ -42,15 +42,15 @@ Write-Output ""
 # Check py launcher
 if (Get-Command py -ErrorAction SilentlyContinue) {
     Write-ColorOutput Green "✓ Found py launcher (Windows)"
-    
+
     # Get list of available versions
     $pyList = & py -0 2>&1
-    
+
     foreach ($line in $pyList) {
         if ($line -match '-(\d+\.\d+)') {
             $majorMinor = $matches[1]
             $version = Get-PythonVersion "py -$majorMinor"
-            
+
             if ($version) {
                 $pythonVersions += $version
                 $pythonPaths += "py -$majorMinor"
@@ -69,10 +69,10 @@ $commonPaths = @(
 
 foreach ($pathPattern in $commonPaths) {
     $paths = Get-ChildItem -Path $pathPattern -ErrorAction SilentlyContinue
-    
+
     foreach ($path in $paths) {
         $version = Get-PythonVersion $path.FullName
-        
+
         if ($version -and $pythonVersions -notcontains $version) {
             $pythonVersions += $version
             $pythonPaths += $path.FullName
@@ -112,7 +112,7 @@ for ($i = 0; $i -lt $pythonVersions.Count; $i++) {
     $idx = $i + 1
     $version = $pythonVersions[$i]
     $path = $pythonPaths[$i]
-    
+
     # Highlight Python 3.11 (recommended)
     if ($version -like "3.11.*") {
         Write-Host "  $idx) Python " -NoNewline
@@ -130,12 +130,12 @@ Write-Output ""
 do {
     $selection = Read-Host "Select Python version (1-$($pythonVersions.Count)) [default: 1]"
     if ([string]::IsNullOrWhiteSpace($selection)) { $selection = "1" }
-    
+
     $selectionInt = 0
-    $valid = [int]::TryParse($selection, [ref]$selectionInt) -and 
-    $selectionInt -ge 1 -and 
+    $valid = [int]::TryParse($selection, [ref]$selectionInt) -and
+    $selectionInt -ge 1 -and
     $selectionInt -le $pythonVersions.Count
-    
+
     if (-not $valid) {
         Write-ColorOutput Red "Invalid selection. Please enter a number between 1 and $($pythonVersions.Count)"
     }
@@ -158,7 +158,7 @@ $venvDir = ".venv$venvVersion"
 if (Test-Path $venvDir) {
     Write-ColorOutput Yellow "Warning: Virtual environment '$venvDir' already exists!"
     $confirm = Read-Host "Do you want to remove it and recreate? (y/N)"
-    
+
     if ($confirm -eq 'y' -or $confirm -eq 'Y') {
         Write-Output "Removing existing venv..."
         Remove-Item -Recurse -Force $venvDir

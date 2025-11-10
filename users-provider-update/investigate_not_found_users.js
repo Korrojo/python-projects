@@ -31,13 +31,13 @@ print("Checking first 10 users...\n");
 
 notFoundUsers.forEach(function(user) {
     const result = db.Users_bkp_20251002.findOne(
-        { 
+        {
             FirstName: new RegExp("^" + user.first + "$", "i"),
             LastName: new RegExp("^" + user.last + "$", "i")
         },
         { FirstName: 1, LastName: 1, IsActive: 1, AthenaProviderId: 1 }
     );
-    
+
     if (result) {
         if (result.IsActive) {
             print("✅ ACTIVE: " + user.first + " " + user.last + " (ID: " + result._id + ")");
