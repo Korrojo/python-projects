@@ -181,6 +181,63 @@ print(settings.paths.data_output)  # data/output
 print(settings.paths.logs)  # logs
 ```
 
+## Security Utilities
+
+**⚠️ ALWAYS use these utilities when logging database URIs or sensitive credentials.**
+
+### URI Sanitization
+
+The `redact_uri()` function removes credentials from connection strings for safe logging:
+
+```python
+from common_config.utils.security import redact_uri
+
+# Redact MongoDB URI before logging
+mongodb_uri = "mongodb+srv://user:password@cluster.mongodb.net/mydb"
+logger.info(f"Connecting to: {redact_uri(mongodb_uri)}")
+# Output: "Connecting to: mongodb+srv://***:***@cluster.mongodb.net/mydb"
+
+# Handles various URI formats
+redact_uri("mongodb://user:pass@host:27017/db")
+# Returns: "mongodb://***:***@host:27017/db"
+
+redact_uri("mongodb://localhost:27017")  # No credentials
+# Returns: "mongodb://localhost:27017" (unchanged)
+
+redact_uri(None)  # Handle None safely
+# Returns: "None"
+```
+
+### Safe Connection Info
+
+Get redacted connection details for logging:
+
+```python
+from common_config.utils.security import get_safe_connection_info
+
+info = get_safe_connection_info(
+    uri="mongodb+srv://user:pass@cluster.mongodb.net/?options", database="mydb"
+)
+
+logger.info(f"Connection: {info}")
+# Output: {'database': 'mydb', 'uri': 'mongodb+srv://***:***@cluster.mongodb.net/?options',
+#          'host': 'cluster.mongodb.net', 'scheme': 'mongodb+srv'}
+```
+
+### Best Practices
+
+✅ **DO** - Always redact URIs before logging:
+
+```python
+logger.info(f"Connected to: {redact_uri(mongodb_uri)}")
+```
+
+❌ **DON'T** - Never log raw URIs:
+
+```python
+logger.info(f"Connected to: {mongodb_uri}")  # SECURITY RISK!
+```
+
 ## Testing
 
 All projects should include tests following the repository standard:
