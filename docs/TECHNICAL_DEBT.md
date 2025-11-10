@@ -52,13 +52,13 @@ connector.connect(database_name)  # ❌ Could pass None → runtime crash
 1. [ ] Add type guards where needed
 1. [ ] Update function signatures to accept Optional types
 1. [ ] Add proper None checks before passing to functions
-1. [ ] Enable pyright on pre-push once errors \< 10
+1. [ ] Enable pyright on pre-push once errors < 10
 
 **Priority:** P0 - These can cause runtime crashes
 
 **Estimated Effort:** 2-3 weeks (75 errors × ~15 min each)
 
-**Tracking Issue:** \[Create GitHub issue\]
+**Tracking Issue:** [Create GitHub issue]
 
 ______________________________________________________________________
 
