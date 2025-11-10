@@ -2,7 +2,8 @@
 
 **Repository**: ubiquityMongo_phiMasking\
 **Scope**: Multi-project Python workspace organization\
-**Date**: October 2025\
+**Date**: October
+2025\
 **Focus**: Project structure, shared configuration, and common pitfalls
 
 ______________________________________________________________________
@@ -130,7 +131,7 @@ log_dir = settings.paths.logs / "appointment_comparison"
 
 # ❌ BAD: Hard-coded project-level paths
 input_dir = Path("./data/input")  # Wrong! Creates project-level data/
-log_dir = Path("./logs")          # Wrong! Creates project-level logs/
+log_dir = Path("./logs")  # Wrong! Creates project-level logs/
 ```
 
 ______________________________________________________________________
@@ -200,9 +201,9 @@ from common_config.config import get_settings
 settings = get_settings()
 
 # Automatically resolves based on APP_ENV
-connection_string = settings.mongodb_uri      # Gets MONGODB_URI_PROD if APP_ENV=PROD
-database_name = settings.database_name        # Gets DATABASE_NAME_PROD
-backup_dir = settings.backup_dir              # Gets BACKUP_DIR_PROD
+connection_string = settings.mongodb_uri  # Gets MONGODB_URI_PROD if APP_ENV=PROD
+database_name = settings.database_name  # Gets DATABASE_NAME_PROD
+backup_dir = settings.backup_dir  # Gets BACKUP_DIR_PROD
 
 # Standard paths (repo-level)
 input_dir = settings.paths.data_input / "my_project"
@@ -353,14 +354,14 @@ class PathConfig:
     def __init__(self):
         # Find repo root (where shared_config/.env lives)
         self.repo_root = self._find_repo_root()
-        
+
         # All paths calculated from repo root (absolute)
         self.data_input = self.repo_root / "data" / "input"
         self.data_output = self.repo_root / "data" / "output"
         self.logs = self.repo_root / "logs"
         self.temp = self.repo_root / "temp"
         self.archive = self.repo_root / "archive"
-    
+
     def _find_repo_root(self) -> Path:
         """Find repository root by looking for shared_config/.env"""
         current = Path(__file__).resolve()
@@ -747,6 +748,7 @@ log_dir = Path("logs")
 
 # ✅ GOOD: Use common_config paths
 from common_config.config import get_settings
+
 settings = get_settings()
 data_dir = settings.paths.data_input / "project_name"
 log_dir = settings.paths.logs / "project_name"
@@ -870,6 +872,7 @@ log_dir = Path("logs")
 
 # ✅ NEW:
 from common_config.config import get_settings
+
 settings = get_settings()
 data_dir = settings.paths.data_input / "project_name"
 log_dir = settings.paths.logs / "project_name"
@@ -968,6 +971,7 @@ ______________________________________________________________________
 
   ```python
   from common_config.config import get_settings
+
   settings = get_settings()
   ```
 
@@ -1085,6 +1089,7 @@ python -c "from common_config.config import get_settings; s=get_settings(); prin
 
 ```python
 from common_config.config import get_settings
+
 settings = get_settings()
 print(f"Input:  {settings.paths.data_input / 'my_project'}")
 print(f"Output: {settings.paths.data_output / 'my_project'}")
@@ -1103,4 +1108,5 @@ ______________________________________________________________________
 **Document Version**: 1.0\
 **Last Updated**: October 24, 2025\
 **Repository**: ubiquityMongo_phiMasking\
-**Maintainer**: Development Team
+**Maintainer**:
+Development Team

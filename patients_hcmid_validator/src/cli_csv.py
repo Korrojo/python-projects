@@ -5,9 +5,9 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from patients_hcmid_validator.runner_csv import run_validation
 
 from common_config.utils.logger import get_logger
+from patients_hcmid_validator.runner_csv import run_validation
 
 logger = get_logger(__name__)
 

@@ -135,7 +135,7 @@ Create environments for deployment protection:
 
 #### Environment: `production`
 
-- Required reviewers: [Add team/user]
+- Required reviewers: \[Add team/user\]
 - Wait timer: 0 minutes
 - Deployment branches: Only `main` branch
 - Environment secrets: Add production credentials here

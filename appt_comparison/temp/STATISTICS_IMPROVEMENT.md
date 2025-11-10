@@ -18,19 +18,19 @@ Total mismatches: 263  ❌ WRONG!
 
 Expected: `1461 + 402 = 1863` (where 402 = 263 field mismatches + 139 not found)
 
----
+______________________________________________________________________
 
 ## Solution (Option 3: Detailed Breakdown)
 
 Implemented a comprehensive hierarchical statistics report that shows:
 
 1. **Total breakdown** of all rows
-2. **Two types of mismatches**:
+1. **Two types of mismatches**:
    - **Field mismatches**: AthenaAppointmentId found but fields don't match
    - **Not found mismatches**: No matching record found in MongoDB
-3. **Math verification** to ensure all numbers add up correctly
+1. **Math verification** to ensure all numbers add up correctly
 
----
+______________________________________________________________________
 
 ## New Statistics Output
 
@@ -54,7 +54,7 @@ Validation Statistics:
   ✓ Math verified: 1461 + 263 + 403 = 2127
 ```
 
----
+______________________________________________________________________
 
 ## Changes Made
 
@@ -71,10 +71,10 @@ self.stats = {
     "athena_id_not_found": 0,
     "total_match": 0,
     "total_mismatch": 0,
-    "field_mismatch": 0,          # NEW: Track field-level mismatches
-    "not_found_mismatch": 0,      # NEW: Track not-found mismatches
+    "field_mismatch": 0,  # NEW: Track field-level mismatches
+    "not_found_mismatch": 0,  # NEW: Track not-found mismatches
     "missing_fields": 0,
-    "secondary_matches": 0
+    "secondary_matches": 0,
 }
 ```
 
@@ -118,44 +118,58 @@ def _log_statistics(self) -> None:
     logger.info(f"  Cancelled rows removed: {self.stats['cancelled_removed']}")
     logger.info(f"  Rows processed: {self.stats['processed']}")
     logger.info(f"  Rows with missing fields: {self.stats['missing_fields']}")
-    
+
     # Calculate rows with complete data
-    rows_with_complete_data = self.stats['processed'] - self.stats['missing_fields']
-    
+    rows_with_complete_data = self.stats["processed"] - self.stats["missing_fields"]
+
     logger.info("")
     logger.info(f"  Rows with complete data: {rows_with_complete_data}")
     logger.info(f"    ├─ AthenaAppointmentId found: {self.stats['athena_id_found']}")
-    logger.info(f"    │  ├─ Exact matches: {self.stats['athena_id_found'] - self.stats.get('field_mismatch', 0)}")
+    logger.info(
+        f"    │  ├─ Exact matches: {self.stats['athena_id_found'] - self.stats.get('field_mismatch', 0)}"
+    )
     logger.info(f"    │  └─ Field mismatches: {self.stats.get('field_mismatch', 0)}")
-    logger.info(f"    └─ AthenaAppointmentId not found: {self.stats['athena_id_not_found']}")
+    logger.info(
+        f"    └─ AthenaAppointmentId not found: {self.stats['athena_id_not_found']}"
+    )
     logger.info(f"       ├─ Secondary matches: {self.stats['secondary_matches']}")
     logger.info(f"       └─ No match found: {self.stats.get('not_found_mismatch', 0)}")
-    
+
     logger.info("")
     logger.info(f"  Total matches: {self.stats['total_match']}")
-    logger.info(f"  Total mismatches: {self.stats['total_mismatch']} ({self.stats.get('field_mismatch', 0)} field mismatches + {self.stats.get('not_found_mismatch', 0)} not found)")
-    
+    logger.info(
+        f"  Total mismatches: {self.stats['total_mismatch']} ({self.stats.get('field_mismatch', 0)} field mismatches + {self.stats.get('not_found_mismatch', 0)} not found)"
+    )
+
     # Verification math
-    expected_total = self.stats['total_match'] + self.stats['total_mismatch'] + self.stats['missing_fields']
-    if expected_total == self.stats['processed']:
-        logger.info(f"  ✓ Math verified: {self.stats['total_match']} + {self.stats['total_mismatch']} + {self.stats['missing_fields']} = {self.stats['processed']}")
+    expected_total = (
+        self.stats["total_match"]
+        + self.stats["total_mismatch"]
+        + self.stats["missing_fields"]
+    )
+    if expected_total == self.stats["processed"]:
+        logger.info(
+            f"  ✓ Math verified: {self.stats['total_match']} + {self.stats['total_mismatch']} + {self.stats['missing_fields']} = {self.stats['processed']}"
+        )
     else:
-        logger.warning(f"  ⚠ Math mismatch: {self.stats['total_match']} + {self.stats['total_mismatch']} + {self.stats['missing_fields']} = {expected_total} (expected {self.stats['processed']})")
+        logger.warning(
+            f"  ⚠ Math mismatch: {self.stats['total_match']} + {self.stats['total_mismatch']} + {self.stats['missing_fields']} = {expected_total} (expected {self.stats['processed']})"
+        )
 ```
 
----
+______________________________________________________________________
 
 ## Benefits
 
 1. ✅ **Clear Hierarchy**: Easy to understand the breakdown at a glance
-2. ✅ **Accurate Math**: All numbers add up correctly with verification
-3. ✅ **Distinguishes Mismatch Types**:
+1. ✅ **Accurate Math**: All numbers add up correctly with verification
+1. ✅ **Distinguishes Mismatch Types**:
    - Field mismatches: Found record but some fields differ
    - Not found: No record exists in MongoDB
-4. ✅ **Math Verification**: Automatically checks if totals add up correctly
-5. ✅ **Backward Compatible**: JSON output includes all new fields
+1. ✅ **Math Verification**: Automatically checks if totals add up correctly
+1. ✅ **Backward Compatible**: JSON output includes all new fields
 
----
+______________________________________________________________________
 
 ## Example Test Results (100 rows)
 
@@ -180,7 +194,7 @@ Total mismatches: 12 (7 field mismatches + 5 not found)
 - 5 records had no matching AthenaAppointmentId in MongoDB (and secondary matching failed)
 - 88 + 7 + 5 = 100 ✅
 
----
+______________________________________________________________________
 
 ## Testing
 
@@ -198,7 +212,7 @@ cd f:/ubiquityMongo_phiMasking/python
 python -m appointment_comparison --input Daily_Appointment_Comparison_input1_20251023_cleaned.csv --env PROD
 ```
 
----
+______________________________________________________________________
 
 ## JSON Output
 
@@ -223,16 +237,16 @@ The statistics are also available in JSON format at the end of execution:
 }
 ```
 
----
+______________________________________________________________________
 
 ## Future Enhancements (Optional)
 
 1. **Add Match Method Column**: Track whether match was found by AthenaAppointmentId or secondary matching
-2. **Not Found Reason**: Distinguish between "primary filter failed" vs "secondary filter failed"
-3. **Match Rate Percentage**: Show percentage of successful matches
-4. **Common Mismatch Fields**: List most frequently mismatched fields
+1. **Not Found Reason**: Distinguish between "primary filter failed" vs "secondary filter failed"
+1. **Match Rate Percentage**: Show percentage of successful matches
+1. **Common Mismatch Fields**: List most frequently mismatched fields
 
----
+______________________________________________________________________
 
 ## Summary
 

@@ -191,6 +191,7 @@ app = typer.Typer(
     no_args_is_help=True,
 )
 
+
 @app.command("command-name")
 def command_name(
     env: str = typer.Option(
@@ -233,13 +234,16 @@ def command_name(
     # 3. Connect to MongoDB
     try:
         with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri,
-            database_name=settings.database_name
+            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
         ) as client:
             db = client[settings.database_name]
 
-            logger.info(f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}")
-            logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")  # ⚠️ ALWAYS redact URIs
+            logger.info(
+                f"Environment: {env.upper() if env else os.environ.get('APP_ENV', 'default')}"
+            )
+            logger.info(
+                f"MongoDB URI: {redact_uri(settings.mongodb_uri)}"
+            )  # ⚠️ ALWAYS redact URIs
             logger.info(f"Database: {settings.database_name}")
 
             # 4. Validate collection parameter if required
@@ -264,6 +268,7 @@ def command_name(
         logger.error(f"Error: {e}", exc_info=True)
         print(f"\n❌ Error: {e}\n")
         raise typer.Exit(code=1)
+
 
 if __name__ == "__main__":
     app()
@@ -297,8 +302,8 @@ logger.info(f"MongoDB URI: {redact_uri(settings.mongodb_uri)}")
 
 ```python
 from common_config.utils.security import (
-    redact_uri,           # Redact credentials from URIs
-    redact_password,      # Redact passwords from text
+    redact_uri,  # Redact credentials from URIs
+    redact_password,  # Redact passwords from text
     get_safe_connection_info,  # Get safe connection info dict
 )
 
@@ -382,7 +387,9 @@ ______________________________________________________________________
 @app.command("process-collection")
 def process_collection(
     env: str = typer.Option(None, "--env", help="Environment (DEV, PROD, STG)"),
-    collection: str = typer.Option(None, "--collection", "-c", help="Collection to process"),
+    collection: str = typer.Option(
+        None, "--collection", "-c", help="Collection to process"
+    ),
     dry_run: bool = typer.Option(False, "--dry-run", help="Preview only"),
 ):
     """Process a specific collection."""
@@ -445,7 +452,9 @@ python my_project/run.py process-all --no-csv --env STG
 @app.command("analyze")
 def analyze(
     env: str = typer.Option(None, "--env", help="Environment (DEV, PROD, STG)"),
-    collection: str = typer.Option(None, "--collection", "-c", help="Specific collection (optional)"),
+    collection: str = typer.Option(
+        None, "--collection", "-c", help="Specific collection (optional)"
+    ),
     exclude_system: bool = typer.Option(True, "--exclude-system/--include-system"),
 ):
     """Analyze collections - specific or all."""
@@ -455,8 +464,7 @@ def analyze(
     settings = get_settings()
 
     with get_mongo_client(
-        mongodb_uri=settings.mongodb_uri,
-        database_name=settings.database_name
+        mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
     ) as client:
         db = client[settings.database_name]
 

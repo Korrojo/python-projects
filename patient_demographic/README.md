@@ -301,9 +301,11 @@ ______________________________________________________________________
 ### Success Criteria
 
 ✅ **100% Success Rate**: All sampled patients show changes\
-✅ **All Fields Updated**: Every expected field shows BEFORE → AFTER change\
+✅ **All Fields Updated**: Every expected field shows BEFORE
+→ AFTER change\
 ✅ **Metadata Valid**: Timestamps are recent, flags are set\
-✅ **No Errors**: No patients missing from either collection
+✅ **No Errors**: No patients missing from
+either collection
 
 ### Example Validation Output
 

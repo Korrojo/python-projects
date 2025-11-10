@@ -99,9 +99,11 @@ Use pytest markers to categorize tests:
 def test_mongo_query():
     pass
 
+
 @pytest.mark.slow  # Takes > 5 seconds
 def test_large_file_processing():
     pass
+
 
 @pytest.mark.db  # Needs database connection
 def test_collection_access():
@@ -168,7 +170,7 @@ def test_with_mock_db(mock_mongo_connection):
     """Test using mocked MongoDB."""
     collection = mock_mongo_connection["collection"]
     collection.find_one.return_value = {"_id": "test"}
-    
+
     # Your test code here
 ```
 

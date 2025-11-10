@@ -100,7 +100,8 @@ ______________________________________________________________________
 
 ✅ Update log shows "Successfully updated user..."\
 ✅ Summary shows successful updates count\
-✅ Validation shows high match rate (>90%)\
+✅ Validation shows high
+match rate (>90%)\
 ✅ No errors in log files
 
 ______________________________________________________________________

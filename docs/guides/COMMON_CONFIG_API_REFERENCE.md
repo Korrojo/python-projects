@@ -147,6 +147,7 @@ import typer
 
 app = typer.Typer()
 
+
 @app.command()
 def my_command(
     env: str = typer.Option(
@@ -197,8 +198,7 @@ from common_config.connectors.mongodb import get_mongo_client
 # Using settings
 settings = get_settings()
 with get_mongo_client(
-    mongodb_uri=settings.mongodb_uri,
-    database_name=settings.database_name
+    mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
 ) as client:
     db = client[settings.database_name]
     collections = db.list_collection_names()
@@ -347,8 +347,7 @@ Get safe connection information dictionary for logging.
 from common_config.utils.security import get_safe_connection_info
 
 info = get_safe_connection_info(
-    "mongodb+srv://<username>:<password>@cluster.mongodb.net/?options",
-    "mydb"
+    "mongodb+srv://<username>:<password>@cluster.mongodb.net/?options", "mydb"
 )
 
 # Returns: {
@@ -393,11 +392,7 @@ ______________________________________________________________________
 ### Import Path
 
 ```python
-from common_config.utils.file_ops import (
-    ensure_dir,
-    archive_file,
-    clean_old_files
-)
+from common_config.utils.file_ops import ensure_dir, archive_file, clean_old_files
 ```
 
 ### Usage
@@ -421,6 +416,7 @@ ______________________________________________________________________
 
 ```python
 """Main entry point for project."""
+
 import sys
 from pathlib import Path
 
@@ -429,6 +425,7 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from common_config.config.settings import get_settings
 from common_config.utils.logger import setup_logging, get_logger
+
 
 def main():
     """Main execution function."""
@@ -448,6 +445,7 @@ def main():
 
     logger.info("Completed successfully")
 
+
 if __name__ == "__main__":
     main()
 ```
@@ -456,6 +454,7 @@ if __name__ == "__main__":
 
 ```python
 """Main entry point for MongoDB project."""
+
 import sys
 from pathlib import Path
 
@@ -465,6 +464,7 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 from common_config.config.settings import get_settings
 from common_config.connectors.mongodb import get_mongo_client
 from common_config.utils.logger import setup_logging, get_logger
+
 
 def main():
     """Main execution function."""
@@ -483,8 +483,7 @@ def main():
     try:
         # MongoDB connection
         with get_mongo_client(
-            mongodb_uri=settings.mongodb_uri,
-            database_name=settings.database_name
+            mongodb_uri=settings.mongodb_uri, database_name=settings.database_name
         ) as client:
             db = client[settings.database_name]
 
@@ -498,6 +497,7 @@ def main():
         logger.error(f"Error: {e}", exc_info=True)
         raise
 
+
 if __name__ == "__main__":
     main()
 ```
@@ -506,6 +506,7 @@ if __name__ == "__main__":
 
 ```python
 """Main entry point for data processing."""
+
 import sys
 from pathlib import Path
 
@@ -513,6 +514,7 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from common_config.config.settings import get_settings
 from common_config.utils.logger import setup_logging, get_logger
+
 
 def main():
     """Main execution function."""
@@ -538,6 +540,7 @@ def main():
     # Export results
     output_file = output_dir / "results.csv"
     logger.info(f"Results saved to: {output_file}")
+
 
 if __name__ == "__main__":
     main()

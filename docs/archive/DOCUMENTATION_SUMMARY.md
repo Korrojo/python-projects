@@ -275,17 +275,19 @@ db.collection.aggregate([
 ```python
 def process_in_batches(rows: list[dict], batch_size: int = 100):
     for i in range(0, len(rows), batch_size):
-        batch = rows[i:i + batch_size]
+        batch = rows[i : i + batch_size]
         ids = [row["id"] for row in batch]
-        
+
         # One query per batch
-        results = db.collection.aggregate([
-            {"$match": {"id": {"$in": ids}}},
-            # ... pipeline
-        ])
-        
+        results = db.collection.aggregate(
+            [
+                {"$match": {"id": {"$in": ids}}},
+                # ... pipeline
+            ]
+        )
+
         result_lookup = {r["id"]: r for r in results}
-        
+
         for row in batch:
             result = result_lookup.get(row["id"])
             # ... process ...
@@ -302,13 +304,18 @@ stats = {
     "exact_match": 0,
     "field_mismatch": 0,
     "not_found_mismatch": 0,
-    "secondary_matches": 0
+    "secondary_matches": 0,
 }
+
 
 # Math verification
 def verify():
-    expected = (stats["exact_match"] + stats["field_mismatch"] + 
-                stats["not_found_mismatch"] + stats["skipped_invalid"])
+    expected = (
+        stats["exact_match"]
+        + stats["field_mismatch"]
+        + stats["not_found_mismatch"]
+        + stats["skipped_invalid"]
+    )
     assert expected == stats["total"], f"Math error: {expected} != {stats['total']}"
 ```
 
@@ -361,9 +368,11 @@ ______________________________________________________________________
 **Status**: ✅ Complete\
 **Date**: October 24, 2025\
 **Total Documentation**: 6 files, ~50 KB\
-**Patterns Documented**: 20 reusable patterns\
+**Patterns Documented**:
+20 reusable patterns\
 **Performance Improvement**: 4.2x faster\
-**Code Quality**: Math-verified statistics, hierarchical reporting
+**Code Quality**: Math-verified statistics, hierarchical
+reporting
 
 ______________________________________________________________________
 

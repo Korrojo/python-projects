@@ -165,10 +165,11 @@ If you move/rename modules in common_config:
 
    ```python
    import warnings
+
    warnings.warn(
        "common_config.db.mongo_client is deprecated. "
        "Use common_config.connectors.mongodb instead",
-       DeprecationWarning
+       DeprecationWarning,
    )
    ```
 

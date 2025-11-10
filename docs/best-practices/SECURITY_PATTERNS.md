@@ -291,8 +291,8 @@ ______________________________________________________________________
 
 ```python
 from common_config.utils.security import (
-    redact_uri,              # Redact credentials from URIs
-    redact_password,         # Redact passwords from text
+    redact_uri,  # Redact credentials from URIs
+    redact_password,  # Redact passwords from text
     get_safe_connection_info,  # Get safe connection info dict
 )
 ```
@@ -333,8 +333,8 @@ safe_text = redact_password(text)
 # Returns: "Connection failed: password=***"
 
 # Works with various patterns
-redact_password("PWD=secret")      # → "PWD=***"
-redact_password("password: abc")    # → "password: ***"
+redact_password("PWD=secret")  # → "PWD=***"
+redact_password("password: abc")  # → "password: ***"
 ```
 
 #### `get_safe_connection_info(uri: str, database: str) -> dict`
@@ -345,8 +345,7 @@ Get safe connection information for logging (no credentials).
 from common_config.utils.security import get_safe_connection_info
 
 info = get_safe_connection_info(
-    uri="mongodb+srv://<username>:<password>@cluster.mongodb.net/",
-    database="mydb"
+    uri="mongodb+srv://<username>:<password>@cluster.mongodb.net/", database="mydb"
 )
 
 # Returns: {

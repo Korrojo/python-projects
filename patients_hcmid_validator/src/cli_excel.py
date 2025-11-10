@@ -5,9 +5,9 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from patients_hcmid_validator.runner_excel import run_validation_excel
 
 from common_config.utils.logger import get_logger
+from patients_hcmid_validator.runner_excel import run_validation_excel
 
 logger = get_logger(__name__)
 

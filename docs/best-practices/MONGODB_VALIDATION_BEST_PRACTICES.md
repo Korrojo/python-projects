@@ -1,7 +1,8 @@
 # MongoDB Data Validation Projects - Best Practices Guide
 
 **Audience**: Developers building data validation, migration, or comparison tools\
-**Scope**: Repository-wide patterns and practices\
+**Scope**: Repository-wide patterns
+and practices\
 **Last Updated**: October 24, 2025
 
 ______________________________________________________________________
@@ -117,14 +118,15 @@ def calculate_date_range(input_rows: list[dict]) -> tuple[datetime, datetime]:
     """Calculate min/max dates from input data."""
     dates = [parse_date(row["date_field"]) for row in input_rows]
     dates = [d for d in dates if d]  # Remove None values
-    
+
     if not dates:
         return None, None
-    
+
     min_date = min(dates)
     max_date = max(dates) + timedelta(days=1)  # Buffer for inclusive comparison
-    
+
     return min_date, max_date
+
 
 # Apply to queries
 min_date, max_date = calculate_date_range(rows)
@@ -219,18 +221,20 @@ for row in rows:  # 2,000 queries!
 ```python
 def process_in_batches(rows: list[dict], batch_size: int = 100):
     for i in range(0, len(rows), batch_size):
-        batch = rows[i:i + batch_size]
+        batch = rows[i : i + batch_size]
         ids = [row["id"] for row in batch]
-        
+
         # One query per batch
-        results = db.collection.aggregate([
-            {"$match": {"id": {"$in": ids}}},
-            # ... rest of pipeline
-        ])
-        
+        results = db.collection.aggregate(
+            [
+                {"$match": {"id": {"$in": ids}}},
+                # ... rest of pipeline
+            ]
+        )
+
         # Create lookup dictionary
         result_lookup = {r["id"]: r for r in results}
-        
+
         # Process batch with results
         for row in batch:
             result = result_lookup.get(row["id"])
@@ -261,24 +265,24 @@ class ValidationStats:
     def __init__(self):
         self.total_processed = 0
         self.skipped_invalid = 0
-        
+
         # Primary matching
         self.primary_found = 0
         self.primary_not_found = 0
-        
+
         # Results
         self.exact_match = 0
         self.field_mismatch = 0
         self.not_found_mismatch = 0
-        
+
         # Secondary matching
         self.secondary_attempts = 0
         self.secondary_success = 0
-    
+
     def log_summary(self):
         """Log hierarchical statistics."""
         total_valid = self.total_processed - self.skipped_invalid
-        
+
         logger.info("Validation Statistics:")
         logger.info(f"  Total processed: {self.total_processed}")
         logger.info(f"  Skipped (invalid): {self.skipped_invalid}")
@@ -292,11 +296,17 @@ class ValidationStats:
         logger.info(f"       └─ Not found: {self.not_found_mismatch}")
         logger.info("")
         logger.info(f"  Total matches: {self.exact_match + self.secondary_success}")
-        logger.info(f"  Total mismatches: {self.field_mismatch + self.not_found_mismatch}")
-        
+        logger.info(
+            f"  Total mismatches: {self.field_mismatch + self.not_found_mismatch}"
+        )
+
         # Verify math
-        expected = self.exact_match + self.field_mismatch + \
-                   self.not_found_mismatch + self.skipped_invalid
+        expected = (
+            self.exact_match
+            + self.field_mismatch
+            + self.not_found_mismatch
+            + self.skipped_invalid
+        )
         if expected == self.total_processed:
             logger.info(f"  ✓ Math verified: {expected} = {self.total_processed}")
         else:
@@ -332,21 +342,16 @@ ______________________________________________________________________
 ```python
 def verify_statistics(stats: dict) -> bool:
     """Verify statistics totals are consistent."""
-    expected_total = (
-        stats["matches"] + 
-        stats["mismatches"] + 
-        stats["skipped"]
-    )
-    
+    expected_total = stats["matches"] + stats["mismatches"] + stats["skipped"]
+
     actual_total = stats["processed"]
-    
+
     if expected_total != actual_total:
         logger.warning(
-            f"Statistics mismatch: "
-            f"expected {expected_total}, got {actual_total}"
+            f"Statistics mismatch: " f"expected {expected_total}, got {actual_total}"
         )
         return False
-    
+
     logger.info(f"✓ Math verified: {expected_total} = {actual_total}")
     return True
 ```
@@ -364,6 +369,7 @@ class ValidationResult:
         self.failure_reason = None  # "not_found" | "field_mismatch" | "invalid_data"
         self.mismatched_fields = []
         self.comment = ""
+
 
 # Track in statistics
 if result.failure_reason == "not_found":
@@ -390,10 +396,7 @@ ______________________________________________________________________
 **Required field validation**:
 
 ```python
-def validate_required_fields(
-    row: dict, 
-    required: list[str]
-) -> list[str]:
+def validate_required_fields(row: dict, required: list[str]) -> list[str]:
     """Return list of missing required fields."""
     missing = []
     for field in required:
@@ -401,6 +404,7 @@ def validate_required_fields(
         if not value:
             missing.append(field)
     return missing
+
 
 # Use in processing
 missing = validate_required_fields(row, ["id", "date", "type"])
@@ -430,6 +434,7 @@ def safe_int_conversion(value: Any, field_name: str) -> int | None:
         logger.debug(f"Cannot convert {field_name}='{value}' to int: {e}")
         return None
 
+
 # Use in code
 patient_ref = safe_int_conversion(row.get("PatientRef"), "PatientRef")
 if patient_ref is None:
@@ -446,26 +451,27 @@ ______________________________________________________________________
 from datetime import datetime
 from typing import Optional
 
+
 def parse_date_flexible(date_str: str) -> Optional[datetime]:
     """Try multiple date formats."""
     if not date_str or not date_str.strip():
         return None
-    
+
     formats = [
-        "%m/%d/%Y",      # 10/23/2025
-        "%m/%d/%y",      # 10/23/25
-        "%Y-%m-%d",      # 2025-10-23
-        "%m-%d-%Y",      # 10-23-2025
+        "%m/%d/%Y",  # 10/23/2025
+        "%m/%d/%y",  # 10/23/25
+        "%Y-%m-%d",  # 2025-10-23
+        "%m-%d-%Y",  # 10-23-2025
     ]
-    
+
     date_str = date_str.strip()
-    
+
     for fmt in formats:
         try:
             return datetime.strptime(date_str, fmt)
         except ValueError:
             continue
-    
+
     logger.debug(f"Cannot parse date: '{date_str}'")
     return None
 ```
@@ -478,27 +484,25 @@ ______________________________________________________________________
 
 ```python
 def process_with_progress(
-    rows: list[dict],
-    batch_size: int = 100,
-    log_frequency: int = 100
+    rows: list[dict], batch_size: int = 100, log_frequency: int = 100
 ):
     """Process with periodic progress updates."""
     total = len(rows)
     start_time = time.time()
-    
+
     for i in range(0, total, batch_size):
-        batch = rows[i:i + batch_size]
-        
+        batch = rows[i : i + batch_size]
+
         # Process batch
         process_batch(batch)
-        
+
         # Log progress
         processed = min(i + batch_size, total)
         if processed % log_frequency == 0 or processed == total:
             elapsed = time.time() - start_time
             rate = processed / elapsed
             remaining = (total - processed) / rate if rate > 0 else 0
-            
+
             logger.info(
                 f"Processed {processed}/{total} rows "
                 f"({stats['matched']} matched, "
@@ -516,18 +520,16 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure, OperationFailure
 import time
 
+
 class MongoConnection:
     def __init__(
-        self, 
-        connection_string: str,
-        max_retries: int = 3,
-        retry_delay: float = 2.0
+        self, connection_string: str, max_retries: int = 3, retry_delay: float = 2.0
     ):
         self.connection_string = connection_string
         self.max_retries = max_retries
         self.retry_delay = retry_delay
         self.client = None
-    
+
     def query_with_retry(self, query_func, *args, **kwargs):
         """Execute query with retry logic."""
         for attempt in range(self.max_retries):
@@ -537,8 +539,8 @@ class MongoConnection:
                 if attempt == self.max_retries - 1:
                     logger.error(f"Query failed after {self.max_retries} attempts: {e}")
                     raise
-                
-                wait_time = self.retry_delay * (2 ** attempt)  # Exponential backoff
+
+                wait_time = self.retry_delay * (2**attempt)  # Exponential backoff
                 logger.warning(f"Query failed, retrying in {wait_time}s: {e}")
                 time.sleep(wait_time)
 ```
@@ -550,25 +552,22 @@ ______________________________________________________________________
 **For large datasets**:
 
 ```python
-def process_large_csv_streaming(
-    file_path: Path,
-    batch_size: int = 100
-):
+def process_large_csv_streaming(file_path: Path, batch_size: int = 100):
     """Process CSV in batches without loading entire file."""
     import csv
-    
+
     batch = []
-    
-    with open(file_path, 'r', encoding='utf-8') as f:
+
+    with open(file_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        
+
         for row in reader:
             batch.append(row)
-            
+
             if len(batch) >= batch_size:
                 process_batch(batch)
                 batch = []  # Clear memory
-        
+
         # Process remaining rows
         if batch:
             process_batch(batch)
@@ -585,11 +584,11 @@ ______________________________________________________________________
 @click.option("--limit", type=int, help="Limit number of rows to process")
 def main(input_file: str, limit: Optional[int] = None):
     rows = read_csv(input_file)
-    
+
     if limit:
         rows = rows[:limit]
         logger.info(f"Limited processing to {limit} rows")
-    
+
     validator.validate(rows)
 ```
 
@@ -608,19 +607,10 @@ ______________________________________________________________________
 def get_sample_csv_rows() -> list[dict]:
     """Sample CSV data for testing."""
     return [
-        {
-            "id": "123",
-            "date": "10/23/2025",
-            "time": "1:35 PM",
-            "type": "Visit"
-        },
-        {
-            "id": "456",
-            "date": "10/24/2025",
-            "time": "2:00 PM",
-            "type": "Consult"
-        }
+        {"id": "123", "date": "10/23/2025", "time": "1:35 PM", "type": "Visit"},
+        {"id": "456", "date": "10/24/2025", "time": "2:00 PM", "type": "Consult"},
     ]
+
 
 def get_sample_mongo_docs() -> list[dict]:
     """Sample MongoDB documents for testing."""
@@ -630,7 +620,7 @@ def get_sample_mongo_docs() -> list[dict]:
             "appointmentId": 123,
             "date": datetime(2025, 10, 23),
             "time": "13:35:00",
-            "type": "Visit"
+            "type": "Visit",
         }
     ]
 ```
@@ -646,6 +636,7 @@ ______________________________________________________________________
 from dataclasses import dataclass
 from pathlib import Path
 
+
 @dataclass
 class DatabaseConfig:
     connection_string: str
@@ -654,12 +645,14 @@ class DatabaseConfig:
     batch_size: int = 100
     max_retries: int = 3
 
+
 @dataclass
 class ProcessingConfig:
     batch_size: int = 100
     log_frequency: int = 100
     case_sensitive: bool = False
     trim_strings: bool = True
+
 
 @dataclass
 class PathConfig:
@@ -668,11 +661,12 @@ class PathConfig:
     output_dir: Path
     log_dir: Path
 
+
 # Usage
 config = DatabaseConfig(
     connection_string=os.getenv("MONGO_CONNECTION"),
     database_name="MyDatabase",
-    collection_name="MyCollection"
+    collection_name="MyCollection",
 )
 ```
 
@@ -687,12 +681,12 @@ class Validator:
         self,
         db_matcher: DatabaseMatcher,
         comparator: FieldComparator,
-        file_handler: FileHandler
+        file_handler: FileHandler,
     ):
         self.matcher = db_matcher
         self.comparator = comparator
         self.file_handler = file_handler
-    
+
     def validate(self, input_path: Path):
         rows = self.file_handler.read_csv(input_path)
         # ... validation logic
@@ -712,26 +706,25 @@ ______________________________________________________________________
 
 ```python
 def find_with_fallback(
-    row: dict,
-    primary_matcher: Callable,
-    fallback_matcher: Callable
+    row: dict, primary_matcher: Callable, fallback_matcher: Callable
 ) -> tuple[dict | None, str]:
     """
     Try primary matching first, fallback to secondary.
-    
+
     Returns: (result, match_method)
     """
     # Try primary
     result = primary_matcher(row)
     if result:
         return result, "primary"
-    
+
     # Try fallback
     result = fallback_matcher(row)
     if result:
         return result, "fallback"
-    
+
     return None, "not_found"
+
 
 # Track which method worked
 result, method = find_with_fallback(row, find_by_id, find_by_fields)
@@ -747,28 +740,28 @@ def compare_all_fields(
     source: dict,
     target: dict,
     field_mapping: dict[str, str],
-    ignore_case: dict[str, bool] = None
+    ignore_case: dict[str, bool] = None,
 ) -> tuple[bool, list[str]]:
     """
     Compare all fields between source and target.
-    
+
     Returns: (all_match, list_of_mismatched_fields)
     """
     mismatched = []
     ignore_case = ignore_case or {}
-    
+
     for source_field, target_field in field_mapping.items():
         source_val = str(source.get(source_field, "")).strip()
         target_val = str(target.get(target_field, "")).strip()
-        
+
         # Case-insensitive comparison if configured
         if ignore_case.get(source_field, False):
             source_val = source_val.lower()
             target_val = target_val.lower()
-        
+
         if source_val != target_val:
             mismatched.append(source_field)
-    
+
     return len(mismatched) == 0, mismatched
 ```
 
@@ -870,4 +863,5 @@ ______________________________________________________________________
 **Document Version**: 1.0\
 **Last Updated**: October 24, 2025\
 **Maintainer**: Development Team\
-**Repository**: ubiquityMongo_phiMasking
+**Repository**:
+ubiquityMongo_phiMasking

@@ -2,9 +2,10 @@
 
 ## Critical Index Missing
 
-The `appointment_comparison` project performs lookups by `Slots.Appointments.AthenaAppointmentId` for **every single row** in the CSV. Without a proper index, this requires full collection scans.
+The `appointment_comparison` project performs lookups by `Slots.Appointments.AthenaAppointmentId` for **every single
+row** in the CSV. Without a proper index, this requires full collection scans.
 
----
+______________________________________________________________________
 
 ## Index to Create
 
@@ -26,7 +27,7 @@ db.StaffAvailability.createIndex(
 - Batch queries with `$in` operator will be significantly faster
 - Processing 2,127 rows could go from hours to minutes
 
----
+______________________________________________________________________
 
 ## Secondary Indexes (RECOMMENDED for Secondary Matching)
 
@@ -63,7 +64,7 @@ db.StaffAvailability.createIndex(
 
 **Impact**: Makes 4-field combination lookups much faster
 
----
+______________________________________________________________________
 
 ## How to Create These Indexes
 
@@ -89,11 +90,11 @@ db.StaffAvailability.getIndexes().filter(idx => idx.name.includes("AthenaAppoint
 ### **Option 2: MongoDB Compass**
 
 1. Open MongoDB Compass
-2. Connect to your database
-3. Navigate to `UbiquityProduction` → `StaffAvailability`
-4. Click on the "Indexes" tab
-5. Click "Create Index"
-6. Paste this JSON:
+1. Connect to your database
+1. Navigate to `UbiquityProduction` → `StaffAvailability`
+1. Click on the "Indexes" tab
+1. Click "Create Index"
+1. Paste this JSON:
 
 ```json
 {
@@ -102,7 +103,7 @@ db.StaffAvailability.getIndexes().filter(idx => idx.name.includes("AthenaAppoint
 ```
 
 7. Set index name: `IX_Appointments_AthenaAppointmentId`
-8. Click "Create Index"
+1. Click "Create Index"
 
 ### **Option 3: Python Script**
 
@@ -116,7 +117,7 @@ db = client["UbiquityProduction"]
 # Create the critical index
 result = db.StaffAvailability.create_index(
     [("Slots.Appointments.AthenaAppointmentId", 1)],
-    name="IX_Appointments_AthenaAppointmentId"
+    name="IX_Appointments_AthenaAppointmentId",
 )
 
 print(f"Index created: {result}")
@@ -128,7 +129,7 @@ for idx in indexes:
         print(f"Found index: {idx}")
 ```
 
----
+______________________________________________________________________
 
 ## Index Creation Time Estimate
 
@@ -141,13 +142,14 @@ for idx in indexes:
 
 **Typical estimates:**
 
-- Small collection (<10K docs): 1-5 minutes
+- Small collection (\<10K docs): 1-5 minutes
 - Medium collection (10K-100K docs): 5-30 minutes
 - Large collection (>100K docs): 30 minutes - 2 hours
 
-**Note**: Index creation runs in the background by default in MongoDB 4.2+. The collection remains available during creation.
+**Note**: Index creation runs in the background by default in MongoDB 4.2+. The collection remains available during
+creation.
 
----
+______________________________________________________________________
 
 ## Verify Index Performance
 
@@ -175,7 +177,7 @@ db.StaffAvailability.explain("executionStats").aggregate([
 - `executionStats.executionTimeMillis` - Should be under 100ms for small batches
 - `winningPlan.inputStage.indexName` - Should show `"IX_Appointments_AthenaAppointmentId"`
 
----
+______________________________________________________________________
 
 ## Expected Indexes After Creation
 
@@ -190,11 +192,11 @@ After creating the critical index, you should have:
 ### Recommended Final Index Set
 
 1. ✅ `{ "Slots.Appointments.AthenaAppointmentId": 1 }` ← **CREATE THIS NOW**
-2. ✅ `{ "Slots.Appointments.PatientRef": 1 }` ← Already exists
-3. ✅ `{ "AvailabilityDate": 1 }` ← Already exists
-4. ⚠️ `{ "AvailabilityDate": 1, "Slots.Appointments.PatientRef": 1, ... }` ← Optional compound index
+1. ✅ `{ "Slots.Appointments.PatientRef": 1 }` ← Already exists
+1. ✅ `{ "AvailabilityDate": 1 }` ← Already exists
+1. ⚠️ `{ "AvailabilityDate": 1, "Slots.Appointments.PatientRef": 1, ... }` ← Optional compound index
 
----
+______________________________________________________________________
 
 ## Performance Impact Measurement
 
@@ -219,7 +221,7 @@ Run the same query and compare:
 - Documents examined should be dramatically reduced
 - Index should be used in the winning plan
 
----
+______________________________________________________________________
 
 ## Monitoring Index Usage
 
@@ -233,24 +235,24 @@ db.StaffAvailability.aggregate([
 ])
 ```
 
----
+______________________________________________________________________
 
 ## Maintenance Notes
 
 1. **Index Size**: The new index will take up disk space (typically 1-5% of collection size)
-2. **Write Performance**: Slight overhead on inserts/updates to Appointments (negligible)
-3. **Read Performance**: Massive improvement (10-100x faster for primary matching queries)
+1. **Write Performance**: Slight overhead on inserts/updates to Appointments (negligible)
+1. **Read Performance**: Massive improvement (10-100x faster for primary matching queries)
 
----
+______________________________________________________________________
 
 ## Summary
 
 ### Action Items
 
 1. ✅ **Immediately Create**: `db.StaffAvailability.createIndex({"Slots.Appointments.AthenaAppointmentId": 1})`
-2. ⚠️ **Monitor**: Check index creation progress
-3. ✅ **Verify**: Run explain query to confirm index is used
-4. ⚠️ **Optional**: Create compound index for secondary matching if needed
+1. ⚠️ **Monitor**: Check index creation progress
+1. ✅ **Verify**: Run explain query to confirm index is used
+1. ⚠️ **Optional**: Create compound index for secondary matching if needed
 
 ### Expected Results
 

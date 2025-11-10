@@ -3,9 +3,9 @@
 ## Prerequisites Check
 
 1. ✅ Python 3.11+ installed
-2. ✅ Virtual environment activated
-3. ✅ `common_config` package installed: `pip install -e ../common_config`
-4. ✅ MongoDB credentials in `shared_config/.env`
+1. ✅ Virtual environment activated
+1. ✅ `common_config` package installed: `pip install -e ../common_config`
+1. ✅ MongoDB credentials in `shared_config/.env`
 
 ## First Time Setup (One-time)
 
@@ -114,8 +114,8 @@ Expected: `Daily_Appointment_Comparison_input1_20251023.csv`
 **Fix**:
 
 1. Check VPN/network connection
-2. Verify MongoDB host is reachable
-3. Test MongoDB connection: `ping your-mongo-host`
+1. Verify MongoDB host is reachable
+1. Test MongoDB connection: `ping your-mongo-host`
 
 ## Common Commands
 
@@ -146,10 +146,10 @@ python run.py --input myfile.csv --env PROD --collection StaffAvailability_Backu
 ## Next Steps
 
 1. ✅ Review output CSV validation results
-2. ✅ Check mismatched fields for patterns
-3. ✅ Investigate appointments with "AthenaAppointmentId Found? = False"
-4. ✅ Share statistics JSON with stakeholders
-5. ✅ Schedule regular validation runs if needed
+1. ✅ Check mismatched fields for patterns
+1. ✅ Investigate appointments with "AthenaAppointmentId Found? = False"
+1. ✅ Share statistics JSON with stakeholders
+1. ✅ Schedule regular validation runs if needed
 
 ## Support
 

@@ -1,7 +1,8 @@
 # Repository Standards & Best Practices
 
 **Created:** 2025-10-24\
-**Purpose:** Establish consistent standards for directory structure and testing across the Python monorepo
+**Purpose:** Establish consistent standards for directory structure and testing across the
+Python monorepo
 
 ______________________________________________________________________
 
@@ -247,10 +248,12 @@ def test_imports():
     # Import all public modules
     pass
 
+
 def test_entry_point():
     """Main entry point (run.py) can be executed."""
     # Test run.py --help works
     pass
+
 
 def test_dependencies():
     """All required dependencies are installed."""
@@ -422,6 +425,7 @@ repos:
 def test_patient_ref_comparison_handles_string_to_int_conversion():
     pass
 
+
 # ❌ Bad
 def test_compare():
     pass
@@ -433,10 +437,10 @@ def test_compare():
 def test_mongo_connection_with_invalid_uri():
     # Arrange
     invalid_uri = "mongodb://invalid:27017"
-    
+
     # Act
     result = test_connection(invalid_uri)
-    
+
     # Assert
     assert result["connected"] is False
     assert "error" in result
@@ -450,6 +454,7 @@ def test_mongo_connection_with_invalid_uri():
 def sample_patient_data():
     return {"PatientRef": 123, "FirstName": "John"}
 
+
 # test_file.py
 def test_patient_processing(sample_patient_data):
     result = process_patient(sample_patient_data)
@@ -460,6 +465,7 @@ def test_patient_processing(sample_patient_data):
 
 ```python
 from unittest.mock import Mock, patch
+
 
 def test_mongodb_query_without_real_db():
     with patch("pymongo.MongoClient") as mock_client:
