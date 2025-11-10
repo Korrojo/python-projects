@@ -1,0 +1,10 @@
+# Ruff configuration for monorepo
+
+[lint]
+ignore = ["E402"]  # Allow imports after code (needed for sys.path manipulation)
+
+[lint.per-file-ignores]
+# Additional per-file ignores can go here
+
+[lint.isort]
+known-first-party = ["src", "common_config"]
