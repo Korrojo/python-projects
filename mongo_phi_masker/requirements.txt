@@ -30,7 +30,7 @@ pytest-cov==4.1.0
 pytest-mock==3.11.1
 pytest-asyncio==0.21.1
 coverage==7.6.12
-mongomock==4.1.2
+mongomock==4.3.0
 setuptools>=65.5.0  # Required for pkg_resources (Python 3.12+ compatibility)
 
 # Test Data Generation
