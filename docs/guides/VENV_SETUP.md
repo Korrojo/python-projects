@@ -13,14 +13,11 @@ Automated scripts to create and activate Python virtual environments across diff
 ## Features
 
 ✅ **Auto-detects OS** - Works on Windows, macOS, and Linux\
-✅ **Finds all Python versions** - Scans system for installed
-Python\
+✅ **Finds all Python versions** - Scans system for installed Python\
 ✅ **Interactive selection** - Choose your preferred Python version\
-✅ **Validates installation** - Confirms venv
-uses correct Python\
+✅ **Validates installation** - Confirms venv uses correct Python\
 ✅ **Python 3.11 highlighting** - Recommends Python 3.11 (repository standard)\
-✅ **Safety checks**
-\- Warns before overwriting existing venv\
+✅ **Safety checks** - Warns before overwriting existing venv\
 ✅ **Cross-platform** - Same workflow on all platforms
 
 ## Quick Start
