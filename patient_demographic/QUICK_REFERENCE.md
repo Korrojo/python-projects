@@ -98,8 +98,7 @@ ______________________________________________________________________
 ## 🎯 Success Indicators
 
 ✅ Transformation log shows "Transformation completed successfully!"\
-✅ Update log shows "Successfully updated PatientId:
-XXXXX"\
+✅ Update log shows "Successfully updated PatientId: XXXXX"\
 ✅ Validation log shows "Success Rate: 100.0%"\
 ✅ No errors in any log files
 

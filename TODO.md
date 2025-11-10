@@ -73,7 +73,7 @@ This document tracks planned enhancements for the `automate_refresh` tooling acr
 
 - [ ] **Fix Ruff linting issues in `common_config`** (54 auto-fixable issues)
   - Run: `ruff check . --fix --config pyproject.toml`
-  - Issues: UP045 (Optional\[X\] → X | None), I001 (import sorting), UP035/UP006 (Dict/List → dict/list)
+  - Issues: UP045 (Optional[X] → X | None), I001 (import sorting), UP035/UP006 (Dict/List → dict/list)
   - Files affected: `cli/main.py`, `config/*.py`, `db/*.py`, `export/*.py`, `extraction/*.py`, `utils/*.py`
 
 ### Documentation

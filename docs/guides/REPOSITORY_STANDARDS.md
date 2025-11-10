@@ -1,8 +1,7 @@
 # Repository Standards & Best Practices
 
 **Created:** 2025-10-24\
-**Purpose:** Establish consistent standards for directory structure and testing across the
-Python monorepo
+**Purpose:** Establish consistent standards for directory structure and testing across the Python monorepo
 
 ______________________________________________________________________
 

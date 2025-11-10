@@ -3,8 +3,7 @@
 **Date**: October 2, 2025\
 **Database**: UbiquityTRAINING\
 **Collection**: Users_bkp_20251002\
-**CSV File**:
-provider_20251002.csv\
+**CSV File**: provider_20251002.csv\
 **Log File**: logs/20251002_154252_update_users_from_csv.log
 
 ______________________________________________________________________
@@ -207,11 +206,9 @@ ______________________________________________________________________
 
 **Script**: `src/core/update_users_from_csv.py`\
 **Environment**: Training (UbiquityTRAINING)\
-**Collection**:
-Users_bkp_20251002 (11,812 total documents)\
+**Collection**: Users_bkp_20251002 (11,812 total documents)\
 **Indexes**: 31 indexes present (optimal performance)\
-**Processing Time**:
-~4.5 seconds\
+**Processing Time**: ~4.5 seconds\
 **Errors**: 0
 
 ______________________________________________________________________
