@@ -6,7 +6,7 @@ pymongo==4.6.3
 dnspython==2.6.1
 
 # Configuration and environment
-python-dotenv==1.0.0
+python-dotenv==1.2.1
 PyYAML==6.0.1
 
 # Date/time handling
