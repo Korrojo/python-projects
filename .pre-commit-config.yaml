@@ -50,14 +50,14 @@ repos:
         args: ['--check', '--diff']
         exclude: (temp/|artifacts/|archive/|build/|dist/|\.venv)
 
-  # Python linting - Ruff (CHECK MODE - matches CI exactly)
-  # NO --fix flag to prevent local/CI discrepancy
+  # Python linting - Ruff (AUTO-FIX MODE for better DX)
+  # Uses --fix to auto-fix issues before commit (prevents manual fix loop)
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.15
     hooks:
       - id: ruff
-        name: ruff check (matches CI)
-        # NO --fix flag - check only like CI
+        name: ruff (auto-fix)
+        args: ['--fix']
         exclude: (temp/|artifacts/|archive/|build/|dist/|\.venv)
 
   # Type checking - Pyright (informational - matches CI)
@@ -87,14 +87,15 @@ repos:
 
 # Configuration notes:
 #
-# 1. CHECK MODE ONLY (matches CI):
-#    - Black: --check --diff (no auto-format)
-#    - Ruff: no --fix flag (check only)
-#    - This prevents the local/CI discrepancy fixed in PR #34
+# 1. Validation Modes:
+#    - Black: --check --diff (no auto-format, fail if not formatted)
+#    - Ruff: --fix (auto-fix fixable issues, prevents manual fix loop)
+#    - Rationale: Black formatting is opinion-based (keep manual),
+#                 Ruff fixes are objective (auto-fix for better DX)
 #
 # 2. To manually fix issues:
 #    - Black: black .
-#    - Ruff: ruff check . --fix
+#    - Ruff: (auto-fixed during commit via --fix)
 #
 # 3. Stages:
 #    - pre-commit: trailing-whitespace, end-of-file, yaml, black, ruff

@@ -101,8 +101,8 @@ ruff check . --fix                  # Auto-fix with Ruff
 - check-case-conflict
 - mixed-line-ending
 - mdformat (markdown)
-- **black --check** (no auto-format!)
-- **ruff check** (no auto-fix!)
+- **black --check** (no auto-format - fail if not formatted)
+- **ruff --fix** (auto-fix fixable issues)
 
 **Pre-push stage:**
 
