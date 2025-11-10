@@ -173,20 +173,18 @@ Remediation
 
 ______________________________________________________________________
 
-### 9) Documentation References Missing
+### 9) ✅ RESOLVED: Documentation References Missing
 
-- README references `ARCHIVE_PROPOSAL.md` (not present).
-- QUICKSTART references `docs/TEST_DATA_GENERATION_PROPOSAL.md`, `docs/TESTING_ENVIRONMENTS.md` (not present); also
-  references `docs/schema/` under `docs/` while current `schema/` is at repo root.
+**Status:** Resolved in P0 work (2025-11-09)
 
-Impact
+**What was fixed:**
 
-- Broken links; onboarding confusion.
+- ✅ Removed references to `ARCHIVE_PROPOSAL.md` (not needed)
+- ✅ Removed references to `docs/TEST_DATA_GENERATION_PROPOSAL.md` (not needed)
+- ✅ Fixed all broken doc references in QUICKSTART_TESTING.md
+- ✅ Updated paths to correct locations (`schema/` at repo root, not `docs/schema/`)
 
-Remediation
-
-- Either add the missing docs or update links to existing equivalents.
-- Consolidate schema docs in a single, documented location.
+**Impact:** No broken links remain; onboarding documentation is accurate.
 
 ______________________________________________________________________
 
