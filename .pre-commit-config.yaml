@@ -78,7 +78,7 @@ repos:
     hooks:
       - id: pytest-check
         name: pytest unit tests (if tests exist)
-        entry: bash -c 'if [ -d tests ]; then pytest tests/ --verbose --maxfail=1 --tb=short -m "unit" --cov-report=term-missing; else echo "ℹ️  No tests/ directory in current location, skipping pytest"; exit 0; fi'
+        entry: bash -c 'if [ -d tests ]; then pytest tests/ --verbose --maxfail=1 --tb=short -m "unit" --cov-report=term-missing; EXIT_CODE=$?; if [ $EXIT_CODE -eq 0 ] || [ $EXIT_CODE -eq 5 ]; then exit 0; else exit $EXIT_CODE; fi; else echo "ℹ️  No tests/ directory in current location, skipping pytest"; exit 0; fi'
         language: system
         pass_filenames: false
         stages: [manual, pre-push]
