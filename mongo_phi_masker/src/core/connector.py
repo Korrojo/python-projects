@@ -54,12 +54,12 @@ class MongoConnector:
     def __init__(
         self,
         uri: str,
-        database: str = None,
-        collection: str = None,
+        database: str | None = None,
+        collection: str | None = None,
         max_pool_size: int = 300,
         min_pool_size: int = 10,
         max_idle_time_ms: int = 30000,
-        auth_database: str = None,
+        auth_database: str | None = None,
     ):
         """Initialize the MongoDB connector.
 
@@ -167,7 +167,7 @@ class MongoConnector:
         if not self.is_connected():
             self.connect()
 
-    def get_database(self, database_name: str = None) -> Database | None:
+    def get_database(self, database_name: str | None = None) -> Database | None:
         """Get a MongoDB database.
 
         Args:
@@ -189,7 +189,7 @@ class MongoConnector:
 
         return self.client[db_name]
 
-    def get_collection(self, collection_name: str = None, database_name: str = None) -> Collection | None:
+    def get_collection(self, collection_name: str | None = None, database_name: str | None = None) -> Collection | None:
         """Get a MongoDB collection.
 
         Args:
@@ -215,7 +215,7 @@ class MongoConnector:
 
         return db[coll_name]
 
-    def collection_exists(self, collection_name: str = None, database_name: str = None) -> bool:
+    def collection_exists(self, collection_name: str | None = None, database_name: str | None = None) -> bool:
         """Check if a collection exists.
 
         Args:
@@ -261,14 +261,14 @@ class MongoConnector:
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def find(
         self,
-        query: dict[str, Any] = None,
-        projection: dict[str, Any] = None,
-        sort: list[tuple[str, int]] = None,
+        query: dict[str, Any] | None = None,
+        projection: dict[str, Any] | None = None,
+        sort: list[tuple[str, int]] | None = None,
         limit: int = 0,
         skip: int = 0,
-        batch_size: int = None,
-        collection_name: str = None,
-        database_name: str = None,
+        batch_size: int | None = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
     ) -> Cursor:
         """Find documents in a collection.
 
