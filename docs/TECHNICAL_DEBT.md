@@ -64,35 +64,25 @@ ______________________________________________________________________
 
 ## 🟡 P1: Important (Code Quality)
 
-### Ruff Linting Issues (Non-E402)
+### ✅ RESOLVED: Ruff Linting Issues
 
-**Affected Projects:** PatientOtherDetail_isActive_false, db_collection_stats, mongodb_index_tools
+**Status:** Fixed on 2025-11-09
 
-**Count:** 6 errors
+**What was fixed:**
 
-**Description:**
+1. **E712 boolean comparisons** (PatientOtherDetail_isActive_false/verify_updates.py)
 
-```
-PatientOtherDetail_isActive_false/verify_updates.py:194:69: E712 Comparison to `True` should be `cond is True` or `if cond:`
-PatientOtherDetail_isActive_false/verify_updates.py:195:70: E712 Comparison to `False` should be `cond is False` or `if not cond:`
-db_collection_stats/run.py:16:1: E402 Module level import not at top of file
-mongodb_index_tools/run.py:20:1: E402 Module level import not at top of file
-```
+   - Changed `== True` to direct boolean evaluation
+   - Changed `== False` to `~` (negation) for pandas DataFrames
+   - 4 errors fixed
 
-**Impact:**
+1. **E402 in db_collection_stats/run.py and mongodb_index_tools/run.py**
 
-- E712: Non-Pythonic boolean comparisons (minor)
-- E402 in non-run.py files: Unexpected import ordering
+   - Added per-file-ignores to each project's pyproject.toml
+   - These use the same sys.path manipulation pattern as other projects
+   - 2 errors resolved
 
-**Action Items:**
-
-1. [ ] Fix E712 boolean comparisons (5 min fix)
-1. [ ] Investigate E402 in db_collection_stats/run.py and mongodb_index_tools/run.py
-1. [ ] Determine if E402 is intentional or should be fixed
-
-**Priority:** P1 - Code quality, not critical
-
-**Estimated Effort:** 1 hour
+**Outcome:** All 6 ruff linting errors resolved. `pre-commit run ruff --all-files` now passes.
 
 ______________________________________________________________________
 
@@ -256,8 +246,8 @@ ______________________________________________________________________
 
 **Total Technical Debt:**
 
-- 🔴 P0: 75+ type errors (2-3 weeks effort)
-- 🟡 P1: 6 linting issues (1 hour effort)
+- 🔴 P0: 75+ type errors (2-3 weeks effort) - **Remaining**
+- 🟡 P1: ✅ 0 issues (all resolved 2025-11-09)
 - 🟢 P2: 0 (E402 accepted as pattern)
 
-**Progress:** 0% (baseline established 2025-11-09)
+**Progress:** P1 complete (6/6 linting issues fixed), P0 type errors remain

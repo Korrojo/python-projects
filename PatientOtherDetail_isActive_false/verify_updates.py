@@ -191,10 +191,10 @@ def main():
         logger.info(f"Saved results to: {output_file}")
 
         # Summary statistics
-        before_true = len(output_df[output_df["IsActive_before"] == True])
-        before_false = len(output_df[output_df["IsActive_before"] == False])
-        after_true = len(output_df[output_df["IsActive_after"] == True])
-        after_false = len(output_df[output_df["IsActive_after"] == False])
+        before_true = len(output_df[output_df["IsActive_before"]])
+        before_false = len(output_df[~output_df["IsActive_before"]])
+        after_true = len(output_df[output_df["IsActive_after"]])
+        after_false = len(output_df[~output_df["IsActive_after"]])
 
         # Count changes
         changed = len(output_df[output_df["IsActive_before"] != output_df["IsActive_after"]])
