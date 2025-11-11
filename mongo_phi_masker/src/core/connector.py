@@ -116,6 +116,7 @@ class MongoConnector:
             )
 
             # Test connection by running ping command
+            assert self.client is not None, "Client should be initialized"
             self.client.admin.command("ping")
 
             # Set up database and collection if specified
@@ -123,6 +124,7 @@ class MongoConnector:
                 self.db = self.client[self.database_name]
 
                 if self.auth_database:
+                    assert self.db is not None, "Database should be initialized"
                     self.db.authenticate(mechanism="SCRAM-SHA-1", source=self.auth_database)
 
                 if self.collection_name:
@@ -167,7 +169,7 @@ class MongoConnector:
         if not self.is_connected():
             self.connect()
 
-    def get_database(self, database_name: str = None) -> Database | None:
+    def get_database(self, database_name: str | None = None) -> Database | None:
         """Get a MongoDB database.
 
         Args:
@@ -187,9 +189,12 @@ class MongoConnector:
         if not db_name:
             raise ValueError("No database name specified")
 
+        if self.client is None:
+            raise ConnectionError("Not connected to MongoDB")
+
         return self.client[db_name]
 
-    def get_collection(self, collection_name: str = None, database_name: str = None) -> Collection | None:
+    def get_collection(self, collection_name: str | None = None, database_name: str | None = None) -> Collection | None:
         """Get a MongoDB collection.
 
         Args:
@@ -207,6 +212,9 @@ class MongoConnector:
         # Use specified database or get from initialization
         db = self.get_database(database_name)
 
+        if db is None:
+            raise ConnectionError("Database not initialized")
+
         # Use specified collection or the one from initialization
         coll_name = collection_name or self.collection_name
 
@@ -215,7 +223,7 @@ class MongoConnector:
 
         return db[coll_name]
 
-    def collection_exists(self, collection_name: str = None, database_name: str = None) -> bool:
+    def collection_exists(self, collection_name: str | None = None, database_name: str | None = None) -> bool:
         """Check if a collection exists.
 
         Args:
@@ -246,7 +254,7 @@ class MongoConnector:
         except:
             return False
 
-    def list_collections(self, database_name: str = None) -> list[str]:
+    def list_collections(self, database_name: str | None = None) -> list[str]:
         """List collections in a database.
 
         Args:
@@ -256,19 +264,21 @@ class MongoConnector:
             List of collection names
         """
         db = self.get_database(database_name)
+        if db is None:
+            raise ConnectionError("Database not initialized")
         return db.list_collection_names()
 
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def find(
         self,
-        query: dict[str, Any] = None,
-        projection: dict[str, Any] = None,
-        sort: list[tuple[str, int]] = None,
+        query: dict[str, Any] | None = None,
+        projection: dict[str, Any] | None = None,
+        sort: list[tuple[str, int]] | None = None,
         limit: int = 0,
         skip: int = 0,
-        batch_size: int = None,
-        collection_name: str = None,
-        database_name: str = None,
+        batch_size: int | None = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
     ) -> Cursor:
         """Find documents in a collection.
 
@@ -287,6 +297,8 @@ class MongoConnector:
         """
         try:
             collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
             cursor = collection.find(
                 filter=query or {},
                 projection=projection,
@@ -308,9 +320,9 @@ class MongoConnector:
 
     def count_documents(
         self,
-        query: dict[str, Any] = None,
-        collection_name: str = None,
-        database_name: str = None,
+        query: dict[str, Any] | None = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
     ) -> int:
         """Count documents in a collection.
 
@@ -324,6 +336,8 @@ class MongoConnector:
         """
         try:
             collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
             return collection.count_documents(query or {})
         except PyMongoError as e:
             self.logger.error(f"Error counting documents: {str(e)}")
@@ -359,8 +373,8 @@ class MongoConnector:
     def insert_document(
         self,
         document: dict[str, Any],
-        collection_name: str = None,
-        database_name: str = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
     ) -> Any:
         """Insert a document into a collection.
 
@@ -374,6 +388,8 @@ class MongoConnector:
         """
         try:
             collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
             result = collection.insert_one(document)
             return result.inserted_id
         except PyMongoError as e:
@@ -389,8 +405,8 @@ class MongoConnector:
         query: dict[str, Any],
         update: dict[str, Any],
         upsert: bool = False,
-        collection_name: str = None,
-        database_name: str = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
     ) -> int:
         """Update a document in a collection.
 
@@ -406,6 +422,8 @@ class MongoConnector:
         """
         try:
             collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
             result = collection.update_one(query, update, upsert=upsert)
             return result.modified_count
         except PyMongoError as e:
@@ -421,8 +439,8 @@ class MongoConnector:
         query: dict[str, Any],
         document: dict[str, Any],
         upsert: bool = False,
-        collection_name: str = None,
-        database_name: str = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
     ) -> int:
         """Replace a document in a collection.
 
@@ -438,6 +456,8 @@ class MongoConnector:
         """
         try:
             collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
             result = collection.replace_one(query, document, upsert=upsert)
             return result.modified_count
         except PyMongoError as e:
@@ -448,8 +468,8 @@ class MongoConnector:
     def bulk_insert(
         self,
         documents: list[dict[str, Any]],
-        collection_name: str = None,
-        database_name: str = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
         ordered: bool = True,
     ) -> int:
         """Insert multiple documents in bulk.
@@ -468,6 +488,8 @@ class MongoConnector:
 
         try:
             collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
             result = collection.insert_many(documents, ordered=ordered)
             return len(result.inserted_ids)
         except PyMongoError as e:
@@ -478,8 +500,8 @@ class MongoConnector:
     def bulk_update(
         self,
         documents: list[dict[str, Any]],
-        collection_name: str = None,
-        database_name: str = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
         ordered: bool = True,
     ) -> int:
         """Update multiple documents in bulk.
@@ -498,6 +520,8 @@ class MongoConnector:
 
         try:
             collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
 
             # Prepare bulk operations
             operations = []
@@ -522,10 +546,10 @@ class MongoConnector:
 
     def find_one(
         self,
-        query: dict[str, Any] = None,
-        projection: dict[str, Any] = None,
-        collection_name: str = None,
-        database_name: str = None,
+        query: dict[str, Any] | None = None,
+        projection: dict[str, Any] | None = None,
+        collection_name: str | None = None,
+        database_name: str | None = None,
     ) -> dict[str, Any] | None:
         """Find a single document in a collection.
 
@@ -540,6 +564,8 @@ class MongoConnector:
         """
         try:
             collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
             return collection.find_one(query or {}, projection)
         except PyMongoError as e:
             self.logger.error(f"Error finding document: {str(e)}")
