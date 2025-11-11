@@ -13,7 +13,7 @@ import logging
 import logging.handlers
 import os
 import sys
-from typing import Any
+from typing import Any, cast
 
 import multiprocessing_logging
 
@@ -38,10 +38,10 @@ class ColoredFormatter(logging.Formatter):
     def __init__(
         self,
         fmt: str,
-        datefmt: str = None,
+        datefmt: str | None = None,
         style: str = "%",
-        color_config: dict[str, str] = None,
-        style_config: dict[str, str] = None,
+        color_config: dict[str, str] | None = None,
+        style_config: dict[str, str] | None = None,
         separator: str = " | ",
     ):
         """Initialize the formatter with format and color configuration.
@@ -54,7 +54,8 @@ class ColoredFormatter(logging.Formatter):
             style_config: Mapping of log components to style
             separator: Separator for styled components
         """
-        super().__init__(fmt, datefmt, style)
+        # Cast style to the expected literal type for logging.Formatter
+        super().__init__(fmt, datefmt, cast(Any, style))
         self.color_config = color_config or {
             "DEBUG": "cyan",
             "INFO": "green",
@@ -137,7 +138,7 @@ class LoggerFactory:
         multiprocessing_logging.install_mp_handler()
 
     @classmethod
-    def get_logger(cls, name: str, component: str = None) -> logging.Logger:
+    def get_logger(cls, name: str, component: str | None = None) -> logging.Logger:
         """Get a logger configured according to settings.
 
         Args:
