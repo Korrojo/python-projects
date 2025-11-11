@@ -54,12 +54,12 @@ class MongoConnector:
     def __init__(
         self,
         uri: str,
-        database: str = None,
-        collection: str = None,
+        database: str | None = None,
+        collection: str | None = None,
         max_pool_size: int = 300,
         min_pool_size: int = 10,
         max_idle_time_ms: int = 30000,
-        auth_database: str = None,
+        auth_database: str | None = None,
     ):
         """Initialize the MongoDB connector.
 
@@ -88,9 +88,9 @@ class MongoConnector:
         self.auth_database = auth_database
 
         # Initialize client, db, and collection to None - DO NOT CONNECT HERE
-        self.client = None
-        self.db = None
-        self.coll = None  # For backward compatibility
+        self.client: MongoClient | None = None
+        self.db: Database | None = None
+        self.coll: Collection | None = None  # For backward compatibility
 
     @retry(max_attempts=3, delay=2)
     def connect(self) -> bool:
@@ -328,6 +328,32 @@ class MongoConnector:
         except PyMongoError as e:
             self.logger.error(f"Error counting documents: {str(e)}")
             raise ConnectionError(f"Error counting documents: {str(e)}")
+
+    def estimated_document_count(
+        self,
+        collection_name: str | None = None,
+        database_name: str | None = None,
+    ) -> int:
+        """Get an estimated count of documents in a collection.
+
+        This is faster than count_documents() but less accurate as it uses
+        collection metadata rather than scanning all documents.
+
+        Args:
+            collection_name: Optional collection name override
+            database_name: Optional database name override
+
+        Returns:
+            Estimated document count
+        """
+        try:
+            collection = self.get_collection(collection_name, database_name)
+            if collection is None:
+                raise ConnectionError("Collection not initialized")
+            return collection.estimated_document_count()
+        except PyMongoError as e:
+            self.logger.error(f"Error getting estimated document count: {str(e)}")
+            raise ConnectionError(f"Error getting estimated document count: {str(e)}")
 
     @retry(max_attempts=3, delay=1, backoff_factor=2.0)
     def insert_document(

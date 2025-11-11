@@ -248,7 +248,7 @@ class LoggerFactory:
 
 
 def setup_logging(
-    log_level: str = "INFO",
+    log_level: int | str = "INFO",
     environment: str | None = None,
     log_file: str | None = None,
     max_bytes: int = 10 * 1024 * 1024,  # 10MB by default
@@ -258,7 +258,7 @@ def setup_logging(
     """Set up logging configuration with enhanced rotation capabilities.
 
     Args:
-        log_level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        log_level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL) or integer
         environment: Environment name (e.g., DEV, TEST, PROD)
         log_file: Optional custom log file path, overrides default naming
         max_bytes: Maximum size in bytes before rotating the log file
@@ -277,11 +277,14 @@ def setup_logging(
         "yes",
     )
 
-    # Get numeric log level
-    numeric_level = getattr(logging, log_level.upper(), None)
-    if not isinstance(numeric_level, int):
-        print(f"Invalid log level: {log_level}")
-        numeric_level = logging.INFO
+    # Get numeric log level (handle both int and str)
+    if isinstance(log_level, int):
+        numeric_level = log_level
+    else:
+        numeric_level = getattr(logging, log_level.upper(), None)
+        if not isinstance(numeric_level, int):
+            print(f"Invalid log level: {log_level}")
+            numeric_level = logging.INFO
 
     # Get environment name
     env_name = environment.lower() if environment else "default"
