@@ -1,3 +1,7 @@
+import pytest
+
+
+@pytest.mark.unit
 def test_projects_importable():
     # Common library
     import importlib
