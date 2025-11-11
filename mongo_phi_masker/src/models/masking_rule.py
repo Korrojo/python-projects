@@ -3,6 +3,7 @@
 import enum
 import json
 import re
+from datetime import datetime as DateTime
 
 
 class MaskingRuleType(str, enum.Enum):
@@ -389,7 +390,7 @@ class RuleEngine:
                 from datetime import timedelta
 
                 ms_to_add = int(params) if params is not None else 0
-                new_dt = dt_value + timedelta(milliseconds=ms_to_add)
+                new_dt: DateTime = dt_value + timedelta(milliseconds=ms_to_add)
 
                 # Return in the same format as the input
                 if original_type is str:
@@ -419,7 +420,9 @@ class RuleEngine:
                             return new_dt.strftime("%Y-%m-%d")
                     else:
                         # Use the exact detected format
-                        return new_dt.strftime(original_format)
+                        # If format is somehow None, use ISO format as fallback
+                        fmt = original_format if original_format else "%Y-%m-%d"
+                        return new_dt.strftime(fmt)
 
                 return new_dt
 
@@ -443,7 +446,7 @@ class RuleEngine:
                 # Date shifting (alias for add_milliseconds)
                 return self._apply_rule_to_value(
                     value,
-                    MaskingRule(field=rule.field, rule="add_milliseconds", params=params),
+                    MaskingRule(field=rule.field, rule_type="add_milliseconds", params=params),
                 )
 
             else:
