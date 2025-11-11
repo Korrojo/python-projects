@@ -250,6 +250,59 @@ git push
 
 The config at parent level (`.pre-commit-config.yaml`) applies to all projects!
 
+## Important: Pre-Commit vs CI Differences
+
+### Key Difference
+
+⚠️ **Pre-commit hooks only run on CHANGED files, but CI checks ALL files in the repository.**
+
+This can cause a mismatch where:
+
+- ✅ Local pre-commit passes (only checks your modified files)
+- ❌ CI fails (checks ALL files, including old legacy files)
+
+### Example: Markdown Formatting
+
+You modify `README.md` and commit:
+
+- ✅ Pre-commit formats only `README.md` → passes
+- ❌ CI checks `README.md` AND all other .md files → fails on unformatted legacy files
+
+### One-Time Fix for Legacy Files
+
+When CI fails due to unformatted legacy files (that you didn't modify):
+
+```bash
+# Format all markdown files to match CI expectations
+./scripts/format-all-markdown.sh
+
+# Review and commit the changes
+git status
+git add .
+git commit -m "chore: Format legacy markdown files for CI compliance"
+```
+
+### Preventing Future Issues
+
+**Option 1: Run pre-commit on all files before pushing** (slower but safer)
+
+```bash
+pre-commit run --all-files
+git push
+```
+
+**Option 2: Trust that CI will catch issues** (faster but may fail)
+
+```bash
+git push  # Relies on CI to find problems
+```
+
+**Recommendation:** Use Option 2 for day-to-day work, but run Option 1 if you:
+
+- Modified configuration files (`.pre-commit-config.yaml`, `pyproject.toml`)
+- Added new file types
+- Want to ensure CI passes before creating a PR
+
 ## See Also
 
 - [.pre-commit-config.yaml](../.pre-commit-config.yaml) - Configuration

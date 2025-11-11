@@ -146,16 +146,16 @@ def build_mongo_uri(prefix, logger=None, db_name=None, coll_name=None):
 
 
 def setup_logging(
-    log_level="INFO",
-    log_file=None,
-    max_bytes=10 * 1024 * 1024,
-    backup_count=5,
-    use_timed_rotating=False,
+    log_level: int | str = "INFO",
+    log_file: str | None = None,
+    max_bytes: int = 10 * 1024 * 1024,
+    backup_count: int = 5,
+    use_timed_rotating: bool = False,
 ):
     """Set up logging configuration with rotation options.
 
     Args:
-        log_level (str): Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        log_level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL) or integer
         log_file (str): Path to log file, if None a default path is generated
         max_bytes (int): Maximum size in bytes before rotating the log file
         backup_count (int): Number of backup files to keep
@@ -1054,9 +1054,13 @@ Legacy usage:
                 write_concern = WriteConcern(w=1, j=False)
                 if args.in_situ:
                     # Access the actual collection object from the connector
+                    if source.coll is None:
+                        raise RuntimeError("Source collection not initialized")
                     collection = source.coll.with_options(write_concern=write_concern)
                 else:
                     # Access the actual collection object from the connector
+                    if destination.coll is None:
+                        raise RuntimeError("Destination collection not initialized")
                     collection = destination.coll.with_options(write_concern=write_concern)
 
                 logger.info(
