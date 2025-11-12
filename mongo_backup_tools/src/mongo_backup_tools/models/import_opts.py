@@ -1,11 +1,20 @@
 """Pydantic models for mongoimport operations."""
 
+from enum import Enum
 from pathlib import Path
 from typing import List, Optional
 
 from pydantic import Field, field_validator
 
 from .base import BaseOperationOptions
+
+
+class ImportMode(str, Enum):
+    """Import mode options."""
+
+    INSERT = "insert"
+    UPSERT = "upsert"
+    MERGE = "merge"
 
 
 class MongoImportOptions(BaseOperationOptions):

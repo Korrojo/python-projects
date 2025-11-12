@@ -2,8 +2,8 @@
 
 from .base import BaseOperationOptions, MongoConnectionOptions, PathOptions
 from .dump import MongoDumpOptions
-from .export import MongoExportOptions
-from .import_opts import MongoImportOptions
+from .export import ExportFormat, MongoExportOptions
+from .import_opts import ImportMode, MongoImportOptions
 from .restore import MongoRestoreOptions
 
 __all__ = [
@@ -14,4 +14,6 @@ __all__ = [
     "MongoRestoreOptions",
     "MongoExportOptions",
     "MongoImportOptions",
+    "ExportFormat",
+    "ImportMode",
 ]

@@ -1,11 +1,19 @@
 """Pydantic models for mongoexport operations."""
 
+from enum import Enum
 from pathlib import Path
 from typing import List, Optional
 
 from pydantic import Field, field_validator
 
 from .base import BaseOperationOptions
+
+
+class ExportFormat(str, Enum):
+    """Export format options."""
+
+    JSON = "json"
+    CSV = "csv"
 
 
 class MongoExportOptions(BaseOperationOptions):
