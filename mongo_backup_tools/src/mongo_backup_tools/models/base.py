@@ -1,9 +1,9 @@
 """Base models for MongoDB operations."""
 
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class MongoConnectionOptions(BaseModel):
@@ -78,6 +78,31 @@ class BaseOperationOptions(BaseModel):
         if v and "$" in v and not v.startswith("system."):
             raise ValueError("Collection name cannot contain '$' unless system collection")
         return v
+
+    @model_validator(mode="before")
+    @classmethod
+    def handle_flat_connection_fields(cls, data: Any) -> Any:
+        """Handle flat connection fields and nest them in connection object."""
+        if isinstance(data, dict):
+            # Extract connection fields if they exist (only non-None values)
+            connection_fields = {}
+            for field in ["uri", "host", "port", "username", "password", "auth_database"]:
+                if field in data and data[field] is not None:
+                    connection_fields[field] = data.pop(field)
+                elif field in data:
+                    # Remove None values
+                    data.pop(field)
+
+            # If any connection fields were provided, create/update connection object
+            if connection_fields:
+                if "connection" in data:
+                    # Merge with existing connection
+                    data["connection"].update(connection_fields)
+                else:
+                    # Create new connection
+                    data["connection"] = connection_fields
+
+        return data
 
 
 class PathOptions(BaseModel):

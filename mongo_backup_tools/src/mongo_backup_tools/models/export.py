@@ -22,7 +22,7 @@ class MongoExportOptions(BaseOperationOptions):
     # Output options
     output_file: Optional[Path] = Field(None, description="Output file (auto-generated if not specified)")
     export_format: str = Field("json", description="Export format: json or csv")
-    fields: Optional[str] = Field(None, description="Fields to export (comma-separated, required for CSV)")
+    fields: Optional[List[str]] = Field(None, description="Fields to export (required for CSV)")
     pretty_print: bool = Field(False, description="Pretty-print JSON output")
 
     # Query options
@@ -79,7 +79,7 @@ class MongoExportOptions(BaseOperationOptions):
     def validate_csv_requirements(self) -> None:
         """Validate CSV export has required fields."""
         if self.export_format == "csv" and not self.fields:
-            raise ValueError("CSV export requires --fields parameter")
+            raise ValueError("CSV export fields parameter is required")
 
     def get_script_args(self) -> List[str]:
         """Convert options to shell script arguments."""
@@ -102,7 +102,7 @@ class MongoExportOptions(BaseOperationOptions):
 
         # Fields (for CSV)
         if self.fields:
-            args.extend(["--fields", self.fields])
+            args.extend(["--fields", ",".join(self.fields)])
 
         # Pretty print
         if self.pretty_print:
