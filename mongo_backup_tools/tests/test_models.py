@@ -3,6 +3,7 @@
 import pytest
 from pathlib import Path
 from pydantic import ValidationError
+from urllib.parse import parse_qs, urlparse
 
 from mongo_backup_tools.models.base import MongoConnectionOptions
 from mongo_backup_tools.models.dump import MongoDumpOptions
@@ -26,7 +27,11 @@ class TestMongoConnectionOptions:
         """Test building URI from components."""
         opts = MongoConnectionOptions(host="example.com", port=27018)
         uri = opts.build_uri()
-        assert "example.com:27018" in uri
+        # Parse URI properly instead of substring matching
+        parsed = urlparse(uri)
+        assert parsed.scheme == "mongodb"
+        assert parsed.hostname == "example.com"
+        assert parsed.port == 27018
 
     def test_build_uri_with_auth(self):
         """Test building URI with authentication."""
@@ -37,9 +42,15 @@ class TestMongoConnectionOptions:
             auth_database="admin",
         )
         uri = opts.build_uri()
-        assert "user:pass" in uri
-        assert "example.com" in uri
-        assert "authSource=admin" in uri
+        # Parse URI properly instead of substring matching
+        parsed = urlparse(uri)
+        assert parsed.scheme == "mongodb"
+        assert parsed.hostname == "example.com"
+        assert parsed.username == "user"
+        assert parsed.password == "pass"
+        # Check query parameters
+        query_params = parse_qs(parsed.query)
+        assert query_params.get("authSource") == ["admin"]
 
     def test_uri_validation(self):
         """Test URI validation."""
