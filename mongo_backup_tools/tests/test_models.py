@@ -93,10 +93,11 @@ class TestMongoDumpOptions:
             gzip=True,
         )
         args = opts.get_script_args()
-        assert "--host" in args
-        assert "example.com" in args
-        assert "--port" in args
-        assert "27018" in args
+        assert "--uri" in args
+        uri_index = args.index("--uri")
+        uri = args[uri_index + 1]
+        assert "example.com" in uri
+        assert "27018" in uri
         assert "--db" in args
         assert "testdb" in args
         assert "--gzip" in args
@@ -125,11 +126,11 @@ class TestMongoRestoreOptions:
     def test_namespace_validation(self):
         """Test namespace pair validation."""
         # Both or neither should be specified
-        with pytest.raises(ValidationError):
-            opts = MongoRestoreOptions(
-                input_dir=Path("dump"),
-                ns_from="olddb.oldcoll",
-            )
+        opts = MongoRestoreOptions(
+            input_dir=Path("dump"),
+            ns_from="olddb.oldcoll",
+        )
+        with pytest.raises(ValueError, match="nsFrom.*nsTo.*together"):
             opts.validate_namespace_pair()
 
 
