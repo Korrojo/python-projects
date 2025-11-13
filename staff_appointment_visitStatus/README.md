@@ -12,7 +12,7 @@ key appointment details.
 > This project is now integrated with the shared `common_config` package used across the workspace. By default it reads
 > settings from the unified environment:
 >
-> - Global `.env` locations (precedence): `shared_config/.env` < `config/.env` < project `.env` < OS env vars
+> - Global `.env` locations (precedence): `shared_config/.env` \< `config/.env` \< project `.env` \< OS env vars
 > - Select environment via `APP_ENV` (dev, stg, stg1, stg2, trng, perf, phi, prprd, prod). For example, set
 >   `APP_ENV=stg` to map `MONGODB_URI_STG` → `MONGODB_URI` implicitly.
 > - When not provided via CLI, defaults for `--uri`, `--database`, `--collection`, and output folders come from
@@ -28,12 +28,24 @@ key appointment details.
   - Reuses one MongoDB connection for batch processing
   - Prints JSON lines and writes CSV output
 - `visit_status_report.py` — CSV-to-CSV tool that appends VisitStatus
-  - Reads `data/input/input_20251009.csv` with headers:
-    `PatientRef, VisitTypeValue, AthenaAppointmentId, AvailabilityDate, VisitStatus`
-  - Uses the first four fields for filtering and overwrites `VisitStatus` from DB
-  - Duplicates the input row for each matched appointment; blanks VisitStatus if no match
+  - Input headers (CSV): `PatientRef, VisitTypeValue, AthenaAppointmentId, AvailabilityDate`
+  - Per-row filters (configurable via `--filters`): any of `AthenaAppointmentId` (token: `athena_appt_id`), `PatientRef`
+    (token: `patient_id`), and `VisitTypeValue` (token: `visit_type`)
+  - Date handling:
+    - Default global date window: `AvailabilityDate` between `2025-06-28` and `2025-10-15` (inclusive)
+    - Overridable via `--date_mode window --start_date YYYY-MM-DD --end_date YYYY-MM-DD`, or use per-row exact date with
+      `--date_mode per_row`
+  - Overwrites `VisitStatus` from DB; output also includes `VisitTypeValue` and a `Comment` column
+  - If multiple appointments match, emits multiple rows (one per match)
+  - If no match, writes a row with `VisitStatus` blank and `Comment = "match not found"`
+  - `AvailabilityDate` in the output is normalized to `YYYY-MM-DD`
   - When `--output_csv` is not provided, the file is saved under the shared `data/output` path from `common_config`
     (e.g., `<repo>/common_project/data/output/...` depending on settings)
+- `visit_status_report_threecol.py` — Variant VisitStatus appender that relies on `PatientRef`, `AvailabilityDate`, and
+  `VisitTypeValue` only
+  - Designed for extracts that lack `AthenaAppointmentId`
+  - Exact date matches are required; multiple matches emit multiple rows
+  - Exposed via the Typer command `run.py report-threecol`
 - `agg_query.js` — Equivalent aggregation pipeline for Mongo shell / NoSQLBooster
 - `data/`
   - `input/`
@@ -53,10 +65,12 @@ key appointment details.
 
 Both `agg_query_runner.py` and `agg_query.js` use the same logic:
 
-- `$match` (hard-coded filters):
+- `$match` (defaults and filters):
   - `IsActive: true`
-  - `AvailabilityDate >= 2025-06-30T00:00:00Z`
-  - Existence of at least one appointment in `Slots.Appointments[]` with the target `(AthenaAppointmentId, PatientRef)`
+  - Default `AvailabilityDate` window `2025-06-28T00:00:00Z` to `2025-10-15T23:59:59Z` (overridable via CLI in window
+    mode)
+  - Existence of at least one appointment in `Slots.Appointments[]` matching the selected filter fields
+    (`athena_appt_id`, `patient_id`, `visit_type`)
 - `$project` with `$map` + `$filter` to keep only matching appointments per slot
 - `$unwind` twice to flatten each matching appointment to a separate row
 - Final `$project` to produce a clean, flat record with these columns:
@@ -101,13 +115,13 @@ Examples:
 - Default (uses the hard-coded `DEFAULT_URI`):
 
   ```powershell
-  .venv\Scripts\python.exe agg_query_runner.py --athena_id 10025 --patient_ref 7010699
+  .venv\Scripts\python.exe agg_query_runner.py --athena_appt_id 10025 --patient_ref 7010699
   ```
 
 - Overriding the URI (e.g., default local port):
 
   ```powershell
-  .venv\Scripts\python.exe agg_query_runner.py --athena_id 10025 --patient_ref 7010699 --uri "mongodb://localhost:27017"
+  .venv\Scripts\python.exe agg_query_runner.py --athena_appt_id 10025 --patient_ref 7010699 --uri "mongodb://localhost:27017"
   ```
 
 ## Usage
@@ -117,7 +131,7 @@ Examples:
 - PowerShell (one line):
 
   ```powershell
-  .venv\Scripts\python.exe agg_query_runner.py --athena_id 10025 --patient_ref 7010699
+  .venv\Scripts\python.exe agg_query_runner.py --athena_appt_id 10025 --patient_ref 7010699
   ```
 
 - Output:
@@ -154,14 +168,76 @@ Examples:
 
 - Input file format (CSV headers):
 
-  - `PatientRef, VisitTypeValue, AthenaAppointmentId, AvailabilityDate, VisitStatus`
+  - `PatientRef, VisitTypeValue, AthenaAppointmentId, AvailabilityDate`
 
 - Behavior:
 
-  - Uses `PatientRef`, `VisitTypeValue`, `AthenaAppointmentId`, `AvailabilityDate` for filtering.
-  - Overwrites `VisitStatus` with the value from MongoDB.
+  - Filters are configurable via `--filters` using tokens: `athena_appt_id`, `patient_id`, `visit_type`.
+  - Default global date window applies (`2025-06-28`..`2025-10-15`) unless overridden; or use per-row exact dates with
+    `--date_mode per_row`.
+  - Overwrites `VisitStatus` with the value from MongoDB; output includes `VisitTypeValue` and `Comment`.
   - If multiple appointments match, emits multiple rows (one per match).
-  - If no match, writes a row with `VisitStatus` blank.
+  - If no match, writes a row with `VisitStatus` blank and `Comment = "match not found"`.
+  - Output `AvailabilityDate` is normalized to `YYYY-MM-DD`.
+
+- Dynamic options:
+
+  - `--filters` (default: `athena_appt_id,patient_id,visit_type`)
+    - Comma-separated tokens: `athena_appt_id`, `patient_id`, `visit_type`
+    - Controls which appointment fields are used in the filter
+  - `--date_mode` (default: `window`)
+    - `window`: use global date window (see below)
+    - `per_row`: use `AvailabilityDate` from each CSV row (exact match)
+  - `--start_date`, `--end_date` (YYYY-MM-DD)
+    - Only used when `--date_mode=window`; override the script defaults
+
+#### Representative commands (Git Bash)
+
+- All three filters with actual input date range (used in recent run):
+
+```bash
+python staff_appointment_visitStatus/visit_status_report.py \
+  --input_file data/input/staff_appointment_visitStatus/Appointments_checkout_in_Athena_Sep_to_Nov_11-check_status_in_UB.csv \
+  --output_csv data/output/staff_appointment_visitStatus/20251110_000002_athena_visit_status_report.csv \
+  --filters "athena_appt_id,patient_id,visit_type" \
+  --date_mode window \
+  --start_date 2025-06-30 \
+  --end_date 2025-11-10
+```
+
+- Excluding patient_id (athena_appt_id + visit_type only):
+
+```bash
+python staff_appointment_visitStatus/visit_status_report.py \
+  --input_file data/input/staff_appointment_visitStatus/Appointments_checkout_in_Athena_Sep_to_Nov_11-check_status_in_UB.csv \
+  --output_csv data/output/staff_appointment_visitStatus/20251110_000004_athena_visit_status_report.csv \
+  --filters "athena_appt_id,visit_type" \
+  --date_mode window \
+  --start_date 2025-06-30 \
+  --end_date 2025-11-10
+```
+
+- Only athena_appt_id (widest appointment-level capture):
+
+```bash
+python staff_appointment_visitStatus/visit_status_report.py \
+  --input_file data/input/staff_appointment_visitStatus/Appointments_checkout_in_Athena_Sep_to_Nov_11-check_status_in_UB.csv \
+  --output_csv data/output/staff_appointment_visitStatus/20251110_000003_athena_visit_status_report.csv \
+  --filters "athena_appt_id" \
+  --date_mode window \
+  --start_date 2025-06-30 \
+  --end_date 2025-11-10
+```
+
+- Per-row exact date mode (requires AvailabilityDate in CSV):
+
+```bash
+python staff_appointment_visitStatus/visit_status_report.py \
+  --input_file data/input/staff_appointment_visitStatus/Appointments_checkout_in_Athena_Sep_to_Nov_11-check_status_in_UB.csv \
+  --output_csv data/output/staff_appointment_visitStatus/athena_visit_status_report_perrow.csv \
+  --filters "athena_appt_id,patient_id,visit_type" \
+  --date_mode per_row
+```
 
 - Example run:
 
@@ -169,6 +245,28 @@ Examples:
   .venv\Scripts\python.exe visit_status_report.py `
     --input_file data\input\input_20251010.csv `
     --output_csv data\output\output_20251010.csv
+  ```
+
+  Use only AthenaAppointmentId + PatientRef (ignore VisitTypeValue):
+
+  ```powershell
+  .venv\Scripts\python.exe visit_status_report.py `
+    --input_file data\input\input_20251010.csv `
+    --output_csv data\output\output_20251010.csv `
+    --filters "athena_appt_id,patient_id" `
+    --date_mode window `
+    --start_date 2025-06-28 `
+    --end_date 2025-10-15
+  ```
+
+  Per-row exact date matching with all three filters:
+
+  ```powershell
+  .venv\Scripts\python.exe visit_status_report.py `
+    --input_file data\input\input_20251010.csv `
+    --output_csv data\output\output_20251010.csv `
+    --filters "athena_appt_id,patient_id,visit_type" `
+    --date_mode per_row
   ```
 
   Using an SRV MongoDB URI (mongodb+srv):
@@ -193,6 +291,39 @@ Examples:
     prints a final "CSV saved" line.
   - It uses Python's builtin `csv` module (no pandas dependency).
   - If `--output_csv` is omitted, the output path defaults to the shared `data/output` directory from `common_config`.
+
+### Visit Status Report (three-column variant)
+
+- Input file format (CSV headers):
+
+  - `PatientRef, AvailabilityDate, VisitTypeValue`
+
+- Behavior:
+
+  - Filters using patient, visit type, and exact availability timestamp (UTC is preferred; common date formats are
+    parsed).
+  - Overwrites/creates a `VisitStatus` column in the output; every matching appointment produces a row.
+  - When no match is found, the row is emitted with an empty `VisitStatus`.
+  - Hard-coded filters still require `IsActive=true` and default to `AvailabilityDate >= 2025-06-30` if the input date
+    is missing or unparsable.
+
+- Example run (leveraging unified settings via `shared_config/.env`):
+
+  ```powershell
+  python staff_appointment_visitStatus/run.py report-threecol `
+    --input staff_appointment_visitStatus/vist_ststus_input.csv `
+    --output staff_appointment_visitStatus/data/output/visit_status_results.csv
+  ```
+
+  Provide `--env prod` (or another environment) if your shared `.env` uses suffixed variables such as
+  `MONGODB_URI_PROD`. The Typer wrapper sets `APP_ENV` automatically before invoking the script.
+
+- Notes:
+
+  - The script mirrors the original reporter's logging and output conventions.
+  - Rows with unparsable dates are logged and written with blank VisitStatus to aid clean-up.
+  - Because `AthenaAppointmentId` is not part of the filter, duplicates may occur when multiple appointments share the
+    same patient, date, and visit type.
 
 ### Performance flags
 
@@ -252,8 +383,9 @@ These allow MongoDB to reduce the candidate documents early and quickly locate m
 
 ## Current limitations
 
-- **Hard-coded filters**: `IsActive=true` and `AvailabilityDate >= 2025-06-30` are compiled into the scripts. Adjust
-  them in code if needed (`HARD_CODED_IS_ACTIVE`, `HARD_CODED_START_DATE`).
+- **Defaults**: `IsActive=true` is fixed; the default `AvailabilityDate` window is `2025-06-28` through `2025-10-15`,
+  but you can override it via CLI (`--date_mode window --start_date --end_date`). Code constants are
+  `HARD_CODED_IS_ACTIVE`, `HARD_CODED_START_DATE`, `HARD_CODED_END_DATE`.
 - **Input parsing (agg_query_runner.py)**: first two columns only (numeric). Rows with blanks/non-numeric are skipped.
 - **Input parsing (visit_status_report.py)**: reads all required headers via `csv.DictReader`.
 - **Console verbosity**: Printing every JSON/result row can slow very large batches.
@@ -278,22 +410,14 @@ These allow MongoDB to reduce the candidate documents early and quickly locate m
 
 ## Logging & Troubleshooting
 
-- Both scripts print progress to stdout. For more verbose diagnostics, use Python unbuffered mode:
+- Logs are written automatically to `logs/staff-appointment-visitStatus/<YYYYMMDD_HHMMSS>_app.log`.
+
+- To change the base log directory, set `LOG_DIR` (or `LOG_DIR_<ENV>`) in `shared_config/.env`.
+
+- For more verbose diagnostics, you can run Python in unbuffered mode:
 
   ```powershell
-  .venv\Scripts\python.exe -u visit_status_report.py --input_file data\input\input_20251009.csv --output_csv data\output\input_20251009_with_status.csv
-  ```
-
-- To capture logs in PowerShell:
-
-  ```powershell
-  New-Item -ItemType Directory -Force -Path .\logs | Out-Null
-  $log = ".\logs\visit_status_report_$((Get-Date).ToString('yyyyMMdd_HHmmss')).log"
-  .\.venv\Scripts\python.exe -X dev -X faulthandler -u visit_status_report.py `
-    --input_file data\input\input_20251009.csv `
-    --output_csv data\output\input_20251009_with_status.csv `
-    2>&1 | Tee-Object -FilePath $log
-  Write-Host "Saved log:" $log
+  .venv\Scripts\python.exe -u staff_appointment_visitStatus\visit_status_report.py --input_file data\input\... --output_csv data\output\...
   ```
 
 - If you see connection errors, verify the URI and port match your environment. Default MongoDB port is 27017.
