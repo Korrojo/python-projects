@@ -7,9 +7,9 @@ from pathlib import Path
 @pytest.mark.unit
 def test_imports():
     """All modules can be imported without errors."""
-    import mongo_backup_tools
+    import src
 
-    assert mongo_backup_tools.__version__ is not None
+    assert src.__version__ is not None
 
 
 @pytest.mark.unit
@@ -35,8 +35,8 @@ def test_project_structure():
     project_root = Path(__file__).parent.parent
 
     expected_paths = [
-        project_root / "mongo_backup_tools" / "__init__.py",
-        project_root / "mongo_backup_tools" / "cli.py",
+        project_root / "src" / "__init__.py",
+        project_root / "src" / "cli.py",
         project_root / "run.py",
         project_root / "pyproject.toml",
         project_root / "tests" / "__init__.py",
@@ -49,7 +49,7 @@ def test_project_structure():
 @pytest.mark.unit
 def test_cli_entry_point():
     """CLI app can be instantiated."""
-    from mongo_backup_tools.cli import app
+    from src.cli import app
 
     assert app is not None
     assert hasattr(app, "__call__")
@@ -59,7 +59,7 @@ def test_cli_entry_point():
 def test_version_command():
     """Version command works."""
     from typer.testing import CliRunner
-    from mongo_backup_tools.cli import app
+    from src.cli import app
 
     runner = CliRunner()
     result = runner.invoke(app, ["version"])

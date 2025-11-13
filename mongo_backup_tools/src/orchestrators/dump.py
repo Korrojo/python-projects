@@ -1,7 +1,7 @@
 """Orchestrator for mongodump operations."""
 
-from ..models.dump import MongoDumpOptions
-from .base import BaseOrchestrator, MongoOperationResult
+from models.dump import MongoDumpOptions
+from orchestrators.base import BaseOrchestrator, MongoOperationResult
 
 
 class MongoDumpOrchestrator(BaseOrchestrator):

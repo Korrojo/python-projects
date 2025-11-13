@@ -4,7 +4,7 @@ import subprocess
 from pathlib import Path
 from typing import Optional
 
-from ..models.base import BaseOperationOptions
+from models.base import BaseOperationOptions
 
 
 class MongoOperationResult:
@@ -38,7 +38,7 @@ class BaseOrchestrator:
 
     def _get_script_path(self) -> Path:
         """Get absolute path to the shell script."""
-        # scripts are in src/mongo_backup_tools/scripts/<operation>/<script>.sh
+        # scripts are in src/scripts/<operation>/<script>.sh
         module_dir = Path(__file__).parent.parent
         scripts_dir = module_dir / "scripts"
 

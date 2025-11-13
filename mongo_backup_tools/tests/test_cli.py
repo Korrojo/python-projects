@@ -4,8 +4,8 @@ import pytest
 from typer.testing import CliRunner
 from unittest.mock import patch
 
-from mongo_backup_tools.cli import app
-from mongo_backup_tools.orchestrators.base import MongoOperationResult
+from src.cli import app
+from src.orchestrators.base import MongoOperationResult
 
 
 @pytest.fixture
@@ -63,8 +63,8 @@ class TestCLICommands:
 class TestDumpCommand:
     """Test dump command."""
 
-    @patch("mongo_backup_tools.orchestrators.dump.MongoDumpOrchestrator.dump")
-    @patch("mongo_backup_tools.orchestrators.dump.MongoDumpOrchestrator.validate_prerequisites")
+    @patch("src.cli.MongoDumpOrchestrator.dump")
+    @patch("src.cli.MongoDumpOrchestrator.validate_prerequisites")
     def test_dump_success(self, mock_validate, mock_dump, runner, tmp_path):
         """Test successful dump command."""
         mock_validate.return_value = None
@@ -91,8 +91,8 @@ class TestDumpCommand:
         assert "completed successfully" in result.stdout.lower()
         assert mock_dump.called
 
-    @patch("mongo_backup_tools.orchestrators.dump.MongoDumpOrchestrator.dump")
-    @patch("mongo_backup_tools.orchestrators.dump.MongoDumpOrchestrator.validate_prerequisites")
+    @patch("src.cli.MongoDumpOrchestrator.dump")
+    @patch("src.cli.MongoDumpOrchestrator.validate_prerequisites")
     def test_dump_failure(self, mock_validate, mock_dump, runner, tmp_path):
         """Test failed dump command."""
         mock_validate.return_value = None
@@ -123,8 +123,8 @@ class TestDumpCommand:
 class TestRestoreCommand:
     """Test restore command."""
 
-    @patch("mongo_backup_tools.orchestrators.restore.MongoRestoreOrchestrator.restore")
-    @patch("mongo_backup_tools.orchestrators.restore.MongoRestoreOrchestrator.validate_prerequisites")
+    @patch("src.cli.MongoRestoreOrchestrator.restore")
+    @patch("src.cli.MongoRestoreOrchestrator.validate_prerequisites")
     def test_restore_success(self, mock_validate, mock_restore, runner, tmp_path):
         """Test successful restore command."""
         mock_validate.return_value = None
@@ -154,8 +154,8 @@ class TestRestoreCommand:
 class TestExportCommand:
     """Test export command."""
 
-    @patch("mongo_backup_tools.orchestrators.export.MongoExportOrchestrator.export")
-    @patch("mongo_backup_tools.orchestrators.export.MongoExportOrchestrator.validate_prerequisites")
+    @patch("src.cli.MongoExportOrchestrator.export")
+    @patch("src.cli.MongoExportOrchestrator.validate_prerequisites")
     def test_export_success(self, mock_validate, mock_export, runner, tmp_path):
         """Test successful export command."""
         mock_validate.return_value = None
@@ -182,8 +182,8 @@ class TestExportCommand:
         assert "completed successfully" in result.stdout.lower()
         assert mock_export.called
 
-    @patch("mongo_backup_tools.orchestrators.export.MongoExportOrchestrator.export")
-    @patch("mongo_backup_tools.orchestrators.export.MongoExportOrchestrator.validate_prerequisites")
+    @patch("src.cli.MongoExportOrchestrator.export")
+    @patch("src.cli.MongoExportOrchestrator.validate_prerequisites")
     def test_csv_export(self, mock_validate, mock_export, runner):
         """Test CSV export."""
         mock_validate.return_value = None
@@ -220,8 +220,8 @@ class TestExportCommand:
 class TestImportCommand:
     """Test import command."""
 
-    @patch("mongo_backup_tools.orchestrators.import_orch.MongoImportOrchestrator.import_data")
-    @patch("mongo_backup_tools.orchestrators.import_orch.MongoImportOrchestrator.validate_prerequisites")
+    @patch("src.cli.MongoImportOrchestrator.import_data")
+    @patch("src.cli.MongoImportOrchestrator.validate_prerequisites")
     def test_import_success(self, mock_validate, mock_import, runner, tmp_path):
         """Test successful import command."""
         mock_validate.return_value = None
@@ -253,8 +253,8 @@ class TestImportCommand:
         assert "completed successfully" in result.stdout.lower()
         assert mock_import.called
 
-    @patch("mongo_backup_tools.orchestrators.import_orch.MongoImportOrchestrator.import_data")
-    @patch("mongo_backup_tools.orchestrators.import_orch.MongoImportOrchestrator.validate_prerequisites")
+    @patch("src.cli.MongoImportOrchestrator.import_data")
+    @patch("src.cli.MongoImportOrchestrator.validate_prerequisites")
     def test_upsert_import(self, mock_validate, mock_import, runner, tmp_path):
         """Test upsert import mode."""
         mock_validate.return_value = None

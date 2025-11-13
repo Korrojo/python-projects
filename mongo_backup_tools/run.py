@@ -6,7 +6,7 @@ from pathlib import Path
 # Add src to path for local development
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from mongo_backup_tools.cli import app  # noqa: E402
+from cli import app  # noqa: E402
 
 if __name__ == "__main__":
     app()

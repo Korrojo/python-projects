@@ -14,14 +14,14 @@ import os
 import pytest
 from pymongo import MongoClient
 
-from mongo_backup_tools.models.dump import MongoDumpOptions
-from mongo_backup_tools.models.export import MongoExportOptions
-from mongo_backup_tools.models.import_opts import MongoImportOptions
-from mongo_backup_tools.models.restore import MongoRestoreOptions
-from mongo_backup_tools.orchestrators.dump import MongoDumpOrchestrator
-from mongo_backup_tools.orchestrators.export import MongoExportOrchestrator
-from mongo_backup_tools.orchestrators.import_orch import MongoImportOrchestrator
-from mongo_backup_tools.orchestrators.restore import MongoRestoreOrchestrator
+from src.models.dump import MongoDumpOptions
+from src.models.export import MongoExportOptions
+from src.models.import_opts import MongoImportOptions
+from src.models.restore import MongoRestoreOptions
+from src.orchestrators.dump import MongoDumpOrchestrator
+from src.orchestrators.export import MongoExportOrchestrator
+from src.orchestrators.import_orch import MongoImportOrchestrator
+from src.orchestrators.restore import MongoRestoreOrchestrator
 
 # Environment configurations
 LOCL_CONFIG = {

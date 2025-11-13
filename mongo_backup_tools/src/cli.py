@@ -5,14 +5,16 @@ from typing import List, Optional
 
 import typer
 
-from mongo_backup_tools.models.dump import MongoDumpOptions
-from mongo_backup_tools.models.export import ExportFormat, MongoExportOptions
-from mongo_backup_tools.models.import_opts import ImportMode, MongoImportOptions
-from mongo_backup_tools.models.restore import MongoRestoreOptions
-from mongo_backup_tools.orchestrators.dump import MongoDumpOrchestrator
-from mongo_backup_tools.orchestrators.export import MongoExportOrchestrator
-from mongo_backup_tools.orchestrators.import_orch import MongoImportOrchestrator
-from mongo_backup_tools.orchestrators.restore import MongoRestoreOrchestrator
+__version__ = "1.0.0"
+
+from models.dump import MongoDumpOptions
+from models.export import ExportFormat, MongoExportOptions
+from models.import_opts import ImportMode, MongoImportOptions
+from models.restore import MongoRestoreOptions
+from orchestrators.dump import MongoDumpOrchestrator
+from orchestrators.export import MongoExportOrchestrator
+from orchestrators.import_orch import MongoImportOrchestrator
+from orchestrators.restore import MongoRestoreOrchestrator
 
 app = typer.Typer(
     name="mongo-backup-tools",
@@ -24,8 +26,6 @@ app = typer.Typer(
 @app.command("version")
 def show_version():
     """Show version information."""
-    from mongo_backup_tools import __version__
-
     typer.echo(f"mongo-backup-tools version {__version__}")
 
 
