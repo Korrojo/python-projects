@@ -101,6 +101,8 @@ show_version() {
 # Parse import-specific arguments
 #######################################
 parse_import_args() {
+    local remaining_args=()
+
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --file)
@@ -148,14 +150,21 @@ parse_import_args() {
                 exit 0
                 ;;
             *)
-                # Let config_parser handle common arguments
-                break
+                # Save unrecognized arguments for config_parser
+                remaining_args+=("$1")
+                # If this looks like an option with a value, save both
+                if [[ "$1" == --* ]] && [[ $# -gt 1 ]] && [[ "$2" != --* ]]; then
+                    remaining_args+=("$2")
+                    shift 2
+                else
+                    shift
+                fi
                 ;;
         esac
     done
 
     # Parse remaining arguments with common parser
-    parse_args "$@"
+    parse_args "${remaining_args[@]}"
 }
 
 #######################################

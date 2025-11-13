@@ -70,6 +70,12 @@ update_state() {
     local key="$1"
     local value="$2"
 
+    # Skip if STATE_FILE is not defined (resume not enabled)
+    if [[ -z "${STATE_FILE:-}" ]]; then
+        log_debug "State tracking not enabled, skipping update: $key=$value"
+        return 0
+    fi
+
     if [[ ! -f "$STATE_FILE" ]]; then
         log_warn "State file not found: $STATE_FILE"
         return 1
@@ -100,6 +106,11 @@ update_state() {
 get_state() {
     local key="$1"
 
+    # Skip if STATE_FILE is not defined (resume not enabled)
+    if [[ -z "${STATE_FILE:-}" ]]; then
+        return 1
+    fi
+
     if [[ ! -f "$STATE_FILE" ]]; then
         log_warn "State file not found: $STATE_FILE"
         return 1
@@ -120,6 +131,12 @@ get_state() {
 #######################################
 add_completed_item() {
     local item="$1"
+
+    # Skip if STATE_FILE is not defined (resume not enabled)
+    if [[ -z "${STATE_FILE:-}" ]]; then
+        log_debug "State tracking not enabled, skipping: $item"
+        return 0
+    fi
 
     if [[ ! -f "$STATE_FILE" ]]; then
         log_warn "State file not found: $STATE_FILE"
@@ -149,6 +166,12 @@ add_failed_item() {
     local item="$1"
     local error="${2:-Unknown error}"
 
+    # Skip if STATE_FILE is not defined (resume not enabled)
+    if [[ -z "${STATE_FILE:-}" ]]; then
+        log_debug "State tracking not enabled, skipping failed item: $item"
+        return 0
+    fi
+
     if [[ ! -f "$STATE_FILE" ]]; then
         log_warn "State file not found: $STATE_FILE"
         return 1
@@ -176,6 +199,11 @@ add_failed_item() {
 #######################################
 is_item_completed() {
     local item="$1"
+
+    # Skip if STATE_FILE is not defined (resume not enabled)
+    if [[ -z "${STATE_FILE:-}" ]]; then
+        return 1
+    fi
 
     if [[ ! -f "$STATE_FILE" ]]; then
         return 1
@@ -208,6 +236,11 @@ complete_operation() {
 # Clean up state file
 #######################################
 cleanup_state() {
+    # Skip if STATE_FILE is not defined (resume not enabled)
+    if [[ -z "${STATE_FILE:-}" ]]; then
+        return 0
+    fi
+
     if [[ -f "$STATE_FILE" ]]; then
         log_debug "Cleaning up state file: $STATE_FILE"
         rm -f "$STATE_FILE" "${STATE_FILE}.log" "${STATE_FILE}.bak"
@@ -218,6 +251,11 @@ cleanup_state() {
 # Print state summary
 #######################################
 print_state_summary() {
+    # Skip if STATE_FILE is not defined (resume not enabled)
+    if [[ -z "${STATE_FILE:-}" ]]; then
+        return 0
+    fi
+
     if [[ ! -f "$STATE_FILE" ]]; then
         return 1
     fi
