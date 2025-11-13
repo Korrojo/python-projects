@@ -101,11 +101,14 @@ def locl_test_collection(locl_client, test_data):
         "config": LOCL_CONFIG,
     }
 
-    # Cleanup
+    # Cleanup - ignore errors if collection doesn't exist or DB unavailable
     try:
         collection.delete_many({})
-    except Exception:
-        pass
+    except Exception as e:
+        # Cleanup failures are acceptable in test fixtures
+        import logging
+
+        logging.debug(f"Cleanup failed (ignored): {e}")
 
 
 @pytest.fixture
@@ -131,11 +134,14 @@ def dev_test_collection(dev_client, test_data):
         "config": DEV_CONFIG,
     }
 
-    # Cleanup
+    # Cleanup - ignore errors if collection doesn't exist or DB unavailable
     try:
         collection.delete_many({})
-    except Exception:
-        pass
+    except Exception as e:
+        # Cleanup failures are acceptable in test fixtures
+        import logging
+
+        logging.debug(f"Cleanup failed (ignored): {e}")
 
 
 # =============================================================================
