@@ -35,8 +35,8 @@ def test_project_structure():
     project_root = Path(__file__).parent.parent
 
     expected_paths = [
-        project_root / "src" / "mongo_backup_tools" / "__init__.py",
-        project_root / "src" / "mongo_backup_tools" / "cli.py",
+        project_root / "mongo_backup_tools" / "__init__.py",
+        project_root / "mongo_backup_tools" / "cli.py",
         project_root / "run.py",
         project_root / "pyproject.toml",
         project_root / "tests" / "__init__.py",
