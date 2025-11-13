@@ -69,7 +69,7 @@ def dump(
             database=database,
             collections=collections or [],
             query=query,
-            output_dir=output_dir or Path("dump"),
+            output_dir=output_dir,  # None by default, model will set centralized path
             archive_file=archive,
             gzip=gzip,
             parallel_jobs=parallel_jobs,
