@@ -138,12 +138,80 @@ parse_args() {
                 OUTPUT_DIR="$2"
                 shift 2
                 ;;
+            --dir)
+                BACKUP_DIR="$2"
+                shift 2
+                ;;
+            --file|-f)
+                FILE_PATH="$2"
+                shift 2
+                ;;
+            --type|-t)
+                EXPORT_TYPE="$2"
+                shift 2
+                ;;
+            --mode)
+                IMPORT_MODE="$2"
+                shift 2
+                ;;
+            --fields)
+                FIELDS="$2"
+                shift 2
+                ;;
+            --query)
+                QUERY="$2"
+                shift 2
+                ;;
+            --sort)
+                SORT="$2"
+                shift 2
+                ;;
+            --limit)
+                LIMIT="$2"
+                shift 2
+                ;;
+            --skip)
+                SKIP="$2"
+                shift 2
+                ;;
+            --upsertFields)
+                UPSERT_FIELDS="$2"
+                shift 2
+                ;;
+            --pretty)
+                PRETTY=true
+                shift
+                ;;
+            --headerline)
+                HEADERLINE=true
+                shift
+                ;;
+            --jsonArray)
+                JSON_ARRAY=true
+                shift
+                ;;
+            --drop)
+                DROP=true
+                shift
+                ;;
+            --stopOnError)
+                STOP_ON_ERROR=true
+                shift
+                ;;
+            --ignoreBlanks)
+                IGNORE_BLANKS=true
+                shift
+                ;;
             --archive)
                 ARCHIVE_FILE="$2"
                 shift 2
                 ;;
             --gzip)
                 USE_GZIP=true
+                shift
+                ;;
+            --no-gzip)
+                USE_GZIP=false
                 shift
                 ;;
             --parallel|-j)

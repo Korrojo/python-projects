@@ -3,16 +3,27 @@
 from pathlib import Path
 from typing import List, Optional
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 
-from .base import BaseOperationOptions
+from models.base import BaseOperationOptions
+
+
+def _get_default_output_dir() -> Path:
+    """Get default output directory (centralized)."""
+    try:
+        from utils.paths import get_output_dir
+
+        return get_output_dir()
+    except Exception:
+        # Fallback for tests or if repo structure not available
+        return Path("dump")
 
 
 class MongoDumpOptions(BaseOperationOptions):
     """Configuration options for mongodump operation."""
 
     # Output options
-    output_dir: Path = Field(Path("dump"), description="Output directory for backups")
+    output_dir: Optional[Path] = Field(None, description="Output directory for backups")
     archive_file: Optional[Path] = Field(None, description="Create single archive file")
 
     # Backup options
@@ -58,6 +69,13 @@ class MongoDumpOptions(BaseOperationOptions):
             if "$" in coll and not coll.startswith("system."):
                 raise ValueError(f"Invalid collection name: {coll}")
         return v
+
+    @model_validator(mode="after")
+    def set_default_output_dir(self):
+        """Set default output directory if not provided."""
+        if self.output_dir is None:
+            self.output_dir = _get_default_output_dir()
+        return self
 
     def get_script_args(self) -> List[str]:
         """Convert options to shell script arguments."""

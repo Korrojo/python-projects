@@ -1,7 +1,7 @@
 """Orchestrator for mongorestore operations."""
 
-from ..models.restore import MongoRestoreOptions
-from .base import BaseOrchestrator, MongoOperationResult
+from models.restore import MongoRestoreOptions
+from orchestrators.base import BaseOrchestrator, MongoOperationResult
 
 
 class MongoRestoreOrchestrator(BaseOrchestrator):

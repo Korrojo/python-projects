@@ -5,11 +5,11 @@ from pathlib import Path
 from pydantic import ValidationError
 from urllib.parse import parse_qs, urlparse
 
-from mongo_backup_tools.models.base import MongoConnectionOptions
-from mongo_backup_tools.models.dump import MongoDumpOptions
-from mongo_backup_tools.models.restore import MongoRestoreOptions
-from mongo_backup_tools.models.export import ExportFormat, MongoExportOptions
-from mongo_backup_tools.models.import_opts import ImportMode, MongoImportOptions
+from src.models.base import MongoConnectionOptions
+from src.models.dump import MongoDumpOptions
+from src.models.restore import MongoRestoreOptions
+from src.models.export import ExportFormat, MongoExportOptions
+from src.models.import_opts import ImportMode, MongoImportOptions
 
 
 @pytest.mark.unit

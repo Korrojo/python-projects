@@ -3,15 +3,15 @@
 import pytest
 from unittest.mock import Mock, patch
 
-from mongo_backup_tools.models.dump import MongoDumpOptions
-from mongo_backup_tools.models.restore import MongoRestoreOptions
-from mongo_backup_tools.models.export import ExportFormat, MongoExportOptions
-from mongo_backup_tools.models.import_opts import ImportMode, MongoImportOptions
-from mongo_backup_tools.orchestrators.dump import MongoDumpOrchestrator
-from mongo_backup_tools.orchestrators.restore import MongoRestoreOrchestrator
-from mongo_backup_tools.orchestrators.export import MongoExportOrchestrator
-from mongo_backup_tools.orchestrators.import_orch import MongoImportOrchestrator
-from mongo_backup_tools.orchestrators.base import MongoOperationResult
+from src.models.dump import MongoDumpOptions
+from src.models.restore import MongoRestoreOptions
+from src.models.export import ExportFormat, MongoExportOptions
+from src.models.import_opts import ImportMode, MongoImportOptions
+from src.orchestrators.dump import MongoDumpOrchestrator
+from src.orchestrators.restore import MongoRestoreOrchestrator
+from src.orchestrators.export import MongoExportOrchestrator
+from src.orchestrators.import_orch import MongoImportOrchestrator
+from src.orchestrators.base import MongoOperationResult
 
 
 @pytest.mark.integration

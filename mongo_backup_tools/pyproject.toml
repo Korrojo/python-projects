@@ -13,4 +13,7 @@ markers = [
     "integration: Integration tests",
     "slow: Slow tests",
     "db: Tests requiring database connection",
+    "e2e: End-to-end tests with real MongoDB",
+    "locl: Tests using local MongoDB (LOCL)",
+    "dev: Tests using Atlas MongoDB (DEV)",
 ]

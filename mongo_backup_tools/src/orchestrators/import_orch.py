@@ -1,7 +1,7 @@
 """Orchestrator for mongoimport operations."""
 
-from ..models.import_opts import MongoImportOptions
-from .base import BaseOrchestrator, MongoOperationResult
+from models.import_opts import MongoImportOptions
+from orchestrators.base import BaseOrchestrator, MongoOperationResult
 
 
 class MongoImportOrchestrator(BaseOrchestrator):
