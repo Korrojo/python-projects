@@ -31,6 +31,13 @@ temp/*
 !temp/.gitkeep
 *.log
 
+# MongoDB outputs (from tests/development)
+dump/
+*.bson
+*.bson.gz
+*_exported_*.json
+*_exported_*.csv
+
 # OS
 .DS_Store
 Thumbs.db
