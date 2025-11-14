@@ -15,6 +15,21 @@ class MongoConnectionOptions(BaseModel):
     username: Optional[str] = Field(None, description="Authentication username")
     password: Optional[str] = Field(None, description="Authentication password")
     auth_database: str = Field("admin", description="Authentication database")
+    auth_mechanism: Optional[str] = Field(
+        None, description="Authentication mechanism (SCRAM-SHA-1, SCRAM-SHA-256, MONGODB-X509, etc.)"
+    )
+    # TLS/SSL options
+    use_tls: bool = Field(False, description="Enable TLS/SSL")
+    tls_certificate_key_file: Optional[Path] = Field(None, description="TLS client certificate file")
+    tls_ca_file: Optional[Path] = Field(None, description="TLS CA certificate file")
+    tls_certificate_key_file_password: Optional[str] = Field(None, description="TLS certificate password")
+    tls_allow_invalid_certificates: bool = Field(False, description="Allow invalid TLS certificates")
+    tls_allow_invalid_hostnames: bool = Field(False, description="Allow invalid TLS hostnames")
+    # Additional connection options
+    read_preference: Optional[str] = Field(None, description="Read preference mode")
+    replica_set_name: Optional[str] = Field(None, description="Replica set name")
+    connect_timeout: Optional[int] = Field(None, description="Connection timeout in milliseconds")
+    socket_timeout: Optional[int] = Field(None, description="Socket timeout in milliseconds")
 
     @field_validator("uri")
     @classmethod
@@ -86,7 +101,25 @@ class BaseOperationOptions(BaseModel):
         if isinstance(data, dict):
             # Extract connection fields if they exist (only non-None values)
             connection_fields = {}
-            for field in ["uri", "host", "port", "username", "password", "auth_database"]:
+            for field in [
+                "uri",
+                "host",
+                "port",
+                "username",
+                "password",
+                "auth_database",
+                "auth_mechanism",
+                "use_tls",
+                "tls_certificate_key_file",
+                "tls_ca_file",
+                "tls_certificate_key_file_password",
+                "tls_allow_invalid_certificates",
+                "tls_allow_invalid_hostnames",
+                "read_preference",
+                "replica_set_name",
+                "connect_timeout",
+                "socket_timeout",
+            ]:
                 if field in data and data[field] is not None:
                     connection_fields[field] = data.pop(field)
                 elif field in data:

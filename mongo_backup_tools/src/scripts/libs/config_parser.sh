@@ -122,6 +122,50 @@ parse_args() {
                 MONGO_AUTH_DB="$2"
                 shift 2
                 ;;
+            --auth-mechanism)
+                AUTH_MECHANISM="$2"
+                shift 2
+                ;;
+            --tls|--ssl)
+                USE_TLS=true
+                shift
+                ;;
+            --tls-certificate-key-file)
+                TLS_CERT_KEY_FILE="$2"
+                shift 2
+                ;;
+            --tls-ca-file)
+                TLS_CA_FILE="$2"
+                shift 2
+                ;;
+            --tls-certificate-key-file-password)
+                TLS_CERT_KEY_PASSWORD="$2"
+                shift 2
+                ;;
+            --tls-allow-invalid-certificates)
+                TLS_ALLOW_INVALID_CERTS=true
+                shift
+                ;;
+            --tls-allow-invalid-hostnames)
+                TLS_ALLOW_INVALID_HOSTNAMES=true
+                shift
+                ;;
+            --read-preference)
+                READ_PREFERENCE="$2"
+                shift 2
+                ;;
+            --replica-set-name)
+                REPLICA_SET_NAME="$2"
+                shift 2
+                ;;
+            --connect-timeout)
+                CONNECT_TIMEOUT="$2"
+                shift 2
+                ;;
+            --socket-timeout)
+                SOCKET_TIMEOUT="$2"
+                shift 2
+                ;;
             --db|-d)
                 MONGO_DB="$2"
                 shift 2

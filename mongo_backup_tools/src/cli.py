@@ -38,6 +38,27 @@ def dump(
     username: Optional[str] = typer.Option(None, "--username", "-u", help="MongoDB username"),
     password: Optional[str] = typer.Option(None, "--password", "-p", help="MongoDB password"),
     auth_db: Optional[str] = typer.Option(None, "--auth-db", help="Authentication database"),
+    auth_mechanism: Optional[str] = typer.Option(None, "--auth-mechanism", help="Authentication mechanism"),
+    # TLS/SSL options
+    tls: bool = typer.Option(False, "--tls", "--ssl", help="Enable TLS/SSL"),
+    tls_certificate_key_file: Optional[Path] = typer.Option(
+        None, "--tls-certificate-key-file", help="TLS client certificate file"
+    ),
+    tls_ca_file: Optional[Path] = typer.Option(None, "--tls-ca-file", help="TLS CA certificate file"),
+    tls_certificate_key_file_password: Optional[str] = typer.Option(
+        None, "--tls-certificate-key-file-password", help="TLS certificate password"
+    ),
+    tls_allow_invalid_certificates: bool = typer.Option(
+        False, "--tls-allow-invalid-certificates", help="Allow invalid TLS certificates"
+    ),
+    tls_allow_invalid_hostnames: bool = typer.Option(
+        False, "--tls-allow-invalid-hostnames", help="Allow invalid TLS hostnames"
+    ),
+    # Additional connection options
+    read_preference: Optional[str] = typer.Option(None, "--read-preference", help="Read preference mode"),
+    replica_set_name: Optional[str] = typer.Option(None, "--replica-set-name", help="Replica set name"),
+    connect_timeout: Optional[int] = typer.Option(None, "--connect-timeout", help="Connection timeout (ms)"),
+    socket_timeout: Optional[int] = typer.Option(None, "--socket-timeout", help="Socket timeout (ms)"),
     # Database/Collection options
     database: Optional[str] = typer.Option(None, "--database", "-d", help="Database to dump"),
     collections: Optional[List[str]] = typer.Option(
@@ -66,6 +87,17 @@ def dump(
             username=username,
             password=password,
             auth_database=auth_db,
+            auth_mechanism=auth_mechanism,
+            use_tls=tls,
+            tls_certificate_key_file=tls_certificate_key_file,
+            tls_ca_file=tls_ca_file,
+            tls_certificate_key_file_password=tls_certificate_key_file_password,
+            tls_allow_invalid_certificates=tls_allow_invalid_certificates,
+            tls_allow_invalid_hostnames=tls_allow_invalid_hostnames,
+            read_preference=read_preference,
+            replica_set_name=replica_set_name,
+            connect_timeout=connect_timeout,
+            socket_timeout=socket_timeout,
             database=database,
             collections=collections or [],
             query=query,
@@ -104,6 +136,27 @@ def restore(
     username: Optional[str] = typer.Option(None, "--username", "-u", help="MongoDB username"),
     password: Optional[str] = typer.Option(None, "--password", "-p", help="MongoDB password"),
     auth_db: Optional[str] = typer.Option(None, "--auth-db", help="Authentication database"),
+    auth_mechanism: Optional[str] = typer.Option(None, "--auth-mechanism", help="Authentication mechanism"),
+    # TLS/SSL options
+    tls: bool = typer.Option(False, "--tls", "--ssl", help="Enable TLS/SSL"),
+    tls_certificate_key_file: Optional[Path] = typer.Option(
+        None, "--tls-certificate-key-file", help="TLS client certificate file"
+    ),
+    tls_ca_file: Optional[Path] = typer.Option(None, "--tls-ca-file", help="TLS CA certificate file"),
+    tls_certificate_key_file_password: Optional[str] = typer.Option(
+        None, "--tls-certificate-key-file-password", help="TLS certificate password"
+    ),
+    tls_allow_invalid_certificates: bool = typer.Option(
+        False, "--tls-allow-invalid-certificates", help="Allow invalid TLS certificates"
+    ),
+    tls_allow_invalid_hostnames: bool = typer.Option(
+        False, "--tls-allow-invalid-hostnames", help="Allow invalid TLS hostnames"
+    ),
+    # Additional connection options
+    read_preference: Optional[str] = typer.Option(None, "--read-preference", help="Read preference mode"),
+    replica_set_name: Optional[str] = typer.Option(None, "--replica-set-name", help="Replica set name"),
+    connect_timeout: Optional[int] = typer.Option(None, "--connect-timeout", help="Connection timeout (ms)"),
+    socket_timeout: Optional[int] = typer.Option(None, "--socket-timeout", help="Socket timeout (ms)"),
     # Database/Collection options
     database: Optional[str] = typer.Option(None, "--database", "-d", help="Target database"),
     collection: Optional[str] = typer.Option(None, "--collection", "-c", help="Target collection"),
@@ -135,6 +188,17 @@ def restore(
             username=username,
             password=password,
             auth_database=auth_db,
+            auth_mechanism=auth_mechanism,
+            use_tls=tls,
+            tls_certificate_key_file=tls_certificate_key_file,
+            tls_ca_file=tls_ca_file,
+            tls_certificate_key_file_password=tls_certificate_key_file_password,
+            tls_allow_invalid_certificates=tls_allow_invalid_certificates,
+            tls_allow_invalid_hostnames=tls_allow_invalid_hostnames,
+            read_preference=read_preference,
+            replica_set_name=replica_set_name,
+            connect_timeout=connect_timeout,
+            socket_timeout=socket_timeout,
             database=database,
             collection=collection,
             input_dir=input_dir or Path("dump"),
@@ -176,6 +240,27 @@ def export(
     username: Optional[str] = typer.Option(None, "--username", "-u", help="MongoDB username"),
     password: Optional[str] = typer.Option(None, "--password", "-p", help="MongoDB password"),
     auth_db: Optional[str] = typer.Option(None, "--auth-db", help="Authentication database"),
+    auth_mechanism: Optional[str] = typer.Option(None, "--auth-mechanism", help="Authentication mechanism"),
+    # TLS/SSL options
+    tls: bool = typer.Option(False, "--tls", "--ssl", help="Enable TLS/SSL"),
+    tls_certificate_key_file: Optional[Path] = typer.Option(
+        None, "--tls-certificate-key-file", help="TLS client certificate file"
+    ),
+    tls_ca_file: Optional[Path] = typer.Option(None, "--tls-ca-file", help="TLS CA certificate file"),
+    tls_certificate_key_file_password: Optional[str] = typer.Option(
+        None, "--tls-certificate-key-file-password", help="TLS certificate password"
+    ),
+    tls_allow_invalid_certificates: bool = typer.Option(
+        False, "--tls-allow-invalid-certificates", help="Allow invalid TLS certificates"
+    ),
+    tls_allow_invalid_hostnames: bool = typer.Option(
+        False, "--tls-allow-invalid-hostnames", help="Allow invalid TLS hostnames"
+    ),
+    # Additional connection options
+    read_preference: Optional[str] = typer.Option(None, "--read-preference", help="Read preference mode"),
+    replica_set_name: Optional[str] = typer.Option(None, "--replica-set-name", help="Replica set name"),
+    connect_timeout: Optional[int] = typer.Option(None, "--connect-timeout", help="Connection timeout (ms)"),
+    socket_timeout: Optional[int] = typer.Option(None, "--socket-timeout", help="Socket timeout (ms)"),
     # Database/Collection options (required)
     database: str = typer.Option(..., "--database", "-d", help="Database name"),
     collection: str = typer.Option(..., "--collection", "-c", help="Collection name"),
@@ -207,6 +292,17 @@ def export(
             username=username,
             password=password,
             auth_database=auth_db,
+            auth_mechanism=auth_mechanism,
+            use_tls=tls,
+            tls_certificate_key_file=tls_certificate_key_file,
+            tls_ca_file=tls_ca_file,
+            tls_certificate_key_file_password=tls_certificate_key_file_password,
+            tls_allow_invalid_certificates=tls_allow_invalid_certificates,
+            tls_allow_invalid_hostnames=tls_allow_invalid_hostnames,
+            read_preference=read_preference,
+            replica_set_name=replica_set_name,
+            connect_timeout=connect_timeout,
+            socket_timeout=socket_timeout,
             database=database,
             collection=collection,
             output_file=output_file,
@@ -248,6 +344,27 @@ def import_data(
     username: Optional[str] = typer.Option(None, "--username", "-u", help="MongoDB username"),
     password: Optional[str] = typer.Option(None, "--password", "-p", help="MongoDB password"),
     auth_db: Optional[str] = typer.Option(None, "--auth-db", help="Authentication database"),
+    auth_mechanism: Optional[str] = typer.Option(None, "--auth-mechanism", help="Authentication mechanism"),
+    # TLS/SSL options
+    tls: bool = typer.Option(False, "--tls", "--ssl", help="Enable TLS/SSL"),
+    tls_certificate_key_file: Optional[Path] = typer.Option(
+        None, "--tls-certificate-key-file", help="TLS client certificate file"
+    ),
+    tls_ca_file: Optional[Path] = typer.Option(None, "--tls-ca-file", help="TLS CA certificate file"),
+    tls_certificate_key_file_password: Optional[str] = typer.Option(
+        None, "--tls-certificate-key-file-password", help="TLS certificate password"
+    ),
+    tls_allow_invalid_certificates: bool = typer.Option(
+        False, "--tls-allow-invalid-certificates", help="Allow invalid TLS certificates"
+    ),
+    tls_allow_invalid_hostnames: bool = typer.Option(
+        False, "--tls-allow-invalid-hostnames", help="Allow invalid TLS hostnames"
+    ),
+    # Additional connection options
+    read_preference: Optional[str] = typer.Option(None, "--read-preference", help="Read preference mode"),
+    replica_set_name: Optional[str] = typer.Option(None, "--replica-set-name", help="Replica set name"),
+    connect_timeout: Optional[int] = typer.Option(None, "--connect-timeout", help="Connection timeout (ms)"),
+    socket_timeout: Optional[int] = typer.Option(None, "--socket-timeout", help="Socket timeout (ms)"),
     # Database/Collection options (required)
     database: str = typer.Option(..., "--database", "-d", help="Database name"),
     collection: str = typer.Option(..., "--collection", "-c", help="Collection name"),
@@ -283,6 +400,17 @@ def import_data(
             username=username,
             password=password,
             auth_database=auth_db,
+            auth_mechanism=auth_mechanism,
+            use_tls=tls,
+            tls_certificate_key_file=tls_certificate_key_file,
+            tls_ca_file=tls_ca_file,
+            tls_certificate_key_file_password=tls_certificate_key_file_password,
+            tls_allow_invalid_certificates=tls_allow_invalid_certificates,
+            tls_allow_invalid_hostnames=tls_allow_invalid_hostnames,
+            read_preference=read_preference,
+            replica_set_name=replica_set_name,
+            connect_timeout=connect_timeout,
+            socket_timeout=socket_timeout,
             database=database,
             collection=collection,
             input_file=input_file,
