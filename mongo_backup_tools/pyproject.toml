@@ -1,3 +1,38 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mongo-backup-tools"
+version = "1.0.0"
+description = "Comprehensive MongoDB backup, restore, export, and import toolkit"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "typer>=0.9.0",
+    "pydantic>=2.0.0",
+    "pymongo>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+mongo-backup-tools = "cli:app"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
 [tool.black]
 line-length = 120
 target-version = ['py311']

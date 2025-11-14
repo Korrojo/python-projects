@@ -253,6 +253,53 @@ build_export_command() {
         cmd="$cmd --skip=$SKIP"
     fi
 
+    # Add authentication mechanism if specified
+    if [[ -n "${AUTH_MECHANISM:-}" ]]; then
+        cmd="$cmd --authenticationMechanism=\"$AUTH_MECHANISM\""
+    fi
+
+    # Add TLS/SSL options
+    if [[ "${USE_TLS:-false}" == "true" ]]; then
+        cmd="$cmd --tls"
+    fi
+
+    if [[ -n "${TLS_CERT_KEY_FILE:-}" ]]; then
+        cmd="$cmd --tlsCertificateKeyFile=\"$TLS_CERT_KEY_FILE\""
+    fi
+
+    if [[ -n "${TLS_CA_FILE:-}" ]]; then
+        cmd="$cmd --tlsCAFile=\"$TLS_CA_FILE\""
+    fi
+
+    if [[ -n "${TLS_CERT_KEY_PASSWORD:-}" ]]; then
+        cmd="$cmd --tlsCertificateKeyFilePassword=\"$TLS_CERT_KEY_PASSWORD\""
+    fi
+
+    if [[ "${TLS_ALLOW_INVALID_CERTS:-false}" == "true" ]]; then
+        cmd="$cmd --tlsAllowInvalidCertificates"
+    fi
+
+    if [[ "${TLS_ALLOW_INVALID_HOSTNAMES:-false}" == "true" ]]; then
+        cmd="$cmd --tlsAllowInvalidHostnames"
+    fi
+
+    # Add connection options
+    if [[ -n "${READ_PREFERENCE:-}" ]]; then
+        cmd="$cmd --readPreference=\"$READ_PREFERENCE\""
+    fi
+
+    if [[ -n "${REPLICA_SET_NAME:-}" ]]; then
+        cmd="$cmd --replicaSet=\"$REPLICA_SET_NAME\""
+    fi
+
+    if [[ -n "${CONNECT_TIMEOUT:-}" ]]; then
+        cmd="$cmd --dial-timeout=\"${CONNECT_TIMEOUT}ms\""
+    fi
+
+    if [[ -n "${SOCKET_TIMEOUT:-}" ]]; then
+        cmd="$cmd --socket-timeout=\"${SOCKET_TIMEOUT}ms\""
+    fi
+
     echo "$cmd"
 }
 
