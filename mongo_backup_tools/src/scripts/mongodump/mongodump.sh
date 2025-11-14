@@ -294,7 +294,11 @@ main() {
     else
         # Get all collections
         log_info "Getting list of collections..."
-        mapfile -t collections < <(get_collections "$mongo_uri" "$MONGO_DB")
+        # Bash 3.2 compatible: use while read instead of mapfile
+        collections=()
+        while IFS= read -r line; do
+            collections+=("$line")
+        done < <(get_collections "$mongo_uri" "$MONGO_DB")
 
         if [[ ${#collections[@]} -eq 0 ]]; then
             log_error "No collections found in database: $MONGO_DB"

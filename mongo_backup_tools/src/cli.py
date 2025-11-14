@@ -381,6 +381,7 @@ def import_data(
         None, "--field", "-f", help="Field names (for CSV, can be specified multiple times)"
     ),
     headerline: bool = typer.Option(False, "--headerline", help="Use first line as field names (CSV)"),
+    json_array: bool = typer.Option(False, "--json-array", help="Input is JSON array"),
     # Other options
     drop: bool = typer.Option(False, "--drop", help="Drop collection before import"),
     stop_on_error: bool = typer.Option(False, "--stop-on-error", help="Stop on first error"),
@@ -419,6 +420,7 @@ def import_data(
             upsert_fields=upsert_fields or [],
             fields=fields or [],
             headerline=headerline,
+            json_array=json_array,
             drop_existing=drop,
             stop_on_error=stop_on_error,
             ignore_blanks=ignore_blanks,
