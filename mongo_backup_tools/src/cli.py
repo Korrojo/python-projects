@@ -33,7 +33,9 @@ def show_version():
 @app.command("dump")
 def dump(
     # Environment config
-    env: Optional[str] = typer.Option(None, "--env", help="Environment name (LOCL, DEV, STG, TRNG, PERF, PRPRD, PROD)"),
+    env: Optional[str] = typer.Option(
+        None, "--env", help="Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)"
+    ),
     # Connection options
     uri: Optional[str] = typer.Option(None, "--uri", help="MongoDB connection string"),
     host: str = typer.Option("localhost", "--host", help="MongoDB host"),
@@ -148,7 +150,9 @@ def dump(
 @app.command("restore")
 def restore(
     # Environment config
-    env: Optional[str] = typer.Option(None, "--env", help="Environment name (LOCL, DEV, STG, TRNG, PERF, PRPRD, PROD)"),
+    env: Optional[str] = typer.Option(
+        None, "--env", help="Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)"
+    ),
     # Connection options
     uri: Optional[str] = typer.Option(None, "--uri", help="MongoDB connection string"),
     host: str = typer.Option("localhost", "--host", help="MongoDB host"),
@@ -269,7 +273,9 @@ def restore(
 @app.command("export")
 def export(
     # Environment config
-    env: Optional[str] = typer.Option(None, "--env", help="Environment name (LOCL, DEV, STG, TRNG, PERF, PRPRD, PROD)"),
+    env: Optional[str] = typer.Option(
+        None, "--env", help="Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)"
+    ),
     # Connection options
     uri: Optional[str] = typer.Option(None, "--uri", help="MongoDB connection string"),
     host: str = typer.Option("localhost", "--host", help="MongoDB host"),
@@ -393,7 +399,9 @@ def export(
 @app.command("import")
 def import_data(
     # Environment config
-    env: Optional[str] = typer.Option(None, "--env", help="Environment name (LOCL, DEV, STG, TRNG, PERF, PRPRD, PROD)"),
+    env: Optional[str] = typer.Option(
+        None, "--env", help="Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)"
+    ),
     # Connection options
     uri: Optional[str] = typer.Option(None, "--uri", help="MongoDB connection string"),
     host: str = typer.Option("localhost", "--host", help="MongoDB host"),

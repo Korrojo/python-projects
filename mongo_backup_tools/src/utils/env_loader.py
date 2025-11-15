@@ -63,7 +63,7 @@ def load_env_config(env: Optional[str] = None) -> None:
 
     # Validate environment if specified
     if env:
-        valid_envs = ["LOCL", "DEV", "STG", "TRNG", "PERF", "PRPRD", "PROD"]
+        valid_envs = ["LOCL", "DEV", "STG", "STG2", "STG3", "TRNG", "PERF", "PHI", "PRPRD", "PROD"]
         if env not in valid_envs:
             raise EnvironmentConfigError(f"Invalid environment: {env}. Must be one of: {', '.join(valid_envs)}")
 
@@ -72,13 +72,15 @@ def get_mongo_connection_config(env: str) -> Dict[str, Optional[str]]:
     """Get MongoDB connection configuration for the specified environment.
 
     Args:
-        env: Environment name (LOCL, DEV, STG, TRNG, PERF, PRPRD, PROD)
+        env: Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)
 
     Returns:
         Dictionary with connection parameters:
-        - uri: MongoDB connection URI
-        - database: Database name
+        - uri: MongoDB connection URI (from MONGODB_URI_{env})
+        - database: Database name (from DB_NAME_{env})
         - backup_dir: Backup directory (optional)
+        - output_dir: Output directory (optional)
+        - input_dir: Input directory (optional)
         - log_dir: Log directory (optional)
 
     Raises:
@@ -89,8 +91,10 @@ def get_mongo_connection_config(env: str) -> Dict[str, Optional[str]]:
 
     # Read environment-specific variables
     uri = os.getenv(f"MONGODB_URI_{env}")
-    database = os.getenv(f"DATABASE_NAME_{env}")
+    database = os.getenv(f"DB_NAME_{env}")
     backup_dir = os.getenv(f"BACKUP_DIR_{env}")
+    output_dir = os.getenv(f"OUTPUT_DIR_{env}")
+    input_dir = os.getenv(f"INPUT_DIR_{env}")
     log_dir = os.getenv(f"LOG_DIR_{env}")
 
     # Validate required fields
@@ -98,9 +102,16 @@ def get_mongo_connection_config(env: str) -> Dict[str, Optional[str]]:
         raise EnvironmentConfigError(f"MONGODB_URI_{env} not found in .env file")
 
     if not database:
-        raise EnvironmentConfigError(f"DATABASE_NAME_{env} not found in .env file")
+        raise EnvironmentConfigError(f"DB_NAME_{env} not found in .env file")
 
-    return {"uri": uri, "database": database, "backup_dir": backup_dir, "log_dir": log_dir}
+    return {
+        "uri": uri,
+        "database": database,
+        "backup_dir": backup_dir,
+        "output_dir": output_dir,
+        "input_dir": input_dir,
+        "log_dir": log_dir,
+    }
 
 
 def get_current_env() -> Optional[str]:
