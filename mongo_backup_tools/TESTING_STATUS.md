@@ -78,17 +78,20 @@ inconsistent with other projects in the repository.
 1. **Added python-dotenv dependency** to pyproject.toml
 1. **Created src/utils/env_loader.py** - Environment config loader that:
    - Loads from ../shared_config/.env
-   - Supports all environments: LOCL, DEV, STG, TRNG, PERF, PRPRD, PROD
+   - Supports all 10 environments: LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD
    - Validates environment-specific variables
-   - Returns connection config (uri, database, backup_dir, log_dir)
+   - Returns connection config (uri, database, backup_dir, output_dir, input_dir, log_dir)
+   - Uses clean variable names: MONGODB_URI\_{env}, DB_NAME\_{env}
 1. **Added --env parameter** to all 4 CLI commands (dump, restore, export, import)
 1. **Environment loading logic** in each command:
    - Loads config when --env is specified
    - Uses env values as defaults
    - Allows CLI parameters to override env values
    - Proper error handling
+   - **Fixed tilde expansion** - paths like ~/Backups/LOCL now correctly expand
 1. **Made database parameter optional** for export/import when using --env
-1. **Updated shared_config/.env** - Temporarily set DATABASE_NAME_LOCL=test_backup_demo for testing
+1. **Updated shared_config/.env** - Set DB_NAME_LOCL=test_backup_demo for testing
+1. **Updated TESTING.md to v1.1.0** - All test commands now show both --env and explicit syntax
 
 ### Testing Configuration
 
@@ -97,21 +100,39 @@ inconsistent with other projects in the repository.
 - Database: test_backup_demo
 - Test data: 5 user documents already created
 
-## Resume Point for Interactive Testing
+## ✅ TESTING.md Updated - Ready for Interactive Testing
 
-Once the `--env` feature is implemented:
+The `--env` feature is fully implemented and TESTING.md has been updated to v1.1.0!
 
-1. **Update TESTING.md** with new --env syntax for all test commands
-1. **Resume interactive testing** from Test 1, Step 1.1 (Perform Dump)
-1. **Test command:**
-   ```bash
-   ../.venv311/bin/python3 run.py dump \
-     --env LOCAL \
-     --out /tmp/test_dump \
-     --verbose
-   ```
-1. **Expected output:** `✓ Dump completed successfully in X.XXs`
-1. Continue through all 5 test scenarios with the new syntax
+**What's Ready:**
+
+- ✅ TESTING.md v1.1.0 with all commands showing --env syntax
+- ✅ Tilde expansion fixed (~/Backups/LOCL works correctly)
+- ✅ Clean schema implemented (MONGODB_URI_LOCL, DB_NAME_LOCL)
+- ✅ All 10 environments supported
+- ✅ Test database configured (DB_NAME_LOCL=test_backup_demo)
+
+**Next Steps for Interactive Testing:**
+
+Follow TESTING.md v1.1.0 from the beginning:
+
+1. Start at "Environment Configuration Setup" to verify .env
+1. Proceed to "Test Data Setup" to create/verify test database
+1. Run Test 1: Basic Dump and Restore using `--env LOCL`
+1. Run Test 2: JSON Export and Import
+1. Run Test 3: CSV Export and Import
+1. Run Test 4: Import with Upsert Mode
+1. Run Test 5: Environment-Based Directories
+
+**Example first test command:**
+
+```bash
+../.venv311/bin/python3 run.py dump \
+  --env LOCL \
+  --verbose
+```
+
+Backups will be stored in `~/Backups/LOCL/test_backup_demo/`
 
 ## Implementation Requirements for --env Flag
 
