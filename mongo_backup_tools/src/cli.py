@@ -95,7 +95,7 @@ def dump(
                 if not database:
                     database = env_config["database"]
                 if not output_dir and env_config.get("backup_dir"):
-                    output_dir = Path(env_config["backup_dir"])
+                    output_dir = Path(env_config["backup_dir"]).expanduser()
             except EnvironmentConfigError as e:
                 typer.secho(f"✗ Environment configuration error: {e}", fg=typer.colors.RED)
                 raise typer.Exit(code=1)
@@ -215,7 +215,7 @@ def restore(
                 if not database:
                     database = env_config["database"]
                 if not input_dir and env_config.get("backup_dir"):
-                    input_dir = Path(env_config["backup_dir"])
+                    input_dir = Path(env_config["backup_dir"]).expanduser()
             except EnvironmentConfigError as e:
                 typer.secho(f"✗ Environment configuration error: {e}", fg=typer.colors.RED)
                 raise typer.Exit(code=1)
