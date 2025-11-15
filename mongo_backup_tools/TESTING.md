@@ -113,6 +113,38 @@ mongo-backup-tools version 1.0.0
 
 ______________________________________________________________________
 
+## Environment Configuration Setup
+
+**New in this version:** The tool supports environment-based configuration for cleaner commands.
+
+### Configure Shared Environment File
+
+The project uses a shared configuration file at `../shared_config/.env` that defines connection parameters for different
+environments (LOCL, DEV, STG, etc.).
+
+**Verify the LOCL environment is configured:**
+
+```bash
+cat ../shared_config/.env | grep -A 8 "LOCAL Environment"
+```
+
+**Expected output:**
+
+```bash
+MONGODB_URI_LOCL=mongodb://localhost:27017
+DB_NAME_LOCL=test_backup_demo
+BACKUP_DIR_LOCL=~/Backups/LOCL
+LOG_DIR_LOCL=logs/LOCL
+```
+
+**What this enables:**
+
+- Use `--env LOCL` instead of specifying `--host`, `--port`, and `--database` separately
+- Automatic backup directory management
+- Consistent configuration across all projects in the repository
+
+______________________________________________________________________
+
 ## Test Data Setup
 
 ### Create Test Database
@@ -152,6 +184,16 @@ ______________________________________________________________________
 
 #### Step 1.1: Perform Dump
 
+**Using environment configuration (recommended):**
+
+```bash
+../.venv311/bin/python3 run.py dump \
+  --env LOCL \
+  --verbose
+```
+
+**Alternative - explicit parameters:**
+
 ```bash
 ../.venv311/bin/python3 run.py dump \
   --host localhost \
@@ -169,11 +211,19 @@ ______________________________________________________________________
 
 **Validation:**
 
+With `--env LOCL`, backups are stored in `~/Backups/LOCL/`:
+
 ```bash
-ls -lh /tmp/test_dump/test_backup_demo/
+ls -lh ~/Backups/LOCL/test_backup_demo/
 ```
 
 **Expected:** Should see `users.bson` and `users.metadata.json`
+
+For explicit `--out /tmp/test_dump`:
+
+```bash
+ls -lh /tmp/test_dump/test_backup_demo/
+```
 
 #### Step 1.2: Drop Original Database
 
@@ -197,6 +247,16 @@ mongosh mongodb://localhost:27017/test_backup_demo --eval "db.dropDatabase()"
 
 #### Step 1.3: Restore Database
 
+**Using environment configuration (recommended):**
+
+```bash
+../.venv311/bin/python3 run.py restore \
+  --env LOCL \
+  --verbose
+```
+
+**Alternative - explicit parameters:**
+
 ```bash
 ../.venv311/bin/python3 run.py restore \
   --host localhost \
@@ -204,6 +264,8 @@ mongosh mongodb://localhost:27017/test_backup_demo --eval "db.dropDatabase()"
   --dir /tmp/test_dump \
   --verbose
 ```
+
+**Note:** With `--env LOCL`, the restore will use `~/Backups/LOCL/` as the input directory.
 
 **Expected Output:**
 
@@ -234,6 +296,21 @@ ______________________________________________________________________
 **Objective:** Test JSON export and import functionality.
 
 #### Step 2.1: Export to JSON
+
+**Using environment configuration (recommended):**
+
+```bash
+../.venv311/bin/python3 run.py export \
+  --env LOCL \
+  --collection users \
+  --out /tmp/users_export.json \
+  --type json \
+  --json-array \
+  --pretty \
+  --verbose
+```
+
+**Alternative - explicit parameters:**
 
 ```bash
 ../.venv311/bin/python3 run.py export \
@@ -270,6 +347,20 @@ cat /tmp/users_export.json | head -20
 
 #### Step 2.3: Import JSON
 
+**Using environment configuration (recommended):**
+
+```bash
+../.venv311/bin/python3 run.py import \
+  --env LOCL \
+  --collection users_imported \
+  --file /tmp/users_export.json \
+  --type json \
+  --mode insert \
+  --verbose
+```
+
+**Alternative - explicit parameters:**
+
 ```bash
 ../.venv311/bin/python3 run.py import \
   --host localhost \
@@ -303,6 +394,24 @@ ______________________________________________________________________
 **Objective:** Test CSV export and import functionality.
 
 #### Step 3.1: Export to CSV
+
+**Using environment configuration (recommended):**
+
+```bash
+../.venv311/bin/python3 run.py export \
+  --env LOCL \
+  --collection users \
+  --out /tmp/users_export.csv \
+  --type csv \
+  --field _id \
+  --field name \
+  --field age \
+  --field email \
+  --field city \
+  --verbose
+```
+
+**Alternative - explicit parameters:**
 
 ```bash
 ../.venv311/bin/python3 run.py export \
@@ -339,6 +448,21 @@ cat /tmp/users_export.csv
 ```bash
 ../.venv311/bin/python3 -c "from pymongo import MongoClient; MongoClient('mongodb://localhost:27017')['test_backup_demo']['users_csv'].delete_many({}); print('✓ Ready for import')"
 ```
+
+**Using environment configuration (recommended):**
+
+```bash
+../.venv311/bin/python3 run.py import \
+  --env LOCL \
+  --collection users_csv \
+  --file /tmp/users_export.csv \
+  --type csv \
+  --headerline \
+  --mode insert \
+  --verbose
+```
+
+**Alternative - explicit parameters:**
 
 ```bash
 ../.venv311/bin/python3 run.py import \
@@ -385,6 +509,21 @@ EOF
 ```
 
 #### Step 4.2: Import with Upsert
+
+**Using environment configuration (recommended):**
+
+```bash
+../.venv311/bin/python3 run.py import \
+  --env LOCL \
+  --collection users \
+  --file /tmp/users_update.json \
+  --type json \
+  --mode upsert \
+  --upsert-fields _id \
+  --verbose
+```
+
+**Alternative - explicit parameters:**
 
 ```bash
 ../.venv311/bin/python3 run.py import \
@@ -433,29 +572,32 @@ Total count:
 
 ______________________________________________________________________
 
-### Test 5: Centralized Directories
+### Test 5: Environment-Based Directories
 
-**Objective:** Verify that logs and output files are stored in centralized repository directories.
+**Objective:** Verify that backups and logs are stored in environment-specific directories.
 
-#### Step 5.1: Check Centralized Output Directory
+#### Step 5.1: Verify Environment Configuration
 
 ```bash
-ls -lh ../../data/output/mongo_backup_tools/
+cat ../shared_config/.env | grep "BACKUP_DIR_LOCL\|LOG_DIR_LOCL"
 ```
 
-**Expected:** Directory exists (created automatically by the tool)
+**Expected Output:**
 
-#### Step 5.2: Dump to Centralized Directory
+```
+BACKUP_DIR_LOCL=~/Backups/LOCL
+LOG_DIR_LOCL=logs/LOCL
+```
+
+#### Step 5.2: Dump with Environment Configuration
 
 ```bash
 ../.venv311/bin/python3 run.py dump \
-  --host localhost \
-  --port 27017 \
-  --database test_backup_demo \
+  --env LOCL \
   --verbose
 ```
 
-**Note:** No `--out` specified, should use default centralized location.
+**Note:** When using `--env LOCL`, the backup is automatically stored in `~/Backups/LOCL/`.
 
 **Expected Output:**
 
@@ -463,29 +605,44 @@ ls -lh ../../data/output/mongo_backup_tools/
 ✓ Dump completed successfully in X.XXs
 ```
 
-#### Step 5.3: Verify Output Location
+#### Step 5.3: Verify Backup Location
 
 ```bash
-ls -lh ../../data/output/mongo_backup_tools/
+ls -lh ~/Backups/LOCL/
 ```
 
-**Expected:** Should see dump files in the centralized output directory.
-
-#### Step 5.4: Check Centralized Logs
+**Expected:** Should see the database directory (e.g., `test_backup_demo/`)
 
 ```bash
-ls -lh ../../logs/mongo_backup_tools/
+ls -lh ~/Backups/LOCL/test_backup_demo/
 ```
 
-**Expected:** Should see timestamped log files (e.g., `20251113_030000_dump.log`)
+**Expected:** Should see BSON files and metadata
+
+#### Step 5.4: Check Environment-Specific Logs
+
+```bash
+ls -lh logs/LOCL/
+```
+
+**Expected:** Should see timestamped log files (e.g., `20251115_160000_dump.log`)
 
 #### Step 5.5: Inspect Log File
 
 ```bash
-tail -20 ../../logs/mongo_backup_tools/*.log
+tail -20 logs/LOCL/*.log
 ```
 
 **Expected:** Detailed logs of the dump operation with timestamps.
+
+#### Step 5.6: Test Directory Organization
+
+The environment-based approach allows you to:
+
+- Keep backups separate by environment (LOCL, DEV, PROD, etc.)
+- Each environment has its own backup directory
+- Logs are organized by environment
+- Easy to manage backups for multiple environments
 
 ______________________________________________________________________
 
@@ -506,14 +663,14 @@ rm -f /tmp/users_export.csv
 rm -f /tmp/users_update.json
 ```
 
-### Optional: Clear Centralized Directories
+### Optional: Clear Environment-Based Backup Directories
 
 ```bash
-# Clear output directory
-rm -rf ../../data/output/mongo_backup_tools/*
+# Clear LOCL environment backups
+rm -rf ~/Backups/LOCL/*
 
-# Clear logs directory
-rm -rf ../../logs/mongo_backup_tools/*
+# Clear LOCL environment logs
+rm -rf logs/LOCL/*
 ```
 
 ______________________________________________________________________
@@ -638,10 +795,17 @@ ______________________________________________________________________
    - `insert`: Adds new documents, fails on duplicates
    - `upsert`: Updates existing or inserts new (idempotent)
 
-1. **Centralized Directories:**
+1. **Environment-Based Configuration:**
 
-   - Outputs: `../../data/output/mongo_backup_tools/`
-   - Logs: `../../logs/mongo_backup_tools/`
+   - Use `--env LOCL` for cleaner commands
+   - Configuration stored in `../shared_config/.env`
+   - Supports multiple environments: LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD
+   - Each environment has separate backup and log directories
+
+1. **Directory Organization:**
+
+   - Backups: `~/Backups/{ENV}/` (e.g., `~/Backups/LOCL/`)
+   - Logs: `logs/{ENV}/` (e.g., `logs/LOCL/`)
    - Automatically created by the tool
 
 1. **Shell Script Integration:**
@@ -679,4 +843,11 @@ After mastering these tests, explore:
 
 ______________________________________________________________________
 
-**Document Version:** 1.0.0 **Last Updated:** 2025-11-13 **Tested With:** MongoDB 8.2.1, Python 3.11
+**Document Version:** 1.1.0 **Last Updated:** 2025-11-15 **Tested With:** MongoDB 8.2.1, Python 3.11
+
+**Changes in v1.1.0:**
+
+- Added environment-based configuration support (`--env` flag)
+- Updated all test commands to show both environment and explicit parameter syntax
+- Updated directory structure to reflect environment-specific backup locations
+- Added shared configuration file usage
