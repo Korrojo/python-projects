@@ -50,12 +50,31 @@ class UsersUpdateValidator:
         self.validation_results["total_checked"] += 1
 
         try:
-            # Extract CSV data
+            # Extract CSV data with normalization
             first_name = str(row.get("First", "")).strip()
             last_name = str(row.get("Last", "")).strip()
-            expected_athena_id = int(row["ID"])
+            try:
+                expected_athena_id = int(row["ID"])
+            except Exception:
+                expected_athena_id = None
             expected_username = str(row.get("User Name", "")).strip()
-            expected_npi = str(row.get("NPI", "")).strip()
+            npi_val = row.get("NPI", "")
+            if pd.isna(npi_val):
+                expected_npi = ""
+            else:
+                if isinstance(npi_val, (int, float)):
+                    try:
+                        expected_npi = str(int(npi_val))
+                    except Exception:
+                        expected_npi = str(npi_val).strip()
+                else:
+                    s = str(npi_val).strip()
+                    if s.endswith(".0"):
+                        try:
+                            s = str(int(float(s)))
+                        except Exception:
+                            s = s.rstrip("0").rstrip(".") if "." in s else s
+                    expected_npi = s
 
             # Find user in MongoDB
             users = self.db_service.find_users(first_name, last_name)
@@ -77,21 +96,35 @@ class UsersUpdateValidator:
 
             user = users[0]
 
-            # Compare values
+            # Compare values (normalized)
             actual_athena_id = user.get("AthenaProviderId")
+            try:
+                actual_athena_id_int = int(actual_athena_id) if actual_athena_id is not None else None
+            except Exception:
+                actual_athena_id_int = None
             actual_username = user.get("AthenaUserName")
             actual_npi = user.get("NPI")
+            if actual_npi is None:
+                actual_npi_str = ""
+            elif isinstance(actual_npi, (int, float)):
+                try:
+                    actual_npi_str = str(int(actual_npi))
+                except Exception:
+                    actual_npi_str = str(actual_npi).strip()
+            else:
+                actual_npi_str = str(actual_npi).strip()
 
             mismatches = []
 
-            if actual_athena_id != expected_athena_id:
-                mismatches.append(f"AthenaProviderId: expected {expected_athena_id}, got {actual_athena_id}")
+            if expected_athena_id is not None:
+                if actual_athena_id_int != expected_athena_id:
+                    mismatches.append(f"AthenaProviderId: expected {expected_athena_id}, got {actual_athena_id_int}")
 
             if expected_username and actual_username != expected_username:
                 mismatches.append(f"AthenaUserName: expected '{expected_username}', got '{actual_username}'")
 
-            if expected_npi and actual_npi != expected_npi:
-                mismatches.append(f"NPI: expected '{expected_npi}', got '{actual_npi}'")
+            if expected_npi and actual_npi_str != expected_npi:
+                mismatches.append(f"NPI: expected '{expected_npi}', got '{actual_npi_str}'")
 
             if mismatches:
                 logging.info(f"⚠️  MISMATCH: {first_name} {last_name}")
