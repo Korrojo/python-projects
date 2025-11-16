@@ -222,6 +222,116 @@ Match rate              : 89.6%
 ================================================================================
 ```
 
+## Git Bash Commands (Windows)
+
+### Activate venv
+
+```bash
+source .venv/Scripts/activate
+```
+
+### Run update
+
+- From repo root (adds package path so `src` is found):
+
+```bash
+PYTHONPATH=users-provider-update \
+python users-provider-update/src/core/update_users_from_csv.py --csv "data/input/users-provider-update/Athena release preview Provider info.csv"
+```
+
+- Optional inline env overrides:
+
+```bash
+APP_ENV=STG3 COLLECTION_BEFORE=Users COLLECTION_AFTER=Users_bkp_20251110 \
+PYTHONPATH=users-provider-update \
+python users-provider-update/src/core/update_users_from_csv.py --csv "data/input/users-provider-update/Athena release preview Provider info.csv"
+```
+
+- From inside the project directory:
+
+```bash
+cd users-provider-update
+python src/core/update_users_from_csv.py --csv "../data/input/users-provider-update/Athena release preview Provider info.csv"
+```
+
+### Run validation
+
+- From repo root:
+
+```bash
+PYTHONPATH=users-provider-update \
+python users-provider-update/validate_users_update.py --csv "data/input/users-provider-update/Athena release preview Provider info.csv" --sample 20
+```
+
+- From inside the project directory:
+
+```bash
+cd users-provider-update
+python validate_users_update.py --csv "../data/input/users-provider-update/Athena release preview Provider info.csv" --sample 20
+```
+
+### Run tests
+
+```bash
+pytest -q users-provider-update/tests
+```
+
+## PowerShell Commands (Windows)
+
+### Activate venv
+
+```powershell
+./.venv/Scripts/Activate.ps1
+```
+
+### Run update
+
+- From repo root (set env and path so `src` is found):
+
+```powershell
+$env:PYTHONPATH = "users-provider-update"
+python users-provider-update/src/core/update_users_from_csv.py --csv "data/input/users-provider-update/Athena release preview Provider info.csv"
+```
+
+- Optional env overrides before running:
+
+```powershell
+$env:APP_ENV = "STG3"
+$env:COLLECTION_BEFORE = "Users"
+$env:COLLECTION_AFTER = "Users_bkp_20251110"
+$env:PYTHONPATH = "users-provider-update"
+python users-provider-update/src/core/update_users_from_csv.py --csv "data/input/users-provider-update/Athena release preview Provider info.csv"
+```
+
+- From inside the project directory:
+
+```powershell
+cd users-provider-update
+python src/core/update_users_from_csv.py --csv "../data/input/users-provider-update/Athena release preview Provider info.csv"
+```
+
+### Run validation
+
+- From repo root:
+
+```powershell
+$env:PYTHONPATH = "users-provider-update"
+python users-provider-update/validate_users_update.py --csv "data/input/users-provider-update/Athena release preview Provider info.csv" --sample 20
+```
+
+- From inside the project directory:
+
+```powershell
+cd users-provider-update
+python validate_users_update.py --csv "../data/input/users-provider-update/Athena release preview Provider info.csv" --sample 20
+```
+
+### Run tests
+
+```powershell
+pytest -q users-provider-update/tests
+```
+
 ______________________________________________________________________
 
 ## Processing Rules
