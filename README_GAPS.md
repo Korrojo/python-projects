@@ -122,20 +122,18 @@ Remediation
 
 ______________________________________________________________________
 
-### 6) ✅ RESOLVED: Windows Orchestration Dependencies
+### 6) Windows Orchestration Dependencies
 
-**Status:** Resolved on 2025-11-09
+- `orchestrate_masking.bat` relies on WSL/Git Bash; Windows-native backup/restore alternatives are not provided.
 
-**What was done:**
+Impact
 
-- ✅ Created `scripts/backup_collection.ps1` - PowerShell-native backup script
-- ✅ Created `scripts/restore_collection.ps1` - PowerShell-native restore script
-- ✅ Created `scripts/README.md` - Comprehensive documentation for both Bash and PowerShell versions
-- ✅ Scripts support all features: environment config, compression, logging, URI masking, confirmation prompts
+- Teams without WSL/Git Bash or with locked-down environments face friction.
 
-**Remaining (optional):**
+Remediation
 
-- Add preflight checks in `.bat` wrapper to detect and fallback between Bash/PowerShell
+- Provide PowerShell-native backup/restore scripts (mongodump/mongorestore invocations).
+- Add preflight checks and graceful fallbacks in `.bat` wrapper (detect WSL/Git Bash; fallback to PS).
 
 ______________________________________________________________________
 

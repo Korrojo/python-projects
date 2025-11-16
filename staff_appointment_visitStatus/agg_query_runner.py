@@ -12,7 +12,7 @@ Replicates the refined pipeline from c:/Users/dabebe/projects/python/query/query
 
 Usage examples:
   # Single pair (debug)
-  .venv\Scripts\python.exe agg_query_runner.py --athena_id 10025 --patient_ref 7010699
+  .venv\Scripts\python.exe agg_query_runner.py --athena_appt_id 10025 --patient_ref 7010699
 
   # Batch from file (first two columns only: AthenaAppointmentId,PatientRef)
   .venv\Scripts\python.exe agg_query_runner.py --input_file .\sample_input_20251007.xlsx
@@ -135,7 +135,7 @@ def run_aggregation(
     uri: str,
     database: str,
     collection: str,
-    athena_id: int,
+    athena_appt_id: int,
     patient_ref: int,
     limit: int | None = None,
     output_csv: str | None = None,
@@ -172,7 +172,7 @@ def run_aggregation(
         else:
             logger.warning(f"MongoDB ping failed: {info.get('error')}")
 
-    logger.info(f"Running aggregation for AthenaAppointmentId={athena_id}, PatientRef={patient_ref}")
+    logger.info(f"Running aggregation for AthenaAppointmentId={athena_appt_id}, PatientRef={patient_ref}")
 
     # Pipeline mirrors query_v2.js with filteredSlots approach
     pipeline = [
@@ -184,7 +184,7 @@ def run_aggregation(
                     "$elemMatch": {
                         "Appointments": {
                             "$elemMatch": {
-                                "AthenaAppointmentId": athena_id,
+                                "AthenaAppointmentId": athena_appt_id,
                                 "PatientRef": patient_ref,
                             }
                         }
@@ -210,7 +210,7 @@ def run_aggregation(
                                         {
                                             "$eq": [
                                                 "$$appointment.AthenaAppointmentId",
-                                                athena_id,
+                                                athena_appt_id,
                                             ]
                                         },
                                         {
@@ -283,7 +283,7 @@ def run_aggregation(
                     out_dir = str(settings.paths.data_output)
                     out_path = os.path.join(
                         out_dir,
-                        f"appointments_{athena_id}_{patient_ref}_{HARD_CODED_START_DATE.date().isoformat()}.csv",
+                        f"appointments_{athena_appt_id}_{patient_ref}_{HARD_CODED_START_DATE.date().isoformat()}.csv",
                     )
                 _write_csv(out_path, results)
                 logger.info("CSV saved: %s (rows: %s)", out_path, len(results))
@@ -325,7 +325,7 @@ def main() -> None:
     parser.add_argument("--uri", default=default_uri, help="MongoDB connection string")
     parser.add_argument("--database", default=default_db, help="Database name")
     parser.add_argument("--collection", default=default_collection, help="Collection name")
-    parser.add_argument("--athena_id", type=int, default=10025, help="AthenaAppointmentId to match")
+    parser.add_argument("--athena_appt_id", type=int, default=10025, help="AthenaAppointmentId to match")
     parser.add_argument("--patient_ref", type=int, default=7010699, help="PatientRef to match")
     # Filters are hard-coded; no CLI flags for them
     parser.add_argument("--limit", type=int, default=0, help="Optional $limit on results")
@@ -384,7 +384,7 @@ def main() -> None:
                     uri=args.uri,
                     database=args.database,
                     collection=args.collection,
-                    athena_id=aid,
+                    athena_appt_id=aid,
                     patient_ref=pref,
                     limit=args.limit if args.limit and args.limit > 0 else None,
                     output_csv=None,
@@ -418,7 +418,7 @@ def main() -> None:
             uri=args.uri,
             database=args.database,
             collection=args.collection,
-            athena_id=args.athena_id,
+            athena_appt_id=args.athena_appt_id,
             patient_ref=args.patient_ref,
             limit=args.limit if args.limit and args.limit > 0 else None,
             output_csv=(args.output_csv or None),
