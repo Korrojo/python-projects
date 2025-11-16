@@ -11,7 +11,6 @@ import logging
 import logging.handlers
 import os
 import random
-import re
 import string
 import sys
 import time
@@ -20,6 +19,7 @@ from pathlib import Path
 
 import pymongo
 from bson import ObjectId  # Add json_util for BSON serialization
+from common_config.utils.security import redact_uri
 from dotenv import load_dotenv
 
 # Try to import psutil for memory monitoring, but don't fail if not available
@@ -41,22 +41,6 @@ class ObjectIdEncoder(json.JSONEncoder):
         if isinstance(obj, ObjectId):
             return str(obj)
         return super().default(obj)
-
-
-def redact_uri(uri):
-    """Redact sensitive information from URI."""
-    if not uri:
-        return None
-
-    # Replace username:password with ***:*** if present
-    redacted = re.sub(r"//([^@:]+):([^@]+)@", "//***:***@", uri)
-
-    # If there's no auth info, just return the URL structure
-    if "//" in redacted and "@" not in redacted:
-        host_part = redacted.split("//")[1]
-        redacted = redacted.replace(host_part, f"host:{host_part.split(':')[-1]}")
-
-    return redacted
 
 
 def build_mongo_uri(prefix, logger=None, db_name=None, coll_name=None):

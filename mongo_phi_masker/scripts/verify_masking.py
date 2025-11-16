@@ -13,6 +13,7 @@ from datetime import datetime
 from pathlib import Path
 
 import pymongo
+from common_config.utils.security import redact_uri
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -202,15 +203,8 @@ def main():
     dst_uri = dst_config["uri"]
 
     # Mask credentials in logs
-    def mask_uri(uri):
-        if "@" in uri:
-            protocol = uri.split("://")[0]
-            host = uri.split("@")[1].split("/")[0]
-            return f"{protocol}://***:***@{host}"
-        return uri
-
-    logger.info(f"Source URI: {mask_uri(src_uri)}")
-    logger.info(f"Destination URI: {mask_uri(dst_uri)}")
+    logger.info(f"Source URI: {redact_uri(src_uri)}")
+    logger.info(f"Destination URI: {redact_uri(dst_uri)}")
     logger.info("")
 
     # Connect to databases

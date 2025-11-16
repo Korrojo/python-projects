@@ -12,7 +12,7 @@ key appointment details.
 > This project is now integrated with the shared `common_config` package used across the workspace. By default it reads
 > settings from the unified environment:
 >
-> - Global `.env` locations (precedence): `shared_config/.env` < `config/.env` < project `.env` < OS env vars
+> - Global `.env` locations (precedence): `shared_config/.env` \< `config/.env` \< project `.env` \< OS env vars
 > - Select environment via `APP_ENV` (dev, stg, stg1, stg2, trng, perf, phi, prprd, prod). For example, set
 >   `APP_ENV=stg` to map `MONGODB_URI_STG` → `MONGODB_URI` implicitly.
 > - When not provided via CLI, defaults for `--uri`, `--database`, `--collection`, and output folders come from
@@ -83,7 +83,7 @@ Both `agg_query_runner.py` and `agg_query.js` use the same logic:
 
 ## Setup
 
-1. Python 3.10+ recommended.
+1. Python 3.11+ recommended.
 
 1. Create a virtual environment (optional but recommended):
 
