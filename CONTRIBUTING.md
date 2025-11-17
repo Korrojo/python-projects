@@ -85,7 +85,7 @@ This project adheres to a Code of Conduct that all contributors are expected to 
 1. **Verify setup**:
 
    ```bash
-   python -c "from common_config.config import get_settings; print(get_settings())"
+   python -c "from common_config.config.settings import get_settings; print(get_settings())"
    pytest -q
    ```
 
