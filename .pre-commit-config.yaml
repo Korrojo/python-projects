@@ -28,7 +28,7 @@ repos:
       - id: mixed-line-ending
         args: ['--fix=lf']
 
-  # Markdown formatting
+  # Markdown formatting (MATCHES CI EXACTLY - see ci.yml line 52)
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.17
     hooks:
@@ -37,7 +37,8 @@ repos:
         args: ['--wrap', '120']
         additional_dependencies:
           - mdformat-gfm
-          - mdformat-black
+          - mdformat-tables
+          - mdformat-frontmatter
 
   # Python formatting - Black (CHECK MODE - matches CI exactly)
   # NO auto-formatting to prevent local/CI discrepancy (see PR #34)
