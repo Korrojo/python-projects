@@ -179,8 +179,12 @@ $RECYCLE.BIN/
 !.env.example
 shared_config/.env
 shared_config/.env.*
+!shared_config/.env.example
+!shared_config/.env.template
 */config/.env
 */config/.env.*
+!*/config/.env.example
+!*/config/.env.template
 
 # Data directories (keep structure, ignore content)
 /data/input/*
