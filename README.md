@@ -1,6 +1,6 @@
 # Python Projects Repository
 
-> **Monorepo containing 13 Python projects with shared configuration, centralized data/logs, and unified tooling.**
+> **Monorepo containing 14 Python projects with shared configuration, centralized data/logs, and unified tooling.**
 
 **Latest:** 🆕 mongo_phi_masker integrated - Production-grade HIPAA-compliant PHI/PII masking tool - Nov 2025
 
@@ -120,7 +120,7 @@ ______________________________________________________________________
 - CLI patterns (--env, --collection) → [`docs/best-practices/CLI_PATTERNS.md`](docs/best-practices/CLI_PATTERNS.md)
 - MongoDB patterns →
   [`docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md`](docs/best-practices/MONGODB_VALIDATION_BEST_PRACTICES.md)
-- Performance optimization → `appointment_comparison/PERFORMANCE_OPTIMIZATIONS.md`
+- Performance optimization → `appt_comparison/PERFORMANCE_OPTIMIZATIONS.md`
 - Project structure → [`docs/guides/REPOSITORY_STANDARDS.md`](docs/guides/REPOSITORY_STANDARDS.md)
 - Migrating legacy projects →
   [`docs/best-practices/REPOSITORY_LESSONS_LEARNED.md`](docs/best-practices/REPOSITORY_LESSONS_LEARNED.md) Section 7
@@ -178,13 +178,15 @@ python/
 ├── requirements.txt             # Shared dependencies
 └── README.md                    # ← THIS FILE (Master documentation hub)
 
-# Individual Projects (12 total)
-├── appointment_comparison/      # Athena CSV vs MongoDB validator
+# Individual Projects (14 total)
+├── appt_comparison/             # Athena CSV vs MongoDB validator
 ├── automate_refresh/            # MongoDB export/import automation
 ├── db_collection_stats/         # MongoDB collection statistics tool
-├── mongodb_index_tools/         # 🆕 MongoDB index management & analysis (6 tools consolidated)
-├── mongodb_profiler_tools/      # 🆕 Query performance analysis (3 tools consolidated)
-├── mongodb_test_data_tools/     # 🆕 Fake test data generation
+├── mongo_backup_tools/          # Production CLI wrapper for mongodump/mongorestore/export/import
+├── mongo_phi_masker/            # 🆕 HIPAA-compliant PHI/PII masking tool
+├── mongodb_index_tools/         # MongoDB index management & analysis (6 tools consolidated)
+├── mongodb_profiler_tools/      # Query performance analysis (3 tools consolidated)
+├── mongodb_test_data_tools/     # Fake test data generation
 ├── patient_data_extraction/     # Cross-DB patient extractor
 ├── patient_demographic/         # Demographics pipeline
 ├── patients_hcmid_validator/    # High-volume CSV validator
@@ -348,18 +350,24 @@ ______________________________________________________________________
 
 ## 📦 Current Projects
 
-This repository contains 8+ production projects:
+This repository contains 14 production projects:
 
-| Project                               | Purpose                                                        | Documentation                                 |
-| ------------------------------------- | -------------------------------------------------------------- | --------------------------------------------- |
-| **appointment_comparison**            | Validates Athena CSV appointments vs MongoDB StaffAvailability | `appointment_comparison/README.md`            |
-| **automate_refresh**                  | MongoDB export/import automation (Windows/Mac)                 | `automate_refresh/README.md`                  |
-| **db_collection_stats**               | Gathers and exports MongoDB collection statistics              | `db_collection_stats/README.md`               |
-| **patient_data_extraction**           | Cross-database patient data extractor                          | `patient_data_extraction/README.md`           |
-| **patient_demographic**               | Patient demographics pipeline                                  | `patient_demographic/README.md`               |
-| **patients_hcmid_validator**          | High-volume CSV validator with MongoDB lookup                  | `patients_hcmid_validator/README.md`          |
-| **PatientOtherDetail_isActive_false** | Bulk updates Admits.IsActive field                             | `PatientOtherDetail_isActive_false/README.md` |
-| **staff_appointment_visitStatus**     | Staff appointment status management                            | `staff_appointment_visitStatus/README.md`     |
+| Project                               | Purpose                                                         | Documentation                                 |
+| ------------------------------------- | --------------------------------------------------------------- | --------------------------------------------- |
+| **appt_comparison**                   | Validates Athena CSV appointments vs MongoDB StaffAvailability  | `appt_comparison/README.md`                   |
+| **automate_refresh**                  | MongoDB export/import automation (Windows/Mac)                  | `automate_refresh/README.md`                  |
+| **db_collection_stats**               | Gathers and exports MongoDB collection statistics               | `db_collection_stats/README.md`               |
+| **mongo_backup_tools**                | Production CLI wrapper for mongodump/mongorestore/export/import | `mongo_backup_tools/README.md`                |
+| **mongo_phi_masker**                  | 🆕 HIPAA-compliant PHI/PII masking tool                         | `mongo_phi_masker/README.md`                  |
+| **mongodb_index_tools**               | MongoDB index management & analysis (6 tools consolidated)      | `mongodb_index_tools/README.md`               |
+| **mongodb_profiler_tools**            | Query performance analysis (3 tools consolidated)               | `mongodb_profiler_tools/README.md`            |
+| **mongodb_test_data_tools**           | Fake test data generation                                       | `mongodb_test_data_tools/README.md`           |
+| **patient_data_extraction**           | Cross-database patient data extractor                           | `patient_data_extraction/README.md`           |
+| **patient_demographic**               | Patient demographics pipeline                                   | `patient_demographic/README.md`               |
+| **patients_hcmid_validator**          | High-volume CSV validator with MongoDB lookup                   | `patients_hcmid_validator/README.md`          |
+| **PatientOtherDetail_isActive_false** | Bulk updates Admits.IsActive field                              | `PatientOtherDetail_isActive_false/README.md` |
+| **staff_appointment_visitStatus**     | Staff appointment status management                             | `staff_appointment_visitStatus/README.md`     |
+| **users-provider-update**             | Provider data updater                                           | `users-provider-update/README.md`             |
 
 **See individual project READMEs for usage instructions.**
 
@@ -508,7 +516,7 @@ ______________________________________________________________________
 
 ## 📊 Repository Statistics
 
-- **Projects:** 8+ production applications
+- **Projects:** 14 production applications
 - **Shared Library:** common_config (settings, logging, MongoDB)
 - **Python Version:** 3.11
 - **Code Quality:** Black (formatting), Ruff (linting), Pyright (type checking)
@@ -542,4 +550,4 @@ For questions or issues, create an issue in the repository.
 
 ______________________________________________________________________
 
-**Last Updated:** 2025-01-27
+**Last Updated:** 2025-11-16

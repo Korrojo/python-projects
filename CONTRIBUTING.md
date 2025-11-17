@@ -82,10 +82,21 @@ This project adheres to a Code of Conduct that all contributors are expected to 
 
    This installs hooks that enforce proper workflow (e.g., preventing commits to main branch).
 
+1. **Install git safety wrapper** (MANDATORY):
+
+   ```bash
+   ./scripts/install-git-safety.sh
+   ```
+
+   This prevents bypassing quality checks with `--no-verify` flag.
+
+   **⚠️ CRITICAL:** Read [CODE_QUALITY_ENFORCEMENT.md](docs/CODE_QUALITY_ENFORCEMENT.md) - using `--no-verify` is
+   **BLOCKED**.
+
 1. **Verify setup**:
 
    ```bash
-   python -c "from common_config.config import get_settings; print(get_settings())"
+   python -c "from common_config.config.settings import get_settings; print(get_settings())"
    pytest -q
    ```
 
@@ -348,8 +359,8 @@ Fixes #456
    - ✅ All tests pass
    - ✅ Cross-platform compatibility issues
 
-   **Note:** A git pre-push hook is configured to run this automatically. You can bypass it in emergencies with
-   `git push --no-verify` (not recommended).
+   **⚠️ CRITICAL:** A git pre-push hook runs this automatically. **DO NOT use `--no-verify`** - it is BLOCKED by the
+   git-safe wrapper. See [CODE_QUALITY_ENFORCEMENT.md](docs/CODE_QUALITY_ENFORCEMENT.md) for details.
 
 1. **Manual quality checks** (if needed):
 

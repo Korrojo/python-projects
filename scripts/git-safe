@@ -1,0 +1,67 @@
+#!/bin/bash
+# Git Safety Wrapper - Prevents bypassing of git hooks
+# Intercepts git commands and blocks --no-verify flag
+
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+# Check if --no-verify is being used
+check_no_verify() {
+    local args="$@"
+
+    if [[ "$args" == *"--no-verify"* ]] || [[ "$args" == *"-n"* ]]; then
+        echo -e "${RED}╔════════════════════════════════════════════════════════════════╗${NC}"
+        echo -e "${RED}║                    🚫 SECURITY VIOLATION 🚫                     ║${NC}"
+        echo -e "${RED}╠════════════════════════════════════════════════════════════════╣${NC}"
+        echo -e "${RED}║  The --no-verify flag is BLOCKED in this repository           ║${NC}"
+        echo -e "${RED}║                                                                ║${NC}"
+        echo -e "${RED}║  Why: Bypassing hooks leads to CI failures and broken builds  ║${NC}"
+        echo -e "${RED}╚════════════════════════════════════════════════════════════════╝${NC}"
+        echo ""
+        echo -e "${YELLOW}📋 Proper Workflow:${NC}"
+        echo ""
+        echo -e "  1. Fix the validation errors shown in the hook output"
+        echo -e "  2. Run: ${GREEN}./scripts/pre-push-check.sh${NC} to verify fixes"
+        echo -e "  3. Commit the fixes: ${GREEN}git add . && git commit --amend${NC}"
+        echo -e "  4. Push without --no-verify: ${GREEN}git push${NC}"
+        echo ""
+        echo -e "${YELLOW}🆘 Still stuck?${NC}"
+        echo -e "  - Check logs in the hook output above"
+        echo -e "  - Run: ${GREEN}./scripts/lint.sh .${NC} to auto-fix formatting"
+        echo -e "  - Ask for help in #dev-help channel"
+        echo ""
+        echo -e "${RED}⚠️  If you bypass this check, your PR will fail CI anyway!${NC}"
+        echo ""
+
+        # Log the attempt
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] BLOCKED: git $@ (user: $(whoami))" >> .git/security-violations.log
+
+        return 1
+    fi
+
+    return 0
+}
+
+# Main command execution
+COMMAND="$1"
+shift
+
+case "$COMMAND" in
+    commit|push|am)
+        if ! check_no_verify "$@"; then
+            exit 1
+        fi
+
+        # Execute the actual git command
+        /usr/bin/git "$COMMAND" "$@"
+        ;;
+    *)
+        # For all other git commands, pass through directly
+        /usr/bin/git "$COMMAND" "$@"
+        ;;
+esac
