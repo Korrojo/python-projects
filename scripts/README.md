@@ -178,11 +178,63 @@ ______________________________________________________________________
 
 **Note:** This runs automatically via `.git/hooks/pre-push` hook.
 
-**To bypass (NOT recommended):**
+**⚠️ CRITICAL:** `--no-verify` is **BLOCKED** by `git-safe` wrapper. See [Git Safety](#git-safety--enforcement-) section
+below.
+
+______________________________________________________________________
+
+## Git Safety & Enforcement 🔒
+
+### `git-safe` ⭐ NEW
+
+**Purpose:** Prevents bypassing git hooks with `--no-verify` flag
+
+**Installation:**
 
 ```bash
-git push --no-verify
+./scripts/install-git-safety.sh
 ```
+
+**What it does:**
+
+Intercepts `git push`, `git commit`, and `git am` commands and **blocks** the `--no-verify` flag.
+
+**Example blocking:**
+
+```bash
+$ git push --no-verify
+╔════════════════════════════════════════════════════════════════╗
+║                    🚫 SECURITY VIOLATION 🚫                     ║
+╠════════════════════════════════════════════════════════════════╣
+║  The --no-verify flag is BLOCKED in this repository           ║
+║                                                                ║
+║  Why: Bypassing hooks leads to CI failures and broken builds  ║
+╚════════════════════════════════════════════════════════════════╝
+
+📋 Proper Workflow:
+  1. Fix the validation errors shown in the hook output
+  2. Run: ./scripts/pre-push-check.sh to verify fixes
+  3. Commit the fixes: git add . && git commit --amend
+  4. Push without --no-verify: git push
+```
+
+**Violation logging:** All `--no-verify` attempts are logged to `.git/security-violations.log`
+
+**See:** [CODE_QUALITY_ENFORCEMENT.md](../docs/CODE_QUALITY_ENFORCEMENT.md) for full policy
+
+______________________________________________________________________
+
+### `install-git-safety.sh`
+
+**Purpose:** Install git-safe wrapper and configure repository
+
+**Usage:**
+
+```bash
+./scripts/install-git-safety.sh
+```
+
+**Run this:** Once per repository clone (included in setup instructions)
 
 ______________________________________________________________________
 
