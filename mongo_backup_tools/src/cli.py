@@ -15,6 +15,7 @@ from orchestrators.dump import MongoDumpOrchestrator
 from orchestrators.export import MongoExportOrchestrator
 from orchestrators.import_orch import MongoImportOrchestrator
 from orchestrators.restore import MongoRestoreOrchestrator
+from utils.env_loader import EnvironmentConfigError, get_mongo_connection_config
 
 app = typer.Typer(
     name="mongo-backup-tools",
@@ -31,6 +32,10 @@ def show_version():
 
 @app.command("dump")
 def dump(
+    # Environment config
+    env: Optional[str] = typer.Option(
+        None, "--env", help="Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)"
+    ),
     # Connection options
     uri: Optional[str] = typer.Option(None, "--uri", help="MongoDB connection string"),
     host: str = typer.Option("localhost", "--host", help="MongoDB host"),
@@ -80,6 +85,21 @@ def dump(
 ):
     """Create a binary dump of MongoDB database(s)."""
     try:
+        # Load from environment if --env specified
+        if env:
+            try:
+                env_config = get_mongo_connection_config(env)
+                # Use env config as defaults, but allow CLI parameters to override
+                if not uri:
+                    uri = env_config["uri"]
+                if not database:
+                    database = env_config["database"]
+                if not output_dir and env_config.get("backup_dir"):
+                    output_dir = Path(env_config["backup_dir"]).expanduser()
+            except EnvironmentConfigError as e:
+                typer.secho(f"✗ Environment configuration error: {e}", fg=typer.colors.RED)
+                raise typer.Exit(code=1)
+
         options = MongoDumpOptions(
             uri=uri,
             host=host,
@@ -129,6 +149,10 @@ def dump(
 
 @app.command("restore")
 def restore(
+    # Environment config
+    env: Optional[str] = typer.Option(
+        None, "--env", help="Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)"
+    ),
     # Connection options
     uri: Optional[str] = typer.Option(None, "--uri", help="MongoDB connection string"),
     host: str = typer.Option("localhost", "--host", help="MongoDB host"),
@@ -181,6 +205,21 @@ def restore(
 ):
     """Restore a MongoDB database from a binary dump."""
     try:
+        # Load from environment if --env specified
+        if env:
+            try:
+                env_config = get_mongo_connection_config(env)
+                # Use env config as defaults, but allow CLI parameters to override
+                if not uri:
+                    uri = env_config["uri"]
+                if not database:
+                    database = env_config["database"]
+                if not input_dir and env_config.get("backup_dir"):
+                    input_dir = Path(env_config["backup_dir"]).expanduser()
+            except EnvironmentConfigError as e:
+                typer.secho(f"✗ Environment configuration error: {e}", fg=typer.colors.RED)
+                raise typer.Exit(code=1)
+
         options = MongoRestoreOptions(
             uri=uri,
             host=host,
@@ -233,6 +272,10 @@ def restore(
 
 @app.command("export")
 def export(
+    # Environment config
+    env: Optional[str] = typer.Option(
+        None, "--env", help="Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)"
+    ),
     # Connection options
     uri: Optional[str] = typer.Option(None, "--uri", help="MongoDB connection string"),
     host: str = typer.Option("localhost", "--host", help="MongoDB host"),
@@ -261,8 +304,8 @@ def export(
     replica_set_name: Optional[str] = typer.Option(None, "--replica-set-name", help="Replica set name"),
     connect_timeout: Optional[int] = typer.Option(None, "--connect-timeout", help="Connection timeout (ms)"),
     socket_timeout: Optional[int] = typer.Option(None, "--socket-timeout", help="Socket timeout (ms)"),
-    # Database/Collection options (required)
-    database: str = typer.Option(..., "--database", "-d", help="Database name"),
+    # Database/Collection options (required unless using --env)
+    database: Optional[str] = typer.Option(None, "--database", "-d", help="Database name"),
     collection: str = typer.Option(..., "--collection", "-c", help="Collection name"),
     # Output options
     output_file: Optional[Path] = typer.Option(None, "--out", "-o", help="Output file path"),
@@ -285,6 +328,24 @@ def export(
 ):
     """Export MongoDB collection to JSON or CSV."""
     try:
+        # Load from environment if --env specified
+        if env:
+            try:
+                env_config = get_mongo_connection_config(env)
+                # Use env config as defaults, but allow CLI parameters to override
+                if not uri:
+                    uri = env_config["uri"]
+                if not database:
+                    database = env_config["database"]
+            except EnvironmentConfigError as e:
+                typer.secho(f"✗ Environment configuration error: {e}", fg=typer.colors.RED)
+                raise typer.Exit(code=1)
+
+        # Validate required parameters
+        if not database:
+            typer.secho("✗ Error: --database is required (or use --env)", fg=typer.colors.RED)
+            raise typer.Exit(code=1)
+
         options = MongoExportOptions(
             uri=uri,
             host=host,
@@ -337,6 +398,10 @@ def export(
 
 @app.command("import")
 def import_data(
+    # Environment config
+    env: Optional[str] = typer.Option(
+        None, "--env", help="Environment name (LOCL, DEV, STG, STG2, STG3, TRNG, PERF, PHI, PRPRD, PROD)"
+    ),
     # Connection options
     uri: Optional[str] = typer.Option(None, "--uri", help="MongoDB connection string"),
     host: str = typer.Option("localhost", "--host", help="MongoDB host"),
@@ -365,8 +430,8 @@ def import_data(
     replica_set_name: Optional[str] = typer.Option(None, "--replica-set-name", help="Replica set name"),
     connect_timeout: Optional[int] = typer.Option(None, "--connect-timeout", help="Connection timeout (ms)"),
     socket_timeout: Optional[int] = typer.Option(None, "--socket-timeout", help="Socket timeout (ms)"),
-    # Database/Collection options (required)
-    database: str = typer.Option(..., "--database", "-d", help="Database name"),
+    # Database/Collection options (required unless using --env)
+    database: Optional[str] = typer.Option(None, "--database", "-d", help="Database name"),
     collection: str = typer.Option(..., "--collection", "-c", help="Collection name"),
     # Input options (required)
     input_file: Path = typer.Option(..., "--file", help="Input file path"),
@@ -381,6 +446,7 @@ def import_data(
         None, "--field", "-f", help="Field names (for CSV, can be specified multiple times)"
     ),
     headerline: bool = typer.Option(False, "--headerline", help="Use first line as field names (CSV)"),
+    json_array: bool = typer.Option(False, "--json-array", help="Input is JSON array"),
     # Other options
     drop: bool = typer.Option(False, "--drop", help="Drop collection before import"),
     stop_on_error: bool = typer.Option(False, "--stop-on-error", help="Stop on first error"),
@@ -393,6 +459,24 @@ def import_data(
 ):
     """Import data from JSON or CSV into MongoDB collection."""
     try:
+        # Load from environment if --env specified
+        if env:
+            try:
+                env_config = get_mongo_connection_config(env)
+                # Use env config as defaults, but allow CLI parameters to override
+                if not uri:
+                    uri = env_config["uri"]
+                if not database:
+                    database = env_config["database"]
+            except EnvironmentConfigError as e:
+                typer.secho(f"✗ Environment configuration error: {e}", fg=typer.colors.RED)
+                raise typer.Exit(code=1)
+
+        # Validate required parameters
+        if not database:
+            typer.secho("✗ Error: --database is required (or use --env)", fg=typer.colors.RED)
+            raise typer.Exit(code=1)
+
         options = MongoImportOptions(
             uri=uri,
             host=host,
@@ -419,6 +503,7 @@ def import_data(
             upsert_fields=upsert_fields or [],
             fields=fields or [],
             headerline=headerline,
+            json_array=json_array,
             drop_existing=drop,
             stop_on_error=stop_on_error,
             ignore_blanks=ignore_blanks,
