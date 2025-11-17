@@ -197,6 +197,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install common_config (monorepo dependency)
+        run: |
+          pip install -e ../common_config || echo "common_config not found, skipping"
+
       - name: Test CLI help command
         run: |
           python run.py --help
