@@ -34,5 +34,5 @@ mongomock==4.1.2
 setuptools>=65.5.0  # Required for pkg_resources (Python 3.12+ compatibility)
 
 # Test Data Generation
-Faker==24.0.0
+Faker==39.0.0
 tqdm==4.66.3  # Progress bars for data generation and processing
